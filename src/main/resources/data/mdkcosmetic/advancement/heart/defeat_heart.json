@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_backpack_link_key"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.heart/defeat_heart.title",
+      "color": "#FF6A83",
+      "bold": true
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.heart/defeat_heart.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "mdkcosmetic:kills/uno",
+  "rewards": {
+    "experience": 400
+  }
+}

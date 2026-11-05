@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_memory_casing"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.item/memory_casing.title",
+      "color": "#C79CFF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.item/memory_casing.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "collect": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_memory_casing"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "mdkcosmetic:collector",
+  "rewards": {
+    "experience": 15
+  }
+}

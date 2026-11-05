@@ -1,0 +1,118 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_backpack_death_vault"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.challenge/module_master.title",
+      "color": "#FF6A83",
+      "bold": true
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.challenge/module_master.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "c1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_backpack_crafting"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    },
+    "c2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_backpack_furnace"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    },
+    "c3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_backpack_totem"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    },
+    "c4": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_backpack_magnet"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    },
+    "c5": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_backpack_death_vault"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "c1"
+    ],
+    [
+      "c2"
+    ],
+    [
+      "c3"
+    ],
+    [
+      "c4"
+    ],
+    [
+      "c5"
+    ]
+  ],
+  "parent": "mdkcosmetic:challenge/portable_workshop",
+  "rewards": {
+    "experience": 250
+  }
+}

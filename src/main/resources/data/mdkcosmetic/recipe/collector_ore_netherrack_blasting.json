@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "ingredient": {
+    "item": "mdkcosmetic:collector_ore_netherrack"
+  },
+  "result": {
+    "id": "mdkcosmetic:power_essence",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 100
+}

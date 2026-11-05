@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mdkcosmetic:item/collector_backpack_magnet",
+    "layer1": "mdkcosmetic:item/collector_backpack_magnet"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:totem_of_undying"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.kills/evoker.title",
+      "color": "#C79CFF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.kills/evoker.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "slain": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:evoker"
+        }
+      }
+    }
+  },
+  "parent": "mdkcosmetic:combat",
+  "rewards": {
+    "experience": 30
+  }
+}

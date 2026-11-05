@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:greed_orb"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.challenge/two_spheres.title",
+      "color": "#FFC86C",
+      "bold": true
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.challenge/two_spheres.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "mdkcosmetic:mysteries",
+  "rewards": {
+    "experience": 70
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "parent": "mdkcosmetic:void/five_minutes",
+  "display": {
+    "icon": {
+      "id": "minecraft:bedrock"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.void/half_hour.title",
+      "color": "#B68BFF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.void/half_hour.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 300
+  }
+}

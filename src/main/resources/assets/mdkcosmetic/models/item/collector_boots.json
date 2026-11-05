@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mdkcosmetic:item/collector_boots_base",
+    "layer1": "mdkcosmetic:item/collector_boots_accent"
+  }
+}

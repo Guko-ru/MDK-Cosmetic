@@ -1,0 +1,29 @@
+{
+  "parent": "mdkcosmetic:void/first_entry",
+  "display": {
+    "icon": {
+      "id": "minecraft:bedrock"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.void/five_minutes.title",
+      "color": "#A7DE90",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.void/five_minutes.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 120
+  }
+}

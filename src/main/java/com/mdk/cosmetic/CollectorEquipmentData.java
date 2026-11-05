@@ -1,0 +1,80 @@
+package com.mdk.cosmetic;
+
+import java.util.UUID;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.network.PacketDistributor;
+
+/** Player-owned, server-authoritative backpack equipment and armor control state. */
+public final class CollectorEquipmentData {
+    private static final String KEY = "MDKCollectorEquipment";
+    private CollectorEquipmentData() {}
+
+    private static CompoundTag tag(Player player) {
+        return player.getPersistentData().getCompound(KEY);
+    }
+    private static void store(Player player, CompoundTag tag) {
+        player.getPersistentData().put(KEY, tag);
+    }
+    public static ItemStack backpack(Player player) {
+        if (player.level().isClientSide())
+            return com.mdk.cosmetic.client.CollectorEquipmentVisuals.clientBackpack(player.getUUID());
+        return ItemStack.parseOptional(player.registryAccess(), tag(player).getCompound("Backpack"));
+    }
+    public static void setBackpack(Player player, ItemStack backpack) {
+        ItemStack old = backpack(player);
+        boolean visualChanged = old.getItem() != backpack.getItem()
+                || CollectorBackpackData.linked(old) != CollectorBackpackData.linked(backpack);
+        CompoundTag data = tag(player);
+        if (backpack.isEmpty()) data.remove("Backpack");
+        else if (backpack.getItem() instanceof CollectorBackpackItem)
+            data.put("Backpack", backpack.saveOptional(player.registryAccess()));
+        else return;
+        store(player, data);
+        if (visualChanged && player instanceof ServerPlayer server) syncVisual(server);
+    }
+    public static ItemStack fuel(Player player) {
+        return ItemStack.parseOptional(player.registryAccess(), tag(player).getCompound("FlightFuel"));
+    }
+    public static void setFuel(Player player, ItemStack stack) {
+        CompoundTag data = tag(player);
+        if (stack.isEmpty()) data.remove("FlightFuel");
+        else data.put("FlightFuel", stack.saveOptional(player.registryAccess()));
+        store(player, data);
+    }
+    public static int get(Player player, String setting) { return tag(player).getInt(setting); }
+    public static boolean flag(Player player, String setting) { return tag(player).getBoolean(setting); }
+    public static void set(Player player, String setting, int value) {
+        CompoundTag data = tag(player);
+        data.putInt(setting, value);
+        store(player, data);
+    }
+    public static void flag(Player player, String setting, boolean value) {
+        CompoundTag data = tag(player);
+        data.putBoolean(setting, value);
+        store(player, data);
+    }
+    // 0 = no fear, 1 = flee, 2 = hostile provocation. Default retains existing armor behavior.
+    public static int fearMode(Player player) {
+        return tag(player).contains("FearMode") ? get(player, "FearMode") : 1;
+    }
+    public static int visualType(Player player) {
+        ItemStack stack = backpack(player);
+        if (stack.is(MDKCosmetic.COLLECTOR_BACKPACK_BASIC.get())) return 1;
+        return stack.is(MDKCosmetic.COLLECTOR_BACKPACK_REINFORCED.get()) ? 2 : 0;
+    }
+    public static void syncVisual(ServerPlayer owner) {
+        var packet = new CollectorEquipmentVisualPayload(owner.getUUID().toString(), visualType(owner),
+                CollectorBackpackData.linked(backpack(owner)));
+        for (ServerPlayer target : owner.serverLevel().players()) {
+            if (target.distanceToSqr(owner) < 16384.0 || target == owner)
+                PacketDistributor.sendToPlayer(target, packet);
+        }
+    }
+    public static void copyTo(Player previous, Player next) {
+        CompoundTag data = previous.getPersistentData().getCompound(KEY);
+        if (!data.isEmpty()) next.getPersistentData().put(KEY, data.copy());
+    }
+}

@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_soul_storage"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.challenge/stress_ninety.title",
+      "color": "#FFC86C",
+      "bold": true
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.challenge/stress_ninety.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "mdkcosmetic:mysteries",
+  "rewards": {
+    "experience": 70
+  }
+}

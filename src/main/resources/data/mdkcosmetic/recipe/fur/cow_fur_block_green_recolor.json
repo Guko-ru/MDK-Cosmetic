@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shapeless","category":"building","group":"cow_fur_block_dye","ingredients":[{"tag":"mdkcosmetic:fur/cow_block"},{"item":"minecraft:green_dye"}],"result":{"id":"mdkcosmetic:cow_fur_block_green","count":1}}

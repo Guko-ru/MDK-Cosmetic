@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:greed_orb"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.challenge/greedy.title",
+      "color": "#71D5FF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.challenge/greedy.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "mdkcosmetic:mysteries",
+  "rewards": {
+    "experience": 10
+  }
+}

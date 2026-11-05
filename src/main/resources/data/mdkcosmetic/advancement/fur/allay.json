@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:allay_fibers"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.fur/allay.title",
+      "color": "#81E6A0",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.fur/allay.description",
+      "color": "gray"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "collect": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:allay_fibers"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "mdkcosmetic:journey"
+}

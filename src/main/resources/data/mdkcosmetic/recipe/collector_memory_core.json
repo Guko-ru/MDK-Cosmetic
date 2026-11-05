@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "DDD",
+    "DMD",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond_block"
+    },
+    "M": {
+      "item": "mdkcosmetic:collector_memory"
+    }
+  },
+  "result": {
+    "id": "mdkcosmetic:collector_memory_core",
+    "count": 1
+  }
+}

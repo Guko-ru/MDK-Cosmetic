@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_backpack_link_key"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.backpack/linked.title",
+      "color": "#FF6A83",
+      "bold": true
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.backpack/linked.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "mdkcosmetic:backpack/reinforced",
+  "rewards": {
+    "experience": 175
+  }
+}

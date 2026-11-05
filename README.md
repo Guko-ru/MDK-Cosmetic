@@ -1,0 +1,19 @@
+# MDK Cosmetic — Source Code
+
+This repository contains the source code, game assets, and editable Blockbench models for the Minecraft mod **MDK Cosmetic**.
+
+**[Read the complete license](LICENSE.md)**
+
+MDK Cosmetic is free to play. Ordinary gameplay, free modpacks containing unmodified official files, and gameplay content creation (including monetized videos and streams) are permitted under the terms of the License. Commercial distribution of the mod itself and public distribution of modified versions require prior written permission from MDK.
+
+**Version:** 1.18.78 · **Minecraft:** 1.21.1 · **Loader:** NeoForge 21.1.256.
+
+The source code is publicly available under the custom **MDK Cosmetic Non-Commercial License 1.1**. Public source availability does not remove the restrictions in the License; this is not an open-source license.
+
+## Build
+
+Use **JDK 21**. On Windows, run `build_mod.bat` or `OPEN_BUILD_CONSOLE.cmd`. With Gradle available, run `gradle clean prepareRelease`. The release JAR is written to `build/release/` after a successful build.
+
+The `src/` directory contains the mod code and runtime resources. The `blockbench/` directory contains editable model sources and is not included in the runtime JAR.
+
+To request special or commercial permission, use the contact details published on the official MDK Cosmetic project page.

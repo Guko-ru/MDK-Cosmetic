@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "mdkcosmetic:block/collector_void_return"
+  }
+}

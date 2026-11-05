@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:productivity_orb"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.orb/productivity_used.title",
+      "color": "#C79CFF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.orb/productivity_used.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "consume": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "mdkcosmetic:productivity_orb"
+          ]
+        }
+      }
+    }
+  },
+  "parent": "mdkcosmetic:mysteries"
+}

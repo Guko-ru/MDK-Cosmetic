@@ -1,0 +1,29 @@
+{
+  "parent": "mdkcosmetic:void/first_entry",
+  "display": {
+    "icon": {
+      "id": "minecraft:ender_pearl"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.void/into_the_unknown.title",
+      "color": "#A7DE90",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.void/into_the_unknown.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 160
+  }
+}

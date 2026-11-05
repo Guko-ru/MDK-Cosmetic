@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "mdkcosmetic:collector_backpack_filter"
+    }
+  ],
+  "result": {
+    "id": "mdkcosmetic:collector_backpack_magnet",
+    "count": 1
+  }
+}

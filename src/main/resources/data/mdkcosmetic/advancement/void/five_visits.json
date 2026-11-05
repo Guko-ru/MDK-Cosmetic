@@ -1,0 +1,29 @@
+{
+  "parent": "mdkcosmetic:void/return_visit",
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_memory"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.void/five_visits.title",
+      "color": "#B68BFF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.void/five_visits.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 250
+  }
+}

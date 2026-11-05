@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BFB",
+    "SSS",
+    "III"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:blackstone"
+    },
+    "S": {
+      "item": "mdkcosmetic:power_essence"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "F": {
+      "item": "minecraft:blaze_powder"
+    }
+  },
+  "result": {
+    "id": "mdkcosmetic:collector_backpack_magnet",
+    "count": 1
+  }
+}

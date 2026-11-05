@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MDK Cosmetic Non-Commercial License 1.1"
+
+[[mods]]
+modId="mdkcosmetic"
+version="1.18.78"
+displayName="MDK Cosmetic"
+authors="MDK"
+description='''
+Decorative cosmetics and a tailoring workstation.
+'''
+
+[[dependencies.mdkcosmetic]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.256,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.mdkcosmetic]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,1.21.2)"
+ordering="NONE"
+side="BOTH"

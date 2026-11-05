@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:greed_orb"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.mysteries.title",
+      "color": "#71D5FF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.mysteries.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "open": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:greed_orb"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "mdkcosmetic:root"
+}

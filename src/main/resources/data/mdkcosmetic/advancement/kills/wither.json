@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:nether_star"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.kills/wither.title",
+      "color": "#FFC86C",
+      "bold": true
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.kills/wither.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "slain": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:wither"
+        }
+      }
+    }
+  },
+  "parent": "mdkcosmetic:combat",
+  "rewards": {
+    "experience": 100
+  }
+}

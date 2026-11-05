@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "item": "mdkcosmetic:collector_ore_deepslate"
+  },
+  "result": {
+    "id": "mdkcosmetic:power_essence",
+    "count": 1
+  },
+  "experience": 0.4,
+  "cookingtime": 200
+}

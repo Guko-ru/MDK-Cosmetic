@@ -1,0 +1,64 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_backpack_crafting"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.challenge/portable_workshop.title",
+      "color": "#71D5FF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.challenge/portable_workshop.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "c1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_backpack_crafting"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    },
+    "c2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_backpack_furnace"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "c1"
+    ],
+    [
+      "c2"
+    ]
+  ],
+  "parent": "mdkcosmetic:item/backpack_basic",
+  "rewards": {
+    "experience": 75
+  }
+}

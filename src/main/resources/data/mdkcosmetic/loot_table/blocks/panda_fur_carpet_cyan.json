@@ -1,0 +1,1 @@
+{"type":"minecraft:block","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"mdkcosmetic:panda_fur_carpet_cyan"}],"conditions":[{"condition":"minecraft:survives_explosion"}]}]}

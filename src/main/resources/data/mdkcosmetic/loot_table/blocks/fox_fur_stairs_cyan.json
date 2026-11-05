@@ -1,0 +1,1 @@
+{"type":"minecraft:block","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"mdkcosmetic:fox_fur_stairs_cyan"}],"conditions":[{"condition":"minecraft:survives_explosion"}]}]}

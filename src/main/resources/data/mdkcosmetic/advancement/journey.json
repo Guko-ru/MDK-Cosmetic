@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:tailoring_table"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.journey.title",
+      "color": "#71D5FF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.journey.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "open": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:tailoring_table"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "mdkcosmetic:root"
+}

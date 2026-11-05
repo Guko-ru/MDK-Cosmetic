@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "SCS",
+    "III"
+  ],
+  "key": {
+    "S": {
+      "item": "mdkcosmetic:power_essence"
+    },
+    "C": {
+      "item": "mdkcosmetic:charged_power_essence"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    }
+  },
+  "result": {
+    "id": "mdkcosmetic:collector_link",
+    "count": 1
+  }
+}

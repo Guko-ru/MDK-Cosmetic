@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "mdkcosmetic:cat_ears",
+    "mdkcosmetic:axolotl_hat",
+    "mdkcosmetic:rabbit_ears",
+    "mdkcosmetic:sheep_hat",
+    "mdkcosmetic:wolf_hat",
+    "mdkcosmetic:horse_hat",
+    "mdkcosmetic:donkey_hat"
+  ]
+}

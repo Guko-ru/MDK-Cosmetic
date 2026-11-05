@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","category":"building","group":"cat_fur_blocks","pattern":["FFF","FFF","FFF"],"key":{"F":{"item":"mdkcosmetic:cat_fur"}},"result":{"id":"mdkcosmetic:cat_fur_block","count":1}}

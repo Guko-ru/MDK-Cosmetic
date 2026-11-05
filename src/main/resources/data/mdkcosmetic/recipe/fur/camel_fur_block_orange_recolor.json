@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shapeless","category":"building","group":"camel_fur_block_dye","ingredients":[{"tag":"mdkcosmetic:fur/camel_block"},{"item":"minecraft:orange_dye"}],"result":{"id":"mdkcosmetic:camel_fur_block_orange","count":1}}

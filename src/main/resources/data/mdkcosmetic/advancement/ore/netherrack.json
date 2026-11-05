@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_ore_netherrack"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.ore/netherrack.title",
+      "color": "#71D5FF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.ore/netherrack.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "ore": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_ore_netherrack"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "mdkcosmetic:resources"
+}

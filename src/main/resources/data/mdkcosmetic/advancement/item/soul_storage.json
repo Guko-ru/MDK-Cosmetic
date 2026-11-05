@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_soul_storage"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.item/soul_storage.title",
+      "color": "#C79CFF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.item/soul_storage.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "collect": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_soul_storage"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "mdkcosmetic:collector",
+  "rewards": {
+    "experience": 15
+  }
+}

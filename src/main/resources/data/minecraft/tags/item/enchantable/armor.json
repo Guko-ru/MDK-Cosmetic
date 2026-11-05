@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "mdkcosmetic:collector_helmet",
+    "mdkcosmetic:collector_chestplate",
+    "mdkcosmetic:collector_leggings",
+    "mdkcosmetic:collector_boots"
+  ]
+}

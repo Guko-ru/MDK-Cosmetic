@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "side": "mdkcosmetic:block/collector_link_side",
+    "top": "mdkcosmetic:block/collector_link_top",
+    "front": "mdkcosmetic:block/collector_link_front_active"
+  }
+}

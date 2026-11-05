@@ -1,0 +1,49 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_backpack_link_key"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.heart/complete_duo.title",
+      "color": "#FF6A83",
+      "bold": true
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.heart/complete_duo.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "collect": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_memory"
+            ],
+            "count": {
+              "min": 1
+            }
+          },
+          {
+            "items": [
+              "mdkcosmetic:collector_backpack_link_key"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "mdkcosmetic:legend",
+  "rewards": {
+    "experience": 180
+  }
+}

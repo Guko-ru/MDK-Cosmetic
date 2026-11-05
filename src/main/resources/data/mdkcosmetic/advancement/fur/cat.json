@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:cat_fur"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.fur/cat.title",
+      "color": "#81E6A0",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.fur/cat.description",
+      "color": "gray"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "collect": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:cat_fur"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "mdkcosmetic:journey"
+}

@@ -1,0 +1,29 @@
+{
+  "parent": "mdkcosmetic:void/into_the_unknown",
+  "display": {
+    "icon": {
+      "id": "minecraft:ender_eye"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.void/beyond_the_horizon.title",
+      "color": "#B68BFF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.void/beyond_the_horizon.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 350
+  }
+}

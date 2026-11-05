@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_memory_core"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.backpack/full_terminal.title",
+      "color": "#FF6A83",
+      "bold": true
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.backpack/full_terminal.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "mdkcosmetic:backpack/linked",
+  "rewards": {
+    "experience": 300
+  }
+}

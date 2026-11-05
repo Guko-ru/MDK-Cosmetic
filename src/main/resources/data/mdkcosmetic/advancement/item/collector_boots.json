@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_boots"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.item/collector_boots.title",
+      "color": "#C79CFF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.item/collector_boots.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "collect": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_boots"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "mdkcosmetic:wardrobe",
+  "rewards": {
+    "experience": 15
+  }
+}

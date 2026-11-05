@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shapeless","category":"building","group":"squid_fur_block_dye","ingredients":[{"tag":"mdkcosmetic:fur/squid_block"},{"item":"minecraft:gray_dye"}],"result":{"id":"mdkcosmetic:squid_fur_block_gray","count":1}}

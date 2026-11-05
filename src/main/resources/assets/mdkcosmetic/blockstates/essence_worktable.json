@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mdkcosmetic:block/essence_worktable_north"
+    },
+    "facing=east": {
+      "model": "mdkcosmetic:block/essence_worktable_east"
+    },
+    "facing=south": {
+      "model": "mdkcosmetic:block/essence_worktable_south"
+    },
+    "facing=west": {
+      "model": "mdkcosmetic:block/essence_worktable_west"
+    }
+  }
+}

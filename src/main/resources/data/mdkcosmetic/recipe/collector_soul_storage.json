@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SCS",
+    "SDS",
+    "SCS"
+  ],
+  "key": {
+    "S": {
+      "item": "mdkcosmetic:power_essence"
+    },
+    "C": {
+      "item": "mdkcosmetic:charged_power_essence"
+    },
+    "D": {
+      "item": "mdkcosmetic:collector_soul"
+    }
+  },
+  "result": {
+    "id": "mdkcosmetic:collector_soul_storage",
+    "count": 1
+  }
+}

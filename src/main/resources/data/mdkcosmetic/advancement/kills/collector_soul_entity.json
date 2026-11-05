@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_soul"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.kills/collector_soul_entity.title",
+      "color": "#FFC86C",
+      "bold": true
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.kills/collector_soul_entity.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "slain": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "mdkcosmetic:collector_soul_entity"
+        }
+      }
+    }
+  },
+  "parent": "mdkcosmetic:legend",
+  "rewards": {
+    "experience": 150
+  }
+}

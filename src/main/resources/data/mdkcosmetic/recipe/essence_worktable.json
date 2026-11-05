@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "PPP",
+    "IDI"
+  ],
+  "key": {
+    "S": {
+      "item": "mdkcosmetic:power_essence"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "id": "mdkcosmetic:essence_worktable",
+    "count": 1
+  }
+}

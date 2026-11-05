@@ -1,0 +1,693 @@
+{
+  "meta": {
+    "format_version": "5.0",
+    "model_format": "free",
+    "box_uv": false
+  },
+  "name": "sakura_thinker",
+  "resolution": {
+    "width": 32,
+    "height": 32
+  },
+  "elements": [
+    {
+      "name": "sakura_thinker_01",
+      "type": "cube",
+      "uuid": "d703db5d-925d-58b2-b7c7-b63bb3814d66",
+      "from": [
+        6.9,
+        11.9,
+        6.9
+      ],
+      "to": [
+        9.1,
+        15.1,
+        9.1
+      ],
+      "origin": [
+        8,
+        14,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": 0,
+          "uv": [
+            1,
+            14.5,
+            2,
+            16
+          ]
+        },
+        "east": {
+          "texture": 0,
+          "uv": [
+            0,
+            14.5,
+            1,
+            16
+          ]
+        },
+        "south": {
+          "texture": 0,
+          "uv": [
+            3,
+            14.5,
+            4,
+            16
+          ]
+        },
+        "west": {
+          "texture": 0,
+          "uv": [
+            2,
+            14.5,
+            3,
+            16
+          ]
+        },
+        "up": {
+          "texture": 0,
+          "uv": [
+            2,
+            14.5,
+            1,
+            13.5
+          ]
+        },
+        "down": {
+          "texture": 0,
+          "uv": [
+            3,
+            13.5,
+            2,
+            14.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "sakura_thinker_02",
+      "type": "cube",
+      "uuid": "32047a18-fa6c-5d22-8ce2-e23d11e7d044",
+      "from": [
+        5.9,
+        17.9,
+        3.9
+      ],
+      "to": [
+        10.1,
+        21.1,
+        9.1
+      ],
+      "origin": [
+        7,
+        20,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": 0,
+          "uv": [
+            9.5,
+            11,
+            11.5,
+            12.5
+          ]
+        },
+        "east": {
+          "texture": 0,
+          "uv": [
+            7,
+            11,
+            9.5,
+            12.5
+          ]
+        },
+        "south": {
+          "texture": 0,
+          "uv": [
+            14,
+            11,
+            16,
+            12.5
+          ]
+        },
+        "west": {
+          "texture": 0,
+          "uv": [
+            11.5,
+            11,
+            14,
+            12.5
+          ]
+        },
+        "up": {
+          "texture": 0,
+          "uv": [
+            11.5,
+            11,
+            9.5,
+            8.5
+          ]
+        },
+        "down": {
+          "texture": 0,
+          "uv": [
+            13.5,
+            8.5,
+            11.5,
+            11
+          ]
+        }
+      }
+    },
+    {
+      "name": "sakura_thinker_03",
+      "type": "cube",
+      "uuid": "01c2a5ac-be11-58d0-a373-1f8ebf6fbce9",
+      "from": [
+        5.9,
+        18.4,
+        -0.1
+      ],
+      "to": [
+        10.1,
+        20.6,
+        3.1
+      ],
+      "origin": [
+        7,
+        20.5,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": 0,
+          "uv": [
+            1.5,
+            9,
+            3.5,
+            10
+          ]
+        },
+        "east": {
+          "texture": 0,
+          "uv": [
+            0,
+            9,
+            1.5,
+            10
+          ]
+        },
+        "south": {
+          "texture": 0,
+          "uv": [
+            5,
+            9,
+            7,
+            10
+          ]
+        },
+        "west": {
+          "texture": 0,
+          "uv": [
+            3.5,
+            9,
+            5,
+            10
+          ]
+        },
+        "up": {
+          "texture": 0,
+          "uv": [
+            3.5,
+            9,
+            1.5,
+            7.5
+          ]
+        },
+        "down": {
+          "texture": 0,
+          "uv": [
+            5.5,
+            7.5,
+            3.5,
+            9
+          ]
+        }
+      }
+    },
+    {
+      "name": "sakura_thinker_04",
+      "type": "cube",
+      "uuid": "0e42cd3b-4ae8-5e59-82dc-a1331c4415db",
+      "from": [
+        5.9,
+        15.65,
+        10.9
+      ],
+      "to": [
+        10.1,
+        17.85,
+        14.1
+      ],
+      "origin": [
+        7,
+        17.75,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": 0,
+          "uv": [
+            1.5,
+            11.5,
+            3.5,
+            12.5
+          ]
+        },
+        "east": {
+          "texture": 0,
+          "uv": [
+            0,
+            11.5,
+            1.5,
+            12.5
+          ]
+        },
+        "south": {
+          "texture": 0,
+          "uv": [
+            5,
+            11.5,
+            7,
+            12.5
+          ]
+        },
+        "west": {
+          "texture": 0,
+          "uv": [
+            3.5,
+            11.5,
+            5,
+            12.5
+          ]
+        },
+        "up": {
+          "texture": 0,
+          "uv": [
+            3.5,
+            11.5,
+            1.5,
+            10
+          ]
+        },
+        "down": {
+          "texture": 0,
+          "uv": [
+            5.5,
+            10,
+            3.5,
+            11.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "sakura_thinker_05",
+      "type": "cube",
+      "uuid": "8f66ed6e-874c-50b1-9e9b-ba5cb6d1fd85",
+      "from": [
+        7.2,
+        6.83604,
+        9.25761
+      ],
+      "to": [
+        8.8,
+        9.43604,
+        10.85761
+      ],
+      "origin": [
+        8,
+        8.63604,
+        0.05761
+      ],
+      "rotation": [
+        -45,
+        0,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": 0,
+          "uv": [
+            1,
+            14.5,
+            2,
+            16
+          ]
+        },
+        "east": {
+          "texture": 0,
+          "uv": [
+            0,
+            14.5,
+            1,
+            16
+          ]
+        },
+        "south": {
+          "texture": 0,
+          "uv": [
+            3,
+            14.5,
+            4,
+            16
+          ]
+        },
+        "west": {
+          "texture": 0,
+          "uv": [
+            2,
+            14.5,
+            3,
+            16
+          ]
+        },
+        "up": {
+          "texture": 0,
+          "uv": [
+            2,
+            14.5,
+            1,
+            13.5
+          ]
+        },
+        "down": {
+          "texture": 0,
+          "uv": [
+            3,
+            13.5,
+            2,
+            14.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "sakura_thinker_06",
+      "type": "cube",
+      "uuid": "188f7812-af4e-5eb8-813a-79366215cef5",
+      "from": [
+        7.5,
+        12.13604,
+        7.30761
+      ],
+      "to": [
+        8.5,
+        16.13604,
+        8.30761
+      ],
+      "origin": [
+        8,
+        11.63604,
+        -2.19239
+      ],
+      "rotation": [
+        -22.5,
+        0,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": 0,
+          "uv": [
+            5,
+            13.5,
+            6,
+            16
+          ]
+        },
+        "east": {
+          "texture": 0,
+          "uv": [
+            4,
+            13.5,
+            5,
+            16
+          ]
+        },
+        "south": {
+          "texture": 0,
+          "uv": [
+            7,
+            13.5,
+            8,
+            16
+          ]
+        },
+        "west": {
+          "texture": 0,
+          "uv": [
+            6,
+            13.5,
+            7,
+            16
+          ]
+        },
+        "up": {
+          "texture": 0,
+          "uv": [
+            6,
+            13.5,
+            5,
+            12.5
+          ]
+        },
+        "down": {
+          "texture": 0,
+          "uv": [
+            7,
+            12.5,
+            6,
+            13.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "sakura_thinker_07",
+      "type": "cube",
+      "uuid": "315ee6b4-586e-5fe3-901d-ba8c6b8183a8",
+      "from": [
+        7.375,
+        17.13604,
+        -1.69239
+      ],
+      "to": [
+        8.375,
+        18.13604,
+        2.30761
+      ],
+      "origin": [
+        7.875,
+        7.63604,
+        2.80761
+      ],
+      "rotation": [
+        22.5,
+        0,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": 0,
+          "uv": [
+            10.5,
+            15,
+            11.5,
+            16
+          ]
+        },
+        "east": {
+          "texture": 0,
+          "uv": [
+            8,
+            15,
+            10.5,
+            16
+          ]
+        },
+        "south": {
+          "texture": 0,
+          "uv": [
+            14,
+            15,
+            15,
+            16
+          ]
+        },
+        "west": {
+          "texture": 0,
+          "uv": [
+            11.5,
+            15,
+            14,
+            16
+          ]
+        },
+        "up": {
+          "texture": 0,
+          "uv": [
+            11.5,
+            15,
+            10.5,
+            12.5
+          ]
+        },
+        "down": {
+          "texture": 0,
+          "uv": [
+            12.5,
+            12.5,
+            11.5,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "name": "sakura_thinker_08",
+      "type": "cube",
+      "uuid": "fe26eee0-b9bb-5cfb-9600-ddcae6b8986c",
+      "from": [
+        7.375,
+        14.63604,
+        12.69239
+      ],
+      "to": [
+        8.375,
+        15.63604,
+        16.69239
+      ],
+      "origin": [
+        7.875,
+        5.13604,
+        12.19239
+      ],
+      "rotation": [
+        -22.5,
+        0,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": 0,
+          "uv": [
+            10.5,
+            15,
+            11.5,
+            16
+          ]
+        },
+        "east": {
+          "texture": 0,
+          "uv": [
+            8,
+            15,
+            10.5,
+            16
+          ]
+        },
+        "south": {
+          "texture": 0,
+          "uv": [
+            14,
+            15,
+            15,
+            16
+          ]
+        },
+        "west": {
+          "texture": 0,
+          "uv": [
+            11.5,
+            15,
+            14,
+            16
+          ]
+        },
+        "up": {
+          "texture": 0,
+          "uv": [
+            11.5,
+            15,
+            10.5,
+            12.5
+          ]
+        },
+        "down": {
+          "texture": 0,
+          "uv": [
+            12.5,
+            12.5,
+            11.5,
+            15
+          ]
+        }
+      }
+    }
+  ],
+  "outliner": [
+    {
+      "name": "head",
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "a1c87395-9357-4ce4-8700-3fccf35a7d6b",
+      "isOpen": true,
+      "children": [
+        "d703db5d-925d-58b2-b7c7-b63bb3814d66",
+        "32047a18-fa6c-5d22-8ce2-e23d11e7d044",
+        "01c2a5ac-be11-58d0-a373-1f8ebf6fbce9",
+        "0e42cd3b-4ae8-5e59-82dc-a1331c4415db",
+        "8f66ed6e-874c-50b1-9e9b-ba5cb6d1fd85",
+        "188f7812-af4e-5eb8-813a-79366215cef5",
+        "315ee6b4-586e-5fe3-901d-ba8c6b8183a8",
+        "fe26eee0-b9bb-5cfb-9600-ddcae6b8986c"
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "name": "sakura_thinker.png",
+      "id": "0",
+      "mode": "bitmap",
+      "uuid": "858ed258-d249-47fc-81b2-e8c57e9f9bdf",
+      "source": "data:image/png;base64,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"
+    }
+  ]
+}

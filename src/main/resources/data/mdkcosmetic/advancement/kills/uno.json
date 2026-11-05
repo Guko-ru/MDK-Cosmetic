@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_memory"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.kills/uno.title",
+      "color": "#FF6A83",
+      "bold": true
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.kills/uno.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "slain": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "mdkcosmetic:uno"
+        }
+      }
+    }
+  },
+  "parent": "mdkcosmetic:legend",
+  "rewards": {
+    "experience": 350
+  }
+}

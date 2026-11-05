@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/totem_of_undying",
+    "layer1": "mdkcosmetic:item/collector_backpack_totem_purple_overlay"
+  }
+}

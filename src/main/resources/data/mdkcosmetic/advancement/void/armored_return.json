@@ -1,0 +1,29 @@
+{
+  "parent": "mdkcosmetic:void/return_home",
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_helmet"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.void/armored_return.title",
+      "color": "#B68BFF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.void/armored_return.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 250
+  }
+}

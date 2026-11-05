@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "mdkcosmetic:collector_casing",
+    "mdkcosmetic:collector_soul_storage",
+    "mdkcosmetic:collector_link"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:block/crafting_table_front",
+    "layer1": "mdkcosmetic:item/collector_backpack_crafting_purple_overlay"
+  }
+}

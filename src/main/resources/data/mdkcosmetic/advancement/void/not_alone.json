@@ -1,0 +1,29 @@
+{
+  "parent": "mdkcosmetic:void/first_entry",
+  "display": {
+    "icon": {
+      "id": "minecraft:totem_of_undying"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.void/not_alone.title",
+      "color": "#A7DE90",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.void/not_alone.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 180
+  }
+}

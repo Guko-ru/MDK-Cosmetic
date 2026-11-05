@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " S ",
+    "PCP",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "item": "mdkcosmetic:power_essence"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "C": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "result": {
+    "id": "mdkcosmetic:collector_backpack_furnace",
+    "count": 1
+  }
+}

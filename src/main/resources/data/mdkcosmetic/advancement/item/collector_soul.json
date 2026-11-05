@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_soul"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.item/collector_soul.title",
+      "color": "#C79CFF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.item/collector_soul.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "collect": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_soul"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "mdkcosmetic:resources",
+  "rewards": {
+    "experience": 15
+  }
+}

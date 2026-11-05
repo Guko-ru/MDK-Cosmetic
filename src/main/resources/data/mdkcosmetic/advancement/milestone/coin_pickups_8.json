@@ -1,0 +1,55 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:charged_power_essence"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.milestone/coin_pickups_8.title",
+      "color": "#71D5FF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.milestone/coin_pickups_8.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "step_1": {
+      "trigger": "minecraft:impossible"
+    },
+    "step_2": {
+      "trigger": "minecraft:impossible"
+    },
+    "step_3": {
+      "trigger": "minecraft:impossible"
+    },
+    "step_4": {
+      "trigger": "minecraft:impossible"
+    },
+    "step_5": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "mdkcosmetic:milestone/coin_pickups_1",
+  "requirements": [
+    [
+      "step_1"
+    ],
+    [
+      "step_2"
+    ],
+    [
+      "step_3"
+    ],
+    [
+      "step_4"
+    ],
+    [
+      "step_5"
+    ]
+  ]
+}

@@ -1,0 +1,1682 @@
+{
+  "root": {
+    "name": "Коллекция тайн",
+    "desc": "Путь от первой пушинки до тайны, скрытой за драконом.",
+    "rarity": "uncommon",
+    "type": "minecraft:tick",
+    "parent": null,
+    "progress": null
+  },
+  "journey": {
+    "name": "Начало охоты",
+    "desc": "Научись собирать материалы и создавать предметы.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "root",
+    "progress": null
+  },
+  "wardrobe": {
+    "name": "Галерея образов",
+    "desc": "Каждый зверь оставляет свой след — собери всю коллекцию.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "root",
+    "progress": null
+  },
+  "resources": {
+    "name": "Сокровища скалка",
+    "desc": "Найди осколки, монеты и богатства древних мест.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "root",
+    "progress": null
+  },
+  "combat": {
+    "name": "Кровавые хроники",
+    "desc": "Считай победы и покори опаснейших противников.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "root",
+    "progress": null
+  },
+  "collector": {
+    "name": "Мастерская коллекционера",
+    "desc": "От первого стола к большому хранилищу памяти.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "root",
+    "progress": null
+  },
+  "mysteries": {
+    "name": "Запретные искусства",
+    "desc": "Сферы, зачарования, ярость и риск.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "root",
+    "progress": null
+  },
+  "legend": {
+    "name": "Легенда без лица",
+    "desc": "Uno, Хранитель и испытания, достойные легенд.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "root",
+    "progress": null
+  },
+  "fur/fox": {
+    "name": "След лиса",
+    "desc": "Добудь материал: лиса.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/fox": {
+    "name": "Образ: Лиса",
+    "desc": "Получить декоративный головной убор — лиса.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/panda": {
+    "name": "След панда",
+    "desc": "Добудь материал: панда.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/panda": {
+    "name": "Образ: Панда",
+    "desc": "Получить декоративный головной убор — панда.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/cat": {
+    "name": "След кошка",
+    "desc": "Добудь материал: кошка.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/cat": {
+    "name": "Образ: Кошка",
+    "desc": "Получить декоративный головной убор — кошка.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/allay": {
+    "name": "След тихоня",
+    "desc": "Добудь материал: тихоня.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/allay": {
+    "name": "Образ: Тихоня",
+    "desc": "Получить декоративный головной убор — тихоня.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/axolotl": {
+    "name": "След аксолотль",
+    "desc": "Добудь материал: аксолотль.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/axolotl": {
+    "name": "Образ: Аксолотль",
+    "desc": "Получить декоративный головной убор — аксолотль.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/rabbit": {
+    "name": "След кролик",
+    "desc": "Добудь материал: кролик.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/rabbit": {
+    "name": "Образ: Кролик",
+    "desc": "Получить декоративный головной убор — кролик.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/squid": {
+    "name": "След спрут",
+    "desc": "Добудь материал: спрут.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/squid": {
+    "name": "Образ: Спрут",
+    "desc": "Получить декоративный головной убор — спрут.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/glow_squid": {
+    "name": "След светящийся спрут",
+    "desc": "Добудь материал: светящийся спрут.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/glow_squid": {
+    "name": "Образ: Светящийся спрут",
+    "desc": "Получить декоративный головной убор — светящийся спрут.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/camel": {
+    "name": "След верблюд",
+    "desc": "Добудь материал: верблюд.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/camel": {
+    "name": "Образ: Верблюд",
+    "desc": "Получить декоративный головной убор — верблюд.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/cow": {
+    "name": "След корова",
+    "desc": "Добудь материал: корова.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/cow": {
+    "name": "Образ: Корова",
+    "desc": "Получить декоративный головной убор — корова.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/mooshroom": {
+    "name": "След грибная корова",
+    "desc": "Добудь материал: грибная корова.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/mooshroom": {
+    "name": "Образ: Грибная корова",
+    "desc": "Получить декоративный головной убор — грибная корова.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/polar_bear": {
+    "name": "След белый медведь",
+    "desc": "Добудь материал: белый медведь.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/polar_bear": {
+    "name": "Образ: Белый медведь",
+    "desc": "Получить декоративный головной убор — белый медведь.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/llama": {
+    "name": "След лама",
+    "desc": "Добудь материал: лама.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/llama": {
+    "name": "Образ: Лама",
+    "desc": "Получить декоративный головной убор — лама.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/sheep": {
+    "name": "След овца",
+    "desc": "Добудь материал: овца.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/sheep": {
+    "name": "Образ: Овца",
+    "desc": "Получить декоративный головной убор — овца.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/wolf": {
+    "name": "След волк",
+    "desc": "Добудь материал: волк.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/wolf": {
+    "name": "Образ: Волк",
+    "desc": "Получить декоративный головной убор — волк.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/horse": {
+    "name": "След лошадь",
+    "desc": "Добудь материал: лошадь.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/horse": {
+    "name": "Образ: Лошадь",
+    "desc": "Получить декоративный головной убор — лошадь.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "fur/donkey": {
+    "name": "След осёл",
+    "desc": "Добудь материал: осёл.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "hat/donkey": {
+    "name": "Образ: Осёл",
+    "desc": "Получить декоративный головной убор — осёл.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "wardrobe/full_green": {
+    "name": "Зелёная коллекция",
+    "desc": "Собери все 17 зелёных головных уборов одновременно — в инвентаре и/или памяти.",
+    "rarity": "epic",
+    "type": "minecraft:impossible",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "wardrobe/all_furs": {
+    "name": "Вся шерсть мира",
+    "desc": "Собери все 17 видов материалов животных.",
+    "rarity": "rare",
+    "type": "minecraft:impossible",
+    "parent": "journey",
+    "progress": null
+  },
+  "wardrobe/half_hats": {
+    "name": "Модник",
+    "desc": "Собери не менее 9 разных зелёных головных уборов.",
+    "rarity": "uncommon",
+    "type": "minecraft:impossible",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "wardrobe/one_worn": {
+    "name": "Не просто сувенир",
+    "desc": "Надень любую зелёную шапочку.",
+    "rarity": "common",
+    "type": "minecraft:impossible",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "wardrobe/sakura": {
+    "name": "Цветение мысли",
+    "desc": "Получить Сакуру мыслителя у странствующего торговца.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "wardrobe/mystic_gaze": {
+    "name": "Взгляд за грань",
+    "desc": "Получить Взор таинств.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "carpet/fox": {
+    "name": "Мягкий шаг: Лиса",
+    "desc": "Получить ковёр из меха лиса.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/panda": {
+    "name": "Мягкий шаг: Панда",
+    "desc": "Получить ковёр из меха панда.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/cat": {
+    "name": "Мягкий шаг: Кошка",
+    "desc": "Получить ковёр из меха кошка.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/allay": {
+    "name": "Мягкий шаг: Тихоня",
+    "desc": "Получить ковёр из меха тихоня.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/axolotl": {
+    "name": "Мягкий шаг: Аксолотль",
+    "desc": "Получить ковёр из меха аксолотль.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/rabbit": {
+    "name": "Мягкий шаг: Кролик",
+    "desc": "Получить ковёр из меха кролик.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/squid": {
+    "name": "Мягкий шаг: Спрут",
+    "desc": "Получить ковёр из меха спрут.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/glow_squid": {
+    "name": "Мягкий шаг: Светящийся спрут",
+    "desc": "Получить ковёр из меха светящийся спрут.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/camel": {
+    "name": "Мягкий шаг: Верблюд",
+    "desc": "Получить ковёр из меха верблюд.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/cow": {
+    "name": "Мягкий шаг: Корова",
+    "desc": "Получить ковёр из меха корова.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/mooshroom": {
+    "name": "Мягкий шаг: Грибная корова",
+    "desc": "Получить ковёр из меха грибная корова.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/polar_bear": {
+    "name": "Мягкий шаг: Белый медведь",
+    "desc": "Получить ковёр из меха белый медведь.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/llama": {
+    "name": "Мягкий шаг: Лама",
+    "desc": "Получить ковёр из меха лама.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/wolf": {
+    "name": "Мягкий шаг: Волк",
+    "desc": "Получить ковёр из меха волк.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/horse": {
+    "name": "Мягкий шаг: Лошадь",
+    "desc": "Получить ковёр из меха лошадь.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "carpet/donkey": {
+    "name": "Мягкий шаг: Осёл",
+    "desc": "Получить ковёр из меха осёл.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "item/first_shard": {
+    "name": "Первый осколок",
+    "desc": "Ты нашёл первый Осколок коллекции тайн.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "resources",
+    "progress": null
+  },
+  "item/first_coin": {
+    "name": "Чеканщик тайн",
+    "desc": "Получить Монету коллекции тайн.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "resources",
+    "progress": null
+  },
+  "item/tailor": {
+    "name": "Мастер нитей",
+    "desc": "Создай Стол для шитья.",
+    "rarity": "common",
+    "type": "minecraft:inventory_changed",
+    "parent": "journey",
+    "progress": null
+  },
+  "item/worktable": {
+    "name": "Работа тонкая",
+    "desc": "Получить Стол коллекционера.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "collector",
+    "progress": null
+  },
+  "item/casing": {
+    "name": "Тёмный каркас",
+    "desc": "Получить Коллекционный корпус.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "collector",
+    "progress": null
+  },
+  "item/soul_storage": {
+    "name": "Заточённая душа",
+    "desc": "Получить Хранилище души коллекционера.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "collector",
+    "progress": null
+  },
+  "item/liaison": {
+    "name": "Посредник",
+    "desc": "Получить Связного коллекционера.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "collector",
+    "progress": null
+  },
+  "item/collector_soul": {
+    "name": "Тьма в бутылке",
+    "desc": "Получить предмет «Душа коллекционера».",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "resources",
+    "progress": null
+  },
+  "item/memory": {
+    "name": "Последняя мысль",
+    "desc": "Получить Память коллекционера после победы над Uno.",
+    "rarity": "epic",
+    "type": "minecraft:inventory_changed",
+    "parent": "collector",
+    "progress": null
+  },
+  "item/memory_casing": {
+    "name": "За пределами куба",
+    "desc": "Получить Корпус памяти.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "collector",
+    "progress": null
+  },
+  "item/memory_core": {
+    "name": "Не забывай меня",
+    "desc": "Получить Ядро памяти коллекционера.",
+    "rarity": "epic",
+    "type": "minecraft:inventory_changed",
+    "parent": "collector",
+    "progress": null
+  },
+  "item/collector_helmet": {
+    "name": "Чёрный лик",
+    "desc": "Получить Шлем коллекционера.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "item/collector_chestplate": {
+    "name": "Броня духа",
+    "desc": "Получить Нагрудник коллекционера.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "item/collector_leggings": {
+    "name": "Поступь тайны",
+    "desc": "Получить Поножи коллекционера.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "item/collector_boots": {
+    "name": "Ни шагу назад",
+    "desc": "Получить Ботинки коллекционера.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "item/collector_sword": {
+    "name": "Клинок без прощения",
+    "desc": "Получить Меч коллекционера.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "combat",
+    "progress": null
+  },
+  "item/collector_pickaxe": {
+    "name": "Кирка древних",
+    "desc": "Получить Кирку коллекционера.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "resources",
+    "progress": null
+  },
+  "item/greed_orb": {
+    "name": "Сделка с жадностью",
+    "desc": "Получить Сферу Жадности.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "mysteries",
+    "progress": null
+  },
+  "item/productivity_orb": {
+    "name": "Продуктивность любой ценой",
+    "desc": "Получить Сферу Продуктивности.",
+    "rarity": "rare",
+    "type": "minecraft:inventory_changed",
+    "parent": "mysteries",
+    "progress": null
+  },
+  "ore/stone": {
+    "name": "Каменная находка",
+    "desc": "Получить каменная руду коллекционера.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "resources",
+    "progress": null
+  },
+  "ore/deepslate": {
+    "name": "Глубинная находка",
+    "desc": "Получить глубинная руду коллекционера.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "resources",
+    "progress": null
+  },
+  "ore/netherrack": {
+    "name": "Адская находка",
+    "desc": "Получить адская руду коллекционера.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "resources",
+    "progress": null
+  },
+  "ore/end_stone": {
+    "name": "Эндерская находка",
+    "desc": "Получить эндерская руду коллекционера.",
+    "rarity": "uncommon",
+    "type": "minecraft:inventory_changed",
+    "parent": "resources",
+    "progress": null
+  },
+  "orb/greed_used": {
+    "name": "Цена алчности",
+    "desc": "Использовать Сферу Жадности.",
+    "rarity": "rare",
+    "type": "minecraft:consume_item",
+    "parent": "mysteries",
+    "progress": null
+  },
+  "orb/productivity_used": {
+    "name": "Без перерыва",
+    "desc": "Использовать Сферу Продуктивности.",
+    "rarity": "rare",
+    "type": "minecraft:consume_item",
+    "parent": "mysteries",
+    "progress": null
+  },
+  "travel/overworld": {
+    "name": "Шёпот поверхности",
+    "desc": "Посетить измерение и продолжить поиски коллекции.",
+    "rarity": "common",
+    "type": "minecraft:location",
+    "parent": "resources",
+    "progress": null
+  },
+  "travel/the_nether": {
+    "name": "Цена жара",
+    "desc": "Посетить измерение и продолжить поиски коллекции.",
+    "rarity": "common",
+    "type": "minecraft:location",
+    "parent": "resources",
+    "progress": null
+  },
+  "travel/the_end": {
+    "name": "Пустота смотрит в ответ",
+    "desc": "Посетить измерение и продолжить поиски коллекции.",
+    "rarity": "common",
+    "type": "minecraft:location",
+    "parent": "resources",
+    "progress": null
+  },
+  "kills/warden": {
+    "name": "Хранитель",
+    "desc": "Низвергнуть Хранителя.",
+    "rarity": "legendary",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/ender_dragon": {
+    "name": "Дракон повержен",
+    "desc": "Убить Эндер-дракона.",
+    "rarity": "epic",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/wither": {
+    "name": "Сломанная звезда",
+    "desc": "Убить Иссушителя.",
+    "rarity": "epic",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/elder_guardian": {
+    "name": "Страж глубин",
+    "desc": "Убить Древнего стража.",
+    "rarity": "rare",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/evoker": {
+    "name": "Крах иллюзий",
+    "desc": "Убить Вызывателя.",
+    "rarity": "rare",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/ravager": {
+    "name": "Сломанный таран",
+    "desc": "Убить Разорителя.",
+    "rarity": "rare",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/piglin_brute": {
+    "name": "Кабанья ярость",
+    "desc": "Убить Пиглина-бестию.",
+    "rarity": "uncommon",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/breeze": {
+    "name": "Сила ветра",
+    "desc": "Убить Вихря.",
+    "rarity": "uncommon",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/shulker": {
+    "name": "Коробка с сюрпризом",
+    "desc": "Убить Шалкера.",
+    "rarity": "uncommon",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/enderman": {
+    "name": "Схватка с Пустотой",
+    "desc": "Убить Эндермена.",
+    "rarity": "common",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/witch": {
+    "name": "Неудачная алхимия",
+    "desc": "Убить Ведьму.",
+    "rarity": "uncommon",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/skeleton": {
+    "name": "Последний звук тетивы",
+    "desc": "Убить Скелета.",
+    "rarity": "common",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/creeper": {
+    "name": "Без взрыва",
+    "desc": "Убить Крипера.",
+    "rarity": "common",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/zombie": {
+    "name": "Знакомая встреча",
+    "desc": "Убить Зомби.",
+    "rarity": "common",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/spider": {
+    "name": "Паутина ошибок",
+    "desc": "Убить Паука.",
+    "rarity": "common",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/blaze": {
+    "name": "Угольная ярость",
+    "desc": "Убить Ифрита.",
+    "rarity": "uncommon",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/ghast": {
+    "name": "Крик в воздухе",
+    "desc": "Убить Гаста.",
+    "rarity": "uncommon",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/guardian": {
+    "name": "Сквозь шипы",
+    "desc": "Убить Стража.",
+    "rarity": "uncommon",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/husk": {
+    "name": "Песок во рту",
+    "desc": "Убить Кадавра.",
+    "rarity": "common",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/silverfish": {
+    "name": "Боль древних камней",
+    "desc": "Убить Чешуйницу.",
+    "rarity": "common",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/slime": {
+    "name": "Слизкая работа",
+    "desc": "Убить Слизня.",
+    "rarity": "common",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/phantom": {
+    "name": "Ночной дозор",
+    "desc": "Убить Фантома.",
+    "rarity": "uncommon",
+    "type": "minecraft:player_killed_entity",
+    "parent": "combat",
+    "progress": null
+  },
+  "kills/collector_soul_entity": {
+    "name": "Молчание под скалком",
+    "desc": "Победи Душу коллекционера.",
+    "rarity": "epic",
+    "type": "minecraft:player_killed_entity",
+    "parent": "legend",
+    "progress": null
+  },
+  "kills/uno": {
+    "name": "Конец безликого",
+    "desc": "Победи Uno в честном бою.",
+    "rarity": "legendary",
+    "type": "minecraft:player_killed_entity",
+    "parent": "legend",
+    "progress": null
+  },
+  "milestone/kills_all_10": {
+    "name": "Убийца — 10",
+    "desc": "Победи за всё время 10 врагов.",
+    "rarity": "common",
+    "type": "progress",
+    "parent": "combat",
+    "progress": {
+      "metric": "kills_all",
+      "target": 10
+    }
+  },
+  "milestone/kills_all_50": {
+    "name": "Убийца — 50",
+    "desc": "Победи за всё время 50 врагов.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/kills_all_10",
+    "progress": {
+      "metric": "kills_all",
+      "target": 50
+    }
+  },
+  "milestone/kills_all_100": {
+    "name": "Убийца — 100",
+    "desc": "Победи за всё время 100 врагов.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/kills_all_50",
+    "progress": {
+      "metric": "kills_all",
+      "target": 100
+    }
+  },
+  "milestone/kills_all_500": {
+    "name": "Убийца — 500",
+    "desc": "Победи за всё время 500 врагов.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/kills_all_100",
+    "progress": {
+      "metric": "kills_all",
+      "target": 500
+    }
+  },
+  "milestone/kills_all_1500": {
+    "name": "Убийца — 1 500",
+    "desc": "Победи за всё время 1500 врагов.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/kills_all_500",
+    "progress": {
+      "metric": "kills_all",
+      "target": 1500
+    }
+  },
+  "milestone/kills_all_5000": {
+    "name": "Убийца — 5 000",
+    "desc": "Победи за всё время 5000 врагов.",
+    "rarity": "legendary",
+    "type": "progress",
+    "parent": "milestone/kills_all_1500",
+    "progress": {
+      "metric": "kills_all",
+      "target": 5000
+    }
+  },
+  "milestone/kills_all_10000": {
+    "name": "Убийца — 10 000",
+    "desc": "Победи за всё время 10000 врагов.",
+    "rarity": "legendary",
+    "type": "progress",
+    "parent": "milestone/kills_all_5000",
+    "progress": {
+      "metric": "kills_all",
+      "target": 10000
+    }
+  },
+  "milestone/kills_monsters_25": {
+    "name": "Охотник на чудовищ — 25",
+    "desc": "Победи 25 враждебных мобов.",
+    "rarity": "common",
+    "type": "progress",
+    "parent": "combat",
+    "progress": {
+      "metric": "kills_monsters",
+      "target": 25
+    }
+  },
+  "milestone/kills_monsters_100": {
+    "name": "Охотник на чудовищ — 100",
+    "desc": "Победи 100 враждебных мобов.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/kills_monsters_25",
+    "progress": {
+      "metric": "kills_monsters",
+      "target": 100
+    }
+  },
+  "milestone/kills_monsters_500": {
+    "name": "Охотник на чудовищ — 500",
+    "desc": "Победи 500 враждебных мобов.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/kills_monsters_100",
+    "progress": {
+      "metric": "kills_monsters",
+      "target": 500
+    }
+  },
+  "milestone/kills_monsters_1000": {
+    "name": "Охотник на чудовищ — 1 000",
+    "desc": "Победи 1000 враждебных мобов.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/kills_monsters_500",
+    "progress": {
+      "metric": "kills_monsters",
+      "target": 1000
+    }
+  },
+  "milestone/shard_pickups_8": {
+    "name": "Осколочная лихорадка — 8",
+    "desc": "Подними за всё время 8 Осколков коллекции тайн.",
+    "rarity": "common",
+    "type": "progress",
+    "parent": "resources",
+    "progress": {
+      "metric": "shard_pickups",
+      "target": 8
+    }
+  },
+  "milestone/shard_pickups_32": {
+    "name": "Осколочная лихорадка — 32",
+    "desc": "Подними за всё время 32 Осколков коллекции тайн.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/shard_pickups_8",
+    "progress": {
+      "metric": "shard_pickups",
+      "target": 32
+    }
+  },
+  "milestone/shard_pickups_64": {
+    "name": "Осколочная лихорадка — 64",
+    "desc": "Подними за всё время 64 Осколков коллекции тайн.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/shard_pickups_32",
+    "progress": {
+      "metric": "shard_pickups",
+      "target": 64
+    }
+  },
+  "milestone/shard_pickups_256": {
+    "name": "Осколочная лихорадка — 256",
+    "desc": "Подними за всё время 256 Осколков коллекции тайн.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/shard_pickups_64",
+    "progress": {
+      "metric": "shard_pickups",
+      "target": 256
+    }
+  },
+  "milestone/shard_pickups_512": {
+    "name": "Осколочная лихорадка — 512",
+    "desc": "Подними за всё время 512 Осколков коллекции тайн.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/shard_pickups_256",
+    "progress": {
+      "metric": "shard_pickups",
+      "target": 512
+    }
+  },
+  "milestone/shard_pickups_1024": {
+    "name": "Осколочная лихорадка — 1 024",
+    "desc": "Подними за всё время 1024 Осколков коллекции тайн.",
+    "rarity": "epic",
+    "type": "progress",
+    "parent": "milestone/shard_pickups_512",
+    "progress": {
+      "metric": "shard_pickups",
+      "target": 1024
+    }
+  },
+  "milestone/shard_pickups_4096": {
+    "name": "Осколочная лихорадка — 4 096",
+    "desc": "Подними за всё время 4096 Осколков коллекции тайн.",
+    "rarity": "legendary",
+    "type": "progress",
+    "parent": "milestone/shard_pickups_1024",
+    "progress": {
+      "metric": "shard_pickups",
+      "target": 4096
+    }
+  },
+  "milestone/shard_pickups_10000": {
+    "name": "Осколочная лихорадка — 10 000",
+    "desc": "Подними за всё время 10000 Осколков коллекции тайн.",
+    "rarity": "legendary",
+    "type": "progress",
+    "parent": "milestone/shard_pickups_4096",
+    "progress": {
+      "metric": "shard_pickups",
+      "target": 10000
+    }
+  },
+  "milestone/coin_pickups_1": {
+    "name": "Монетный двор — 1",
+    "desc": "Подними за всё время 1 Монет коллекции тайн.",
+    "rarity": "common",
+    "type": "progress",
+    "parent": "resources",
+    "progress": {
+      "metric": "coin_pickups",
+      "target": 1
+    }
+  },
+  "milestone/coin_pickups_8": {
+    "name": "Монетный двор — 8",
+    "desc": "Подними за всё время 8 Монет коллекции тайн.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/coin_pickups_1",
+    "progress": {
+      "metric": "coin_pickups",
+      "target": 8
+    }
+  },
+  "milestone/coin_pickups_32": {
+    "name": "Монетный двор — 32",
+    "desc": "Подними за всё время 32 Монет коллекции тайн.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/coin_pickups_8",
+    "progress": {
+      "metric": "coin_pickups",
+      "target": 32
+    }
+  },
+  "milestone/coin_pickups_64": {
+    "name": "Монетный двор — 64",
+    "desc": "Подними за всё время 64 Монет коллекции тайн.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/coin_pickups_32",
+    "progress": {
+      "metric": "coin_pickups",
+      "target": 64
+    }
+  },
+  "milestone/coin_pickups_256": {
+    "name": "Монетный двор — 256",
+    "desc": "Подними за всё время 256 Монет коллекции тайн.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/coin_pickups_64",
+    "progress": {
+      "metric": "coin_pickups",
+      "target": 256
+    }
+  },
+  "milestone/coin_pickups_1024": {
+    "name": "Монетный двор — 1 024",
+    "desc": "Подними за всё время 1024 Монет коллекции тайн.",
+    "rarity": "epic",
+    "type": "progress",
+    "parent": "milestone/coin_pickups_256",
+    "progress": {
+      "metric": "coin_pickups",
+      "target": 1024
+    }
+  },
+  "milestone/shards_held_16": {
+    "name": "Запасливый — 16",
+    "desc": "Держи в инвентаре одновременно 16 осколков.",
+    "rarity": "common",
+    "type": "progress",
+    "parent": "resources",
+    "progress": {
+      "metric": "shards_held",
+      "target": 16
+    }
+  },
+  "milestone/shards_held_64": {
+    "name": "Запасливый — 64",
+    "desc": "Держи в инвентаре одновременно 64 осколков.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/shards_held_16",
+    "progress": {
+      "metric": "shards_held",
+      "target": 64
+    }
+  },
+  "milestone/shards_held_128": {
+    "name": "Запасливый — 128",
+    "desc": "Держи в инвентаре одновременно 128 осколков.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/shards_held_64",
+    "progress": {
+      "metric": "shards_held",
+      "target": 128
+    }
+  },
+  "milestone/shards_held_256": {
+    "name": "Запасливый — 256",
+    "desc": "Держи в инвентаре одновременно 256 осколков.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/shards_held_128",
+    "progress": {
+      "metric": "shards_held",
+      "target": 256
+    }
+  },
+  "milestone/shards_held_512": {
+    "name": "Запасливый — 512",
+    "desc": "Держи в инвентаре одновременно 512 осколков.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/shards_held_256",
+    "progress": {
+      "metric": "shards_held",
+      "target": 512
+    }
+  },
+  "milestone/trades_1": {
+    "name": "Железная сделка — 1",
+    "desc": "Совершить 1 покупок у Связного коллекционера.",
+    "rarity": "common",
+    "type": "progress",
+    "parent": "collector",
+    "progress": {
+      "metric": "trades",
+      "target": 1
+    }
+  },
+  "milestone/trades_5": {
+    "name": "Железная сделка — 5",
+    "desc": "Совершить 5 покупок у Связного коллекционера.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/trades_1",
+    "progress": {
+      "metric": "trades",
+      "target": 5
+    }
+  },
+  "milestone/trades_25": {
+    "name": "Железная сделка — 25",
+    "desc": "Совершить 25 покупок у Связного коллекционера.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/trades_5",
+    "progress": {
+      "metric": "trades",
+      "target": 25
+    }
+  },
+  "milestone/trades_100": {
+    "name": "Железная сделка — 100",
+    "desc": "Совершить 100 покупок у Связного коллекционера.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/trades_25",
+    "progress": {
+      "metric": "trades",
+      "target": 100
+    }
+  },
+  "milestone/trades_500": {
+    "name": "Железная сделка — 500",
+    "desc": "Совершить 500 покупок у Связного коллекционера.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/trades_100",
+    "progress": {
+      "metric": "trades",
+      "target": 500
+    }
+  },
+  "milestone/memory_types_1": {
+    "name": "Архивариус — 1",
+    "desc": "Храни одновременно 1 различных типов предметов в Памяти.",
+    "rarity": "common",
+    "type": "progress",
+    "parent": "collector",
+    "progress": {
+      "metric": "memory_types",
+      "target": 1
+    }
+  },
+  "milestone/memory_types_10": {
+    "name": "Архивариус — 10",
+    "desc": "Храни одновременно 10 различных типов предметов в Памяти.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/memory_types_1",
+    "progress": {
+      "metric": "memory_types",
+      "target": 10
+    }
+  },
+  "milestone/memory_types_32": {
+    "name": "Архивариус — 32",
+    "desc": "Храни одновременно 32 различных типов предметов в Памяти.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/memory_types_10",
+    "progress": {
+      "metric": "memory_types",
+      "target": 32
+    }
+  },
+  "milestone/memory_types_64": {
+    "name": "Архивариус — 64",
+    "desc": "Храни одновременно 64 различных типов предметов в Памяти.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/memory_types_32",
+    "progress": {
+      "metric": "memory_types",
+      "target": 64
+    }
+  },
+  "milestone/memory_types_128": {
+    "name": "Архивариус — 128",
+    "desc": "Храни одновременно 128 различных типов предметов в Памяти.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/memory_types_64",
+    "progress": {
+      "metric": "memory_types",
+      "target": 128
+    }
+  },
+  "milestone/memory_types_256": {
+    "name": "Архивариус — 256",
+    "desc": "Храни одновременно 256 различных типов предметов в Памяти.",
+    "rarity": "epic",
+    "type": "progress",
+    "parent": "milestone/memory_types_128",
+    "progress": {
+      "metric": "memory_types",
+      "target": 256
+    }
+  },
+  "milestone/memory_stacks_64": {
+    "name": "Бездонная кладовая — 64",
+    "desc": "Помести 64 предметов в Память одновременно.",
+    "rarity": "common",
+    "type": "progress",
+    "parent": "collector",
+    "progress": {
+      "metric": "memory_stacks",
+      "target": 64
+    }
+  },
+  "milestone/memory_stacks_256": {
+    "name": "Бездонная кладовая — 256",
+    "desc": "Помести 256 предметов в Память одновременно.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/memory_stacks_64",
+    "progress": {
+      "metric": "memory_stacks",
+      "target": 256
+    }
+  },
+  "milestone/memory_stacks_1024": {
+    "name": "Бездонная кладовая — 1 024",
+    "desc": "Помести 1024 предметов в Память одновременно.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/memory_stacks_256",
+    "progress": {
+      "metric": "memory_stacks",
+      "target": 1024
+    }
+  },
+  "milestone/memory_stacks_4096": {
+    "name": "Бездонная кладовая — 4 096",
+    "desc": "Помести 4096 предметов в Память одновременно.",
+    "rarity": "legendary",
+    "type": "progress",
+    "parent": "milestone/memory_stacks_1024",
+    "progress": {
+      "metric": "memory_stacks",
+      "target": 4096
+    }
+  },
+  "milestone/memory_stacks_16384": {
+    "name": "Бездонная кладовая — 16 384",
+    "desc": "Помести 16384 предметов в Память одновременно.",
+    "rarity": "legendary",
+    "type": "progress",
+    "parent": "milestone/memory_stacks_4096",
+    "progress": {
+      "metric": "memory_stacks",
+      "target": 16384
+    }
+  },
+  "milestone/crafted_hats_1": {
+    "name": "Швейный мастер — 1",
+    "desc": "Создай за всё время 1 зелёных шапочек.",
+    "rarity": "common",
+    "type": "progress",
+    "parent": "wardrobe",
+    "progress": {
+      "metric": "crafted_hats",
+      "target": 1
+    }
+  },
+  "milestone/crafted_hats_5": {
+    "name": "Швейный мастер — 5",
+    "desc": "Создай за всё время 5 зелёных шапочек.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/crafted_hats_1",
+    "progress": {
+      "metric": "crafted_hats",
+      "target": 5
+    }
+  },
+  "milestone/crafted_hats_10": {
+    "name": "Швейный мастер — 10",
+    "desc": "Создай за всё время 10 зелёных шапочек.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/crafted_hats_5",
+    "progress": {
+      "metric": "crafted_hats",
+      "target": 10
+    }
+  },
+  "milestone/crafted_hats_17": {
+    "name": "Швейный мастер — 17",
+    "desc": "Создай за всё время 17 зелёных шапочек.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/crafted_hats_10",
+    "progress": {
+      "metric": "crafted_hats",
+      "target": 17
+    }
+  },
+  "milestone/crafted_hats_32": {
+    "name": "Швейный мастер — 32",
+    "desc": "Создай за всё время 32 зелёных шапочек.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/crafted_hats_17",
+    "progress": {
+      "metric": "crafted_hats",
+      "target": 32
+    }
+  },
+  "milestone/crafted_casings_1": {
+    "name": "Корпусных дел мастер — 1",
+    "desc": "Создай 1 корпусов памяти.",
+    "rarity": "common",
+    "type": "progress",
+    "parent": "collector",
+    "progress": {
+      "metric": "crafted_casings",
+      "target": 1
+    }
+  },
+  "milestone/crafted_casings_8": {
+    "name": "Корпусных дел мастер — 8",
+    "desc": "Создай 8 корпусов памяти.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/crafted_casings_1",
+    "progress": {
+      "metric": "crafted_casings",
+      "target": 8
+    }
+  },
+  "milestone/crafted_casings_16": {
+    "name": "Корпусных дел мастер — 16",
+    "desc": "Создай 16 корпусов памяти.",
+    "rarity": "uncommon",
+    "type": "progress",
+    "parent": "milestone/crafted_casings_8",
+    "progress": {
+      "metric": "crafted_casings",
+      "target": 16
+    }
+  },
+  "milestone/crafted_casings_32": {
+    "name": "Корпусных дел мастер — 32",
+    "desc": "Создай 32 корпусов памяти.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/crafted_casings_16",
+    "progress": {
+      "metric": "crafted_casings",
+      "target": 32
+    }
+  },
+  "milestone/crafted_casings_52": {
+    "name": "Корпусных дел мастер — 52",
+    "desc": "Создай 52 корпусов памяти.",
+    "rarity": "rare",
+    "type": "progress",
+    "parent": "milestone/crafted_casings_32",
+    "progress": {
+      "metric": "crafted_casings",
+      "target": 52
+    }
+  },
+  "challenge/complete_armor": {
+    "name": "Броня защищает тайну",
+    "desc": "Надень полный комплект брони коллекционера.",
+    "rarity": "epic",
+    "type": "minecraft:impossible",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "challenge/armor_carry": {
+    "name": "Хозяин реликвий",
+    "desc": "Имей все 4 части коллекционной брони и два инструмента.",
+    "rarity": "epic",
+    "type": "minecraft:impossible",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "challenge/wear_sakura": {
+    "name": "Цветение под небом",
+    "desc": "Носи Сакуру мыслителя.",
+    "rarity": "uncommon",
+    "type": "minecraft:impossible",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "challenge/wear_gaze": {
+    "name": "Смотрящий из огня",
+    "desc": "Носи Взор таинств.",
+    "rarity": "uncommon",
+    "type": "minecraft:impossible",
+    "parent": "wardrobe",
+    "progress": null
+  },
+  "challenge/fearless_warden": {
+    "name": "Не боюсь Хранителя",
+    "desc": "Окажись рядом с Хранителем в полном комплекте брони коллекционера.",
+    "rarity": "epic",
+    "type": "minecraft:impossible",
+    "parent": "legend",
+    "progress": null
+  },
+  "challenge/assemble_3": {
+    "name": "Говорит связной",
+    "desc": "Собери работающий корпус коллекционера 3×3×3.",
+    "rarity": "rare",
+    "type": "minecraft:impossible",
+    "parent": "collector",
+    "progress": null
+  },
+  "challenge/assemble_5": {
+    "name": "Память пробуждена",
+    "desc": "Дополни конструкцию до рабочего каркаса 5×5×5.",
+    "rarity": "legendary",
+    "type": "minecraft:impossible",
+    "parent": "collector",
+    "progress": null
+  },
+  "challenge/stress_half": {
+    "name": "Нервное хранилище",
+    "desc": "Добейся хотя бы 50% стресса у собранного хранилища.",
+    "rarity": "uncommon",
+    "type": "minecraft:impossible",
+    "parent": "mysteries",
+    "progress": null
+  },
+  "challenge/stress_ninety": {
+    "name": "Шаг до катастрофы",
+    "desc": "Увидь стресс 90% или выше, пока конструкция ещё цела.",
+    "rarity": "epic",
+    "type": "minecraft:impossible",
+    "parent": "mysteries",
+    "progress": null
+  },
+  "challenge/greedy": {
+    "name": "Вкус наживы",
+    "desc": "Подвергнись воздействию Сферы Жадности.",
+    "rarity": "uncommon",
+    "type": "minecraft:impossible",
+    "parent": "mysteries",
+    "progress": null
+  },
+  "challenge/productive": {
+    "name": "Не трать секунду",
+    "desc": "Подвергнись воздействию Сферы Продуктивности.",
+    "rarity": "uncommon",
+    "type": "minecraft:impossible",
+    "parent": "mysteries",
+    "progress": null
+  },
+  "challenge/two_spheres": {
+    "name": "Ненасытный",
+    "desc": "Держи на себе эффекты обеих сфер одновременно.",
+    "rarity": "epic",
+    "type": "minecraft:impossible",
+    "parent": "mysteries",
+    "progress": null
+  },
+  "challenge/one_vs_uno": {
+    "name": "Рыцарь без доспехов",
+    "desc": "Убей Uno без надетой брони.",
+    "rarity": "legendary",
+    "type": "minecraft:impossible",
+    "parent": "legend",
+    "progress": null
+  },
+  "challenge/uno_sword": {
+    "name": "Суд клинка",
+    "desc": "Убей Uno, держа Меч коллекционера.",
+    "rarity": "epic",
+    "type": "minecraft:impossible",
+    "parent": "legend",
+    "progress": null
+  },
+  "challenge/end_uno": {
+    "name": "За финальным титром",
+    "desc": "Одолей Uno в измерении Энда.",
+    "rarity": "legendary",
+    "type": "minecraft:impossible",
+    "parent": "legend",
+    "progress": null
+  },
+  "challenge/soul_and_warden": {
+    "name": "Двое в темноте",
+    "desc": "Одолей Душу коллекционера, когда рядом существует Хранитель.",
+    "rarity": "legendary",
+    "type": "minecraft:impossible",
+    "parent": "legend",
+    "progress": null
+  },
+  "challenge/ultimate_collection": {
+    "name": "Наследие коллекционера",
+    "desc": "Собери все зелёные шапочки, полный комплект брони и закончи хранилище памяти.",
+    "rarity": "legendary",
+    "type": "minecraft:impossible",
+    "parent": "legend",
+    "progress": null
+  }
+}

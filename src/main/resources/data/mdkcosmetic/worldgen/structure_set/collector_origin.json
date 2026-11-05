@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "mdkcosmetic:collector_origin",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 218460591,
+    "spacing": 2100,
+    "separation": 1900,
+    "spread_type": "linear"
+  }
+}

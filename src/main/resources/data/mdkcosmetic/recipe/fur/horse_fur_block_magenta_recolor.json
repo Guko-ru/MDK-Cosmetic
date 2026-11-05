@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shapeless","category":"building","group":"horse_fur_block_dye","ingredients":[{"tag":"mdkcosmetic:fur/horse_block"},{"item":"minecraft:magenta_dye"}],"result":{"id":"mdkcosmetic:horse_fur_block_magenta","count":1}}

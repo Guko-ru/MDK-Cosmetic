@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:llama_fur"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.fur/llama.title",
+      "color": "#81E6A0",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.fur/llama.description",
+      "color": "gray"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "collect": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:llama_fur"
+            ],
+            "count": {
+              "min": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "mdkcosmetic:journey"
+}

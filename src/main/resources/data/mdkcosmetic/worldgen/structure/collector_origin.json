@@ -1,0 +1,7 @@
+{
+  "type": "mdkcosmetic:collector_origin",
+  "biomes": "#mdkcosmetic:collector_origin_allowed",
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {}
+}

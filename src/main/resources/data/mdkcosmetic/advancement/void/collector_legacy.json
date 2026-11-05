@@ -1,0 +1,58 @@
+{
+  "parent": "mdkcosmetic:void/return_home",
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_meteor_block"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.void/collector_legacy.title",
+      "color": "#E7A2FF",
+      "bold": true
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.void/collector_legacy.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "memory": {
+      "trigger": "minecraft:impossible"
+    },
+    "heart": {
+      "trigger": "minecraft:impossible"
+    },
+    "shell": {
+      "trigger": "minecraft:impossible"
+    },
+    "entered": {
+      "trigger": "minecraft:impossible"
+    },
+    "returned": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 2000
+  },
+  "requirements": [
+    [
+      "memory"
+    ],
+    [
+      "heart"
+    ],
+    [
+      "shell"
+    ],
+    [
+      "entered"
+    ],
+    [
+      "returned"
+    ]
+  ]
+}

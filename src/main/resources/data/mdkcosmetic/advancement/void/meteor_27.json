@@ -1,0 +1,41 @@
+{
+  "parent": "mdkcosmetic:void/meteor_fragment",
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_meteor_block"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.void/meteor_27.title",
+      "color": "#A7DE90",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.void/meteor_27.description",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mdkcosmetic:collector_meteor_block"
+            ],
+            "count": {
+              "min": 27
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 60
+  }
+}

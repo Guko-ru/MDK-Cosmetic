@@ -1,0 +1,29 @@
+{
+  "parent": "mdkcosmetic:void/backpack_void",
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_backpack_death_vault"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.void/portable_kingdom.title",
+      "color": "#B68BFF",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.void/portable_kingdom.description",
+      "color": "gray"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 400
+  }
+}

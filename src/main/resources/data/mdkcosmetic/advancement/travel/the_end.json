@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "id": "mdkcosmetic:collector_ore_end_stone"
+    },
+    "title": {
+      "translate": "advancements.mdkcosmetic.travel/the_end.title",
+      "color": "#81E6A0",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.mdkcosmetic.travel/the_end.description",
+      "color": "gray"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "dimension": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "location": {
+            "dimension": "minecraft:the_end"
+          }
+        }
+      }
+    }
+  },
+  "parent": "mdkcosmetic:resources"
+}

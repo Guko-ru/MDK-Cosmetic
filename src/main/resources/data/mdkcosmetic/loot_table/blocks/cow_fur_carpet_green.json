@@ -1,0 +1,1 @@
+{"type":"minecraft:block","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"mdkcosmetic:cow_fur_carpet_green"}],"conditions":[{"condition":"minecraft:survives_explosion"}]}]}
