@@ -4,13 +4,13 @@ plugins {
 }
 version = '1.18.78'
 group = 'com.mdk.cosmetic'
-base { archivesName = 'MDK-Cosmetic-26.1.2-Fabric' }
+base { archivesName = 'MDK-Cosmetic-26.2-Fabric' }
 repositories { maven { url = 'https://maven.blamejared.com' }; mavenCentral() }
 dependencies {
-    compileOnly 'mezz.jei:jei-26.1.2-fabric-api:29.53.0.115'
-    minecraft 'com.mojang:minecraft:26.1.2'
+    compileOnly 'mezz.jei:jei-26.2-fabric-api:30.48.0.244'
+    minecraft 'com.mojang:minecraft:26.2'
     implementation 'net.fabricmc:fabric-loader:0.20.1'
-    implementation 'net.fabricmc.fabric-api:fabric-api:0.155.3+26.1.2'
+    implementation 'net.fabricmc.fabric-api:fabric-api:0.161.0+26.2'
 }
 java { toolchain.languageVersion = JavaLanguageVersion.of(25); withSourcesJar() }
 loom { accessWidenerPath = file('src/main/resources/mdkcosmetic.accesswidener') }

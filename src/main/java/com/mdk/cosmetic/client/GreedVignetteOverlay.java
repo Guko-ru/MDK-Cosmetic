@@ -10,7 +10,7 @@ public final class GreedVignetteOverlay {
     private GreedVignetteOverlay() {}
     public static void onRenderGui(RenderGuiEvent.Post event) {
         Minecraft mc=Minecraft.getInstance();
-        if(mc.player==null || mc.options.hideGui || !mc.player.hasEffect(MDKCosmetic.GREED_AURA.holder())) return;
+        if(mc.player==null || mc.gui.hud.isHidden() || !mc.player.hasEffect(MDKCosmetic.GREED_AURA.holder())) return;
         GuiGraphicsExtractor g=event.getGuiGraphics();
         int w=mc.getWindow().getGuiScaledWidth(),h=mc.getWindow().getGuiScaledHeight();
         // Soft transparent tint (8% alpha) plus stronger edges.

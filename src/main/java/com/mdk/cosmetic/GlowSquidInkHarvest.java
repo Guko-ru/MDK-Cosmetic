@@ -21,7 +21,7 @@ public final class GlowSquidInkHarvest {
     private GlowSquidInkHarvest() { }
 
     public static void onInteract(PlayerInteractEvent.EntityInteract event) {
-        if (!(event.getTarget() instanceof Squid squid) || squid.getType() != EntityType.GLOW_SQUID) return;
+        if (!(event.getTarget() instanceof Squid squid) || squid.getType() != net.minecraft.world.entity.EntityTypes.GLOW_SQUID) return;
         if (event.getHand() != InteractionHand.MAIN_HAND) return;
         ItemStack tool = event.getEntity().getMainHandItem();
         if (!tool.is(Items.SHEARS)) return;
@@ -44,7 +44,7 @@ public final class GlowSquidInkHarvest {
         }
     }
     public static void onDrops(LivingDropsEvent event) {
-        if (!(event.getEntity() instanceof Squid squid) || squid.getType() != EntityType.GLOW_SQUID
+        if (!(event.getEntity() instanceof Squid squid) || squid.getType() != net.minecraft.world.entity.EntityTypes.GLOW_SQUID
                 || squid.level().isClientSide()) return;
         if (squid.getRandom().nextFloat() < 0.10F) {
             event.getDrops().add(new ItemEntity(squid.level(), squid.getX(), squid.getY() + 0.15D,

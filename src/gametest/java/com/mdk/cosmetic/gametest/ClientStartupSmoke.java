@@ -33,7 +33,7 @@ public final class ClientStartupSmoke implements ClientModInitializer {
             }
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_CLIENT_SMOKE_OK: {} item models, entity renderers, armor models and client mixins initialized",checked);
 
-   client.setScreen(new PreviewScreen());
+   client.gui.setScreen(new PreviewScreen());
   });
   context.waitTicks(40);
   context.takeScreenshot("multiblock-preview-smoke");
@@ -41,7 +41,7 @@ public final class ClientStartupSmoke implements ClientModInitializer {
    if(ArmorRenderSmoke.frames==0)throw new AssertionError("Armor GPU fixture was not rendered");
    LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_ARMOR_SMOKE_OK: 12 equipment submissions rendered");
    LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_PREVIEW_SMOKE_OK: 27 depth-tested item models rendered in deferred GUI");
-   client.setScreen(null);
+   client.gui.setScreen(null);
   });
  }
     private static final class PreviewScreen extends net.minecraft.client.gui.screens.Screen {

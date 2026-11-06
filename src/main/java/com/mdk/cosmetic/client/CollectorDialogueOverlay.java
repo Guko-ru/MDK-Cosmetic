@@ -26,7 +26,7 @@ public final class CollectorDialogueOverlay {
         long elapsed=Util.getMillis()-start;
         if(elapsed>=DURATION_MS) {dialogue="";return;}
         Minecraft mc=Minecraft.getInstance();
-        if(mc.player==null || mc.options.hideGui)return;
+        if(mc.player==null || mc.gui.hud.isHidden())return;
         Font font=mc.font;
         GuiGraphicsExtractor g=event.getGuiGraphics();
         final float scale=0.85F;

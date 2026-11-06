@@ -37,20 +37,20 @@ public final class CollectorClientRegressionTest implements FabricClientGameTest
   world.getServer().runOnServer(server->{var p=server.getPlayerList().getPlayers().getFirst();p.teleportTo(.5,100,-3.5);p.openMenu((CollectorLinkBlockEntity)p.level().getBlockEntity(LINK));});
   context.waitForScreen(CollectorLinkScreen.class);context.waitTicks(5);
  }
- private static double[] position(ClientGameTestContext context,int x,int y){return context.computeOnClient(client->{var screen=(CollectorLinkScreen)client.screen;float scale=(float)field(screen,"uiScale");int left=(int)field(screen,"leftPos"),top=(int)field(screen,"topPos");return new double[]{(left+x)*scale*client.getWindow().getGuiScale(),(top+y)*scale*client.getWindow().getGuiScale()};});}
+ private static double[] position(ClientGameTestContext context,int x,int y){return context.computeOnClient(client->{var screen=(CollectorLinkScreen)client.gui.screen();float scale=(float)field(screen,"uiScale");int left=(int)field(screen,"leftPos"),top=(int)field(screen,"topPos");return new double[]{(left+x)*scale*client.getWindow().getGuiScale(),(top+y)*scale*client.getWindow().getGuiScale()};});}
  private static void point(ClientGameTestContext context,int x,int y){var p=position(context,x,y);context.getInput().setCursorPos(p[0],p[1]);context.waitTick();}
  private static void click(ClientGameTestContext context,int x,int y){point(context,x,y);context.getInput().pressMouse(0);context.waitTicks(2);}
- private static void capture(ClientGameTestContext context,String name){context.runOnClient(client->client.getToastManager().clear());context.getInput().setCursorPos(0,0);context.waitTicks(2);context.takeScreenshot(name);}
+ private static void capture(ClientGameTestContext context,String name){context.runOnClient(client->client.gui.toastManager().clear());context.getInput().setCursorPos(0,0);context.waitTicks(2);context.takeScreenshot(name);}
  private static void checkSlots(ClientGameTestContext context,int start,int end){
   for(int i=start;i<end;i++){
-   final int index=i;int[] xy=context.computeOnClient(client->{Slot s=((CollectorLinkScreen)client.screen).getMenu().getSlot(index);return new int[]{s.x+8,s.y+8};});
+   final int index=i;int[] xy=context.computeOnClient(client->{Slot s=((CollectorLinkScreen)client.gui.screen()).getMenu().getSlot(index);return new int[]{s.x+8,s.y+8};});
    point(context,xy[0],xy[1]);
-   context.runOnClient(client->{var screen=(CollectorLinkScreen)client.screen;require(field(screen,"hoveredSlot")==screen.getMenu().getSlot(index),"Rendered slot and native hover/click region differ at slot "+index);});
+   context.runOnClient(client->{var screen=(CollectorLinkScreen)client.gui.screen();require(field(screen,"hoveredSlot")==screen.getMenu().getSlot(index),"Rendered slot and native hover/click region differ at slot "+index);});
   }
  }
  @Override public void runTest(ClientGameTestContext context){
   try(var world=context.worldBuilder().create()){
-   world.getClientLevel().waitForChunksRender();
+   world.getConnection().waitForChunksRender();
    ClientStartupSmoke.runInWorld(context);
    world.getServer().runOnServer(server->{
     var p=server.getPlayerList().getPlayers().getFirst();var level=p.level();p.setGameMode(GameType.CREATIVE);p.setInvulnerable(true);p.teleportTo(.5,100,-3.5);
@@ -64,11 +64,11 @@ public final class CollectorClientRegressionTest implements FabricClientGameTest
    int[][] windows={{854,480,2},{1280,720,3},{1920,1080,4},{854,480,1}};
    for(int[] window:windows){
     context.getInput().resizeWindow(window[0],window[1]);context.runOnClient(client->{client.options.guiScale().set(window[2]);client.resizeGui();});context.waitTicks(5);
-    context.runOnClient(client->{var s=(CollectorLinkScreen)client.screen;float scale=(float)field(s,"uiScale");int left=(int)field(s,"leftPos"),top=(int)field(s,"topPos");require(left*scale>=0&&top*scale>=0&&(left+606)*scale<=s.width&&(top+308)*scale<=s.height,"Machine window escapes viewport");require(s.getMenu().isActive()&&!s.getMenu().isMemoryReady(),"Tier-one structure must be active with memory locked");});
+    context.runOnClient(client->{var s=(CollectorLinkScreen)client.gui.screen();float scale=(float)field(s,"uiScale");int left=(int)field(s,"leftPos"),top=(int)field(s,"topPos");require(left*scale>=0&&top*scale>=0&&(left+606)*scale<=s.width&&(top+308)*scale<=s.height,"Machine window escapes viewport");require(s.getMenu().isActive()&&!s.getMenu().isMemoryReady(),"Tier-one structure must be active with memory locked");});
     checkSlots(context,CollectorLinkMenu.PLAYER_START,CollectorLinkMenu.PLAYER_END);
-    click(context,224,40);context.runOnClient(client->require((int)field(client.screen,"category")==CollectorOffers.MISC,"Misc category button missed its drawn position"));
-    click(context,100,40);context.runOnClient(client->require((int)field(client.screen,"category")==CollectorOffers.EXCLUSIVE,"Exclusive category button missed its drawn position"));
-    click(context,69,281);context.runOnClient(client->require(!((CollectorLinkScreen)client.screen).getMenu().getCarried().isEmpty(),"Click on drawn hotbar slot did not pick up its item"));context.waitTicks(8);click(context,69,281);context.runOnClient(client->require(((CollectorLinkScreen)client.screen).getMenu().getCarried().isEmpty(),"Returning the stack to its native slot failed"));
+    click(context,224,40);context.runOnClient(client->require((int)field(client.gui.screen(),"category")==CollectorOffers.MISC,"Misc category button missed its drawn position"));
+    click(context,100,40);context.runOnClient(client->require((int)field(client.gui.screen(),"category")==CollectorOffers.EXCLUSIVE,"Exclusive category button missed its drawn position"));
+    click(context,69,281);context.runOnClient(client->require(!((CollectorLinkScreen)client.gui.screen()).getMenu().getCarried().isEmpty(),"Click on drawn hotbar slot did not pick up its item"));context.waitTicks(8);click(context,69,281);context.runOnClient(client->require(((CollectorLinkScreen)client.gui.screen()).getMenu().getCarried().isEmpty(),"Returning the stack to its native slot failed"));
     capture(context,"collector-tier1-"+window[0]+"-scale"+window[2]);
    }
    closeMenu(context,world);
@@ -85,16 +85,16 @@ public final class CollectorClientRegressionTest implements FabricClientGameTest
    });context.waitTicks(30);openLink(context,world);
    for(int[] window:windows){
     context.getInput().resizeWindow(window[0],window[1]);context.runOnClient(client->{client.options.guiScale().set(window[2]);client.resizeGui();});context.waitTicks(5);
-    context.runOnClient(client->{var menu=((CollectorLinkScreen)client.screen).getMenu();require(menu.isMemoryReady()&&menu.getMemoryTotal()>48,"Second-tier memory did not synchronize");for(int i=0;i<48;i++)require(!menu.getSlot(CollectorLinkMenu.MEMORY_START+i).getItem().isEmpty(),"Memory preview slot missing: "+i);});
+    context.runOnClient(client->{var menu=((CollectorLinkScreen)client.gui.screen()).getMenu();require(menu.isMemoryReady()&&menu.getMemoryTotal()>48,"Second-tier memory did not synchronize");for(int i=0;i<48;i++)require(!menu.getSlot(CollectorLinkMenu.MEMORY_START+i).getItem().isEmpty(),"Memory preview slot missing: "+i);});
     checkSlots(context,CollectorLinkMenu.MEMORY_START,CollectorLinkMenu.MEMORY_START+48);
     point(context,320,100);context.getInput().holdShift();context.getInput().pressMouse(0);context.getInput().releaseShift();context.waitTicks(3);
     capture(context,"collector-tier2-"+window[0]+"-scale"+window[2]);
    }
-   closeMenu(context,world);context.runOnClient(client->client.setScreen(new CreativeModeInventoryScreen(client.player,client.player.connection.enabledFeatures(),true)));context.waitForScreen(CreativeModeInventoryScreen.class);context.waitTicks(5);
+   closeMenu(context,world);context.runOnClient(client->client.gui.setScreen(new CreativeModeInventoryScreen(client.player,client.player.connection.enabledFeatures(),true)));context.waitForScreen(CreativeModeInventoryScreen.class);context.waitTicks(5);
    context.clickScreenButton("MDK");
-   context.runOnClient(client->{var screen=(CreativeModeInventoryScreen)client.screen;var extension=(FabricCreativeModeInventoryScreen)screen;require(extension.getSelectedTab()==MDKCosmetic.COSMETIC_TAB.get(),"MDK shortcut did not select the cosmetic tab");require(extension.getTabsOnPage(extension.getCurrentPage()).contains(MDKCosmetic.FUR_BLOCKS_TAB.get()),"Decor tab missing from MDK creative page");require(MDKCosmetic.COSMETIC_TAB.get().getDisplayItems().size()>60&&MDKCosmetic.FUR_BLOCKS_TAB.get().getDisplayItems().size()>1000,"Creative tab contents missing");});
-   capture(context,"collector-creative-cosmetics");context.runOnClient(client->((FabricCreativeModeInventoryScreen)client.screen).setSelectedTab(MDKCosmetic.FUR_BLOCKS_TAB.get()));context.waitTicks(3);capture(context,"collector-creative-decor");
-   context.runOnClient(client->client.setScreen(null));
+   context.runOnClient(client->{var screen=(CreativeModeInventoryScreen)client.gui.screen();var extension=(FabricCreativeModeInventoryScreen)screen;require(extension.getSelectedTab()==MDKCosmetic.COSMETIC_TAB.get(),"MDK shortcut did not select the cosmetic tab");require(extension.getTabsOnPage(extension.getCurrentPage()).contains(MDKCosmetic.FUR_BLOCKS_TAB.get()),"Decor tab missing from MDK creative page");require(MDKCosmetic.COSMETIC_TAB.get().getDisplayItems().size()>60&&MDKCosmetic.FUR_BLOCKS_TAB.get().getDisplayItems().size()>1000,"Creative tab contents missing");});
+   capture(context,"collector-creative-cosmetics");context.runOnClient(client->((FabricCreativeModeInventoryScreen)client.gui.screen()).setSelectedTab(MDKCosmetic.FUR_BLOCKS_TAB.get()));context.waitTicks(3);capture(context,"collector-creative-decor");
+   context.runOnClient(client->client.gui.setScreen(null));
    world.getServer().runOnServer(server->{var p=server.getPlayerList().getPlayers().getFirst();p.teleportTo(12.5,101,-4);p.setYRot(0);p.setXRot(0);var boss=MDKCosmetic.UNO_ENTITY.get().create(p.level(),EntitySpawnReason.TRIGGERED);boss.snapTo(12.5,101,0,180,0);boss.setNoAi(true);boss.setNoGravity(true);boss.setPersistenceRequired();p.level().addFreshEntity(boss);bossId=boss.getUUID();require(boss.getHealth()==400&&!boss.isSecondPhase(),"New boss must start with full health in its original phase");});
    context.waitFor(client->client.level!=null&&client.level.entitiesForRendering().iterator().hasNext());context.waitTicks(20);
    context.runOnClient(client->{UnoEntity boss=null;for(var entity:client.level.entitiesForRendering())if(entity.getUUID().equals(bossId))boss=(UnoEntity)entity;require(boss!=null&&!boss.isSecondPhase(),"Fresh boss must remain in black phase");var dispatcher=client.getEntityRenderDispatcher();var state=(UnoRenderState)dispatcher.extractEntity(boss,0F);require(dispatcher.getRenderer(state) instanceof UnoRenderer,"Native scene dispatch changed boss to a player renderer");require(state.texture.getPath().equals("textures/entity/uno.png"),"Fresh boss texture must be the black original");});

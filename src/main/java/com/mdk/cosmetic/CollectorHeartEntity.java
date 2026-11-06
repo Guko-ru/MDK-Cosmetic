@@ -152,7 +152,7 @@ public final class CollectorHeartEntity extends Guardian {
 
     @Override public boolean canAttack(net.minecraft.world.entity.LivingEntity target) {
         return target.getType() != MDKCosmetic.COLLECTOR_HEART_ENTITY.get()
-                && target.getType() != EntityType.GUARDIAN && target.getType() != EntityType.ELDER_GUARDIAN
+                && target.getType() != net.minecraft.world.entity.EntityTypes.GUARDIAN && target.getType() != net.minecraft.world.entity.EntityTypes.ELDER_GUARDIAN
                 && super.canAttack(target);
     }
 
