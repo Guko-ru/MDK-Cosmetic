@@ -36,7 +36,7 @@ public final class LlamaFurShearing {
             return;
         }
         data.putLong(NEXT, now + COOLDOWN_MS);
-        llama.spawnAtLocation(new ItemStack(MDKCosmetic.LLAMA_FUR.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(llama,new ItemStack(MDKCosmetic.LLAMA_FUR.get()));
         llama.playSound(SoundEvents.SHEEP_SHEAR, 0.70F, 1.12F);
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

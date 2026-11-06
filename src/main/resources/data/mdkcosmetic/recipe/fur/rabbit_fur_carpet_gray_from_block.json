@@ -1,1 +1,14 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["BB"],"key":{"B":{"item":"mdkcosmetic:rabbit_fur_block_gray"}},"result":{"id":"mdkcosmetic:rabbit_fur_carpet_gray","count":3}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:rabbit_fur_block_gray"
+  },
+  "result": {
+    "id": "mdkcosmetic:rabbit_fur_carpet_gray",
+    "count": 3
+  }
+}

@@ -1,7 +1,7 @@
 package com.mdk.cosmetic.platform;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.Level;
 public final class FurnaceFuel {
  private FurnaceFuel() {}
- public static int burnTime(ItemStack stack){return stack.isEmpty()?0:AbstractFurnaceBlockEntity.getFuel().getOrDefault(stack.getItem(),0);}
+ public static int burnTime(Level level,ItemStack stack){return stack.isEmpty()?0:level.fuelValues().burnDuration(stack);}
 }

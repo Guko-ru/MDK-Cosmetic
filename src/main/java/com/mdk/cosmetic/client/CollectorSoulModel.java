@@ -15,12 +15,12 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 
 /** Original low-poly spectral polyhedron, with rotating violet halo and drifting shards. */
-public final class CollectorSoulModel extends EntityModel<CollectorSoulEntity> {
+public final class CollectorSoulModel extends EntityModel<net.minecraft.client.renderer.entity.state.LivingEntityRenderState> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath("mdkcosmetic","collector_soul"),"main");
     private final ModelPart root,core,ring,orbit;
     public CollectorSoulModel(ModelPart root) {
-        super(RenderType::entityTranslucentEmissive);
+        super(root,RenderType::entityTranslucentEmissive);
         this.root=root;
         this.core=root.getChild("core");
         this.ring=root.getChild("ring");
@@ -55,9 +55,9 @@ public final class CollectorSoulModel extends EntityModel<CollectorSoulEntity> {
         }
         return LayerDefinition.create(mesh,64,64);
     }
-    @Override public void setupAnim(CollectorSoulEntity entity,float limbSwing,float limbSwingAmount,
-                        float ageInTicks,float headYaw,float headPitch) {
-        float t=ageInTicks;
+    @Override public void setupAnim(net.minecraft.client.renderer.entity.state.LivingEntityRenderState state) {
+        super.setupAnim(state);
+        float t=state.ageInTicks;
         core.xRot=(float)Math.sin(t*0.032F)*0.12F;
         core.yRot=t*0.009F;
         core.zRot=(float)Math.cos(t*0.023F)*0.10F;
@@ -67,9 +67,5 @@ public final class CollectorSoulModel extends EntityModel<CollectorSoulEntity> {
         orbit.xRot=0.5F;
         orbit.yRot=-t*0.018F;
         orbit.zRot=(float)Math.cos(t*0.017F)*0.13F;
-    }
-    @Override public void renderToBuffer(PoseStack poseStack,VertexConsumer consumer,
-                int packedLight,int packedOverlay,int color) {
-        root.render(poseStack,consumer,packedLight,packedOverlay,color);
     }
 }

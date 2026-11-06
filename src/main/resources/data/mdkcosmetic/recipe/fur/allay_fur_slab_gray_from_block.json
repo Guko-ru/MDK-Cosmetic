@@ -1,1 +1,14 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["BBB"],"key":{"B":{"item":"mdkcosmetic:allay_fur_block_gray"}},"result":{"id":"mdkcosmetic:allay_fur_slab_gray","count":6}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BBB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:allay_fur_block_gray"
+  },
+  "result": {
+    "id": "mdkcosmetic:allay_fur_slab_gray",
+    "count": 6
+  }
+}

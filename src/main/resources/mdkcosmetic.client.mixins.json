@@ -6,7 +6,9 @@
     "defaultRequire": 1
   },
   "client": [
-    "CameraEffectsMixin"
+    "CameraEffectsMixin",
+    "EquipmentRenderStateMixin",
+    "EquipmentExtractionMixin"
   ],
   "minVersion": "0.8"
 }

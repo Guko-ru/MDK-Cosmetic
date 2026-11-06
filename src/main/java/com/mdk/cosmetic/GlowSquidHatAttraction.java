@@ -30,8 +30,8 @@ public final class GlowSquidHatAttraction {
         BlockPos next = BlockPos.containing(squid.position().add(step.scale(0.9D)));
         if (!water(squid, next) || !water(squid, next.above())) return;
         float speed = 0.18F;
-        squid.setMovementVector((float) step.x * speed,
-                (float) step.y * speed, (float) step.z * speed);
+        ((com.mdk.cosmetic.platform.SquidMovement)squid).mdk$setMovement(new Vec3((float) step.x * speed,
+                (float) step.y * speed, (float) step.z * speed));
     }
 
     private static Vec3 findWaterDestination(Squid squid, LivingEntity p) {

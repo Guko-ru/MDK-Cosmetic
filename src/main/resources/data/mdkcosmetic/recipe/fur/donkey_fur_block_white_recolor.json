@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"donkey_fur_block_dye","ingredients":[{"tag":"mdkcosmetic:fur/donkey_block"},{"item":"minecraft:white_dye"}],"result":{"id":"mdkcosmetic:donkey_fur_block_white","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "donkey_fur_block_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/donkey_block",
+    "minecraft:white_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:donkey_fur_block_white",
+    "count": 1
+  }
+}

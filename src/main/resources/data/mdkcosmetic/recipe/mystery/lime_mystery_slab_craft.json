@@ -5,9 +5,7 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "mdkcosmetic:lime_mystery_block"
-    }
+    "#": "mdkcosmetic:lime_mystery_block"
   },
   "result": {
     "id": "mdkcosmetic:lime_mystery_slab",

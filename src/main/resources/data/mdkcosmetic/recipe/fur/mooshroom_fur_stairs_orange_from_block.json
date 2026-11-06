@@ -1,1 +1,16 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["B  ","BB ","BBB"],"key":{"B":{"item":"mdkcosmetic:mooshroom_fur_block_orange"}},"result":{"id":"mdkcosmetic:mooshroom_fur_stairs_orange","count":4}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:mooshroom_fur_block_orange"
+  },
+  "result": {
+    "id": "mdkcosmetic:mooshroom_fur_stairs_orange",
+    "count": 4
+  }
+}

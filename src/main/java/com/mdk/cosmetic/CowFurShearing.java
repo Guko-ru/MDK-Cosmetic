@@ -38,7 +38,7 @@ public final class CowFurShearing {
             return;
         }
         data.putLong(NEXT, now + COOLDOWN_MS);
-        cow.spawnAtLocation(new ItemStack(MDKCosmetic.COW_FUR.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(cow,new ItemStack(MDKCosmetic.COW_FUR.get()));
         cow.playSound(SoundEvents.SHEEP_SHEAR, 0.7F, 0.95F);
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

@@ -23,8 +23,8 @@ public final class CollectorSoulWorldEvents {
         if (event.getServer().getTickCount()%100!=0) return;
         for (ServerLevel level:event.getServer().getAllLevels()) {
             if (level.dimension()!=net.minecraft.world.level.Level.OVERWORLD) continue;
-            Structure city=level.registryAccess().registryOrThrow(Registries.STRUCTURE)
-                    .getHolderOrThrow(BuiltinStructures.ANCIENT_CITY).value();
+            Structure city=level.registryAccess().lookupOrThrow(Registries.STRUCTURE)
+                    .getOrThrow(BuiltinStructures.ANCIENT_CITY).value();
             CollectorSoulCityData data=CollectorSoulCityData.forLevel(level);
             for (ServerPlayer player:level.players()) {
                 if (player.isSpectator() || player.getY()>0) continue;
@@ -41,7 +41,7 @@ public final class CollectorSoulWorldEvents {
                     if (!level.hasChunkAt(dest) || !level.getBlockState(dest).isAir()) continue;
                     if (!level.getBlockState(dest.above()).isAir()) continue;
                     if (!level.structureManager().getStructureWithPieceAt(dest,city).isValid()) continue;
-                    CollectorSoulEntity soul=MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level);
+                    CollectorSoulEntity soul=MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
                     if (soul==null) break;
                     soul.moveTo(dest.getX()+0.5,dest.getY()+0.25,dest.getZ()+0.5,
                             level.random.nextFloat()*360,0.0F);

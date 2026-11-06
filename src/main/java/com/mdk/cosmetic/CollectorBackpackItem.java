@@ -6,7 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -21,20 +21,20 @@ public final class CollectorBackpackItem extends Item {
         super(properties.stacksTo(1));
     }
 
-    @Override public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    @Override public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (hand != InteractionHand.MAIN_HAND) return InteractionResultHolder.pass(stack);
-        if (level.isClientSide()) return InteractionResultHolder.sidedSuccess(stack, true);
-        if (!(player instanceof ServerPlayer server)) return InteractionResultHolder.fail(stack);
+        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
+        if (level.isClientSide()) return InteractionResult.SUCCESS;
+        if (!(player instanceof ServerPlayer server)) return InteractionResult.FAIL;
         if (CollectorBackpackData.linked(stack) && CollectorBackpackData.remoteCore(stack, server.getServer()) == null) {
             server.sendSystemMessage(Component.translatable("message.mdkcosmetic.backpack_memory_unavailable"));
-            return InteractionResultHolder.fail(stack);
+            return InteractionResult.FAIL;
         }
         server.openMenu(new SimpleMenuProvider((id, inventory, p) -> new CollectorBackpackMenu(id, inventory),
                 Component.translatable(CollectorBackpackData.linked(stack)
                         ? "menu.mdkcosmetic.collector_memory_terminal"
                         : "menu.mdkcosmetic.collector_backpack")));
-        return InteractionResultHolder.success(stack);
+        return InteractionResult.SUCCESS;
     }
 
     @Override public InteractionResult useOn(UseOnContext ctx) {

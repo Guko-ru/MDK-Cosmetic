@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.phys.BlockHitResult;
@@ -26,10 +26,10 @@ import org.joml.Vector3f;
 
 /** Tailoring station with a proper, server-authoritative villager-style exchange GUI. */
 public final class TailoringTableBlock extends HorizontalDirectionalBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final MapCodec<TailoringTableBlock> CODEC = simpleCodec(TailoringTableBlock::new);
     private static final DustParticleOptions AMBER_SPARK =
-            new DustParticleOptions(new Vector3f(1.0F, 0.50F, 0.13F), 0.70F);
+            new DustParticleOptions(net.minecraft.util.ARGB.colorFromFloat(1F,1.0F, 0.50F, 0.13F), 0.70F);
 
     @Override
     protected MapCodec<TailoringTableBlock> codec() {
@@ -62,11 +62,11 @@ public final class TailoringTableBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level,
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level,
             BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (hand != InteractionHand.MAIN_HAND) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.TRY_WITH_EMPTY_HAND;
         open(level, pos, player);
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

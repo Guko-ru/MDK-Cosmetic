@@ -30,7 +30,7 @@ public final class UnoDragonEncounter {
                 .orElse(null);
         if (target == null) return;
 
-        UnoEntity uno=MDKCosmetic.UNO_ENTITY.get().create(level);
+        UnoEntity uno=MDKCosmetic.UNO_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         if (uno==null) return;
         boolean placed=false;
         for(int radius=4;radius<=20 && !placed;radius+=2) {
@@ -44,7 +44,7 @@ public final class UnoDragonEncounter {
                     if(!level.hasChunkAt(feet) || !level.getBlockState(feet.below()).blocksMotion()) continue;
                     uno.moveTo(x,y,z,level.random.nextFloat()*360F,0F);
                     if(level.noCollision(uno,uno.getBoundingBox())
-                            && uno.getBoundingBox().maxY<=level.getMaxBuildHeight()) {
+                            && uno.getBoundingBox().maxY<=level.getMaxY()) {
                         placed=true;
                         break;
                     }

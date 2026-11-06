@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 /** Model generated from MDK_Fox_Hat_Artisan_V6.bbmodel (633 original cubes). */
 /** v1.17.5 sweet fox goggles redesign. */
-public final class FoxHatModel extends HumanoidModel<LivingEntity> {
+public final class FoxHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public FoxHatModel() {
         super(createLayer().bakeRoot());
         setAllVisible(false);
@@ -21,7 +21,7 @@ public final class FoxHatModel extends HumanoidModel<LivingEntity> {
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+        root.getChild("head").addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition geo = head.addOrReplaceChild("fitted_geometry", CubeListBuilder.create(), PartPose.ZERO);
         addCubes0(geo);

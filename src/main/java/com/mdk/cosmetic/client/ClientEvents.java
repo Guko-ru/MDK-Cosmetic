@@ -26,7 +26,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ArmorMaterial;
+import com.mdk.cosmetic.platform.ArmorDefinition;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -47,9 +47,9 @@ public final class ClientEvents {
         public <M extends AbstractContainerMenu,S extends Screen & MenuAccess<M>> void register(MenuType<M> menu,MenuScreens.ScreenConstructor<M,S> factory){MenuScreens.register(menu,factory);}
     }
     public interface ArmorAppearance {
-        default HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity,ItemStack stack,EquipmentSlot slot,HumanoidModel<?> original){return original;}
+        default HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity,ItemStack stack,EquipmentSlot slot,HumanoidModel<?> original){return original;}
         default int getDefaultDyeColor(ItemStack stack){return 0xFFA06540;}
-        default int getArmorLayerTintColor(ItemStack stack,LivingEntity entity,ArmorMaterial.Layer layer,int index,int fallback){return fallback;}
+        default int getArmorLayerTintColor(ItemStack stack,net.minecraft.client.renderer.entity.state.HumanoidRenderState entity,ArmorDefinition.Layer layer,int index,int fallback){return fallback;}
     }
     public static final class RegisterClientExtensionsEvent {
         public void registerItem(ArmorAppearance appearance,Item... items){ArmorRenderer.register(new FabricArmorRenderer(appearance),items);}
@@ -61,9 +61,9 @@ public final class ClientEvents {
         public static final class RegisterRenderers {
             public <E extends Entity> void registerEntityRenderer(EntityType<? extends E> type,EntityRendererProvider<E> factory){EntityRendererRegistry.register(type,factory);}
         }
-        public record AddLayers(EntityRenderer<?> renderer) {
+        public record AddLayers(EntityRenderer<?,?> renderer) {
             public List<PlayerSkin.Model> getSkins(){return List.of(PlayerSkin.Model.WIDE);}
-            public EntityRenderer<?> getSkin(PlayerSkin.Model ignored){return renderer;}
+            public EntityRenderer<?,?> getSkin(PlayerSkin.Model ignored){return renderer;}
         }
     }
     public static final class ViewportEvent {

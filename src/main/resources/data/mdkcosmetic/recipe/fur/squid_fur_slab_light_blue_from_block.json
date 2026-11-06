@@ -1,1 +1,14 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["BBB"],"key":{"B":{"item":"mdkcosmetic:squid_fur_block_light_blue"}},"result":{"id":"mdkcosmetic:squid_fur_slab_light_blue","count":6}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BBB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:squid_fur_block_light_blue"
+  },
+  "result": {
+    "id": "mdkcosmetic:squid_fur_slab_light_blue",
+    "count": 6
+  }
+}

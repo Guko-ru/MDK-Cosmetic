@@ -24,8 +24,8 @@ public final class CollectorOres {
         if (!isOre(event.getState()) || !(event.getBreaker() instanceof Player player)) return;
         if (!event.getTool().is(MDKCosmetic.COLLECTOR_PICKAXE.get())) return;
 
-        Holder<Enchantment> silkTouch = player.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT)
-                .getHolderOrThrow(Enchantments.SILK_TOUCH);
+        Holder<Enchantment> silkTouch = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                .getOrThrow(Enchantments.SILK_TOUCH);
         if (EnchantmentHelper.getItemEnchantmentLevel(silkTouch, event.getTool()) > 0) {
             event.getDrops().clear();
             event.getDrops().add(new ItemEntity(player.level(),

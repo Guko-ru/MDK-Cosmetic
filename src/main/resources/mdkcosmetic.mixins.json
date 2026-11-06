@@ -11,7 +11,10 @@
     "ItemPickupMixin",
     "ItemStackHooksMixin",
     "BlockLootMixin",
-    "ServerEntityTickMixin"
+    "ServerEntityTickMixin",
+    "ItemPropertiesMixin",
+    "BlockPropertiesMixin",
+    "SquidMovementMixin"
   ],
   "injectors": {
     "defaultRequire": 1

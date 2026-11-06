@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.level.block.EntityBlock;
@@ -31,10 +31,10 @@ import org.joml.Vector3f;
 
 /** Decorative artisan worktable with a persistent 64-unit essence charging interface. */
 public final class EssenceWorktableBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final MapCodec<EssenceWorktableBlock> CODEC = simpleCodec(EssenceWorktableBlock::new);
     private static final DustParticleOptions ESSENCE_SPARK =
-            new DustParticleOptions(new Vector3f(0.66F, 0.28F, 0.95F), 0.65F);
+            new DustParticleOptions(net.minecraft.util.ARGB.colorFromFloat(1F,0.66F, 0.28F, 0.95F), 0.65F);
 
     @Override
     protected MapCodec<EssenceWorktableBlock> codec() {
@@ -68,11 +68,11 @@ public final class EssenceWorktableBlock extends HorizontalDirectionalBlock impl
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level,
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level,
             BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (hand != InteractionHand.MAIN_HAND) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.TRY_WITH_EMPTY_HAND;
         open(level, pos, player);
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

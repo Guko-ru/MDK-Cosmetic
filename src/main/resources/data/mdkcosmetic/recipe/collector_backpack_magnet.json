@@ -7,18 +7,10 @@
     "III"
   ],
   "key": {
-    "B": {
-      "item": "minecraft:blackstone"
-    },
-    "S": {
-      "item": "mdkcosmetic:power_essence"
-    },
-    "I": {
-      "item": "minecraft:iron_block"
-    },
-    "F": {
-      "item": "minecraft:blaze_powder"
-    }
+    "B": "minecraft:blackstone",
+    "S": "mdkcosmetic:power_essence",
+    "I": "minecraft:iron_block",
+    "F": "minecraft:blaze_powder"
   },
   "result": {
     "id": "mdkcosmetic:collector_backpack_magnet",

@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"fox_fur_block_dye","ingredients":[{"tag":"mdkcosmetic:fur/fox_block"},{"item":"minecraft:white_dye"}],"result":{"id":"mdkcosmetic:fox_fur_block_white","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "fox_fur_block_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/fox_block",
+    "minecraft:white_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:fox_fur_block_white",
+    "count": 1
+  }
+}

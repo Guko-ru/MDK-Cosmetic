@@ -4,14 +4,13 @@ plugins {
 }
 version = '1.18.78'
 group = 'com.mdk.cosmetic'
-base { archivesName = 'MDK-Cosmetic-1.21.1-Fabric' }
+base { archivesName = 'MDK-Cosmetic-1.21.2-Fabric' }
 repositories { maven { url = 'https://maven.blamejared.com' }; mavenCentral() }
 dependencies {
-    minecraft 'com.mojang:minecraft:1.21.1'
+    minecraft 'com.mojang:minecraft:1.21.2'
     mappings loom.officialMojangMappings()
     modImplementation 'net.fabricmc:fabric-loader:0.20.1'
-    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.116.17+1.21.1'
-    modCompileOnly 'mezz.jei:jei-1.21.1-fabric-api:19.21.0.246'
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.106.1+1.21.2'
 }
 java { toolchain.languageVersion = JavaLanguageVersion.of(21); withSourcesJar() }
 loom { accessWidenerPath = file('src/main/resources/mdkcosmetic.accesswidener') }
@@ -44,6 +43,9 @@ loom.runs {
         runDir 'run/client-smoke'
     }
 }
+
+// JEI does not publish an API for this exact Minecraft release; retain integration sources for supported releases.
+sourceSets.main.java.exclude('com/mdk/cosmetic/jei/**')
 
 loom.runs {
  clientRegressions {

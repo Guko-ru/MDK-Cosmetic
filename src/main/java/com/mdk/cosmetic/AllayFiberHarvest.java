@@ -38,7 +38,7 @@ public final class AllayFiberHarvest {
             return;
         }
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);
-        allay.spawnAtLocation(new ItemStack(MDKCosmetic.ALLAY_FIBERS.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(allay,new ItemStack(MDKCosmetic.ALLAY_FIBERS.get()));
         allay.playSound(SoundEvents.SHEEP_SHEAR, 0.70F, 1.65F);
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

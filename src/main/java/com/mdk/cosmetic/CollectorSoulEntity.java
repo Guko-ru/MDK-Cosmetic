@@ -106,9 +106,7 @@ public final class CollectorSoulEntity extends PathfinderMob {
         // Bat-like drift is controlled by custom server tick, not vanilla ground pathing.
     }
 
-    @Override public boolean isAlliedTo(Entity entity) {
-        return entity instanceof Warden || super.isAlliedTo(entity);
-    }
+
 
     /** No body-to-body push contact that could make a Warden suspicious. */
     @Override public boolean isPushable() { return false; }
@@ -294,7 +292,7 @@ public final class CollectorSoulEntity extends PathfinderMob {
 
     /** Throw a real splash poison potion, complete with vanilla bottle trajectory and impact. */
     private void throwPoison(ServerLevel level,ServerPlayer target) {
-        ThrownPotion potion=new ThrownPotion(level,this);
+        ThrownPotion potion=new ThrownPotion(level,this, PotionContents.createItemStack(Items.SPLASH_POTION,Potions.POISON));
         potion.setItem(PotionContents.createItemStack(Items.SPLASH_POTION,Potions.POISON));
         potion.setPos(getX(),getY()+0.55,getZ());
         Vec3 aim=target.position().add(0.0,1.0,0.0).subtract(potion.position());
@@ -324,7 +322,7 @@ public final class CollectorSoulEntity extends PathfinderMob {
 
     /** Non-incendiary lightning with exactly five hearts of base magic damage. */
     private void strikeLightning(ServerLevel level, ServerPlayer target) {
-        LightningBolt bolt=EntityType.LIGHTNING_BOLT.create(level);
+        LightningBolt bolt=EntityType.LIGHTNING_BOLT.create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         if (bolt!=null) {
             bolt.moveTo(target.getX(),target.getY(),target.getZ());
             bolt.setVisualOnly(true);
@@ -336,12 +334,12 @@ public final class CollectorSoulEntity extends PathfinderMob {
     }
 
     /** Every successful hit opens a visible radial wave (not a passive periodic aura). */
-    @Override public boolean hurt(DamageSource source,float amount) {
+    @Override public boolean hurtServer(ServerLevel damageLevel,DamageSource source,float amount) {
         // The Warden must never damage the soul, including sonic boom attacks.
         // Keep all other damage sources intact so players can still hunt it.
         if (source.getEntity() instanceof Warden
                 || source.getDirectEntity() instanceof Warden) return false;
-        boolean damaged=super.hurt(source,amount);
+        boolean damaged=super.hurtServer(damageLevel,source,amount);
         if (damaged && this.level() instanceof ServerLevel level) {
             sayInjuryLine(level);
         }
@@ -475,8 +473,8 @@ public final class CollectorSoulEntity extends PathfinderMob {
                     if (!level.getBlockState(pos).hasProperty(SculkShriekerBlock.CAN_SUMMON)
                             || !level.getBlockState(pos).getValue(SculkShriekerBlock.CAN_SUMMON)) continue;
                     if (!level.structureManager().getStructureWithPieceAt(pos,
-                            level.registryAccess().registryOrThrow(Registries.STRUCTURE)
-                            .getHolderOrThrow(BuiltinStructures.ANCIENT_CITY).value()).isValid()) continue;
+                            level.registryAccess().lookupOrThrow(Registries.STRUCTURE)
+                            .getOrThrow(BuiltinStructures.ANCIENT_CITY).value()).isValid()) continue;
                     candidates.add(pos.immutable());
                 }
             }

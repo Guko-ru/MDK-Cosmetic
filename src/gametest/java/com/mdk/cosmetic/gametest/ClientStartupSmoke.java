@@ -13,6 +13,8 @@ public final class ClientStartupSmoke implements ClientModInitializer {
         int[] readyTicks={0};
         ClientTickEvents.END_CLIENT_TICK.register(client->{
             if(client.getOverlay()!=null||client.screen==null||++readyTicks[0]<20)return;
+            if(!new com.mdk.cosmetic.client.CatEarsModel().hat.isEmpty()||!new com.mdk.cosmetic.client.FoxHatModel().hat.isEmpty()||!new com.mdk.cosmetic.client.AxolotlHatModel().hat.isEmpty())throw new AssertionError("Custom cosmetic hat must not retain a vanilla helmet cube");
+            LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_HAT_GEOMETRY_OK: custom ears, fox and axolotl geometry have no inherited vanilla helmet cube");
             int checked=0;
             var missing=client.getModelManager().getMissingModel();
             for(var item:BuiltInRegistries.ITEM){

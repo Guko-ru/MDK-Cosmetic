@@ -1,1 +1,14 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["BB"],"key":{"B":{"item":"mdkcosmetic:horse_fur_block_cyan"}},"result":{"id":"mdkcosmetic:horse_fur_carpet_cyan","count":3}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:horse_fur_block_cyan"
+  },
+  "result": {
+    "id": "mdkcosmetic:horse_fur_carpet_cyan",
+    "count": 3
+  }
+}

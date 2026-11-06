@@ -40,7 +40,7 @@ public final class PandaFurShearing {
         }
 
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);
-        panda.spawnAtLocation(new ItemStack(MDKCosmetic.PANDA_FUR.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(panda,new ItemStack(MDKCosmetic.PANDA_FUR.get()));
         panda.playSound(SoundEvents.SHEEP_SHEAR, 0.85F, 1.10F);
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

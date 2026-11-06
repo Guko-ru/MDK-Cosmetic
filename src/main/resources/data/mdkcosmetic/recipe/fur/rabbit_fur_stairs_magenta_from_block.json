@@ -1,1 +1,16 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["B  ","BB ","BBB"],"key":{"B":{"item":"mdkcosmetic:rabbit_fur_block_magenta"}},"result":{"id":"mdkcosmetic:rabbit_fur_stairs_magenta","count":4}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:rabbit_fur_block_magenta"
+  },
+  "result": {
+    "id": "mdkcosmetic:rabbit_fur_stairs_magenta",
+    "count": 4
+  }
+}

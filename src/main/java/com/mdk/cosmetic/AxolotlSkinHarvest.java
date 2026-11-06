@@ -37,7 +37,7 @@ public final class AxolotlSkinHarvest {
             return;
         }
         data.putLong(NEXT,now+COOLDOWN);
-        axolotl.spawnAtLocation(new ItemStack(MDKCosmetic.AXOLOTL_SHED.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(axolotl,new ItemStack(MDKCosmetic.AXOLOTL_SHED.get()));
         axolotl.playSound(SoundEvents.SHEEP_SHEAR,0.65F,1.50F);
         if (!event.getEntity().getAbilities().instabuild)
             shears.hurtAndBreak(1,event.getEntity(),EquipmentSlot.MAINHAND);

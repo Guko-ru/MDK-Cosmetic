@@ -37,8 +37,8 @@ public final class CollectorEssenceDrops {
         ItemStack weapon = event.getSource().getDirectEntity() instanceof ThrownTrident trident
                 ? trident.getWeaponItem() : holder.getMainHandItem();
         if (weapon.isEmpty() || !weapon.is(MDKCosmetic.COLLECTOR_WEAPONS)) return;
-        Holder<Enchantment> enchantment = victim.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT)
-                .getHolderOrThrow(COLLECTOR);
+        Holder<Enchantment> enchantment = victim.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                .getOrThrow(COLLECTOR);
         if (EnchantmentHelper.getItemEnchantmentLevel(enchantment, weapon) <= 0) return;
 
         int count = 1;

@@ -36,7 +36,7 @@ public final class PolarBearFurShearing {
             return;
         }
         data.putLong(NEXT, now + COOLDOWN_MS);
-        bear.spawnAtLocation(new ItemStack(MDKCosmetic.POLAR_BEAR_FUR.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(bear,new ItemStack(MDKCosmetic.POLAR_BEAR_FUR.get()));
         bear.playSound(SoundEvents.SHEEP_SHEAR, 0.65F, 1.0F);
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

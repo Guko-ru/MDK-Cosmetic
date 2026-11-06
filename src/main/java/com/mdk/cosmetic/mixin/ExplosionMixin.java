@@ -1,11 +1,12 @@
 package com.mdk.cosmetic.mixin;
 import com.mdk.cosmetic.platform.Events;
-import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.Level;
-import org.spongepowered.asm.mixin.*;
+import net.minecraft.world.level.ServerExplosion;
+import net.minecraft.core.BlockPos;
+import java.util.List;
+import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-@Mixin(Explosion.class) public abstract class ExplosionMixin {
- @Shadow @Final private Level level;
- @Inject(method="explode",at=@At("TAIL")) private void mdk$blocks(CallbackInfo ci){Events.dispatch(new Events.ExplosionEvent.Detonate(level,((Explosion)(Object)this).getToBlow()));}
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+@Mixin(ServerExplosion.class) public abstract class ExplosionMixin {
+ @Inject(method="calculateExplodedPositions",at=@At("RETURN"))
+ private void mdk$blocks(CallbackInfoReturnable<List<BlockPos>> ci){Events.dispatch(new Events.ExplosionEvent.Detonate(((ServerExplosion)(Object)this).level(),ci.getReturnValue()));}
 }

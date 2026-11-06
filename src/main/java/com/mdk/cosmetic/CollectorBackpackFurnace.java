@@ -132,13 +132,13 @@ public final class CollectorBackpackFurnace {
         int burnTotal = Math.max(0, state.getInt(DATA_KEYS[1]));
         int progress = Math.max(0, state.getInt(DATA_KEYS[2]));
         var match = input.isEmpty() ? java.util.Optional.<net.minecraft.world.item.crafting.RecipeHolder<net.minecraft.world.item.crafting.SmeltingRecipe>>empty()
-                : player.level().getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(input), player.level());
-        ItemStack result = match.isPresent() ? match.get().value().getResultItem(player.registryAccess()) : ItemStack.EMPTY;
+                : player.serverLevel().recipeAccess().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(input), player.level());
+        ItemStack result = match.isPresent() ? match.get().value().assemble(new SingleRecipeInput(input),player.registryAccess()) : ItemStack.EMPTY;
         boolean possible = !result.isEmpty() && (output.isEmpty() ||
                 ItemStack.isSameItemSameComponents(output, result) && output.getCount() + result.getCount() <= output.getMaxStackSize());
         if (burn > 0) burn--;
         if (possible && burn == 0 && !fuel.isEmpty()) {
-            int burnTime = com.mdk.cosmetic.platform.FurnaceFuel.burnTime(fuel);
+            int burnTime = com.mdk.cosmetic.platform.FurnaceFuel.burnTime(player.level(),fuel);
             if (burnTime > 0) {
                 burn = burnTime;
                 burnTotal = burnTime;

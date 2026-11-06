@@ -30,7 +30,7 @@ public final class CollectorHeartWorldEvents {
             com.mdk.cosmetic.platform.PersistentData.of(elder).putBoolean(flag, true);
             return;
         }
-        CollectorHeartEntity heart = MDKCosmetic.COLLECTOR_HEART_ENTITY.get().create(level);
+        CollectorHeartEntity heart = MDKCosmetic.COLLECTOR_HEART_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         if (heart == null) return;
         heart.moveTo(elder.getX(), elder.getY(), elder.getZ(), 0, 0);
         if (!level.addFreshEntity(heart)) return;

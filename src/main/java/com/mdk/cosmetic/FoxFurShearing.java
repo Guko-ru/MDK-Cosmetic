@@ -38,7 +38,7 @@ public final class FoxFurShearing {
             return;
         }
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);
-        fox.spawnAtLocation(new ItemStack(MDKCosmetic.FOX_FUR.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(fox,new ItemStack(MDKCosmetic.FOX_FUR.get()));
         fox.playSound(SoundEvents.SHEEP_SHEAR, 0.85F, 1.25F);
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

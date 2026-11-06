@@ -1,1 +1,17 @@
-{"type":"minecraft:crafting_shaped","category":"building","group":"axolotl_fur_blocks","pattern":["FFF","FFF","FFF"],"key":{"F":{"item":"mdkcosmetic:axolotl_shed"}},"result":{"id":"mdkcosmetic:axolotl_fur_block","count":1}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "axolotl_fur_blocks",
+  "pattern": [
+    "FFF",
+    "FFF",
+    "FFF"
+  ],
+  "key": {
+    "F": "mdkcosmetic:axolotl_shed"
+  },
+  "result": {
+    "id": "mdkcosmetic:axolotl_fur_block",
+    "count": 1
+  }
+}

@@ -44,7 +44,7 @@ public final class CatFurShearing {
             return;
         }
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);
-        animal.spawnAtLocation(new ItemStack(MDKCosmetic.CAT_FUR.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(animal,new ItemStack(MDKCosmetic.CAT_FUR.get()));
         animal.playSound(SoundEvents.SHEEP_SHEAR, 0.85F, 1.2F);
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

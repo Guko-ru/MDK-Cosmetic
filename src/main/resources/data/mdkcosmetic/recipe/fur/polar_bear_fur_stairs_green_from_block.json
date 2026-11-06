@@ -1,1 +1,16 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["B  ","BB ","BBB"],"key":{"B":{"item":"mdkcosmetic:polar_bear_fur_block_green"}},"result":{"id":"mdkcosmetic:polar_bear_fur_stairs_green","count":4}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:polar_bear_fur_block_green"
+  },
+  "result": {
+    "id": "mdkcosmetic:polar_bear_fur_stairs_green",
+    "count": 4
+  }
+}

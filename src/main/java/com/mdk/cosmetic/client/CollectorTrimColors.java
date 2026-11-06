@@ -2,7 +2,7 @@ package com.mdk.cosmetic.client;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.armortrim.ArmorTrim;
+import net.minecraft.world.item.equipment.trim.ArmorTrim;
 
 /** Maps vanilla smithing trim materials to the Collector armor's secondary accent color.
  * The black metal is on the first, non-tintable material layer. The trim is also

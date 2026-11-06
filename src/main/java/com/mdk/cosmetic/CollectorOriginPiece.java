@@ -110,7 +110,7 @@ public final class CollectorOriginPiece extends StructurePiece {
 
     private void set(WorldGenLevel level, BoundingBox chunk, BlockPos.MutableBlockPos pos,
                      int x, int y, int z, BlockState state) {
-        if (y <= minY + 4 || y >= level.getMaxBuildHeight() || !chunk.isInside(pos.set(x, y, z))) return;
+        if (y <= minY + 4 || y >= level.getMaxY() || !chunk.isInside(pos.set(x, y, z))) return;
         level.setBlock(pos, state, 2);
     }
 
@@ -198,12 +198,12 @@ public final class CollectorOriginPiece extends StructurePiece {
                 double t = (r - CRATER_RADIUS) / (RIM_RADIUS - CRATER_RADIUS);
                 target = surfaceY + (int) Math.round(11 * (1 - t) + 2 * t);
             }
-            target = Math.max(floor, Math.min(level.getMaxBuildHeight() - 8, target));
+            target = Math.max(floor, Math.min(level.getMaxY() - 8, target));
 
             if (r < RIM_RADIUS) {
                 // Carve old terrain instead of placing a flat disk; keep vanilla bedrock.
                 // Clearing a little extra space also removes low caves and underground water.
-                int high = Math.min(level.getMaxBuildHeight() - 1, Math.max(natural, target) + 2);
+                int high = Math.min(level.getMaxY() - 1, Math.max(natural, target) + 2);
                 for (int y = target + 1; y <= high; ++y)
                     set(level, chunk, pos, x, y, z, Blocks.AIR.defaultBlockState());
                 if (natural < target) {

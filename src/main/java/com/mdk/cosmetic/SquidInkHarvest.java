@@ -37,7 +37,7 @@ public final class SquidInkHarvest {
             return;
         }
         data.putLong(NEXT, now + COOLDOWN);
-        squid.spawnAtLocation(new ItemStack(MDKCosmetic.SQUID_INK_CLOT.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(squid,new ItemStack(MDKCosmetic.SQUID_INK_CLOT.get()));
         squid.playSound(SoundEvents.SHEEP_SHEAR, 0.65F, 0.85F);
         if (!event.getEntity().getAbilities().instabuild) {
             tool.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

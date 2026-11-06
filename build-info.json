@@ -1,20 +1,21 @@
 {
   "loader": "Fabric",
-  "minecraft": "1.21.1",
+  "minecraft": "1.21.2",
   "loader_build": "0.20.1",
   "mod_version": "1.18.78",
   "java": 21,
-  "artifact": "MDK-Cosmetic-1.21.1-Fabric-1.18.78.jar",
-  "sha256": "f02b0d721907881f7d9731ed8f12f520373611dcff3eb94d59fe40201d049318",
-  "fabric_api": "0.116.17+1.21.1",
+  "artifact": "MDK-Cosmetic-1.21.2-Fabric-1.18.78.jar",
+  "sha256": "0d54b383e9cc45dcec2a40fd996c18b059bf30f919234ccc9c32746cfc0aaa13",
+  "fabric_api": "0.106.1+1.21.2",
   "validation": {
-    "required_game_tests_passed": 6,
+    "required_game_tests_passed": 7,
     "recipes_loaded": 1668,
     "advancements_loaded": 236,
     "loot_tables_loaded": 1150,
     "client_item_models_checked": 1208,
     "neoforge_class_references": 0,
     "interface_unicode_verified": true,
+    "custom_hats_without_vanilla_helmet_cube": true,
     "collector_regressions": {
       "machine_tiers": [
         1,

@@ -38,7 +38,7 @@ public final class RabbitFurShearing {
             return;
         }
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);
-        rabbit.spawnAtLocation(new ItemStack(MDKCosmetic.RABBIT_FUR.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(rabbit,new ItemStack(MDKCosmetic.RABBIT_FUR.get()));
         rabbit.playSound(SoundEvents.SHEEP_SHEAR, 0.75F, 1.45F);
         if (!event.getEntity().getAbilities().instabuild)
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

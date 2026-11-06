@@ -179,7 +179,7 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
         });
         addSlot(new Slot(portableFurnace, 1, 294, 119) {
             @Override public boolean isActive() { return furnaceVisible(); }
-            @Override public boolean mayPlace(ItemStack stack) { return furnaceVisible() && com.mdk.cosmetic.platform.FurnaceFuel.burnTime(stack) > 0; }
+            @Override public boolean mayPlace(ItemStack stack) { return furnaceVisible() && com.mdk.cosmetic.platform.FurnaceFuel.burnTime(playerInventory.player.level(),stack) > 0; }
             @Override public boolean mayPickup(Player player) { return furnaceVisible(); }
         });
         addSlot(new Slot(portableFurnace, 2, 391, 80) {
@@ -332,7 +332,7 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
     @Override public void slotsChanged(net.minecraft.world.Container container) {
         if (container == crafting && playerInventory != null && playerInventory.player.level() instanceof ServerLevel level) {
             CraftingInput input = crafting.asCraftInput();
-            ItemStack output = level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level)
+            ItemStack output = ((net.minecraft.server.level.ServerLevel)level).recipeAccess().getRecipeFor(RecipeType.CRAFTING, input, level)
                     .map(r -> r.value().assemble(input, level.registryAccess())).orElse(ItemStack.EMPTY);
             craftingResult.setItem(0, output);
         }

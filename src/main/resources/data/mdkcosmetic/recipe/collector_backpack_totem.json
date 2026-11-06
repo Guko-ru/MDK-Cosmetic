@@ -7,15 +7,9 @@
     "DDD"
   ],
   "key": {
-    "T": {
-      "item": "minecraft:totem_of_undying"
-    },
-    "S": {
-      "item": "mdkcosmetic:power_essence"
-    },
-    "D": {
-      "item": "minecraft:diamond_block"
-    }
+    "T": "minecraft:totem_of_undying",
+    "S": "mdkcosmetic:power_essence",
+    "D": "minecraft:diamond_block"
   },
   "result": {
     "id": "mdkcosmetic:collector_backpack_totem",

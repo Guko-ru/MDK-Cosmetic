@@ -91,7 +91,7 @@ public final class CollectorHeartEntity extends Guardian {
         }
         if (getHealth() <= 125.0f && !cloneCreated) {
             cloneCreated = true;
-            CollectorHeartEntity illusion = MDKCosmetic.COLLECTOR_HEART_ENTITY.get().create(level);
+            CollectorHeartEntity illusion = MDKCosmetic.COLLECTOR_HEART_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
             if (illusion != null) {
                 illusion.moveTo(getX(), getY(), getZ(), getYRot(), getXRot());
                 illusion.makeDecoy();
@@ -145,7 +145,7 @@ public final class CollectorHeartEntity extends Guardian {
     @Override public void die(DamageSource source) {
         if (!level().isClientSide() && !decoy && !droppedKey && getHealth() <= 0) {
             droppedKey = true;
-            spawnAtLocation(new ItemStack(MDKCosmetic.COLLECTOR_MEMORY.get()));
+            com.mdk.cosmetic.platform.EntityDrops.spawn(this,new ItemStack(MDKCosmetic.COLLECTOR_MEMORY.get()));
         }
         super.die(source);
     }
