@@ -1,1 +1,28 @@
-{"type":"minecraft:block","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"mdkcosmetic:allay_fur_slab_cyan","functions":[{"function":"minecraft:set_count","count":2,"conditions":[{"condition":"minecraft:block_state_property","block":"mdkcosmetic:allay_fur_slab_cyan","properties":{"type":"double"}}]}]}],"conditions":[{"condition":"minecraft:survives_explosion"}]}]}
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "mdkcosmetic:allay_fur_slab_cyan",
+          "modifier": {
+            "count": 2,
+            "type": "minecraft:set_count",
+            "condition": {
+              "type": "minecraft:match_block",
+              "blocks": "mdkcosmetic:allay_fur_slab_cyan",
+              "state": {
+                "type": "double"
+              }
+            }
+          }
+        }
+      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
+    }
+  ]
+}

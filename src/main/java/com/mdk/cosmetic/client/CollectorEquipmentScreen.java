@@ -97,7 +97,7 @@ public final class CollectorEquipmentScreen extends AbstractContainerScreen<Coll
         if(!enabled(section))label(g,tr("requires_piece"),197,167,143,0xFF977FAD);
     }
     private void press(int action){if(minecraft!=null&&minecraft.gameMode!=null)minecraft.gameMode.handleInventoryButtonClick(menu.containerId,action);}
-    @Override public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mdk$mouse,boolean mdk$doubleClick){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
+    @Override public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mdk$mouse,boolean mdk$doubleClick){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT?0:mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT?1:mdk$mouse.button();
         double vx=mx/scale,vy=my/scale;
         int x=(int)vx-leftPos,y=(int)vy-topPos;
         if(button==0){
@@ -119,11 +119,11 @@ public final class CollectorEquipmentScreen extends AbstractContainerScreen<Coll
         }
         return super.mouseClicked(new net.minecraft.client.input.MouseButtonEvent(vx,vy,mdk$mouse.buttonInfo()),mdk$doubleClick);
     }
-    @Override public boolean mouseReleased(net.minecraft.client.input.MouseButtonEvent mdk$mouse){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
+    @Override public boolean mouseReleased(net.minecraft.client.input.MouseButtonEvent mdk$mouse){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT?0:mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT?1:mdk$mouse.button();
         draggingSpeed=false;
         return super.mouseReleased(new net.minecraft.client.input.MouseButtonEvent(mx/scale,my/scale,mdk$mouse.buttonInfo()));
     }
-    @Override public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent mdk$mouse,double dx,double dy){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
+    @Override public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent mdk$mouse,double dx,double dy){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT?0:mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT?1:mdk$mouse.button();
         if(button==0 && draggingSpeed && menu.legs()) {
             int x=(int)(mx/scale)-leftPos;
             int target=Math.clamp(Math.round((x-229)*10.0F/73),0,10);

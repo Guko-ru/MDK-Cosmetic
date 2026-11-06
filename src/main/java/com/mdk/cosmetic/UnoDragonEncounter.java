@@ -41,7 +41,7 @@ public final class UnoDragonEncounter {
                 for(int offset=2;offset>=-5;offset--) {
                     double y=Math.floor(target.getY())+offset;
                     BlockPos feet=BlockPos.containing(x,y,z);
-                    if(!level.hasChunkAt(feet) || !level.getBlockState(feet.below()).blocksMotion()) continue;
+                    if(!level.hasChunkAt(feet) || !level.getBlockState(feet.below()).isSolid()) continue;
                     uno.snapTo(x,y,z,level.getRandom().nextFloat()*360F,0F);
                     if(level.noCollision(uno,uno.getBoundingBox())
                             && uno.getBoundingBox().maxY<=level.getMaxY()) {
@@ -63,7 +63,7 @@ public final class UnoDragonEncounter {
                 int ix=(int)Math.floor(x),iz=(int)Math.floor(z);
                 int y=level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,ix,iz);
                 BlockPos feet=new BlockPos(ix,y,iz);
-                if (!level.hasChunkAt(feet) || !level.getBlockState(feet.below()).blocksMotion()) continue;
+                if (!level.hasChunkAt(feet) || !level.getBlockState(feet.below()).isSolid()) continue;
                 uno.snapTo(x,y,z,level.getRandom().nextFloat()*360F,0F);
                 if (level.noCollision(uno,uno.getBoundingBox())) { placed=true;break; }
             }

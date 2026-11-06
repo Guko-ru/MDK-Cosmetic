@@ -7,14 +7,14 @@ version = '1.18.79'
 group = 'com.mdk.cosmetic'
 
 base {
-    archivesName = 'MDK-Cosmetic-26.2-NeoForge'
+    archivesName = 'MDK-Cosmetic-26.3-NeoForge'
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 neoForge {
     enable {
-        version = '26.2.0.93'
+        version = '26.3.0.101'
         disableRecompilation = true
     }
 }
@@ -75,4 +75,4 @@ tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
 
 tasks.withType(JavaCompile).configureEach { options.compilerArgs += ['-Xmaxerrs','500'] }
 
-dependencies { compileOnly 'mezz.jei:jei-26.2-common-api:30.48.0.244'; compileOnly 'mezz.jei:jei-26.2-neoforge-api:30.48.0.244' }
+dependencies { compileOnly 'mezz.jei:jei-26.3-common-api:31.17.0.109'; compileOnly 'mezz.jei:jei-26.3-neoforge-api:31.17.0.109' }

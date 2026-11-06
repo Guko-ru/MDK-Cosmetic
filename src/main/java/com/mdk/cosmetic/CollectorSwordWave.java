@@ -45,7 +45,7 @@ public final class CollectorSwordWave {
             if(d<0.01){dx=1;dz=0;d=1;}
             double force=3.4+(20-d)*0.035;
             target.setDeltaMovement(dx/d*force,Math.max(0.65,target.getDeltaMovement().y),dz/d*force);
-            target.needsSync=true; target.hurtMarked=true;
+            target.needsSync=true; target.syncVelocity=true;
             state.level().sendParticles(ParticleTypes.CLOUD,target.getX(),target.getY()+0.5,target.getZ(),
                 15,0.4,0.3,0.4,0.08);
         }

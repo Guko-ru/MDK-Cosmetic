@@ -1,14 +1,17 @@
 {
   "type": "neoforge:add_table",
-  "conditions": [
-    {
-      "condition": "neoforge:loot_table_id",
-      "loot_table_id": "minecraft:chests/stronghold_library"
-    },
-    {
-      "condition": "minecraft:random_chance",
-      "chance": 0.12
-    }
-  ],
-  "table": "mdkcosmetic:chests/collector_book"
+  "table": "mdkcosmetic:chests/collector_book",
+  "condition": {
+    "type": "minecraft:all_of",
+    "terms": [
+      {
+        "loot_table_id": "minecraft:chests/stronghold_library",
+        "type": "neoforge:loot_table_id"
+      },
+      {
+        "chance": 0.12,
+        "type": "minecraft:random_chance"
+      }
+    ]
+  }
 }

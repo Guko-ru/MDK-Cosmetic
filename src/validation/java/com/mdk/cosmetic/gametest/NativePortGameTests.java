@@ -117,7 +117,7 @@ public final class NativePortGameTests {
         var input=new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.IRON_ORE));
         var smelt=level.recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMELTING,input,level);
         assertTrue(helper,smelt.orElseThrow().value().assemble(input).is(Items.IRON_INGOT),"Backpack smelting must use the new recipe assembly API");
-        assertTrue(helper,level.fuelValues().burnDuration(new ItemStack(Items.COAL))>0,"Backpack fuel duration must resolve from the world");
+        assertTrue(helper,com.mdk.cosmetic.platform.FurnaceFuel.burnTime(level,new ItemStack(Items.COAL))==1600,"Backpack fuel duration must resolve from the world");
         var soul=MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         var warden=net.minecraft.world.entity.EntityTypes.WARDEN.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         assertTrue(helper,soul.isAlliedTo(warden),"Soul must remain allied with Wardens");
@@ -180,8 +180,10 @@ public final class NativePortGameTests {
   var params=new net.minecraft.world.level.storage.loot.LootParams.Builder(level).withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN,net.minecraft.world.phys.Vec3.ZERO).create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.CHEST);
   var table=server.reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE,Identifier.parse("minecraft:chests/abandoned_mineshaft")));
   var collector=level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ResourceKey.create(Registries.ENCHANTMENT,Identifier.parse("mdkcosmetic:collector")));
-  boolean found=false;for(long seed=1;seed<=256&&!found;seed++)for(var item:table.getRandomItems(params,seed))if(item.getOrDefault(net.minecraft.core.component.DataComponents.STORED_ENCHANTMENTS,net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY).getLevel(collector)>0){found=true;break;}
-  assertTrue(helper,found,"Seeded native mineshaft chest rolls must include the Collector enchantment book");
+  int withBook=0;for(long seed=1;seed<=256;seed++){boolean found=false;for(var item:table.getRandomItems(params,seed))if(item.getOrDefault(net.minecraft.core.component.DataComponents.STORED_ENCHANTMENTS,net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY).getLevel(collector)>0){found=true;break;}if(found)withBook++;}
+  assertTrue(helper,withBook>0&&withBook<64,"Native chest modifier must retain the original 8% chance: "+withBook+"/256");
+  var unrelated=server.reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE,Identifier.parse("minecraft:chests/spawn_bonus_chest")));
+  for(var item:unrelated.getRandomItems(params,123L))assertTrue(helper,item.getOrDefault(net.minecraft.core.component.DataComponents.STORED_ENCHANTMENTS,net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY).getLevel(collector)==0,"Collector chest modifiers must not affect unrelated loot tables");
   org.slf4j.LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_NATIVE_CHEST_LOOT_OK: 9 modifiers loaded and seeded native chest rolls produce the Collector book");
  }
 }

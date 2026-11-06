@@ -348,7 +348,7 @@ public final class CollectorLinkMenu extends AbstractContainerMenu {
         if (!player.level().isClientSide()) {
             for (int i = 0; i < craft.getContainerSize(); i++) {
                 ItemStack remaining = craft.removeItemNoUpdate(i);
-                if (!remaining.isEmpty()) player.getInventory().placeItemBackInInventory(remaining);
+                if (!remaining.isEmpty()) player.getInventory().placeItemBackInInventory(remaining,net.minecraft.util.Prediction.SERVER_ONLY);
             }
         }
     }
