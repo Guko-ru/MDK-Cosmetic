@@ -203,7 +203,7 @@ public final class CollectorSoulStorageBlockEntity extends BlockEntity {
             victim.setDeltaMovement(dx / distance * power,
                     Math.max(0.65, victim.getDeltaMovement().y), dz / distance * power);
             victim.hurtMarked = true;
-            victim.hasImpulse = true;
+            victim.needsSync = true;
             level.sendParticles(ParticleTypes.CLOUD, victim.getX(), victim.getY() + 0.5,
                     victim.getZ(), 18, 0.4, 0.4, 0.4, 0.1);
         }

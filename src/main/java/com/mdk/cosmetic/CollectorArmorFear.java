@@ -9,7 +9,7 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.ElderGuardian;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
-import net.minecraft.world.entity.monster.Evoker;
+import net.minecraft.world.entity.monster.illager.Evoker;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
@@ -48,7 +48,7 @@ public final class CollectorArmorFear {
         // always receive the goal again but never acquire duplicate goals.
         // Animals normally have no attack goal. Supply one only for provocation mode.
         if (!(mob instanceof Enemy) && !(mob instanceof net.minecraft.world.entity.TamableAnimal)
-                && !(mob instanceof net.minecraft.world.entity.npc.AbstractVillager)
+                && !(mob instanceof net.minecraft.world.entity.npc.villager.AbstractVillager)
                 && mob.goalSelector.getAvailableGoals().stream().noneMatch(g -> g.getGoal() instanceof CollectorProvokedGoal)) {
             mob.goalSelector.addGoal(3, new CollectorProvokedGoal(mob));
         }
@@ -102,7 +102,7 @@ public final class CollectorArmorFear {
         }
         if (mob.tickCount % 20 != 0) return;
         if (mob instanceof net.minecraft.world.entity.TamableAnimal
-                || mob instanceof net.minecraft.world.entity.npc.AbstractVillager) return;
+                || mob instanceof net.minecraft.world.entity.npc.villager.AbstractVillager) return;
         for (Player player : level.players()) {
             if (fullSet(player) && CollectorEquipmentData.fearMode(player)==2
                     && player.distanceToSqr(mob)<=256 && mob.canAttack(player)) {

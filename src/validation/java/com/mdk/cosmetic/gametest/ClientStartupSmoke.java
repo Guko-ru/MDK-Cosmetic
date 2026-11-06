@@ -19,19 +19,19 @@ public final class ClientStartupSmoke  {
             }
             var bossState=new com.mdk.cosmetic.client.UnoRenderState();
             bossState.entityType=com.mdk.cosmetic.MDKCosmetic.UNO_ENTITY.get();
-            bossState.texture=net.minecraft.resources.ResourceLocation.parse("mdkcosmetic:textures/entity/uno.png");
+            bossState.texture=net.minecraft.resources.Identifier.parse("mdkcosmetic:textures/entity/uno.png");
             var bossRenderer=client.getEntityRenderDispatcher().getRenderer(bossState);
             if(!(bossRenderer instanceof com.mdk.cosmetic.client.UnoRenderer renderer)||!renderer.getTextureLocation(bossState).equals(bossState.texture))throw new AssertionError("Boss pose incorrectly dispatched to a vanilla player/Steve renderer");
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_BOSS_RENDERER_OK: native dispatcher selects the custom boss renderer and black texture");
             for(var hat:java.util.List.of(com.mdk.cosmetic.MDKCosmetic.FOX_HAT.get(),com.mdk.cosmetic.MDKCosmetic.PANDA_HAT.get())){
-                var stack=new ItemStack(hat);var nativeLayer=new net.minecraft.client.resources.model.EquipmentClientInfo.Layer(net.minecraft.resources.ResourceLocation.parse("mdkcosmetic:fox_hat"));
+                var stack=new ItemStack(hat);var nativeLayer=new net.minecraft.client.resources.model.EquipmentClientInfo.Layer(net.minecraft.resources.Identifier.parse("mdkcosmetic:fox_hat"));
                 int tint=net.neoforged.neoforge.client.extensions.common.IClientItemExtensions.of(stack).getArmorLayerTintColor(stack,nativeLayer,0,0xFFA06540);
                 if(tint!=0xFFFFFFFF)throw new AssertionError("Non-dyeable armor layer received a dye fallback: "+Integer.toHexString(tint));
             }
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_NATIVE_LAYER_TINT_OK: non-dyeable fox and panda layers preserve native white tint");
             if(!new com.mdk.cosmetic.client.CatEarsModel().hat.isEmpty()||!new com.mdk.cosmetic.client.FoxHatModel().hat.isEmpty()||!new com.mdk.cosmetic.client.AxolotlHatModel().hat.isEmpty())throw new AssertionError("Custom cosmetic hat must not retain a vanilla helmet cube");
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_HAT_GEOMETRY_OK: custom ears, fox and axolotl geometry have no inherited vanilla helmet cube");
-            var nativeModels=net.minecraft.client.renderer.entity.ArmorModelSet.bake(net.minecraft.client.model.geom.ModelLayers.ARMOR_STAND_ARMOR,client.getEntityModels(),net.minecraft.client.model.ArmorStandArmorModel::new);
+            var nativeModels=net.minecraft.client.renderer.entity.ArmorModelSet.bake(net.minecraft.client.model.geom.ModelLayers.ARMOR_STAND_ARMOR,client.getEntityModels(),net.minecraft.client.model.object.armorstand.ArmorStandArmorModel::new);
             var nativeHead=nativeModels.get(net.minecraft.world.entity.EquipmentSlot.HEAD);
             var custom=net.neoforged.neoforge.client.extensions.common.IClientItemExtensions.of(com.mdk.cosmetic.MDKCosmetic.CAT_EARS.get()).getGenericArmorModel(new ItemStack(com.mdk.cosmetic.MDKCosmetic.CAT_EARS.get()),net.minecraft.client.resources.model.EquipmentClientInfo.LayerType.HUMANOID,nativeHead);
             for(float yaw:new float[]{-35F,0F,42F}){var pose=new net.minecraft.client.renderer.entity.state.ArmorStandRenderState();pose.headPose=new net.minecraft.core.Rotations(12,yaw,3);custom.setupAnim(pose);if(Math.abs(custom.root().getChild("head").yRot-nativeHead.head.yRot)>0.00001F)throw new AssertionError("Custom hat lost native armor stand head pose");if(custom.root().getChild("body").visible)throw new AssertionError("Head cosmetic must not expose unrelated torso geometry");}

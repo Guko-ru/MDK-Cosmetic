@@ -2,11 +2,11 @@ package com.mdk.cosmetic.client;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 /** Applies the native entity-specific pose at draw time while retaining the custom geometry and visibility. */
 public final class NativeArmorPoseModel extends Model<HumanoidRenderState> {
  private final HumanoidModel selected,context;
- public NativeArmorPoseModel(HumanoidModel<?> selected,HumanoidModel<?> context){super(selected.root(),RenderType::armorCutoutNoCull);this.selected=selected;this.context=context;}
+ public NativeArmorPoseModel(HumanoidModel<?> selected,HumanoidModel<?> context){super(selected.root(),RenderTypes::armorCutoutNoCull);this.selected=selected;this.context=context;}
  @Override @SuppressWarnings("unchecked") public void setupAnim(HumanoidRenderState state){
   selected.setupAnim(state);context.setupAnim(state);
   selected.head.loadPose(context.head.storePose());selected.hat.loadPose(context.hat.storePose());

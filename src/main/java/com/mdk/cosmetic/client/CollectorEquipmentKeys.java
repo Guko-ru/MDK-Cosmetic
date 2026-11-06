@@ -11,7 +11,7 @@ import org.lwjgl.glfw.GLFW;
 
 /** Two configurable native key mappings. B is valid only with an equipped backpack. */
 public final class CollectorEquipmentKeys {
-    private static final KeyMapping.Category CATEGORY=KeyMapping.Category.register(net.minecraft.resources.ResourceLocation.parse("mdkcosmetic:equipment"));
+    private static final KeyMapping.Category CATEGORY=KeyMapping.Category.register(net.minecraft.resources.Identifier.parse("mdkcosmetic:equipment"));
     public static final KeyMapping EQUIPMENT = new KeyMapping("key.mdkcosmetic.equipment",
             InputConstants.Type.KEYSYM,GLFW.GLFW_KEY_V,CATEGORY);
     public static final KeyMapping BACKPACK = new KeyMapping("key.mdkcosmetic.equipped_backpack",

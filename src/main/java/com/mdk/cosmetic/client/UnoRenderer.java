@@ -12,10 +12,10 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.world.entity.player.PlayerSkin;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 /** Keeps original combat keyframes, copied player skin, equipped armor and both arm-width models. */
 public final class UnoRenderer extends MobRenderer<UnoEntity,AvatarRenderState,UnoModel> {
- private static final ResourceLocation ORIGINAL=ResourceLocation.parse("mdkcosmetic:textures/entity/uno.png");
+ private static final Identifier ORIGINAL=Identifier.parse("mdkcosmetic:textures/entity/uno.png");
  private final UnoModel wideModel,slimModel;
  private final net.minecraft.client.renderer.item.ItemModelResolver itemModels;
  public UnoRenderer(EntityRendererProvider.Context context){
@@ -32,5 +32,5 @@ public final class UnoRenderer extends MobRenderer<UnoEntity,AvatarRenderState,U
   if(entity.isSecondPhase()&&connection!=null){var skin=entity.getMimicTarget().map(connection::getPlayerInfo).map(net.minecraft.client.multiplayer.PlayerInfo::getSkin).orElse(null);if(skin!=null){state.skin=skin;state.texture=skin.body().texturePath();state.slim=skin.model()==net.minecraft.world.entity.player.PlayerModelType.SLIM;}}
  }
  @Override public void submit(AvatarRenderState base,PoseStack pose,net.minecraft.client.renderer.SubmitNodeCollector buffers,net.minecraft.client.renderer.state.CameraRenderState camera){model=((UnoRenderState)base).slim?slimModel:wideModel;super.submit(base,pose,buffers,camera);}
- @Override public ResourceLocation getTextureLocation(AvatarRenderState state){return ((UnoRenderState)state).texture;}
+ @Override public Identifier getTextureLocation(AvatarRenderState state){return ((UnoRenderState)state).texture;}
 }

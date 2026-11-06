@@ -2,7 +2,7 @@ package com.mdk.cosmetic;
 import java.util.EnumSet;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.animal.PolarBear;
+import net.minecraft.world.entity.animal.polarbear.PolarBear;
 /** Cautious attraction that cannot override bear combat or cub protection. */
 public final class PolarBearHatAttractionGoal extends Goal {
  private final PolarBear bear;private LivingEntity target;private int refresh;

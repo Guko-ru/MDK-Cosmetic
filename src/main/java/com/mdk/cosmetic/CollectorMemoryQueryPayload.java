@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 public record CollectorMemoryQueryPayload(int menuId, String query, String matchingItemIds)
         implements CustomPacketPayload {
     public static final Type<CollectorMemoryQueryPayload> TYPE = new Type<>(
-            ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "collector_memory_query"));
+            Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "collector_memory_query"));
     public static final StreamCodec<ByteBuf, CollectorMemoryQueryPayload> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.INT, CollectorMemoryQueryPayload::menuId,
             ByteBufCodecs.STRING_UTF8, CollectorMemoryQueryPayload::query,

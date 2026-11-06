@@ -3,20 +3,20 @@ package com.mdk.cosmetic;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
-import net.minecraft.world.entity.monster.Evoker;
+import net.minecraft.world.entity.monster.illager.Evoker;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.monster.Ravager;
-import net.minecraft.world.entity.monster.Vindicator;
+import net.minecraft.world.entity.monster.illager.Vindicator;
 import net.minecraft.world.entity.monster.ElderGuardian;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.projectile.ThrownTrident;
+import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -27,7 +27,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 public final class CollectorEssenceDrops {
     private CollectorEssenceDrops() { }
     public static final ResourceKey<Enchantment> COLLECTOR = ResourceKey.create(Registries.ENCHANTMENT,
-            ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "collector"));
+            Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "collector"));
 
     public static void onDrops(LivingDropsEvent event) {
         LivingEntity victim = event.getEntity();

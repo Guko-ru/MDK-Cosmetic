@@ -1,7 +1,7 @@
 package com.mdk.cosmetic;
 
 import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -17,7 +17,7 @@ public final class CollectorVoidAchievements {
 
     private static AdvancementHolder holder(ServerPlayer player, String path) {
         return com.mdk.cosmetic.platform.ServerAccess.get(player).getAdvancements().get(
-                ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, path));
+                Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID, path));
     }
 
     private static void award(ServerPlayer player, String path) {

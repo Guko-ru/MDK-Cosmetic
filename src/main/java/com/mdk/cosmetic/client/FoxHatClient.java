@@ -23,7 +23,7 @@ public final class FoxHatClient {
         modBus.addListener(MultiblockPreview::register);
         modBus.addListener((RegisterClientExtensionsEvent event)->registerClientExtensions(new NativeClientExtensions(event)));
         modBus.addListener((RegisterColorHandlersEvent.ItemTintSources event)->{
-            event.register(net.minecraft.resources.ResourceLocation.parse("mdkcosmetic:cosmetic_color"),CosmeticItemTints.Source.CODEC);
+            event.register(net.minecraft.resources.Identifier.parse("mdkcosmetic:cosmetic_color"),CosmeticItemTints.Source.CODEC);
             registerItemColors(new ItemColorRegistration());
         });
         modBus.addListener(FoxHatClient::registerScreens);

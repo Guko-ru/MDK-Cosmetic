@@ -1,6 +1,6 @@
 package com.mdk.cosmetic;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -16,8 +16,8 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 /** Each bonus applies only while a real wearable occupies the HEAD slot. */
 public final class RareTraderHatEffects {
     private RareTraderHatEffects() { }
-    private static final ResourceLocation SAKURA_REACH_ID =
-            ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "sakura_block_reach");
+    private static final Identifier SAKURA_REACH_ID =
+            Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "sakura_block_reach");
 
     public static void onAttributeModifiers(ItemAttributeModifierEvent event) {
         if (event.getItemStack().is(MDKCosmetic.SAKURA_THINKER.get())) {

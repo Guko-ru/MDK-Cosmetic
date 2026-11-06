@@ -2,7 +2,7 @@ package com.mdk.cosmetic;
 
 import java.util.EnumMap;
 import java.util.List;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EntityType;
@@ -18,7 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import com.mdk.cosmetic.platform.EnchantedBooks;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.tags.TagKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import com.mdk.cosmetic.platform.CosmeticArmorItem;
 import net.minecraft.world.item.equipment.ArmorType;
@@ -49,10 +49,10 @@ import com.mdk.cosmetic.platform.RegistryBatch;
 @Mod(MDKCosmetic.MOD_ID)
 public final class MDKCosmetic {
     public static final String MOD_ID = "mdkcosmetic";
-    public static final ResourceLocation COLLECTOR_ENCHANTMENT_ID =
-            ResourceLocation.fromNamespaceAndPath(MOD_ID, "collector");
+    public static final Identifier COLLECTOR_ENCHANTMENT_ID =
+            Identifier.fromNamespaceAndPath(MOD_ID, "collector");
     public static final TagKey<Item> COLLECTOR_WEAPONS = TagKey.create(Registries.ITEM,
-            ResourceLocation.fromNamespaceAndPath(MOD_ID, "collector_weapons"));
+            Identifier.fromNamespaceAndPath(MOD_ID, "collector_weapons"));
     private static final RegistryBatch<ArmorDefinition> ARMOR_MATERIALS =
             RegistryBatch.createValues(MOD_ID);
     private static final RegistryBatch<MobEffect> MOB_EFFECTS =
@@ -117,12 +117,12 @@ public final class MDKCosmetic {
                         map.put(ArmorType.BOOTS, 5);
                         map.put(ArmorType.BODY, 0);
                     }), 18, SoundEvents.ARMOR_EQUIP_NETHERITE,
-                    net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/collector_armor")),
+                    net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/collector_armor")),
                     List.of(
                             // Dark Collector armor plate, never recolored.
-                            new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "collector_armor")),
+                            new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "collector_armor")),
                             // Accent-only armor pixels: tinted according to the vanilla smithing trim component.
-                            new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "collector_armor"), "_accent", true)
+                            new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "collector_armor"), "_accent", true)
                     ),
                     5.0F, 0.1F));
     // Equipped Collector helmet uses the actual imported geometry rather than the flat vanilla helmet shell.
@@ -133,9 +133,9 @@ public final class MDKCosmetic {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
                         map.put(ArmorType.HELMET, 5);
                     }), 18, SoundEvents.ARMOR_EQUIP_NETHERITE,
-                    net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/collector_helmet_geo")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "collector_helmet_geo")),
-                            new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "collector_helmet_geo"), "_accent", true)),
+                    net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/collector_helmet_geo")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "collector_helmet_geo")),
+                            new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "collector_helmet_geo"), "_accent", true)),
                     5.0F, 0.1F));
 
 
@@ -144,8 +144,8 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("sakura_thinker", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 12, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/sakura_thinker")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "sakura_thinker"))),
+                    }), 12, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/sakura_thinker")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "sakura_thinker"))),
                     0F, 0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> SAKURA_THINKER =
             ITEMS.register("sakura_thinker", () -> new CosmeticArmorItem(SAKURA_THINKER_MATERIAL.get(), ArmorType.HELMET,
@@ -223,8 +223,8 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("fox_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/fox_hat")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "fox_hat"))),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/fox_hat")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "fox_hat"))),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> FOX_HAT =
             ITEMS.register("fox_hat", () -> new CosmeticArmorItem(FOX_MATERIAL.get(), ArmorType.HELMET,
@@ -233,8 +233,8 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("panda_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/panda_hat")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "panda_hat"))),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/panda_hat")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "panda_hat"))),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> PANDA_HAT =
             ITEMS.register("panda_hat", () -> new CosmeticArmorItem(PANDA_MATERIAL.get(), ArmorType.HELMET,
@@ -245,10 +245,10 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("cat_ears", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/cat_ears")),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/cat_ears")),
                     List.of(
-                            new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "cat_ears"), "_dyed", true),
-                            new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "cat_ears"), "_fixed", false)),
+                            new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "cat_ears"), "_dyed", true),
+                            new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "cat_ears"), "_fixed", false)),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> CAT_EARS =
             ITEMS.register("cat_ears", () -> new CosmeticArmorItem(CAT_MATERIAL.get(), ArmorType.HELMET,
@@ -259,8 +259,8 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("allay_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/allay_hat")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "allay_hat"))),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/allay_hat")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "allay_hat"))),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> ALLAY_HAT =
             ITEMS.register("allay_hat", () -> new CosmeticArmorItem(ALLAY_MATERIAL.get(), ArmorType.HELMET,
@@ -271,10 +271,10 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("axolotl_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/axolotl_hat")),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/axolotl_hat")),
                     List.of(
-                            new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "axolotl_hat"), "_dyed", true),
-                            new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "axolotl_hat"), "_fixed", false)),
+                            new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "axolotl_hat"), "_dyed", true),
+                            new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "axolotl_hat"), "_fixed", false)),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> AXOLOTL_HAT =
             ITEMS.register("axolotl_hat", () -> new CosmeticArmorItem(AXOLOTL_MATERIAL.get(), ArmorType.HELMET,
@@ -285,10 +285,10 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("rabbit_ears", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/rabbit_ears")),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/rabbit_ears")),
                     List.of(
-                            new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "rabbit_ears"), "_dyed", true),
-                            new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "rabbit_ears"), "_fixed", false)),
+                            new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "rabbit_ears"), "_dyed", true),
+                            new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "rabbit_ears"), "_fixed", false)),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> RABBIT_EARS =
             ITEMS.register("rabbit_ears", () -> new CosmeticArmorItem(RABBIT_MATERIAL.get(), ArmorType.HELMET,
@@ -299,8 +299,8 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("octopus_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/octopus_hat")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "octopus_hat"))),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/octopus_hat")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "octopus_hat"))),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> OCTOPUS_HAT =
             ITEMS.register("octopus_hat", () -> new CosmeticArmorItem(OCTOPUS_MATERIAL.get(), ArmorType.HELMET,
@@ -311,8 +311,8 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("glow_squid_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/glow_squid_hat")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "glow_squid_hat"))),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/glow_squid_hat")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "glow_squid_hat"))),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> GLOW_SQUID_HAT =
             ITEMS.register("glow_squid_hat", () -> new CosmeticArmorItem(GLOW_SQUID_MATERIAL.get(), ArmorType.HELMET,
@@ -323,8 +323,8 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("camel_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/camel_hat")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "camel_hat"))),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/camel_hat")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "camel_hat"))),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> CAMEL_HAT =
             ITEMS.register("camel_hat", () -> new CosmeticArmorItem(CAMEL_MATERIAL.get(), ArmorType.HELMET,
@@ -335,8 +335,8 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("cow_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/cow_hat")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "cow_hat"))),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/cow_hat")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "cow_hat"))),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> COW_HAT =
             ITEMS.register("cow_hat", () -> new CosmeticArmorItem(COW_MATERIAL.get(), ArmorType.HELMET,
@@ -347,8 +347,8 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("mooshroom_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/mooshroom_hat")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "mooshroom_hat"))),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/mooshroom_hat")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "mooshroom_hat"))),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> MOOSHROOM_HAT =
             ITEMS.register("mooshroom_hat", () -> new CosmeticArmorItem(MOOSHROOM_MATERIAL.get(), ArmorType.HELMET,
@@ -359,8 +359,8 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("polar_bear_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/polar_bear_hat")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "polar_bear_hat"))),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/polar_bear_hat")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "polar_bear_hat"))),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> POLAR_BEAR_HAT =
             ITEMS.register("polar_bear_hat", () -> new CosmeticArmorItem(POLAR_BEAR_MATERIAL.get(), ArmorType.HELMET,
@@ -371,8 +371,8 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("llama_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/llama_hat")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "llama_hat"))),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/llama_hat")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "llama_hat"))),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> LLAMA_HAT =
             ITEMS.register("llama_hat", () -> new CosmeticArmorItem(LLAMA_MATERIAL.get(), ArmorType.HELMET,
@@ -383,10 +383,10 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("sheep_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/sheep_hat")),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/sheep_hat")),
                     List.of(
-                            new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "sheep_hat"), "_dyed", true),
-                            new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "sheep_hat"), "_fixed", false)),
+                            new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "sheep_hat"), "_dyed", true),
+                            new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "sheep_hat"), "_fixed", false)),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> SHEEP_HAT =
             ITEMS.register("sheep_hat", () -> new CosmeticArmorItem(SHEEP_MATERIAL.get(), ArmorType.HELMET,
@@ -398,9 +398,9 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("wolf_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/wolf_hat")),
-                    List.of(new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "wolf_hat"), "_dyed", true),
-                            new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "wolf_hat"), "_fixed", false)),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/wolf_hat")),
+                    List.of(new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "wolf_hat"), "_dyed", true),
+                            new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "wolf_hat"), "_fixed", false)),
                     0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> WOLF_HAT =
             ITEMS.register("wolf_hat", () -> new CosmeticArmorItem(WOLF_MATERIAL.get(), ArmorType.HELMET,
@@ -411,10 +411,10 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("horse_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/horse_hat")),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/horse_hat")),
                     List.of(
-                        new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "horse_hat"), "_dyed", true),
-                        new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "horse_hat"), "_fixed", false)
+                        new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "horse_hat"), "_dyed", true),
+                        new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "horse_hat"), "_fixed", false)
                     ), 0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> HORSE_HAT =
             ITEMS.register("horse_hat", () -> new CosmeticArmorItem(HORSE_MATERIAL.get(), ArmorType.HELMET,
@@ -425,10 +425,10 @@ public final class MDKCosmetic {
             ARMOR_MATERIALS.register("donkey_hat", () -> new ArmorDefinition(
                     Util.make(new EnumMap<>(ArmorType.class), map -> {
                         for (ArmorType type : ArmorType.values()) map.put(type, 0);
-                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID,"repairs/donkey_hat")),
+                    }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, net.minecraft.tags.TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(MOD_ID,"repairs/donkey_hat")),
                     List.of(
-                        new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "donkey_hat"), "_dyed", true),
-                        new ArmorDefinition.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "donkey_hat"), "_fixed", false)
+                        new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "donkey_hat"), "_dyed", true),
+                        new ArmorDefinition.Layer(Identifier.fromNamespaceAndPath(MOD_ID, "donkey_hat"), "_fixed", false)
                     ), 0.0F, 0.0F));
     public static final RegistryEntry<Item, CosmeticArmorItem> DONKEY_HAT =
             ITEMS.register("donkey_hat", () -> new CosmeticArmorItem(DONKEY_MATERIAL.get(), ArmorType.HELMET,
@@ -663,7 +663,7 @@ public final class MDKCosmetic {
                         // 4. Treasure-only enchantment is still available for creative testing.
                         parameters.holders().lookup(Registries.ENCHANTMENT).ifPresent(registry ->
                                 registry.get(ResourceKey.create(Registries.ENCHANTMENT,
-                                        ResourceLocation.fromNamespaceAndPath(MOD_ID, "collector")))
+                                        Identifier.fromNamespaceAndPath(MOD_ID, "collector")))
                                         .ifPresent(holder -> output.accept(
                                                 EnchantedBooks.createForEnchantment(
                                                         new EnchantmentInstance(holder, 1)))));
