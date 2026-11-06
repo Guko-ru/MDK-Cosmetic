@@ -344,8 +344,8 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
     private void renderMemoryCounts(GuiGraphics g) {
         if (!menu.isMemoryReady()) return;
         // Render AFTER vanilla slots. Otherwise the item sprites cover count labels.
-        g.pose().pushPose();
-        g.pose().translate(0, 0, 300);
+        g.pose().pushMatrix();
+        g.nextStratum();
         for (int i = 0; i < CollectorLinkMenu.MEMORY_SIZE; i++) {
             long count = menu.getMemoryQuantity(i);
             if (count <= 1) continue;
@@ -354,7 +354,7 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
             int y = topPos + STORE_Y + (i / CollectorLinkMenu.MEMORY_COLUMNS) * 18;
             g.drawString(font, label, x + 17 - font.width(label), y + 10, 0xFFFFE8FF, true);
         }
-        g.pose().popPose();
+        g.pose().popMatrix();
     }
 
     // mdk: unified scaled canvas; native background callbacks must not draw it a second time.
@@ -363,8 +363,8 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
     @Override public void render(GuiGraphics g, int mx, int my, float partial) {
         // Keep the vignette behind everything at the real GUI resolution.
         renderTransparentBackground(g);
-        g.pose().pushPose();
-        g.pose().scale(uiScale, uiScale, 1.0F);
+        g.pose().pushMatrix();
+        g.pose().scale(uiScale,uiScale);
         int logicalX = (int)(mx / uiScale), logicalY = (int)(my / uiScale);
         renderBg(g,partial,logicalX,logicalY);
         super.render(g, logicalX, logicalY, partial);
@@ -373,9 +373,9 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         int offer = hoveredOffer(logicalX - leftPos, logicalY - topPos);
         if (offer >= 0) {
             ItemStack product = CollectorOffers.preview(offer);
-            g.renderTooltip(font, Component.translatable("screen.mdkcosmetic.offer_price",
+            g.setTooltipForNextFrame(font, Component.translatable("screen.mdkcosmetic.offer_price",
                     product.getHoverName().copy(), product.getCount(), CollectorOffers.cost(offer)), logicalX, logicalY);
         } else renderTooltip(g, logicalX, logicalY);
-        g.pose().popPose();
+        g.pose().popMatrix();
     }
 }

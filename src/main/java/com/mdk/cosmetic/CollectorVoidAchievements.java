@@ -121,7 +121,7 @@ public final class CollectorVoidAchievements {
             award(player, "void/into_the_unknown");
         if (horizontalDistanceSquared >= 512.0 * 512.0)
             award(player, "void/beyond_the_horizon");
-        for (ServerPlayer other : player.serverLevel().players()) {
+        for (ServerPlayer other : player.level().players()) {
             if (other == player || !other.isAlive()) continue;
             if (other.distanceToSqr(player) < 32 * 32) {
                 award(player, "void/not_alone");

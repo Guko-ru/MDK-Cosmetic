@@ -37,13 +37,13 @@ public final class UnoEncounterOverlay {
         if (ms>=300L && ms<blackMs+220L) {
             float titleAlpha=Math.min(1F,Math.min((ms-300L)/230F,(blackMs+200L-ms)/270F));
             int argb=((int)(Math.max(0,titleAlpha)*255)<<24)|0xFF2020;
-            g.pose().pushPose();
+            g.pose().pushMatrix();
             float scale=3.0F;
-            g.pose().scale(scale,scale,1F);
+            g.pose().scale(scale,scale);
             int jitter=(ms<1200L) ? (int)(Math.sin(ms*0.082)*2.5) : 0;
             g.drawCenteredString(mc.font,Component.translatable("title.mdkcosmetic.uno_greeting"),
                     (int)(w/(2*scale))+jitter,(int)(h/(2*scale))-12+jitter,argb);
-            g.pose().popPose();
+            g.pose().popMatrix();
         }
     }
 

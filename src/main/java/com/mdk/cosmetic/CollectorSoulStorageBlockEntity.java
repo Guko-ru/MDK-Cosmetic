@@ -65,21 +65,29 @@ public final class CollectorSoulStorageBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
+    protected void loadAdditional(net.minecraft.world.level.storage.ValueInput mdk$input) {
+        CompoundTag tag=com.mdk.cosmetic.platform.LegacyValues.read(mdk$input);
+        var registries=mdk$input.lookup();
+
+        super.loadAdditional(mdk$input);
         stress = Math.clamp(tag.getIntOr("CollectorStress",0), 0, 100);
         assembled = tag.getBooleanOr("CollectorAssembled",false);
         everActivated = tag.getBooleanOr("CollectorEverActivated",false);
         waveTicks = 0; // visual effect does not resume after a server restart
         waveHit.clear();
-    }
+        }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput mdk$output) {
+        CompoundTag tag=new CompoundTag();
+        var registries=(getLevel()==null?net.minecraft.core.RegistryAccess.EMPTY:getLevel().registryAccess());
+
+        super.saveAdditional(mdk$output);
         tag.putInt("CollectorStress", stress);
         tag.putBoolean("CollectorAssembled", assembled);
         tag.putBoolean("CollectorEverActivated", everActivated);
+    
+        com.mdk.cosmetic.platform.LegacyValues.write(mdk$output,tag);
     }
 
     /** Called when a casing/controller is actually removed, even within one tick. */

@@ -46,17 +46,25 @@ public final class EssenceWorktableBlockEntity extends BaseContainerBlockEntity 
         return slot == 0 && stack.is(MDKCosmetic.POWER_ESSENCE.get());
     }
 
-    @Override protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        ContainerHelper.saveAllItems(tag, items, registries);
+    @Override protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput mdk$output) {
+        CompoundTag tag=new CompoundTag();
+        var registries=(getLevel()==null?net.minecraft.core.RegistryAccess.EMPTY:getLevel().registryAccess());
+
+        super.saveAdditional(mdk$output);
+        com.mdk.cosmetic.platform.InventoryNbt.saveAllItems(tag, items, registries);
         tag.putInt("EssenceProgress", progress);
+    
+        com.mdk.cosmetic.platform.LegacyValues.write(mdk$output,tag);
     }
-    @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
+    @Override protected void loadAdditional(net.minecraft.world.level.storage.ValueInput mdk$input) {
+        CompoundTag tag=com.mdk.cosmetic.platform.LegacyValues.read(mdk$input);
+        var registries=mdk$input.lookup();
+
+        super.loadAdditional(mdk$input);
         items = NonNullList.withSize(2, ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, items, registries);
+        com.mdk.cosmetic.platform.InventoryNbt.loadAllItems(tag, items, registries);
         progress = Math.clamp(tag.getIntOr("EssenceProgress",0), 0, COST - 1);
-    }
+        }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, EssenceWorktableBlockEntity table) {
         if (level.isClientSide() || (++table.tickCounter % 3) != 0) return;

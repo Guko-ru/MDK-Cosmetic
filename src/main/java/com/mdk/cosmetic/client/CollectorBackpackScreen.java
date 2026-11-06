@@ -238,9 +238,9 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
 
     private void renderRemoteCounts(GuiGraphics g) {
         if (!menu.isRemote()) return;
-        g.flush();
-        g.pose().pushPose();
-        g.pose().translate(0.0F, 0.0F, 350.0F);
+        g.nextStratum();
+        g.pose().pushMatrix();
+        g.nextStratum();
         for (int i = 0; i < 27; i++) {
             long n = menu.quantity(i);
             if (n <= 1) continue;
@@ -248,8 +248,8 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
             g.drawString(font, text, leftPos + 24 + (i % 9) * 18 - font.width(text),
                     topPos + 44 + (i / 9) * 18, 0xFFFFFFFF, true);
         }
-        g.flush();
-        g.pose().popPose();
+        g.nextStratum();
+        g.pose().popMatrix();
     }
 
     @Override public boolean mouseClicked(double mx, double my, int button) {
@@ -347,12 +347,12 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
     @Override public void render(GuiGraphics g, int mx, int my, float partial) {
         int mouseX = (int) Math.floor(mx / scale), mouseY = (int) Math.floor(my / scale);
         renderTransparentBackground(g);
-        g.pose().pushPose();
-        g.pose().scale(scale, scale, 1.0F);
+        g.pose().pushMatrix();
+        g.pose().scale(scale,scale);
         renderBg(g,partial,mouseX,mouseY);
         super.render(g, mouseX, mouseY, partial);
         renderRemoteCounts(g);
         renderTooltip(g, mouseX, mouseY);
-        g.pose().popPose();
+        g.pose().popMatrix();
     }
 }

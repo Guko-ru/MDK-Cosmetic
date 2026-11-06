@@ -45,8 +45,8 @@ public final class FabricPortGameTests {
         UseEntityCallback.EVENT.invoker().interact(player,helper.getLevel(),InteractionHand.MAIN_HAND,fox,null);
         int after=helper.getLevel().getEntitiesOfClass(ItemEntity.class,fox.getBoundingBox().inflate(4),e->e.getItem().is(MDKCosmetic.FOX_FUR.get())).size();
         assertTrue(helper,after==before,"Shearing cooldown must prevent a second fur");
-        var tag=fox.saveWithoutId(new CompoundTag());
-        var restored=EntityType.FOX.create(helper.getLevel(),net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);restored.load(tag);
+        var tag=com.mdk.cosmetic.platform.LegacyValues.saveEntity(fox);
+        var restored=EntityType.FOX.create(helper.getLevel(),net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);com.mdk.cosmetic.platform.LegacyValues.loadEntity(restored,tag);
         assertTrue(helper,PersistentData.of(restored).getLongOr("mdkcosmetic.nextFoxFurShear",0L)>System.currentTimeMillis(),"Cooldown must survive entity save/load");
         helper.succeed();
     }

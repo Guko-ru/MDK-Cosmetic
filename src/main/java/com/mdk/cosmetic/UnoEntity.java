@@ -197,7 +197,7 @@ public final class UnoEntity extends Monster {
     public void markDragonEncounter(ServerPlayer player) {
         endEncounter = true;
         endAnchor = blockPosition();
-        restrictTo(endAnchor, 120);
+        setHomeTo(endAnchor, 120);
         setPersistenceRequired();
         setTarget(player);
         getNavigation().moveTo(player, 1.35D);
@@ -656,8 +656,10 @@ public final class UnoEntity extends Monster {
         return result;
     }
 
-    @Override public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
+    @Override public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput mdk$output) {
+        CompoundTag tag=new CompoundTag();
+
+        super.addAdditionalSaveData(mdk$output);
         tag.putInt("UnoDashCooldown", dashCooldown);
         tag.putInt("UnoBurstCooldown", burstCooldown);
         tag.putInt("UnoDodgeCooldown", dodgeCooldown);
@@ -676,9 +678,13 @@ public final class UnoEntity extends Monster {
         }
         tag.putBoolean("UnoPhaseTwo", isSecondPhase());
         getMimicTarget().ifPresent(id -> tag.store("UnoMimicTarget",net.minecraft.core.UUIDUtil.CODEC,id));
+    
+        com.mdk.cosmetic.platform.LegacyValues.write(mdk$output,tag);
     }
-    @Override public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
+    @Override public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput mdk$input) {
+        CompoundTag tag=com.mdk.cosmetic.platform.LegacyValues.read(mdk$input);
+
+        super.readAdditionalSaveData(mdk$input);
         dashCooldown = tag.getIntOr("UnoDashCooldown",0);
         burstCooldown = tag.getIntOr("UnoBurstCooldown",0);
         dodgeCooldown = tag.getIntOr("UnoDodgeCooldown",0);
@@ -697,7 +703,7 @@ public final class UnoEntity extends Monster {
                 tag.getIntOr("UnoAnchorX",0), tag.getIntOr("UnoAnchorY",0), tag.getIntOr("UnoAnchorZ",0));
         if(endEncounter) {
             setPersistenceRequired();
-            if(endAnchor!=null) restrictTo(endAnchor,120);
+            if(endAnchor!=null) setHomeTo(endAnchor,120);
         }
         if (totemRage) {
             setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
@@ -721,5 +727,5 @@ public final class UnoEntity extends Monster {
         pendingImpactTicks = -1;
         pendingTargetId = -1;
         playAction(IDLE);
-    }
+        }
 }

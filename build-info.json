@@ -1,12 +1,12 @@
 {
   "loader": "Fabric",
-  "minecraft": "1.21.5",
+  "minecraft": "1.21.6",
   "loader_build": "0.20.1",
   "mod_version": "1.18.78",
   "java": 21,
-  "artifact": "MDK-Cosmetic-1.21.5-Fabric-1.18.78.jar",
-  "sha256": "d9e633f91f0a44a7727f9140a1254bfc2af461a17cdbd77b21c91e9c0ea936f4",
-  "fabric_api": "0.128.2+1.21.5",
+  "artifact": "MDK-Cosmetic-1.21.6-Fabric-1.18.78.jar",
+  "sha256": "e2cd421726566c99cd854523fadf22026472e5c8c48e7d17987cc65b8bb4054d",
+  "fabric_api": "0.128.2+1.21.6",
   "validation": {
     "required_game_tests_passed": 9,
     "recipes_loaded": 1668,
