@@ -1,0 +1,24 @@
+{
+  "loader": "NeoForge",
+  "minecraft": "1.21.1",
+  "loader_build": "21.1.265",
+  "mod_version": "1.18.79",
+  "java": 21,
+  "artifact": "MDK-Cosmetic-1.21.1-NeoForge-1.18.79.jar",
+  "sha256": "5fe6366ee729169e8e14aee7a19d67f43734620be650c69ca2a7cbead58fe1c5",
+  "fabric_api": null,
+  "validation": {
+    "required_game_tests_passed": 6,
+    "client_item_models_checked": 1208,
+    "native_slot_hits": true,
+    "machine_tiers": [
+      1,
+      2
+    ],
+    "gui_configurations": 4,
+    "creative_tabs": true,
+    "boss_phases": "black first phase with black effects; opponent skin and equipment in second phase",
+    "fabric_class_references": 0
+  },
+  "license": "MDK Cosmetic Non-Commercial License 1.1"
+}

@@ -4,7 +4,7 @@ license="MDK Cosmetic Non-Commercial License 1.1"
 
 [[mods]]
 modId="mdkcosmetic"
-version="1.18.78"
+version="1.18.79"
 displayName="MDK Cosmetic"
 authors="MDK"
 description='''
@@ -14,7 +14,7 @@ Decorative cosmetics and a tailoring workstation.
 [[dependencies.mdkcosmetic]]
 modId="neoforge"
 type="required"
-versionRange="[21.1.256,)"
+versionRange="[21.1.265,)"
 ordering="NONE"
 side="BOTH"
 

@@ -1,0 +1,9 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="Test-only"
+[[mods]]
+modId="mdkcosmetic_validation"
+version="1.0.0"
+displayName="MDK local validation"
+[[mixins]]
+config="mdkcosmetic.validation.mixins.json"

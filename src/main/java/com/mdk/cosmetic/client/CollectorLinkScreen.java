@@ -361,12 +361,16 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         g.pose().popPose();
     }
 
+    // mdk: unified scaled canvas; native callbacks must not draw a second machine background.
+    @Override public void renderBackground(GuiGraphics graphics,int mouseX,int mouseY,float partial) {}
+
     @Override public void render(GuiGraphics g, int mx, int my, float partial) {
         // Keep the vignette behind everything at the real GUI resolution.
-        renderBackground(g, mx, my, partial);
+        renderTransparentBackground(g);
         g.pose().pushPose();
         g.pose().scale(uiScale, uiScale, 1.0F);
         int logicalX = (int)(mx / uiScale), logicalY = (int)(my / uiScale);
+        renderBg(g,partial,logicalX,logicalY);
         super.render(g, logicalX, logicalY, partial);
         renderShopIcons(g);
         renderMemoryCounts(g);

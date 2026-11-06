@@ -1,1 +1,18 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["#  ","## ","###"],"key":{"#":"mdkcosmetic:light_gray_mystery_block"},"result":{"id":"mdkcosmetic:light_gray_mystery_stairs","count":4}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "mdkcosmetic:light_gray_mystery_block"
+    }
+  },
+  "result": {
+    "id": "mdkcosmetic:light_gray_mystery_stairs",
+    "count": 4
+  }
+}

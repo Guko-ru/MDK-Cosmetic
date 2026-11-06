@@ -254,7 +254,7 @@ public final class UnoEntity extends Monster {
                     4, 0.37D, 0.8D, 0.37D, 0.004D);
             server.sendParticles(ParticleTypes.SMOKE, getX(), getY()+0.85D, getZ(),
                     3, 0.31D, 0.58D, 0.31D, 0.005D);
-            if (tickCount % 15 == 0) server.sendParticles(ParticleTypes.REVERSE_PORTAL,
+            if (isSecondPhase() && tickCount % 15 == 0) server.sendParticles(ParticleTypes.REVERSE_PORTAL,
                     getX(), getY()+0.8D, getZ(), 2, 0.23D, 0.48D, 0.23D, 0.012D);
         }
 

@@ -341,11 +341,15 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
         if (search != null && search.isFocused()) return search.charTyped(code, mods);
         return super.charTyped(code, mods);
     }
+    // mdk: unified scaled canvas; native callbacks must not draw a second machine background.
+    @Override public void renderBackground(GuiGraphics graphics,int mouseX,int mouseY,float partial) {}
+
     @Override public void render(GuiGraphics g, int mx, int my, float partial) {
         int mouseX = (int) Math.floor(mx / scale), mouseY = (int) Math.floor(my / scale);
-        renderBackground(g, mx, my, partial);
+        renderTransparentBackground(g);
         g.pose().pushPose();
         g.pose().scale(scale, scale, 1.0F);
+        renderBg(g,partial,mouseX,mouseY);
         super.render(g, mouseX, mouseY, partial);
         renderRemoteCounts(g);
         renderTooltip(g, mouseX, mouseY);

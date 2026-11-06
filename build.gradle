@@ -3,7 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.148'
 }
 
-version = '1.18.78'
+version = '1.18.79'
 group = 'com.mdk.cosmetic'
 
 base {
@@ -14,7 +14,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 neoForge {
     enable {
-        version = '21.1.256'
+        version = '21.1.265'
         disableRecompilation = true
     }
 }
@@ -46,3 +46,30 @@ tasks.register('prepareRelease', Copy) {
     from(layout.buildDirectory.dir('libs')) { include('*.jar'); exclude('*-sources.jar', '*-javadoc.jar') }
     into(layout.buildDirectory.dir('release'))
 }
+
+sourceSets { validation { compileClasspath += sourceSets.main.output; runtimeClasspath += sourceSets.main.output } }
+configurations { validationImplementation.extendsFrom implementation; validationCompileOnly.extendsFrom compileOnly; validationRuntimeOnly.extendsFrom runtimeOnly }
+neoForge {
+ addModdingDependenciesTo sourceSets.validation
+ mods {
+  mdkcosmetic { sourceSet sourceSets.main }
+  mdkcosmetic_validation { sourceSet sourceSets.validation }
+ }
+ runs {
+  clientRegressions {
+   client(); sourceSet = sourceSets.validation; gameDirectory = file('run/client-regressions')
+   systemProperty 'mdkcosmetic.clientRegressions','true'
+   programArguments.addAll '--width','854','--height','480'
+  }
+  clientSmoke {
+   client(); sourceSet = sourceSets.validation; gameDirectory = file('run/client-smoke')
+   systemProperty 'mdkcosmetic.clientSmoke','true'
+   programArguments.addAll '--width','854','--height','480'
+  }
+  gameTest {
+   type = 'gameTestServer'; sourceSet = sourceSets.validation; gameDirectory = file('run/game-test')
+   systemProperty 'neoforge.enabledGameTestNamespaces','mdkcosmetic_validation'
+  }
+ }
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
