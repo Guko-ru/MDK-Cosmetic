@@ -20,21 +20,24 @@ public final class GlowSquidInkHarvest {
     private static final long COOLDOWN = 5L * 60L * 1000L;
     private GlowSquidInkHarvest() { }
 
-    public static void onInteract(PlayerInteractEvent.EntityInteract event) {
-        if (!(event.getTarget() instanceof Squid squid) || squid.getType() != EntityType.GLOW_SQUID) return;
-        if (event.getHand() != InteractionHand.MAIN_HAND) return;
+    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
+        if (!(event.getTarget() instanceof Squid squid) || squid.getType() != EntityType.GLOW_SQUID) break mdk$handler;
+        if (event.getHand() != InteractionHand.MAIN_HAND) break mdk$handler;
         ItemStack tool = event.getEntity().getMainHandItem();
-        if (!tool.is(Items.SHEARS)) return;
+        if (!tool.is(Items.SHEARS)) break mdk$handler;
         event.setCancellationResult(InteractionResult.SUCCESS);
-        event.setCanceled(true);
-        if (squid.level().isClientSide()) return;
+        mdk$cancelled[0]=(true);
+        if (squid.level().isClientSide()) break mdk$handler;
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(squid);
         long now = System.currentTimeMillis();
         long until = data.getLongOr(NEXT,0L);
         if (until > now && until - now <= COOLDOWN) {
             event.getEntity().displayClientMessage(Component.translatable(
                     "message.mdkcosmetic.glow_squid_refilling", (until - now + 59999L) / 60000L), true);
-            return;
+            break mdk$handler;
         }
         data.putLong(NEXT, now + COOLDOWN);
         com.mdk.cosmetic.platform.EntityDrops.spawn(squid,new ItemStack(MDKCosmetic.GLOW_SQUID_INK_CLOT.get()));
@@ -42,6 +45,9 @@ public final class GlowSquidInkHarvest {
         if (!event.getEntity().getAbilities().instabuild) {
             tool.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);
         }
+    
+        }
+        return mdk$cancelled[0];
     }
     public static void onDrops(LivingDropsEvent event) {
         if (!(event.getEntity() instanceof Squid squid) || squid.getType() != EntityType.GLOW_SQUID

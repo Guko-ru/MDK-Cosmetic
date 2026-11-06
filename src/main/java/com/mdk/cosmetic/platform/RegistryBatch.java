@@ -14,9 +14,9 @@ public final class RegistryBatch<R> {
     @SuppressWarnings("unchecked") public static <R> RegistryBatch<R> create(ResourceKey<? extends Registry<R>> key,String namespace){return new RegistryBatch<>((Registry<R>)BuiltInRegistries.REGISTRY.getValue(key.location()),namespace);}
     public static <R> RegistryBatch<R> createValues(String namespace){return new RegistryBatch<>(null,namespace);}
     public <T extends R> RegistryEntry<R,T> register(String name,Supplier<T> factory){var entry=new RegistryEntry<R,T>(registry,ResourceLocation.fromNamespaceAndPath(namespace,name),factory);entries.add(entry);return entry;}
-    public void register(net.minecraftforge.eventbus.api.IEventBus bus){
+    public void register(net.minecraftforge.eventbus.api.bus.BusGroup bus){
         if(registry==null){registerAll();return;}
-        bus.addListener((net.minecraftforge.registries.RegisterEvent event)->{if(event.getRegistryKey().equals(registry.key()))entries.forEach(entry->entry.register(event));});
+        net.minecraftforge.registries.RegisterEvent.getBus(bus).addListener((net.minecraftforge.registries.RegisterEvent event)->{if(event.getRegistryKey().equals(registry.key()))entries.forEach(entry->entry.register(event));});
     }
     public void registerAll(){entries.forEach(RegistryEntry::register);}
 }

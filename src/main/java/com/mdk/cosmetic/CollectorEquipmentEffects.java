@@ -73,15 +73,21 @@ public final class CollectorEquipmentEffects {
         }
     }
 
-    public static void onFall(LivingFallEvent event) {
+    public static boolean onFall(LivingFallEvent event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
         if (event.getEntity() instanceof ServerPlayer player
                 && player.getItemBySlot(EquipmentSlot.FEET).is(MDKCosmetic.COLLECTOR_BOOTS.get())
-                && CollectorEquipmentData.flag(player,"NoFall")) event.setCanceled(true);
+                && CollectorEquipmentData.flag(player,"NoFall")) mdk$cancelled[0]=(true);
+    
+        }
+        return mdk$cancelled[0];
     }
 
     /** Equipment is dropped with other drops, so existing death-insurance can transfer all at once. */
     public static void onDrops(LivingDropsEvent event) {
-        if (!(event.getEntity() instanceof ServerPlayer player) || event.isCanceled()) return;
+        if (!(event.getEntity() instanceof ServerPlayer player) || false) return;
         if (((net.minecraft.server.level.ServerLevel)player.level()).getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) return;
         ItemStack backpack = CollectorEquipmentData.backpack(player);
         if (backpack.isEmpty()) return;

@@ -11,9 +11,12 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 /** Server-authoritative totem consumption, including remote Collector Memory. */
 public final class CollectorBackpackTotem {
     private CollectorBackpackTotem() {}
-    public static void onDeath(LivingDeathEvent event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)) return;
-        if (event.isCanceled()) return;
+    public static boolean onDeath(LivingDeathEvent event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
+        if (!(event.getEntity() instanceof ServerPlayer player)) break mdk$handler;
+        if (mdk$cancelled[0]) break mdk$handler;
         for (int inv = 0; inv <= 36; inv++) {
             boolean equipped = inv == 36;
             ItemStack backpack = equipped ? CollectorEquipmentData.backpack(player)
@@ -44,14 +47,17 @@ public final class CollectorBackpackTotem {
                 }
             }
             if (!consumed) continue;
-            event.setCanceled(true);
+            mdk$cancelled[0]=(true);
             player.setHealth(1.0F);
             player.removeAllEffects();
             player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 900, 1));
             player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1));
             player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800, 0));
             player.level().broadcastEntityEvent(player, (byte) 35);
-            return;
+            break mdk$handler;
         }
+    
+        }
+        return mdk$cancelled[0];
     }
 }

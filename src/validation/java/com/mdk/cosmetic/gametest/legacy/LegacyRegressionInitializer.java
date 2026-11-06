@@ -6,7 +6,7 @@ public final class LegacyRegressionInitializer  {
  public static void initialize(){
   if(!Boolean.getBoolean("mdkcosmetic.clientRegressions"))return;
   boolean[] started={false};
-  net.minecraftforge.common.MinecraftForge.EVENT_BUS.addListener((net.minecraftforge.event.TickEvent.ClientTickEvent.Post event)->{var client=net.minecraft.client.Minecraft.getInstance();
+  net.minecraftforge.event.TickEvent.ClientTickEvent.Post.BUS.addListener((net.minecraftforge.event.TickEvent.ClientTickEvent.Post event)->{var client=net.minecraft.client.Minecraft.getInstance();
    client.options.pauseOnLostFocus=false;
    LegacyClientContext.TICKS.incrementAndGet();
    if(started[0]||client.getOverlay()!=null||client.screen==null||LegacyClientContext.TICKS.get()<20)return;

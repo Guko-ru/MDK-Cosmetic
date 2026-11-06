@@ -17,11 +17,17 @@ public final class CollectorMeteorBlock extends Block {
         return super.getDestroyProgress(state, player, world, pos);
     }
 
-    public static void onBreak(BlockEvent.BreakEvent event) {
-        if (!event.getState().is(MDKCosmetic.COLLECTOR_METEOR_BLOCK.get())) return;
+    public static boolean onBreak(BlockEvent.BreakEvent event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
+        if (!event.getState().is(MDKCosmetic.COLLECTOR_METEOR_BLOCK.get())) break mdk$handler;
         Player player = event.getPlayer();
         if (player != null && !player.getAbilities().instabuild
                 && !player.getMainHandItem().is(MDKCosmetic.COLLECTOR_PICKAXE.get()))
-            event.setCanceled(true);
+            mdk$cancelled[0]=(true);
+    
+        }
+        return mdk$cancelled[0];
     }
 }

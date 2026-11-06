@@ -7,7 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import com.mdk.cosmetic.platform.ArmorDefinition;
 import net.minecraft.world.item.component.DyedItemColor;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,17 +18,20 @@ import com.mdk.cosmetic.client.ForgeMenuScreens;
 // Client-only entrypoint: dedicated servers never load model classes.
 
 public final class FoxHatClient {
-    public FoxHatClient(IEventBus modBus) {
-        modBus.addListener((net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event)->event.enqueueWork(()->{registerClientExtensions(new Registration());registerScreens(new ForgeMenuScreens());}));
-        modBus.addListener((net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event)->event.enqueueWork(()->registerItemColors(new ItemColorRegistration())));
-        modBus.addListener(CollectorEquipmentKeys::register);
-        MinecraftForge.EVENT_BUS.addListener(CollectorEquipmentKeys::onTick);
-        modBus.addListener(FoxHatClient::registerPlayerHelmetLayers);
-        MinecraftForge.EVENT_BUS.addListener(CosmeticHatTooltip::onTooltip);
-        MinecraftForge.EVENT_BUS.addListener(CollectorDialogueOverlay::onRenderGui);
-        MinecraftForge.EVENT_BUS.addListener(GreedVignetteOverlay::onRenderGui);
-        MinecraftForge.EVENT_BUS.addListener(UnoEncounterOverlay::onRenderGui);
-        MinecraftForge.EVENT_BUS.addListener(UnoEncounterOverlay::onCameraAngles);
+    public FoxHatClient(BusGroup modBus) {
+        net.minecraftforge.client.event.EntityRenderersEvent.RegisterLayerDefinitions.getBus(modBus).addListener(CollectorSoulClient::layers);
+        net.minecraftforge.client.event.EntityRenderersEvent.RegisterRenderers.getBus(modBus).addListener(CollectorSoulClient::renderers);
+        net.minecraftforge.client.event.RegisterPictureInPictureRendererEvent.BUS.addListener(MultiblockPreview::register);
+        net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent.getBus(modBus).addListener((net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event)->event.enqueueWork(()->{registerClientExtensions(new Registration());registerScreens(new ForgeMenuScreens());}));
+        net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent.getBus(modBus).addListener((net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event)->event.enqueueWork(()->registerItemColors(new ItemColorRegistration())));
+        net.minecraftforge.client.event.RegisterKeyMappingsEvent.getBus(modBus).addListener(CollectorEquipmentKeys::register);
+        net.minecraftforge.event.TickEvent.ClientTickEvent.Post.BUS.addListener(CollectorEquipmentKeys::onTick);
+        net.minecraftforge.client.event.EntityRenderersEvent.AddLayers.getBus(modBus).addListener(FoxHatClient::registerPlayerHelmetLayers);
+        net.minecraftforge.event.entity.player.ItemTooltipEvent.BUS.addListener(CosmeticHatTooltip::onTooltip);
+        com.mdk.cosmetic.client.ForgeGuiEvent.Post.BUS.addListener(CollectorDialogueOverlay::onRenderGui);
+        com.mdk.cosmetic.client.ForgeGuiEvent.Post.BUS.addListener(GreedVignetteOverlay::onRenderGui);
+        com.mdk.cosmetic.client.ForgeGuiEvent.Post.BUS.addListener(UnoEncounterOverlay::onRenderGui);
+        net.minecraftforge.client.event.ViewportEvent.ComputeCameraAngles.BUS.addListener(UnoEncounterOverlay::onCameraAngles);
     }
 
     private static void registerPlayerHelmetLayers(net.minecraftforge.client.event.EntityRenderersEvent.AddLayers event) {

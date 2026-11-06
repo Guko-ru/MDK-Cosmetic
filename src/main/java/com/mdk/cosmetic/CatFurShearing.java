@@ -25,14 +25,17 @@ public final class CatFurShearing {
         return entity instanceof Cat || entity instanceof Ocelot;
     }
 
-    public static void onInteract(PlayerInteractEvent.EntityInteract event) {
-        if (!(event.getTarget() instanceof LivingEntity animal) || !isFeline(animal)) return;
-        if (event.getHand() != InteractionHand.MAIN_HAND) return;
+    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
+        if (!(event.getTarget() instanceof LivingEntity animal) || !isFeline(animal)) break mdk$handler;
+        if (event.getHand() != InteractionHand.MAIN_HAND) break mdk$handler;
         ItemStack shears = event.getEntity().getMainHandItem();
-        if (!shears.is(Items.SHEARS)) return;
+        if (!shears.is(Items.SHEARS)) break mdk$handler;
         event.setCancellationResult(InteractionResult.SUCCESS);
-        event.setCanceled(true);
-        if (animal.level().isClientSide()) return;
+        mdk$cancelled[0]=(true);
+        if (animal.level().isClientSide()) break mdk$handler;
 
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(animal);
         long now = System.currentTimeMillis();
@@ -41,7 +44,7 @@ public final class CatFurShearing {
             long seconds = (next - now + 999L) / 1000L;
             event.getEntity().displayClientMessage(Component.translatable(
                     "message.mdkcosmetic.cat_regrowing", (seconds + 59L) / 60L), true);
-            return;
+            break mdk$handler;
         }
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);
         com.mdk.cosmetic.platform.EntityDrops.spawn(animal,new ItemStack(MDKCosmetic.CAT_FUR.get()));
@@ -49,6 +52,9 @@ public final class CatFurShearing {
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);
         }
+    
+        }
+        return mdk$cancelled[0];
     }
 
     /** Independent 10% drop chance for either a cat or an ocelot. */

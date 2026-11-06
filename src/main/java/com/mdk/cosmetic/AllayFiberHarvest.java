@@ -20,14 +20,17 @@ public final class AllayFiberHarvest {
 
     private AllayFiberHarvest() {}
 
-    public static void onInteract(PlayerInteractEvent.EntityInteract event) {
-        if (!(event.getTarget() instanceof Allay allay)) return;
-        if (event.getHand() != InteractionHand.MAIN_HAND) return;
+    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
+        if (!(event.getTarget() instanceof Allay allay)) break mdk$handler;
+        if (event.getHand() != InteractionHand.MAIN_HAND) break mdk$handler;
         ItemStack shears = event.getEntity().getMainHandItem();
-        if (!shears.is(Items.SHEARS)) return;
+        if (!shears.is(Items.SHEARS)) break mdk$handler;
         event.setCancellationResult(InteractionResult.SUCCESS);
-        event.setCanceled(true);
-        if (allay.level().isClientSide()) return;
+        mdk$cancelled[0]=(true);
+        if (allay.level().isClientSide()) break mdk$handler;
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(allay);
         long now = System.currentTimeMillis();
         long next = data.getLongOr(NEXT_SHEAR_AT,0L);
@@ -35,7 +38,7 @@ public final class AllayFiberHarvest {
             long mins = ((next - now + 999L) / 1000L + 59L) / 60L;
             event.getEntity().displayClientMessage(
                 Component.translatable("message.mdkcosmetic.allay_regrowing", mins), true);
-            return;
+            break mdk$handler;
         }
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);
         com.mdk.cosmetic.platform.EntityDrops.spawn(allay,new ItemStack(MDKCosmetic.ALLAY_FIBERS.get()));
@@ -43,6 +46,9 @@ public final class AllayFiberHarvest {
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);
         }
+    
+        }
+        return mdk$cancelled[0];
     }
 
     public static void onDrops(LivingDropsEvent event) {

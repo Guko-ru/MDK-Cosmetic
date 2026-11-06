@@ -57,11 +57,17 @@ public final class CollectorSoulWorldEvents {
      * This is the final, defensive guard against selecting the Collector Soul.
      * It never cancels player targeting or the Warden's usual investigation.
      */
-    public static void onWardenChangeTarget(LivingChangeTargetEvent event) {
+    public static boolean onWardenChangeTarget(LivingChangeTargetEvent event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
         if (event.getEntity() instanceof Warden
                 && event.getNewTarget() instanceof CollectorSoulEntity) {
-            event.setCanceled(true);
+            mdk$cancelled[0]=(true);
         }
+    
+        }
+        return mdk$cancelled[0];
     }
 
     /**

@@ -20,14 +20,17 @@ public final class PandaFurShearing {
 
     private PandaFurShearing() { }
 
-    public static void onInteract(PlayerInteractEvent.EntityInteract event) {
-        if (!(event.getTarget() instanceof Panda panda)) return;
-        if (event.getHand() != InteractionHand.MAIN_HAND) return;
+    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
+        if (!(event.getTarget() instanceof Panda panda)) break mdk$handler;
+        if (event.getHand() != InteractionHand.MAIN_HAND) break mdk$handler;
         ItemStack shears = event.getEntity().getMainHandItem();
-        if (!shears.is(Items.SHEARS)) return;
+        if (!shears.is(Items.SHEARS)) break mdk$handler;
         event.setCancellationResult(InteractionResult.SUCCESS);
-        event.setCanceled(true);
-        if (panda.level().isClientSide()) return;
+        mdk$cancelled[0]=(true);
+        if (panda.level().isClientSide()) break mdk$handler;
 
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(panda);
         long now = System.currentTimeMillis();
@@ -36,7 +39,7 @@ public final class PandaFurShearing {
             long remainingSeconds = (next - now + 999L) / 1000L;
             event.getEntity().displayClientMessage(Component.translatable(
                     "message.mdkcosmetic.panda_regrowing", (remainingSeconds + 59L) / 60L), true);
-            return;
+            break mdk$handler;
         }
 
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);
@@ -45,6 +48,9 @@ public final class PandaFurShearing {
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);
         }
+    
+        }
+        return mdk$cancelled[0];
     }
 
     /** 10% independent chance to drop one tuft on panda death. */

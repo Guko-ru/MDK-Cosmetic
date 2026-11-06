@@ -7,5 +7,5 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntity.class)
 public abstract class ForgeLivingTickMixin {
- @Inject(method="tick",at=@At("TAIL")) private void mdk$postLivingTick(CallbackInfo ci){MinecraftForge.EVENT_BUS.post(new ForgeEntityTicks.EntityTickEvent.Post((LivingEntity)(Object)this));}
+ @Inject(method="tick",at=@At("TAIL")) private void mdk$postLivingTick(CallbackInfo ci){ForgeEntityTicks.EntityTickEvent.Post.BUS.post(new ForgeEntityTicks.EntityTickEvent.Post((LivingEntity)(Object)this));}
 }

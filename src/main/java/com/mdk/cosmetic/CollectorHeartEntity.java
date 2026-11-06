@@ -156,8 +156,10 @@ public final class CollectorHeartEntity extends Guardian {
                 && super.canAttackType(type);
     }
 
-    @Override public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
+    @Override public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput mdk$output) {
+        CompoundTag tag=new CompoundTag();
+
+        super.addAdditionalSaveData(mdk$output);
         tag.putBoolean("Decoy", decoy);
         tag.putBoolean("CloneCreated", cloneCreated);
         tag.putBoolean("FinalPhase", finalPhase);
@@ -165,10 +167,14 @@ public final class CollectorHeartEntity extends Guardian {
         tag.putInt("BlastCooldown", blastCooldown);
         tag.putInt("WeaknessCooldown", weaknessCooldown);
         tag.putBoolean("DroppedKey", droppedKey);
+    
+        com.mdk.cosmetic.platform.LegacyValues.write(mdk$output,tag);
     }
 
-    @Override public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
+    @Override public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput mdk$input) {
+        CompoundTag tag=com.mdk.cosmetic.platform.LegacyValues.read(mdk$input);
+
+        super.readAdditionalSaveData(mdk$input);
         decoy = tag.getBooleanOr("Decoy",false);
         cloneCreated = tag.getBooleanOr("CloneCreated",false);
         finalPhase = tag.getBooleanOr("FinalPhase",false);
@@ -176,5 +182,5 @@ public final class CollectorHeartEntity extends Guardian {
         blastCooldown = tag.getIntOr("BlastCooldown",0);
         weaknessCooldown = tag.getIntOr("WeaknessCooldown",0);
         droppedKey = tag.getBooleanOr("DroppedKey",false);
-    }
+        }
 }

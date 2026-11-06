@@ -19,21 +19,24 @@ public final class DonkeyFurShearing {
     private static final long COOLDOWN_MS = 300000L;
     private DonkeyFurShearing() { }
 
-    public static void onInteract(PlayerInteractEvent.EntityInteract event) {
-        if (!(event.getTarget() instanceof Donkey animal)) return;
-        if (event.getHand() != InteractionHand.MAIN_HAND) return;
+    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
+        if (!(event.getTarget() instanceof Donkey animal)) break mdk$handler;
+        if (event.getHand() != InteractionHand.MAIN_HAND) break mdk$handler;
         ItemStack shears = event.getEntity().getMainHandItem();
-        if (!shears.is(Items.SHEARS)) return;
+        if (!shears.is(Items.SHEARS)) break mdk$handler;
         event.setCancellationResult(InteractionResult.SUCCESS);
-        event.setCanceled(true);
-        if (animal.level().isClientSide()) return;
+        mdk$cancelled[0]=(true);
+        if (animal.level().isClientSide()) break mdk$handler;
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(animal);
         long now = System.currentTimeMillis();
         long next = data.getLongOr(NEXT,0L);
         if (next > now && next - now <= COOLDOWN_MS) {
             event.getEntity().displayClientMessage(Component.translatable(
                 "message.mdkcosmetic.donkey_regrowing", (next - now + 59999L) / 60000L), true);
-            return;
+            break mdk$handler;
         }
         data.putLong(NEXT, now + COOLDOWN_MS);
         com.mdk.cosmetic.platform.EntityDrops.spawn(animal,new ItemStack(MDKCosmetic.DONKEY_FUR.get()));
@@ -41,6 +44,9 @@ public final class DonkeyFurShearing {
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);
         }
+    
+        }
+        return mdk$cancelled[0];
     }
 
     public static void onDrops(LivingDropsEvent event) {

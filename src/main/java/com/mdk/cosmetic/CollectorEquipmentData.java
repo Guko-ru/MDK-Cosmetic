@@ -68,7 +68,7 @@ public final class CollectorEquipmentData {
     public static void syncVisual(ServerPlayer owner) {
         var packet = new CollectorEquipmentVisualPayload(owner.getUUID().toString(), visualType(owner),
                 CollectorBackpackData.linked(backpack(owner)));
-        for (ServerPlayer target : owner.serverLevel().players()) {
+        for (ServerPlayer target : owner.level().players()) {
             if (target.distanceToSqr(owner) < 16384.0 || target == owner)
                 ForgePayloads.sendToPlayer(target, packet);
         }

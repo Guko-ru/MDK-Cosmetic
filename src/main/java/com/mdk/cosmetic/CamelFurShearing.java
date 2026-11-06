@@ -19,14 +19,17 @@ public final class CamelFurShearing {
     private static final long COOLDOWN_MS = 5L * 60L * 1000L;
     private CamelFurShearing() { }
 
-    public static void onInteract(PlayerInteractEvent.EntityInteract event) {
-        if (!(event.getTarget() instanceof Camel camel)) return;
-        if (event.getHand() != InteractionHand.MAIN_HAND) return;
+    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
+        if (!(event.getTarget() instanceof Camel camel)) break mdk$handler;
+        if (event.getHand() != InteractionHand.MAIN_HAND) break mdk$handler;
         ItemStack shears = event.getEntity().getMainHandItem();
-        if (!shears.is(Items.SHEARS)) return;
+        if (!shears.is(Items.SHEARS)) break mdk$handler;
         event.setCancellationResult(InteractionResult.SUCCESS);
-        event.setCanceled(true);
-        if (camel.level().isClientSide()) return;
+        mdk$cancelled[0]=(true);
+        if (camel.level().isClientSide()) break mdk$handler;
 
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(camel);
         long now = System.currentTimeMillis();
@@ -34,7 +37,7 @@ public final class CamelFurShearing {
         if (next > now && next - now <= COOLDOWN_MS) {
             event.getEntity().displayClientMessage(Component.translatable(
                     "message.mdkcosmetic.camel_regrowing", (next - now + 59999L) / 60000L), true);
-            return;
+            break mdk$handler;
         }
         data.putLong(NEXT, now + COOLDOWN_MS);
         com.mdk.cosmetic.platform.EntityDrops.spawn(camel,new ItemStack(MDKCosmetic.CAMEL_FUR.get()));
@@ -42,6 +45,9 @@ public final class CamelFurShearing {
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);
         }
+    
+        }
+        return mdk$cancelled[0];
     }
 
     public static void onCamelDrops(LivingDropsEvent event) {

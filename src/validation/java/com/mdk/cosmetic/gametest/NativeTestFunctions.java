@@ -1,6 +1,6 @@
 package com.mdk.cosmetic.gametest;
 public final class NativeTestFunctions {
- public static void register(net.minecraftforge.eventbus.api.IEventBus bus){
+ public static void register(net.minecraftforge.eventbus.api.bus.BusGroup bus){
   var functions=net.minecraftforge.registries.DeferredRegister.create(net.minecraft.core.registries.Registries.TEST_FUNCTION,"mdkcosmetic_validation");
   functions.register("creative_tabs_are_visible_and_populated",()->helper->{try{NativePortGameTests.creativeTabsAreVisibleAndPopulated(helper);}catch(java.lang.Exception error){throw new RuntimeException(error);}});
   functions.register("fox_shearing_and_persistent_cooldown",()->helper->{try{NativePortGameTests.foxShearingAndPersistentCooldown(helper);}catch(java.lang.Exception error){throw new RuntimeException(error);}});

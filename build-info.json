@@ -1,11 +1,11 @@
 {
   "loader": "Forge",
-  "minecraft": "1.21.5",
-  "loader_build": "55.1.18",
+  "minecraft": "1.21.8",
+  "loader_build": "58.1.26",
   "mod_version": "1.18.79",
   "java": 21,
-  "artifact": "MDK-Cosmetic-1.21.5-Forge-1.18.79.jar",
-  "sha256": "e33d6a7d9afdea6cfbf44b411011f9a05abaf798911c2e79d4b789ff2f3edda2",
+  "artifact": "MDK-Cosmetic-1.21.8-Forge-1.18.79.jar",
+  "sha256": "8536f910a43e7fdf3f83d0a2788c543f9e554fe7cc84a1cf84eb103c930933ba",
   "fabric_api": null,
   "validation": {
     "required_game_tests_passed": 9,
@@ -21,6 +21,7 @@
     "fabric_class_references": 0,
     "native_armor_render": "3 equipped actors, custom hats, dye, glint and diamond trim, visually verified",
     "native_non_dyeable_layer_tints": true,
+    "native_multiblock_3d_preview": "27 depth-tested item models",
     "custom_hats_without_vanilla_helmet_cube": true,
     "native_chest_loot": "9 native modifiers loaded; seeded mineshaft rolls produce the Collector enchantment book"
   },

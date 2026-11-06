@@ -8,14 +8,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.*;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.registries.*;
 /** Native Forge loot modifier: retains the original chest conditions and probabilities. */
 public final class ForgeChestLootModifier extends LootModifier {
  public static final MapCodec<ForgeChestLootModifier> CODEC=RecordCodecBuilder.mapCodec(instance->codecStart(instance).and(ResourceKey.codec(Registries.LOOT_TABLE).fieldOf("table").forGetter(value->value.table)).apply(instance,ForgeChestLootModifier::new));
  private final ResourceKey<LootTable> table;
  public ForgeChestLootModifier(LootItemCondition[] conditions,ResourceKey<LootTable> table){super(conditions);this.table=table;}
- public static void register(IEventBus bus){
+ public static void register(BusGroup bus){
   var serializers=DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS,"mdkcosmetic");
   serializers.register("add_chest_table",()->CODEC);serializers.register(bus);
  }

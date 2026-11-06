@@ -12,7 +12,7 @@ public final class CollectorBackpackDeathVault {
     private CollectorBackpackDeathVault() {}
 
     public static void onDrops(LivingDropsEvent event) {
-        if (!(event.getEntity() instanceof ServerPlayer player) || event.isCanceled()) return;
+        if (!(event.getEntity() instanceof ServerPlayer player) || false) return;
         List<ItemEntity> drops = new ArrayList<>(event.getDrops());
         if (drops.isEmpty()) return; // keepInventory: nothing to transfer, never duplicate.
         CollectorMemoryCoreBlockEntity target = null;

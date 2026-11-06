@@ -58,20 +58,28 @@ public final class CollectorLinkBlockEntity extends BaseContainerBlockEntity {
                 || item.is(MDKCosmetic.POWER_ESSENCE.get());
         return false;
     }
-    @Override protected void saveAdditional(CompoundTag tag,HolderLookup.Provider registries) {
-        super.saveAdditional(tag,registries);
+    @Override protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput mdk$output) {
+        CompoundTag tag=new CompoundTag();
+        var registries=(getLevel()==null?net.minecraft.core.RegistryAccess.EMPTY:getLevel().registryAccess());
+
+        super.saveAdditional(mdk$output);
         tag.putInt("CollectorTradeOffer",selectedOffer);
         tag.putInt("CollectorOfferFormat",3);
         tag.putString("CollectorTradeOfferId",CollectorOffers.id(selectedOffer));
         // Ghost output is deliberately never serialized or dropped as free loot.
         NonNullList<ItemStack> safe=NonNullList.withSize(3,ItemStack.EMPTY);
         safe.set(0,items.get(0));safe.set(2,items.get(2));
-        ContainerHelper.saveAllItems(tag,safe,registries);
+        com.mdk.cosmetic.platform.InventoryNbt.saveAllItems(tag,safe,registries);
+    
+        com.mdk.cosmetic.platform.LegacyValues.write(mdk$output,tag);
     }
-    @Override protected void loadAdditional(CompoundTag tag,HolderLookup.Provider registries) {
-        super.loadAdditional(tag,registries);
+    @Override protected void loadAdditional(net.minecraft.world.level.storage.ValueInput mdk$input) {
+        CompoundTag tag=com.mdk.cosmetic.platform.LegacyValues.read(mdk$input);
+        var registries=mdk$input.lookup();
+
+        super.loadAdditional(mdk$input);
         items=NonNullList.withSize(3,ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag,items,registries);
+        com.mdk.cosmetic.platform.InventoryNbt.loadAllItems(tag,items,registries);
         items.set(1,ItemStack.EMPTY);
         int persisted=tag.getIntOr("CollectorTradeOffer",0);
         int format=tag.getIntOr("CollectorOfferFormat",0);
@@ -97,7 +105,7 @@ public final class CollectorLinkBlockEntity extends BaseContainerBlockEntity {
         }
         selectedOffer=Math.clamp(persisted,0,CollectorOffers.COUNT-1);
         tradeTicks=0; // no free output / preparation after unloading or reloading
-    }
+        }
     public CollectorSoulStorageBlockEntity core() {
         if(level==null) return null;
         BlockState state=level.getBlockState(worldPosition);

@@ -138,9 +138,9 @@ public final class CollectorEquipmentScreen extends AbstractContainerScreen<Coll
     @Override public void render(GuiGraphics g,int mx,int my,float pt){
         int x=(int)(mx/scale),y=(int)(my/scale);
         renderTransparentBackground(g);
-        g.pose().pushPose();g.pose().scale(scale,scale,1.0f);
+        g.pose().pushMatrix();g.pose().scale(scale,scale);
         renderBg(g,pt,x,y);super.render(g,x,y,pt);
         renderTooltip(g,x,y);
-        g.pose().popPose();
+        g.pose().popMatrix();
     }
 }

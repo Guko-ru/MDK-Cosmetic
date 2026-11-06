@@ -534,8 +534,10 @@ public final class CollectorSoulEntity extends PathfinderMob {
                 4,0.35,0.25,0.35,0.015);
     }
 
-    @Override public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
+    @Override public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput mdk$output) {
+        CompoundTag tag=new CompoundTag();
+
+        super.addAdditionalSaveData(mdk$output);
         tag.putInt("TeleportCooldown",teleportCooldown);
         tag.putInt("LightningCooldown",lightningCooldown);
         tag.putInt("ArrowCooldown",arrowCooldown);
@@ -543,9 +545,13 @@ public final class CollectorSoulEntity extends PathfinderMob {
         tag.putInt("SonicCooldown",sonicCooldown);
         tag.putBoolean("SummonedGuardian",hasSummonedGuardian);
         tag.putInt("HighestDialogueStage", highestTauntStage);
+    
+        com.mdk.cosmetic.platform.LegacyValues.write(mdk$output,tag);
     }
-    @Override public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
+    @Override public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput mdk$input) {
+        CompoundTag tag=com.mdk.cosmetic.platform.LegacyValues.read(mdk$input);
+
+        super.readAdditionalSaveData(mdk$input);
         teleportCooldown=tag.getIntOr("TeleportCooldown",0);
         lightningCooldown=tag.getIntOr("LightningCooldown",0);
         arrowCooldown=tag.getIntOr("ArrowCooldown",0);
@@ -572,5 +578,5 @@ public final class CollectorSoulEntity extends PathfinderMob {
         pendingSpell=Spell.NONE;
         spellWindup=0;
         spellTarget=null;
-    }
+        }
 }

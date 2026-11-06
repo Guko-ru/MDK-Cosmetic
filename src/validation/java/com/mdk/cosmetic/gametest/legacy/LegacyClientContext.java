@@ -54,7 +54,7 @@ public final class LegacyClientContext {
  public final class World implements AutoCloseable {
   public Server getServer(){return new Server();}
   public ClientWorld getClientWorld(){return new ClientWorld();}
-  @Override public void close(){runOnClient(c->{if(c.level!=null)c.level.disconnect();c.disconnect(new TitleScreen());});waitFor(c->c.level==null);}
+  @Override public void close(){runOnClient(c->{if(c.level!=null)c.level.disconnect(Component.literal("MDK validation finished"));c.disconnect(new TitleScreen(),false);});waitFor(c->c.level==null);}
  }
  public final class ClientWorld {public void waitForChunksRender(){waitTicks(40);}}
  public final class Server {

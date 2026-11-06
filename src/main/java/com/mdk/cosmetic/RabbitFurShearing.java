@@ -19,14 +19,17 @@ public final class RabbitFurShearing {
     private static final long COOLDOWN_MILLIS = 5L * 60L * 1000L;
     private RabbitFurShearing() { }
 
-    public static void onInteract(PlayerInteractEvent.EntityInteract event) {
-        if (!(event.getTarget() instanceof Rabbit rabbit)) return;
-        if (event.getHand() != InteractionHand.MAIN_HAND) return;
+    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
+        if (!(event.getTarget() instanceof Rabbit rabbit)) break mdk$handler;
+        if (event.getHand() != InteractionHand.MAIN_HAND) break mdk$handler;
         ItemStack shears = event.getEntity().getMainHandItem();
-        if (!shears.is(Items.SHEARS)) return;
+        if (!shears.is(Items.SHEARS)) break mdk$handler;
         event.setCancellationResult(InteractionResult.SUCCESS);
-        event.setCanceled(true);
-        if (rabbit.level().isClientSide()) return;
+        mdk$cancelled[0]=(true);
+        if (rabbit.level().isClientSide()) break mdk$handler;
 
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(rabbit);
         long now = System.currentTimeMillis();
@@ -35,13 +38,16 @@ public final class RabbitFurShearing {
             long remainingMinutes = (next - now + 59999L) / 60000L;
             event.getEntity().displayClientMessage(Component.translatable(
                     "message.mdkcosmetic.rabbit_regrowing", remainingMinutes), true);
-            return;
+            break mdk$handler;
         }
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);
         com.mdk.cosmetic.platform.EntityDrops.spawn(rabbit,new ItemStack(MDKCosmetic.RABBIT_FUR.get()));
         rabbit.playSound(SoundEvents.SHEEP_SHEAR, 0.75F, 1.45F);
         if (!event.getEntity().getAbilities().instabuild)
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);
+    
+        }
+        return mdk$cancelled[0];
     }
 
     public static void onRabbitDrops(LivingDropsEvent event) {

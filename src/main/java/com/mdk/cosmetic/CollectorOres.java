@@ -46,8 +46,14 @@ public final class CollectorOres {
         if(isOre(event.getState()) && !event.getEntity().isCreative()
                 && !event.getEntity().getMainHandItem().is(MDKCosmetic.COLLECTOR_PICKAXE.get())) event.setNewSpeed(0);
     }
-    public static void onBreak(BlockEvent.BreakEvent event) {
+    public static boolean onBreak(BlockEvent.BreakEvent event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
         if(isOre(event.getState()) && !event.getPlayer().isCreative()
-                && !event.getPlayer().getMainHandItem().is(MDKCosmetic.COLLECTOR_PICKAXE.get())) event.setCanceled(true);
+                && !event.getPlayer().getMainHandItem().is(MDKCosmetic.COLLECTOR_PICKAXE.get())) mdk$cancelled[0]=(true);
+    
+        }
+        return mdk$cancelled[0];
     }
 }

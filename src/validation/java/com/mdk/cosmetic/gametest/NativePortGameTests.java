@@ -39,8 +39,8 @@ public final class NativePortGameTests {
         interact(player,fox);
         int after=helper.getLevel().getEntitiesOfClass(ItemEntity.class,fox.getBoundingBox().inflate(4),e->e.getItem().is(MDKCosmetic.FOX_FUR.get())).size();
         assertTrue(helper,after==before,"Shearing cooldown must prevent a second fur");
-        var tag=fox.saveWithoutId(new CompoundTag());
-        var restored=EntityType.FOX.create(helper.getLevel(),net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);restored.load(tag);
+        var tag=com.mdk.cosmetic.platform.LegacyValues.saveEntity(fox);
+        var restored=EntityType.FOX.create(helper.getLevel(),net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);com.mdk.cosmetic.platform.LegacyValues.loadEntity(restored,tag);
         assertTrue(helper,PersistentData.of(restored).getLongOr("mdkcosmetic.nextFoxFurShear",0L)>System.currentTimeMillis(),"Cooldown must survive entity save/load");
         helper.succeed();
     }
@@ -169,8 +169,8 @@ public final class NativePortGameTests {
         assertTrue(helper,disk.getCompoundOrEmpty("data").getListOrEmpty("Storages").compoundStream().anyMatch(t->t.getLongOr("Position",0L)==corePos.asLong()&&t.getIntOr("Stress",0)==61&&t.getBooleanOr("Activated",false)),"Native SavedData codec must persist existing storage schema on disk");
         helper.succeed();
     }
- private static InteractionResult interact(net.minecraft.world.entity.player.Player player,net.minecraft.world.entity.Entity target){var event=new net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract(player,InteractionHand.MAIN_HAND,target);net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);return event.getCancellationResult();}
- private static boolean mayBreak(net.minecraft.world.level.Level level,net.minecraft.world.entity.player.Player player,net.minecraft.world.level.block.state.BlockState state){var event=new net.minecraftforge.event.level.BlockEvent.BreakEvent(level,BlockPos.ZERO,state,player);net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);return !event.isCanceled();}
+ private static InteractionResult interact(net.minecraft.world.entity.player.Player player,net.minecraft.world.entity.Entity target){var event=new net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract(player,InteractionHand.MAIN_HAND,target);net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract.BUS.post(event);return event.getCancellationResult();}
+ private static boolean mayBreak(net.minecraft.world.level.Level level,net.minecraft.world.entity.player.Player player,net.minecraft.world.level.block.state.BlockState state){var event=new net.minecraftforge.event.level.BlockEvent.BreakEvent(level,BlockPos.ZERO,state,player,net.minecraftforge.common.util.Result.DEFAULT);return !net.minecraftforge.event.level.BlockEvent.BreakEvent.BUS.post(event);}
  private static void assertNativeChestLoot(GameTestHelper helper){
   var level=helper.getLevel();var server=level.getServer();
   try{

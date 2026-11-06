@@ -110,10 +110,15 @@ public final class CollectorMemoryCoreBlockEntity extends BlockEntity implements
     }
     public boolean isEmptyMemory() { return stored.isEmpty() && furnace.stream().allMatch(ItemStack::isEmpty); }
 
-    @Override protected void saveAdditional(CompoundTag tag,HolderLookup.Provider provider) {
-        super.saveAdditional(tag,provider);
+    @Override protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput mdk$output) {
+        CompoundTag tag=new CompoundTag();
+        var provider=(getLevel()==null?net.minecraft.core.RegistryAccess.EMPTY:getLevel().registryAccess());
+
+        super.saveAdditional(mdk$output);
         tag.put("CollectorMemory",exportMemory(provider));
         tag.store("MemoryIdentity",net.minecraft.core.UUIDUtil.CODEC,identity);
+    
+        com.mdk.cosmetic.platform.LegacyValues.write(mdk$output,tag);
     }
     public CompoundTag exportMemory(HolderLookup.Provider provider) {
         CompoundTag out=new CompoundTag();
@@ -126,7 +131,7 @@ public final class CollectorMemoryCoreBlockEntity extends BlockEntity implements
         }
         out.put("Entries",list);
         out.store("MemoryIdentity",net.minecraft.core.UUIDUtil.CODEC,identity);
-        ContainerHelper.saveAllItems(out,furnace,provider);
+        com.mdk.cosmetic.platform.InventoryNbt.saveAllItems(out,furnace,provider);
         out.putInt("Burn",litTime);out.putInt("BurnTotal",litDuration);out.putInt("Cook",progress);
         return out;
     }
@@ -145,15 +150,18 @@ public final class CollectorMemoryCoreBlockEntity extends BlockEntity implements
             else stored.add(new Stored(stack,count));
         }
         furnace=NonNullList.withSize(3,ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag,furnace,provider);
+        com.mdk.cosmetic.platform.InventoryNbt.loadAllItems(tag,furnace,provider);
         litTime=Math.max(0,tag.getIntOr("Burn",0));litDuration=Math.max(0,tag.getIntOr("BurnTotal",0));
         progress=Math.clamp(tag.getIntOr("Cook",0),0,SMELT_TICKS);
         setChanged();
     }
-    @Override protected void loadAdditional(CompoundTag tag,HolderLookup.Provider provider) {
-        super.loadAdditional(tag,provider);
+    @Override protected void loadAdditional(net.minecraft.world.level.storage.ValueInput mdk$input) {
+        CompoundTag tag=com.mdk.cosmetic.platform.LegacyValues.read(mdk$input);
+        var provider=mdk$input.lookup();
+
+        super.loadAdditional(mdk$input);
         importMemory(tag.getCompoundOrEmpty("CollectorMemory"),provider);
-    }
+        }
 
     @Override public int getContainerSize(){return 3;}
     @Override public boolean isEmpty(){return furnace.stream().allMatch(ItemStack::isEmpty);}

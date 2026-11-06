@@ -86,10 +86,16 @@ public final class CollectorArmorFear {
                 provoked.setTarget(null);
         }
     }
-    public static void onTargetChange(LivingChangeTargetEvent event) {
-        if (!(event.getEntity() instanceof Mob mob) || !(mob instanceof Enemy) || exempt(mob)) return;
+    public static boolean onTargetChange(LivingChangeTargetEvent event) {
+        boolean[] mdk$cancelled={false};
+        mdk$handler: {
+
+        if (!(event.getEntity() instanceof Mob mob) || !(mob instanceof Enemy) || exempt(mob)) break mdk$handler;
         if (event.getNewTarget() instanceof Player player && fullSet(player) && CollectorEquipmentData.fearMode(player) == 1)
-            event.setCanceled(true);
+            mdk$cancelled[0]=(true);
+    
+        }
+        return mdk$cancelled[0];
     }
     public static void onMobTick(EntityTickEvent.Post event) {
         if (!(event.getEntity() instanceof Mob mob) || exempt(mob)
