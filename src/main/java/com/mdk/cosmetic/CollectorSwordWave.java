@@ -9,7 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import java.util.*;
 
 /** Animated radial wave that starts at the wielder, never pushes the wielder. */
@@ -23,7 +23,7 @@ public final class CollectorSwordWave {
                 SoundSource.PLAYERS,0.8F,1.45F);
     }
     public static void onPlayerTick(PlayerTickEvent.Post event) {
-        if(!(event.getEntity() instanceof ServerPlayer player))return;
+        if(!(event.player instanceof ServerPlayer player))return;
         Wave state=WAVES.get(player.getUUID());
         if(state==null)return;
         if(state.level()!=player.level() || !player.isAlive()) {WAVES.remove(player.getUUID());return;}

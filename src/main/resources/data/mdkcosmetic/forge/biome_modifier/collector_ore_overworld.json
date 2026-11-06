@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#c:is_overworld",
+  "features": "mdkcosmetic:collector_ore_overworld",
+  "step": "underground_ores"
+}

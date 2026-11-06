@@ -14,7 +14,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 public final class CollectorSoulCityData extends SavedData {
     private final Set<String> occupied=new HashSet<>();
     public static final SavedData.Factory<CollectorSoulCityData> FACTORY =
-            new SavedData.Factory<>(CollectorSoulCityData::new, CollectorSoulCityData::load);
+            new SavedData.Factory<>(CollectorSoulCityData::new, CollectorSoulCityData::load, null);
 
     public static CollectorSoulCityData forLevel(ServerLevel level) {
         return level.getServer().overworld().getDataStorage().computeIfAbsent(FACTORY,"mdkcosmetic_collector_soul_cities");

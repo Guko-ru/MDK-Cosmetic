@@ -12,7 +12,7 @@ import net.minecraft.world.inventory.FurnaceMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 
 /** Server-side portable furnace. Everything, including work in progress, lives on the backpack item. */
 public final class CollectorBackpackFurnace {
@@ -101,7 +101,7 @@ public final class CollectorBackpackFurnace {
     }
 
     public static void onTick(PlayerTickEvent.Post event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        if (!(event.player instanceof ServerPlayer player)) return;
         for (int slot = 0; slot <= 36; slot++) {
             boolean equipped = slot == 36;
             ItemStack backpack = equipped ? CollectorEquipmentData.backpack(player)

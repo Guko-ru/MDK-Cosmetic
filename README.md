@@ -1,19 +1,32 @@
-# MDK Cosmetic — Source Code
+# MDK Cosmetic — Forge 1.21.1
 
-This repository contains the source code, game assets, and editable Blockbench models for the Minecraft mod **MDK Cosmetic**.
+**Project version:** 1.18.79  
+**Forge target and minimum required version:** 52.1.21  
+**Minecraft:** 1.21.1  
+**Java:** JDK 21
 
-**[Read the complete license](LICENSE.md)**
-
-MDK Cosmetic is free to play. Ordinary gameplay, free modpacks containing unmodified official files, and gameplay content creation (including monetized videos and streams) are permitted under the terms of the License. Commercial distribution of the mod itself and public distribution of modified versions require prior written permission from MDK.
-
-**Version:** 1.18.78 · **Minecraft:** 1.21.1 · **Loader:** NeoForge 21.1.256.
-
-The source code is publicly available under the custom **MDK Cosmetic Non-Commercial License 1.1**. Public source availability does not remove the restrictions in the License; this is not an open-source license.
+MDK Cosmetic adds collectible cosmetics, a multiblock Collector progression system, equipment, backpacks, bosses, custom structures and the VOID dimension.
 
 ## Build
 
-Use **JDK 21**. On Windows, run `build_mod.bat` or `OPEN_BUILD_CONSOLE.cmd`. With Gradle available, run `gradle clean prepareRelease`. The release JAR is written to `build/release/` after a successful build.
+On Windows, extract the entire ZIP and run `build_mod.bat`. The console remains open and writes `BUILD_LOG.txt` upon running. Gradle 9.8.2 is downloaded automatically if it is not installed. The initial build requires Internet access.
 
-The `src/` directory contains the mod code and runtime resources. The `blockbench/` directory contains editable model sources and is not included in the runtime JAR.
+Alternatively, with Gradle installed, run:
 
-To request special or commercial permission, use the contact details published on the official MDK Cosmetic project page.
+```sh
+gradle --no-daemon clean prepareRelease
+```
+
+The release-ready mod JAR is copied to `build/release/` on a successful build. The `blockbench/` folder holds editable development assets and is **not packed into the JAR**.
+
+## Compatibility
+
+Keep the existing registry IDs intact when upgrading existing worlds; in particular, the Collector's Multitool still uses the historical ID `mdkcosmetic:collector_pickaxe` to preserve saved inventories and references. This project specifically targets Forge 52.1.21. Use only the Minecraft and Forge versions listed above.
+
+## License
+
+See `LICENSE.md` for the **MDK Cosmetic Non-Commercial License 1.1**. Commercial exploitation of covered MDK Cosmetic materials requires prior written permission, subject to the express exceptions in that license. Applicable third-party component licenses remain unaffected.
+
+## Testing status
+
+Built and tested with the native Forge client and server. 6 required GameTests passed; 1208 item models loaded. Client checks covered two machine tiers, four window/GUI configurations, inventory and memory slot clicks, both creative tabs, and both boss phases.

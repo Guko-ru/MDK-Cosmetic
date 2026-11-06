@@ -7,7 +7,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
-import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import com.mdk.cosmetic.client.ForgeGuiEvent;
 
 /** Text is 0.85x vanilla subtitle size and word-wrapped by pixel width into centered lines. */
 public final class CollectorDialogueOverlay {
@@ -21,7 +21,7 @@ public final class CollectorDialogueOverlay {
         color=rgb&0xFFFFFF;
         start=Util.getMillis();
     }
-    public static void onRenderGui(RenderGuiEvent.Post event) {
+    public static void onRenderGui(ForgeGuiEvent.Post event) {
         if(dialogue.isEmpty())return;
         long elapsed=Util.getMillis()-start;
         if(elapsed>=DURATION_MS) {dialogue="";return;}

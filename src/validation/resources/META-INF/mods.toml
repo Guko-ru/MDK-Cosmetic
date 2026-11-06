@@ -1,0 +1,7 @@
+modLoader="javafml"
+loaderVersion="[52,)"
+license="Test-only"
+[[mods]]
+modId="mdkcosmetic_validation"
+version="1.0.0"
+displayName="MDK local validation"

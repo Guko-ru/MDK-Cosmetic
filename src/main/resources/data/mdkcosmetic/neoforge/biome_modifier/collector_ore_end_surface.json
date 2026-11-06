@@ -1,6 +1,0 @@
-{
-  "type": "neoforge:add_features",
-  "biomes": "#c:is_end",
-  "features": "mdkcosmetic:collector_ore_end_surface",
-  "step": "underground_ores"
-}

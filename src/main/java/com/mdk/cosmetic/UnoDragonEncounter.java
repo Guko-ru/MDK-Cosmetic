@@ -8,8 +8,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.mdk.cosmetic.platform.ForgeEntityTicks.EntityTickEvent;
+import com.mdk.cosmetic.platform.ForgePayloads;
 import java.util.Comparator;
 
 /** Exactly one Uno per killed Ender Dragon, starting at zero HP, not after the 200-tick death animation. */
@@ -78,7 +78,7 @@ public final class UnoDragonEncounter {
         // Only players actually present at the End battle see the cinematic.
         for (ServerPlayer viewer:level.players()) {
             if (viewer.distanceToSqr(uno)<128D*128D && viewer.isAlive()) {
-                PacketDistributor.sendToPlayer(viewer,new UnoEncounterPayload(40,20));
+                ForgePayloads.sendToPlayer(viewer,new UnoEncounterPayload(40,20));
             }
         }
     }

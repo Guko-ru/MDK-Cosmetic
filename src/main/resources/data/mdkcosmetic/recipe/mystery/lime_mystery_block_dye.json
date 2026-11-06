@@ -1,1 +1,16 @@
-{"type":"minecraft:crafting_shapeless","category":"building","ingredients":["mdkcosmetic:white_mystery_block","minecraft:lime_dye"],"result":{"id":"mdkcosmetic:lime_mystery_block","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "mdkcosmetic:white_mystery_block"
+    },
+    {
+      "item": "minecraft:lime_dye"
+    }
+  ],
+  "result": {
+    "id": "mdkcosmetic:lime_mystery_block",
+    "count": 1
+  }
+}

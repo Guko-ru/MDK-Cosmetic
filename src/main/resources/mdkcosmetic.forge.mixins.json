@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "package": "com.mdk.cosmetic.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ForgeLivingTickMixin",
+    "BlockLootMixin",
+    "ItemStackHooksMixin",
+    "ForgeItemProtectionMixin",
+    "ItemPickupTargetAccessor"
+  ],
+  "client": [
+    "client.ForgeArmorLayerMixin",
+    "client.ForgeHudMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

@@ -9,7 +9,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.LivingEntity;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import com.mdk.cosmetic.platform.ForgeEntityTicks.EntityTickEvent;
 
 /** Water-bound, non-teleporting lure. Never sets an on-land movement destination. */
 public final class AxolotlHatAttraction {

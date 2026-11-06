@@ -10,8 +10,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import com.mdk.cosmetic.platform.ForgeGameplayEvents.ItemAttributeModifierEvent;
+import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 
 /** Each bonus applies only while a real wearable occupies the HEAD slot. */
 public final class RareTraderHatEffects {
@@ -29,7 +29,7 @@ public final class RareTraderHatEffects {
     }
 
     public static void onPlayerTick(PlayerTickEvent.Post event) {
-        Player player = event.getEntity();
+        Player player = event.player;
         if (!(player.level() instanceof ServerLevel server)) return;
         if (player.tickCount % 20 != 0) return;
         if (player.getItemBySlot(EquipmentSlot.HEAD).is(MDKCosmetic.SAKURA_THINKER.get())) {

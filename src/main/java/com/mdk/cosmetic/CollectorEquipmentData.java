@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.mdk.cosmetic.platform.ForgePayloads;
 
 /** Player-owned, server-authoritative backpack equipment and armor control state. */
 public final class CollectorEquipmentData {
@@ -70,7 +70,7 @@ public final class CollectorEquipmentData {
                 CollectorBackpackData.linked(backpack(owner)));
         for (ServerPlayer target : owner.serverLevel().players()) {
             if (target.distanceToSqr(owner) < 16384.0 || target == owner)
-                PacketDistributor.sendToPlayer(target, packet);
+                ForgePayloads.sendToPlayer(target, packet);
         }
     }
     public static void copyTo(Player previous, Player next) {

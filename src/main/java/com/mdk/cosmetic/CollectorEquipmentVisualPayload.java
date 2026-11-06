@@ -6,7 +6,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import com.mdk.cosmetic.platform.ForgePayloads.Registration;
 
 /** Small visual-only packet; clients never determine what is actually equipped. */
 public record CollectorEquipmentVisualPayload(String uuid, int model, boolean linked) implements CustomPacketPayload {
@@ -18,7 +18,7 @@ public record CollectorEquipmentVisualPayload(String uuid, int model, boolean li
             ByteBufCodecs.BOOL,CollectorEquipmentVisualPayload::linked,
             CollectorEquipmentVisualPayload::new);
     @Override public Type<? extends CustomPacketPayload> type(){ return TYPE; }
-    public static void register(RegisterPayloadHandlersEvent event) {
+    public static void register(Registration event) {
         event.registrar("1").playToClient(TYPE, STREAM_CODEC,
                 (payload,ctx)->CollectorEquipmentVisuals.set(payload.uuid(), payload.model(),payload.linked()));
     }

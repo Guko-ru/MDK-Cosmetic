@@ -11,9 +11,9 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.Evoker;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
+import com.mdk.cosmetic.platform.ForgeEntityTicks.EntityTickEvent;
 
 /** Full Collector armor creates a frightening aura. No invulnerability or
  * forced pacification of bosses. Works on the server (multiplayer-safe). */
@@ -88,7 +88,7 @@ public final class CollectorArmorFear {
     }
     public static void onTargetChange(LivingChangeTargetEvent event) {
         if (!(event.getEntity() instanceof Mob mob) || !(mob instanceof Enemy) || exempt(mob)) return;
-        if (event.getNewAboutToBeSetTarget() instanceof Player player && fullSet(player) && CollectorEquipmentData.fearMode(player) == 1)
+        if (event.getNewTarget() instanceof Player player && fullSet(player) && CollectorEquipmentData.fearMode(player) == 1)
             event.setCanceled(true);
     }
     public static void onMobTick(EntityTickEvent.Post event) {

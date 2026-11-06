@@ -7,7 +7,7 @@ import net.minecraft.network.protocol.game.ClientboundSetTitlesAnimationPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.mdk.cosmetic.platform.ForgePayloads;
 
 /** First awakening uses the vanilla title; long dialogues are small and wrapped HUD overlays. */
 public final class CollectorTitles {
@@ -18,7 +18,7 @@ public final class CollectorTitles {
             if(player.distanceToSqr(origin)>RANGE_SQUARED)continue;
             if(!key.equals("title.mdkcosmetic.awakening")) {
                 Integer rgb=color.getColor();
-                PacketDistributor.sendToPlayer(player,new CollectorDialoguePayload(key,rgb==null?0xC18FFF:rgb));
+                ForgePayloads.sendToPlayer(player,new CollectorDialoguePayload(key,rgb==null?0xC18FFF:rgb));
             } else {
                 player.connection.send(new ClientboundSetTitlesAnimationPacket(8,42,12));
                 player.connection.send(new ClientboundSetTitleTextPacket(Component.translatable(key).withStyle(color)));

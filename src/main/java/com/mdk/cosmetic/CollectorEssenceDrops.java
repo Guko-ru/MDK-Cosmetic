@@ -21,7 +21,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 /** Server-side, once per death. Supports melee weapons and thrown enchanted tridents. */
 public final class CollectorEssenceDrops {

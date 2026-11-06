@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#c:is_nether",
+  "features": "mdkcosmetic:collector_ore_nether",
+  "step": "underground_ores"
+}

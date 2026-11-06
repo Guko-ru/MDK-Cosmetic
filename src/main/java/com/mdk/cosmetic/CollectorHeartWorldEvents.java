@@ -2,15 +2,15 @@ package com.mdk.cosmetic;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.monster.ElderGuardian;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import com.mdk.cosmetic.platform.ForgeEntityTicks.EntityTickEvent;
 
 /** A Heart is generated once per ocean monument, using an elder guardian as a reliable trigger. */
 public final class CollectorHeartWorldEvents {
     private CollectorHeartWorldEvents() {}
 
-    public static void onHurt(net.neoforged.neoforge.event.entity.living.LivingDamageEvent.Pre event) {
+    public static void onHurt(net.minecraftforge.event.entity.living.LivingDamageEvent event) {
         if (event.getSource().getEntity() instanceof CollectorHeartEntity heart && heart.isDecoy()) {
-            event.setNewDamage(event.getNewDamage() * 0.5F);
+            event.setAmount(event.getAmount() * 0.5F);
         }
     }
 

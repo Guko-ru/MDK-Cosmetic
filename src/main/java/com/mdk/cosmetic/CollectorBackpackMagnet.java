@@ -4,13 +4,13 @@ import java.util.List;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 
 /** Server-authoritative pickup magnet with item/component whitelist or blacklist. */
 public final class CollectorBackpackMagnet {
     private CollectorBackpackMagnet(){}
     public static void onTick(PlayerTickEvent.Post event){
-        if(!(event.getEntity() instanceof ServerPlayer player) || player.tickCount%10!=0)return;
+        if(!(event.player instanceof ServerPlayer player) || player.tickCount%10!=0)return;
         // A menu keeps its own in-memory slot snapshot; do not race it with world pickups.
         if(player.containerMenu instanceof CollectorBackpackMenu)return;
         for(int slot=0;slot<=36;slot++){
@@ -28,7 +28,7 @@ public final class CollectorBackpackMagnet {
             for(ItemEntity entity:player.level().getEntitiesOfClass(ItemEntity.class,player.getBoundingBox().inflate(4.5D))){
                 if(!entity.isAlive())continue;
                 if(entity.getOwner()!=null && entity.getOwner()!=player)continue;
-                if(entity.getTarget()!=null && !entity.getTarget().equals(player.getUUID()))continue;
+                if(((com.mdk.cosmetic.mixin.ItemPickupTargetAccessor)(Object)entity).mdk$getPickupTarget()!=null && !((com.mdk.cosmetic.mixin.ItemPickupTargetAccessor)(Object)entity).mdk$getPickupTarget().equals(player.getUUID()))continue;
                 ItemStack dropped=entity.getItem();
                 if(dropped.isEmpty()||!CollectorBackpackData.accepts(backpack,dropped,player.registryAccess()))continue;
                 int remaining=dropped.getCount();

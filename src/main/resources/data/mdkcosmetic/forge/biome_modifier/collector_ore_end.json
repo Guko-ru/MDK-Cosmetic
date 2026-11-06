@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#c:is_end",
+  "features": "mdkcosmetic:collector_ore_end",
+  "step": "underground_ores"
+}

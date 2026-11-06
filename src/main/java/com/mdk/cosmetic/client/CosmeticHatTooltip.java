@@ -10,7 +10,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 /** Extra cosmetic descriptions, visible with Shift; the vanilla armor tooltip is kept intact. */
 public final class CosmeticHatTooltip {

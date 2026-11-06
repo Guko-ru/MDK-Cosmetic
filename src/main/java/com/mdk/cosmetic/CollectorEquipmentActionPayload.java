@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.network.chat.Component;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import com.mdk.cosmetic.platform.ForgePayloads.Registration;
 
 /** The only two key actions; menu opens are server-validated. */
 public record CollectorEquipmentActionPayload(int action) implements CustomPacketPayload {
@@ -17,7 +17,7 @@ public record CollectorEquipmentActionPayload(int action) implements CustomPacke
     public static final StreamCodec<ByteBuf,CollectorEquipmentActionPayload> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.INT, CollectorEquipmentActionPayload::action, CollectorEquipmentActionPayload::new);
     @Override public Type<? extends CustomPacketPayload> type(){ return TYPE; }
-    public static void register(RegisterPayloadHandlersEvent event) {
+    public static void register(Registration event) {
         event.registrar("1").playToServer(TYPE, STREAM_CODEC, (payload,ctx)->{
             if (!(ctx.player() instanceof ServerPlayer player) || player.isSpectator()) return;
             if (payload.action() == 0) {

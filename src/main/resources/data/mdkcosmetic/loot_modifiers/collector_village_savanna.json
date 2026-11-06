@@ -1,8 +1,8 @@
 {
-  "type": "neoforge:add_table",
+  "type": "mdkcosmetic:add_chest_table",
   "conditions": [
     {
-      "condition": "neoforge:loot_table_id",
+      "condition": "forge:loot_table_id",
       "loot_table_id": "minecraft:chests/village/village_savanna_house"
     },
     {

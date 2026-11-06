@@ -1,0 +1,26 @@
+{
+  "loader": "Forge",
+  "minecraft": "1.21.1",
+  "loader_build": "52.1.21",
+  "mod_version": "1.18.79",
+  "java": 21,
+  "artifact": "MDK-Cosmetic-1.21.1-Forge-1.18.79.jar",
+  "sha256": "248ccfe8bda4bac81d27d251ff09648dfb9b2dae6778bf0659ac47b3e002f523",
+  "fabric_api": null,
+  "validation": {
+    "required_game_tests_passed": 6,
+    "client_item_models_checked": 1208,
+    "native_slot_hits": true,
+    "machine_tiers": [
+      1,
+      2
+    ],
+    "gui_configurations": 4,
+    "creative_tabs": true,
+    "boss_phases": "black first phase with black effects; opponent skin and equipment in second phase",
+    "fabric_class_references": 0,
+    "native_armor_render": "3 equipped actors, custom hats, dye, glint and diamond trim, visually verified",
+    "native_chest_loot": "9 native modifiers loaded; seeded mineshaft rolls produce the Collector enchantment book"
+  },
+  "license": "MDK Cosmetic Non-Commercial License 1.1"
+}

@@ -11,7 +11,7 @@ import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 
 /** Rare cosmetics on natural/spawner/spawn-egg hostile mobs; persists to avoid reroll on chunk reload. */
 public final class HostileHatSpawns {

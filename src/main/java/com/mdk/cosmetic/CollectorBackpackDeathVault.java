@@ -5,7 +5,7 @@ import java.util.List;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 /** Death insurance: all actually dropped items, including the backpack, are transferred atomically. */
 public final class CollectorBackpackDeathVault {

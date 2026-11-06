@@ -16,10 +16,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 
 /**
  * Server-authoritative challenges that vanilla advancement predicates cannot count.
@@ -95,10 +95,10 @@ public final class CollectorAdvancementEvents {
         return total;
     }
 
-    public static void onPickup(ItemEntityPickupEvent.Post event) {
-        if (!(event.getPlayer() instanceof ServerPlayer player)) return;
-        ItemStack original=event.getOriginalStack();
-        int picked=Math.max(0,original.getCount()-event.getCurrentStack().getCount());
+    public static void onPickup(PlayerEvent.ItemPickupEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        ItemStack original=event.getStack();
+        int picked=original.getCount();
         if (picked<=0) return;
         if (original.is(MDKCosmetic.POWER_ESSENCE.get())) accumulate(player,"shard_pickups",picked);
         if (original.is(MDKCosmetic.CHARGED_POWER_ESSENCE.get())) accumulate(player,"coin_pickups",picked);
@@ -186,7 +186,7 @@ public final class CollectorAdvancementEvents {
     }
 
     public static void onTick(PlayerTickEvent.Post event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        if (!(event.player instanceof ServerPlayer player)) return;
         if (player.tickCount % 60 != 0) return;
         CollectorVoidAchievements.onTick(player);
 

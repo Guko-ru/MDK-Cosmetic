@@ -1,48 +1,64 @@
 plugins {
-    id 'java-library'
-    id 'net.neoforged.moddev' version '2.0.148'
+ id 'java-library'
+ id 'net.minecraftforge.gradle' version '7.0.40'
 }
-
-version = '1.18.78'
+version = '1.18.79'
 group = 'com.mdk.cosmetic'
-
-base {
-    archivesName = 'MDK-Cosmetic-1.21.1-NeoForge'
-}
-
+base.archivesName = 'MDK-Cosmetic-1.21.1-Forge'
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-
-neoForge {
-    enable {
-        version = '21.1.256'
-        disableRecompilation = true
+sourceSets { validation { compileClasspath += sourceSets.main.output; runtimeClasspath += sourceSets.main.output } }
+configurations { validationImplementation.extendsFrom implementation; validationCompileOnly.extendsFrom compileOnly; validationRuntimeOnly.extendsFrom runtimeOnly }
+minecraft {
+ mappings channel: 'official', version: '1.21.1'
+ runs {
+  configureEach {
+   workingDir.convention layout.projectDirectory.dir('run')
+   args '--mixin.config=mdkcosmetic.forge.mixins.json'
+   // Keep development launcher files in the selected Gradle cache.
+   environment 'APPDATA',new File(gradle.gradleUserHomeDir,'caches/forge-runtime-appdata').absolutePath
+  }
+  register('client') {
+   if(project.hasProperty('validationRun')) {
+    workingDir = layout.projectDirectory.dir('run/client-' + project.property('validationRun'))
+    args '--mixin.config=mdkcosmetic.validation.mixins.json','--width','854','--height','480'
+    systemProperty(project.property('validationRun')=='smoke'?'mdkcosmetic.clientSmoke':'mdkcosmetic.clientRegressions','true')
+    mods {
+     mdkcosmetic { source sourceSets.main }
+     mdkcosmetic_validation { source sourceSets.validation }
     }
+   }
+  }
+  register('server') { args '--nogui' }
+  register('gameTestServer') {
+   workingDir = layout.projectDirectory.dir('run/game-test')
+   systemProperty 'forge.enabledGameTestNamespaces','mdkcosmetic_validation'
+   mods {
+    mdkcosmetic { source sourceSets.main }
+    mdkcosmetic_validation { source sourceSets.validation }
+   }
+  }
+ }
 }
-
-
-// Optional, built-in JEI integration: the mod runs normally without JEI installed.
 repositories {
-    maven { url = 'https://maven.blamejared.com' }
-    mavenCentral()
+ minecraft.mavenizer(it)
+ maven fg.forgeMaven
+ maven fg.minecraftLibsMaven
+ maven { url = 'https://maven.blamejared.com' }
+ mavenCentral()
 }
-
 dependencies {
-    compileOnly 'mezz.jei:jei-1.21.1-common-api:19.21.0.246'
-    compileOnly 'mezz.jei:jei-1.21.1-neoforge-api:19.21.0.246'
-    // JEI itself must NOT be bundled into MDK Cosmetic or required at runtime.
+ implementation minecraft.dependency('net.minecraftforge:forge:1.21.1-52.1.21')
+ compileOnly 'mezz.jei:jei-1.21.1-common-api:19.21.0.246'
+ compileOnly 'mezz.jei:jei-1.21.1-forge-api:19.21.0.246'
 }
-
-// Release JAR contains only compiled classes, runtime assets and mandatory license.
-// Blockbench sources, dev tools and project notes stay in the development ZIP.
-tasks.named('jar', Jar) {
-    from('LICENSE.md') { into('META-INF'); rename { 'LICENSE-MDK-COSMETIC.txt' } }
-    exclude('**/*.bbmodel', '**/*.psd', '**/*.blend', '**/*~', '**/*.bak', '**/*.orig')
-    manifest { attributes('Implementation-Title': 'MDK Cosmetic', 'Implementation-Version': project.version) }
+tasks.withType(JavaCompile).configureEach { options.encoding='UTF-8' }
+tasks.named('jar',Jar) {
+ from('LICENSE.md') { into('META-INF'); rename { 'LICENSE-MDK-COSMETIC.txt' } }
+ exclude('**/*.bbmodel','**/*.psd','**/*.blend','**/*~','**/*.bak','**/*.orig')
+ manifest { attributes('Implementation-Title':'MDK Cosmetic','Implementation-Version':project.version,'MixinConfigs':'mdkcosmetic.forge.mixins.json') }
 }
-
-// Copy the regular produced mod artifact to a clean distribution folder.
-tasks.register('prepareRelease', Copy) {
-    dependsOn(tasks.named('build'))
-    from(layout.buildDirectory.dir('libs')) { include('*.jar'); exclude('*-sources.jar', '*-javadoc.jar') }
-    into(layout.buildDirectory.dir('release'))
+tasks.register('prepareRelease',Copy) {
+ dependsOn tasks.named('build')
+ from(layout.buildDirectory.dir('libs')) { include('*.jar'); exclude('*-sources.jar','*-javadoc.jar') }
+ into(layout.buildDirectory.dir('release'))
 }

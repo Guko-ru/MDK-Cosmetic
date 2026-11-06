@@ -6,7 +6,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import com.mdk.cosmetic.platform.ForgePayloads.Registration;
 
 /** Client-only screen encounter cue; no control packets or commands. */
 public record UnoEncounterPayload(int blackoutTicks,int shakeTicks) implements CustomPacketPayload {
@@ -16,7 +16,7 @@ public record UnoEncounterPayload(int blackoutTicks,int shakeTicks) implements C
             ByteBufCodecs.INT,UnoEncounterPayload::blackoutTicks,
             ByteBufCodecs.INT,UnoEncounterPayload::shakeTicks,UnoEncounterPayload::new);
     @Override public Type<? extends CustomPacketPayload> type(){return TYPE;}
-    public static void register(RegisterPayloadHandlersEvent event) {
+    public static void register(Registration event) {
         event.registrar("1").playToClient(TYPE,STREAM_CODEC,
                 (payload,ctx) -> UnoEncounterOverlay.receive(payload.blackoutTicks(),payload.shakeTicks()));
     }

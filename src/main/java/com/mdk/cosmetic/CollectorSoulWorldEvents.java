@@ -11,9 +11,9 @@ import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
+import net.minecraftforge.event.TickEvent.ServerTickEvent;
+import com.mdk.cosmetic.platform.ForgeEntityTicks.EntityTickEvent;
 
 /** Natural one-time generation per ancient city, and Warden neutrality. */
 public final class CollectorSoulWorldEvents {
@@ -59,7 +59,7 @@ public final class CollectorSoulWorldEvents {
      */
     public static void onWardenChangeTarget(LivingChangeTargetEvent event) {
         if (event.getEntity() instanceof Warden
-                && event.getNewAboutToBeSetTarget() instanceof CollectorSoulEntity) {
+                && event.getNewTarget() instanceof CollectorSoulEntity) {
             event.setCanceled(true);
         }
     }

@@ -17,7 +17,7 @@ public final class CollectorHeartSpawnData extends SavedData {
 
     public static CollectorHeartSpawnData get(ServerLevel level) {
         return level.getDataStorage().computeIfAbsent(
-                new SavedData.Factory<>(CollectorHeartSpawnData::new, CollectorHeartSpawnData::load), ID);
+                new SavedData.Factory<>(CollectorHeartSpawnData::new, CollectorHeartSpawnData::load, null), ID);
     }
     public boolean registered(BlockPos pos) {
         for (BlockPos existing : monuments)

@@ -3,12 +3,12 @@ package com.mdk.cosmetic.client;
 import com.mdk.cosmetic.MDKCosmetic;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import com.mdk.cosmetic.client.ForgeGuiEvent;
 
 /** Very subtle (about ten percent) blood-red screen vignette while Greed is active. */
 public final class GreedVignetteOverlay {
     private GreedVignetteOverlay() {}
-    public static void onRenderGui(RenderGuiEvent.Post event) {
+    public static void onRenderGui(ForgeGuiEvent.Post event) {
         Minecraft mc=Minecraft.getInstance();
         if(mc.player==null || mc.options.hideGui || !mc.player.hasEffect(MDKCosmetic.GREED_AURA)) return;
         GuiGraphics g=event.getGuiGraphics();
