@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.function.Supplier;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.color.item.ItemColor;
+import com.mdk.cosmetic.client.CosmeticItemTints.Color;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
@@ -40,7 +40,7 @@ public final class ClientEvents {
     }
     public static final class RegisterColorHandlersEvent {
         public static final class Item {
-            public void register(ItemColor color,net.minecraft.world.item.Item... items){ColorProviderRegistry.ITEM.register(color,items);}
+            public void register(Color color,net.minecraft.world.item.Item... items){CosmeticItemTints.register(color,items);}
         }
     }
     public static final class RegisterMenuScreensEvent {

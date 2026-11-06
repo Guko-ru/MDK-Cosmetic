@@ -4,13 +4,13 @@ plugins {
 }
 version = '1.18.78'
 group = 'com.mdk.cosmetic'
-base { archivesName = 'MDK-Cosmetic-1.21.3-Fabric' }
+base { archivesName = 'MDK-Cosmetic-1.21.4-Fabric' }
 repositories { maven { url = 'https://maven.blamejared.com' }; mavenCentral() }
 dependencies {
-    minecraft 'com.mojang:minecraft:1.21.3'
+    minecraft 'com.mojang:minecraft:1.21.4'
     mappings loom.officialMojangMappings()
     modImplementation 'net.fabricmc:fabric-loader:0.20.1'
-    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.114.1+1.21.3'
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.119.4+1.21.4'
 }
 java { toolchain.languageVersion = JavaLanguageVersion.of(21); withSourcesJar() }
 loom { accessWidenerPath = file('src/main/resources/mdkcosmetic.accesswidener') }
@@ -27,7 +27,7 @@ fabricApi.configureTests {
     createSourceSet = true
     modId = 'mdkcosmetic-gametest'
     enableGameTests = true
-    enableClientGameTests = false
+    enableClientGameTests = true
     clearRunDirectory = false
     eula = false
 }
@@ -50,13 +50,5 @@ sourceSets.main.java.exclude('com/mdk/cosmetic/jei/**')
 // JEI does not publish an API for this exact Minecraft release; retain integration sources for supported releases.
 sourceSets.main.java.exclude('com/mdk/cosmetic/jei/**')
 
-loom.runs {
- clientRegressions {
-  client()
-  source sourceSets.gametest
-  vmArg '-Dmdkcosmetic.clientRegressions=true'
-  vmArg '-Xmx2G'
-  programArgs '--width', '854', '--height', '480'
-  runDir 'run/client-regressions'
- }
-}
+// JEI does not publish an API for this exact Minecraft release; retain integration sources for supported releases.
+sourceSets.main.java.exclude('com/mdk/cosmetic/jei/**')

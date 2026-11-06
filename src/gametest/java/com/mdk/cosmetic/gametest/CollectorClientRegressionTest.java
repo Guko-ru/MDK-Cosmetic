@@ -2,9 +2,9 @@ package com.mdk.cosmetic.gametest;
 
 import com.mdk.cosmetic.*;
 import com.mdk.cosmetic.client.*;
-import com.mdk.cosmetic.gametest.legacy.LegacyClientContext;
-
-
+import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
+import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
+import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
 import net.fabricmc.fabric.api.client.itemgroup.v1.FabricCreativeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -24,7 +24,7 @@ import java.lang.reflect.Field;
 import java.util.UUID;
 
 /** Real integrated-server regression checks for the reported machine, creative and boss bugs. */
-public final class CollectorClientRegressionTest implements LegacyClientContext.Fixture {
+public final class CollectorClientRegressionTest implements FabricClientGameTest {
  private static final BlockPos CENTER=new BlockPos(0,100,0),LINK=CENTER.north();
  private UUID bossId;
  private static void require(boolean ok,String message){if(!ok)throw new AssertionError(message);}
@@ -32,23 +32,23 @@ public final class CollectorClientRegressionTest implements LegacyClientContext.
   for(Class<?> type=object.getClass();type!=null;type=type.getSuperclass())try{Field f=type.getDeclaredField(name);f.setAccessible(true);return f.get(object);}catch(NoSuchFieldException ignored){}catch(ReflectiveOperationException error){throw new AssertionError(error);}
   throw new AssertionError("Missing field "+name);
  }
- private static void closeMenu(LegacyClientContext context,LegacyClientContext.World world){world.getServer().runOnServer(server->server.getPlayerList().getPlayers().getFirst().closeContainer());context.waitForScreen(null);}
- private static void openLink(LegacyClientContext context,LegacyClientContext.World world){
+ private static void closeMenu(ClientGameTestContext context,TestSingleplayerContext world){world.getServer().runOnServer(server->server.getPlayerList().getPlayers().getFirst().closeContainer());context.waitForScreen(null);}
+ private static void openLink(ClientGameTestContext context,TestSingleplayerContext world){
   world.getServer().runOnServer(server->{var p=server.getPlayerList().getPlayers().getFirst();p.teleportTo(.5,100,-3.5);p.openMenu((CollectorLinkBlockEntity)p.serverLevel().getBlockEntity(LINK));});
   context.waitForScreen(CollectorLinkScreen.class);context.waitTicks(5);
  }
- private static double[] position(LegacyClientContext context,int x,int y){return context.computeOnClient(client->{var screen=(CollectorLinkScreen)client.screen;float scale=(float)field(screen,"uiScale");int left=(int)field(screen,"leftPos"),top=(int)field(screen,"topPos");return new double[]{(left+x)*scale*client.getWindow().getGuiScale(),(top+y)*scale*client.getWindow().getGuiScale()};});}
- private static void point(LegacyClientContext context,int x,int y){var p=position(context,x,y);context.getInput().setCursorPos(p[0],p[1]);context.waitTick();}
- private static void click(LegacyClientContext context,int x,int y){point(context,x,y);context.getInput().pressMouse(0);context.waitTicks(2);}
- private static void capture(LegacyClientContext context,String name){context.runOnClient(client->client.getToastManager().clear());context.getInput().setCursorPos(0,0);context.waitTicks(2);context.takeScreenshot(name);}
- private static void checkSlots(LegacyClientContext context,int start,int end){
+ private static double[] position(ClientGameTestContext context,int x,int y){return context.computeOnClient(client->{var screen=(CollectorLinkScreen)client.screen;float scale=(float)field(screen,"uiScale");int left=(int)field(screen,"leftPos"),top=(int)field(screen,"topPos");return new double[]{(left+x)*scale*client.getWindow().getGuiScale(),(top+y)*scale*client.getWindow().getGuiScale()};});}
+ private static void point(ClientGameTestContext context,int x,int y){var p=position(context,x,y);context.getInput().setCursorPos(p[0],p[1]);context.waitTick();}
+ private static void click(ClientGameTestContext context,int x,int y){point(context,x,y);context.getInput().pressMouse(0);context.waitTicks(2);}
+ private static void capture(ClientGameTestContext context,String name){context.runOnClient(client->client.getToastManager().clear());context.getInput().setCursorPos(0,0);context.waitTicks(2);context.takeScreenshot(name);}
+ private static void checkSlots(ClientGameTestContext context,int start,int end){
   for(int i=start;i<end;i++){
    final int index=i;int[] xy=context.computeOnClient(client->{Slot s=((CollectorLinkScreen)client.screen).getMenu().getSlot(index);return new int[]{s.x+8,s.y+8};});
    point(context,xy[0],xy[1]);
    context.runOnClient(client->{var screen=(CollectorLinkScreen)client.screen;require(field(screen,"hoveredSlot")==screen.getMenu().getSlot(index),"Rendered slot and native hover/click region differ at slot "+index);});
   }
  }
- @Override public void runTest(LegacyClientContext context){
+ @Override public void runTest(ClientGameTestContext context){
   try(var world=context.worldBuilder().create()){
    world.getClientWorld().waitForChunksRender();
    world.getServer().runOnServer(server->{

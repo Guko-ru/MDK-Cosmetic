@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "mdkcosmetic:item/polar_bear_fur_carpet_cyan",
+    "tints": [
+      {
+        "type": "mdkcosmetic:cosmetic_color",
+        "index": 0
+      },
+      {
+        "type": "mdkcosmetic:cosmetic_color",
+        "index": 1
+      }
+    ]
+  }
+}

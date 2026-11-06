@@ -9,15 +9,14 @@
       "com.mdk.cosmetic.gametest.FabricPortGameTests"
     ],
     "client": [
-      "com.mdk.cosmetic.gametest.ClientStartupSmoke",
-      "com.mdk.cosmetic.gametest.legacy.LegacyRegressionInitializer"
+      "com.mdk.cosmetic.gametest.ClientStartupSmoke"
+    ],
+    "fabric-client-gametest": [
+      "com.mdk.cosmetic.gametest.CollectorClientRegressionTest"
     ]
   },
   "depends": {
     "mdkcosmetic": "*",
     "fabric-api": "*"
-  },
-  "mixins": [
-    "mdkcosmetic.legacy-test.mixins.json"
-  ]
+  }
 }
