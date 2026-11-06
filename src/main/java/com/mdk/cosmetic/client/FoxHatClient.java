@@ -13,7 +13,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 
 import com.mdk.cosmetic.client.ForgeArmorExtensions.Registration;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import com.mdk.cosmetic.client.ForgeMenuScreens;
 
 // Client-only entrypoint: dedicated servers never load model classes.
@@ -21,7 +20,7 @@ import com.mdk.cosmetic.client.ForgeMenuScreens;
 public final class FoxHatClient {
     public FoxHatClient(IEventBus modBus) {
         modBus.addListener((net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event)->event.enqueueWork(()->{registerClientExtensions(new Registration());registerScreens(new ForgeMenuScreens());}));
-        modBus.addListener(FoxHatClient::registerItemColors);
+        modBus.addListener((net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event)->event.enqueueWork(()->registerItemColors(new ItemColorRegistration())));
         modBus.addListener(CollectorEquipmentKeys::register);
         MinecraftForge.EVENT_BUS.addListener(CollectorEquipmentKeys::onTick);
         modBus.addListener(FoxHatClient::registerPlayerHelmetLayers);
@@ -51,7 +50,7 @@ public final class FoxHatClient {
         event.register(MDKCosmetic.COLLECTOR_SMELTER_MENU.get(), CollectorSmelterScreen::new);
     }
 
-    private static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+    private static void registerItemColors(ItemColorRegistration event) {
         // Generated armor item icons tint layer 1; the Collector 3D helmet tints only its secondary overlay (index 0).
         event.register((stack, tintIndex) -> tintIndex == 0
                 ? CollectorTrimColors.color(stack) : 0xFFFFFFFF, MDKCosmetic.COLLECTOR_HELMET.get());

@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "mdkcosmetic:item/orange_mystery_stairs",
+    "tints": [
+      {
+        "type": "mdkcosmetic:cosmetic_color",
+        "index": 0
+      },
+      {
+        "type": "mdkcosmetic:cosmetic_color",
+        "index": 1
+      }
+    ]
+  }
+}

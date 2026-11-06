@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "mdkcosmetic:item/glow_squid_hat",
+    "tints": [
+      {
+        "type": "mdkcosmetic:cosmetic_color",
+        "index": 0
+      },
+      {
+        "type": "mdkcosmetic:cosmetic_color",
+        "index": 1
+      }
+    ]
+  }
+}

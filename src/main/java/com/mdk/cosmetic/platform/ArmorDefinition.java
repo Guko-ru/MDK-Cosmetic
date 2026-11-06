@@ -12,7 +12,7 @@ import net.minecraft.world.item.equipment.ArmorMaterial;
 public final class ArmorDefinition {
  private final ArmorMaterial material; private final boolean enchantable;
  private final List<Layer> layers;
- public ArmorDefinition(Map<ArmorType,Integer> defense,int enchantment,Holder<SoundEvent> sound,TagKey<Item> repairs,List<Layer> layers,float toughness,float knockback){this.layers=List.copyOf(layers);this.enchantable=enchantment>0;material=new ArmorMaterial(1,Map.copyOf(defense),Math.max(1,enchantment),sound,toughness,knockback,repairs,layers.getFirst().id());}
+ public ArmorDefinition(Map<ArmorType,Integer> defense,int enchantment,Holder<SoundEvent> sound,TagKey<Item> repairs,List<Layer> layers,float toughness,float knockback){this.layers=List.copyOf(layers);this.enchantable=enchantment>0;material=new ArmorMaterial(1,Map.copyOf(defense),Math.max(1,enchantment),sound,toughness,knockback,repairs,net.minecraft.resources.ResourceKey.create(net.minecraft.world.item.equipment.EquipmentAssets.ROOT_ID,layers.getFirst().id()));}
  public boolean enchantable(){return enchantable;} public ArmorMaterial nativeMaterial(){return material;}
  public List<Layer> layers(){return layers;}
  public record Layer(ResourceLocation id,String suffix,boolean dyeable) {

@@ -1,0 +1,15 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "mdkcosmetic:axolotl_hat_dyed",
+        "dyeable": {
+          "color_when_undyed": 16777215
+        }
+      },
+      {
+        "texture": "mdkcosmetic:axolotl_hat_fixed"
+      }
+    ]
+  }
+}

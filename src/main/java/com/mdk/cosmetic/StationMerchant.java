@@ -132,5 +132,6 @@ public final class StationMerchant implements Merchant {
     @Override public boolean showProgressBar() { return false; }
     @Override public SoundEvent getNotifyTradeSound() { return SoundEvents.VILLAGER_WORK_SHEPHERD; }
     @Override public boolean isClientSide() { return level.isClientSide(); }
+    @Override public boolean stillValid(Player player){return tradingPlayer==player && player.level()==level && player.distanceToSqr(pos.getX()+.5,pos.getY()+.5,pos.getZ()+.5)<=64D && level.getBlockState(pos).is(MDKCosmetic.TAILORING_TABLE.get());}
     @Override public boolean canRestock() { return false; }
 }

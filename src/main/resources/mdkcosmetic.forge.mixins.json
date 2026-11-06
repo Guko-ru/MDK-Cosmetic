@@ -17,7 +17,8 @@
     "client.EquipmentRenderStateMixin",
     "client.EquipmentExtractionMixin",
     "client.ForgeArmorLayerMixin",
-    "client.ForgeHudMixin"
+    "client.ForgeHudMixin",
+    "client.CosmeticItemTintSourcesMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,9 +1,9 @@
 {
   "pack": {
-    "pack_format": 57,
+    "pack_format": 61,
     "supported_formats": [
-      42,
-      57
+      46,
+      61
     ],
     "description": "MDK Cosmetic"
   }

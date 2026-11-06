@@ -325,13 +325,9 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         }
     }
 
-    /** Scissor coordinates use scaled screen pixels, not the virtual GUI canvas. */
-    private void clipItemStart(GuiGraphics g, int localX, int localY) {
-        int x1 = Math.round((leftPos + localX) * uiScale);
-        int y1 = Math.round((topPos + localY) * uiScale);
-        int x2 = Math.round((leftPos + localX + 16) * uiScale);
-        int y2 = Math.round((topPos + localY + 16) * uiScale);
-        g.enableScissor(x1, y1, Math.max(x1 + 1, x2), Math.max(y1 + 1, y2));
+    /** Since 1.21.4, GuiGraphics transforms the scissor by the current GUI pose. */
+    private void clipItemStart(GuiGraphics g,int localX,int localY){
+        g.enableScissor(leftPos+localX,topPos+localY,leftPos+localX+16,topPos+localY+16);
     }
 
     @Override protected void renderSlot(GuiGraphics g, net.minecraft.world.inventory.Slot slot) {
@@ -340,7 +336,7 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         boolean memoryCell = menu.isMemoryReady()
                 && slot.x >= STORE_X && slot.x < STORE_X + CollectorLinkMenu.MEMORY_COLUMNS * 18
                 && slot.y >= STORE_Y && slot.y < STORE_Y + CollectorLinkMenu.MEMORY_ROWS * 18;
-        if (memoryCell) clipItemStart(g, slot.x, slot.y);
+        if (memoryCell) g.enableScissor(slot.x,slot.y,slot.x+16,slot.y+16);
         super.renderSlot(g, slot);
         if (memoryCell) g.disableScissor();
     }
