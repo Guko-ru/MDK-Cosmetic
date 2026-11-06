@@ -19,13 +19,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.core.registries.Registries;
 
 /** Server-only gateway lifecycle, activation and returning home. */
 public final class CollectorVoidPortalController {
     public static final ResourceKey<Level> VOID = ResourceKey.create(Registries.DIMENSION,
-            ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "void"));
+            Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "void"));
     private CollectorVoidPortalController() {}
 
     private static Direction connectorFace(ServerLevel level, BlockPos soulPos) {

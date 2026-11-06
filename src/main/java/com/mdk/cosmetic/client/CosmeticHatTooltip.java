@@ -9,7 +9,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Items;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mdk.cosmetic.client.ClientEvents.ItemTooltipEvent;
 
 /** Extra cosmetic descriptions, visible with Shift; the vanilla armor tooltip is kept intact. */
@@ -39,13 +39,13 @@ public final class CosmeticHatTooltip {
             var stored = event.getItemStack().get(DataComponents.STORED_ENCHANTMENTS);
             if (stored != null && stored.entrySet().stream().anyMatch(entry ->
                     entry.getKey().unwrapKey().map(key ->
-                            key.location().equals(MDKCosmetic.COLLECTOR_ENCHANTMENT_ID)).orElse(false))) {
+                            key.identifier().equals(MDKCosmetic.COLLECTOR_ENCHANTMENT_ID)).orElse(false))) {
                 event.getToolTip().add(Component.translatable("tooltip.mdkcosmetic.rework.collector_book")
                         .withStyle(ChatFormatting.LIGHT_PURPLE));
             }
             return;
         }
-        ResourceLocation id = BuiltInRegistries.ITEM.getKey(event.getItemStack().getItem());
+        Identifier id = BuiltInRegistries.ITEM.getKey(event.getItemStack().getItem());
         if (!MDKCosmetic.MOD_ID.equals(id.getNamespace())) return;
         String path = id.getPath();
         String tooltipKey = switch (path) {

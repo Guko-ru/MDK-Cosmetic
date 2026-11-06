@@ -9,13 +9,13 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 /** Bridges the original item color functions into Minecraft's native client-item tint source. */
 public final class CosmeticItemTints {
  @FunctionalInterface public interface Color {int getColor(ItemStack stack,int index);}
  private static final Map<Item,Color> COLORS=new IdentityHashMap<>();
  public static void register(Color color,Item... items){for(var item:items)COLORS.put(item,color);}
- public static void initialize(){ItemTintSources.ID_MAPPER.put(ResourceLocation.parse("mdkcosmetic:cosmetic_color"),Source.CODEC);}
+ public static void initialize(){ItemTintSources.ID_MAPPER.put(Identifier.parse("mdkcosmetic:cosmetic_color"),Source.CODEC);}
  public record Source(int index) implements ItemTintSource {
   public static final MapCodec<Source> CODEC=Codec.INT.fieldOf("index").xmap(Source::new,Source::index);
   @Override public int calculate(ItemStack stack,ClientLevel level,LivingEntity holder){var color=COLORS.get(stack.getItem());return net.minecraft.util.ARGB.opaque(color==null?0xFFFFFFFF:color.getColor(stack,index));}

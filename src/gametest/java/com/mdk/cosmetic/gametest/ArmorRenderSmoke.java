@@ -12,14 +12,15 @@ import net.minecraft.client.gui.render.state.pip.PictureInPictureRenderState;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.joml.Matrix3x2f;
 /** Exercises the production armor renderers with three actors before a single deferred flush. */
 public final class ArmorRenderSmoke {
@@ -43,7 +44,7 @@ public final class ArmorRenderSmoke {
    for(int actor=0;actor<3;actor++){
     pose.pushPose();pose.translate((actor-1)*1.8F,0,0);
     var view=new HumanoidRenderState();view.speedValue=1F;view.ageInTicks=30F;view.yRot=(actor-1)*12F;view.walkAnimationPos=actor*1.2F;view.walkAnimationSpeed=.12F;context.setupAnim(view);
-    queue.order(0).submitModel(context,view,pose,RenderType.entityCutoutNoCull(ResourceLocation.parse("mdkcosmetic:textures/entity/uno.png")),0x00F000F0,OverlayTexture.NO_OVERLAY,-1,null,0,null);
+    queue.order(0).submitModel(context,view,pose,RenderTypes.entityCutoutNoCull(Identifier.parse("mdkcosmetic:textures/entity/uno.png")),0x00F000F0,OverlayTexture.NO_OVERLAY,-1,null,0,null);
     var pieces=java.util.List.of(hats.get(actor),MDKCosmetic.COLLECTOR_CHESTPLATE.get(),MDKCosmetic.COLLECTOR_LEGGINGS.get(),MDKCosmetic.COLLECTOR_BOOTS.get());var slots=new EquipmentSlot[]{EquipmentSlot.HEAD,EquipmentSlot.CHEST,EquipmentSlot.LEGS,EquipmentSlot.FEET};
     for(int i=0;i<pieces.size();i++){var stack=new ItemStack(pieces.get(i));stack.set(DataComponents.DYED_COLOR,new DyedItemColor(colors[actor]));if(actor==1)stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE,true);var renderer=ArmorRendererRegistryImpl.get(stack.getItem());if(renderer==null)throw new AssertionError("Missing production armor renderer: "+stack);renderer.render(pose,queue,stack,view,slots[i],0x00F000F0,context);}
     pose.popPose();

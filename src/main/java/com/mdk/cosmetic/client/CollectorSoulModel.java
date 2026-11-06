@@ -11,16 +11,17 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 
 /** Original low-poly spectral polyhedron, with rotating violet halo and drifting shards. */
 public final class CollectorSoulModel extends EntityModel<net.minecraft.client.renderer.entity.state.LivingEntityRenderState> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(
-            ResourceLocation.fromNamespaceAndPath("mdkcosmetic","collector_soul"),"main");
+            Identifier.fromNamespaceAndPath("mdkcosmetic","collector_soul"),"main");
     private final ModelPart root,core,ring,orbit;
     public CollectorSoulModel(ModelPart root) {
-        super(root,RenderType::entityTranslucentEmissive);
+        super(root,RenderTypes::entityTranslucentEmissive);
         this.root=root;
         this.core=root.getChild("core");
         this.ring=root.getChild("ring");

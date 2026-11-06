@@ -6,12 +6,12 @@ import com.mdk.cosmetic.MDKCosmetic;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 /** Pixel-art IC2-like reservoir: 64 essence units become one charged power essence. */
 public final class EssenceWorktableScreen extends AbstractContainerScreen<EssenceWorktableMenu> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(
             MDKCosmetic.MOD_ID, "textures/gui/essence_worktable.png");
 
     public EssenceWorktableScreen(EssenceWorktableMenu menu, Inventory playerInventory, Component title) {

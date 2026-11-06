@@ -9,7 +9,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.Item;
@@ -175,7 +175,7 @@ public final class CollectorBackpackData {
     public static CollectorMemoryCoreBlockEntity remoteCore(ItemStack backpack, MinecraftServer server) {
         CompoundTag data = read(backpack);
         if (!data.getBooleanOr("Linked",false) || !data.read("MemoryId",net.minecraft.core.UUIDUtil.CODEC).isPresent()) return null;
-        ResourceLocation id = ResourceLocation.tryParse(data.getStringOr("Dimension",""));
+        Identifier id = Identifier.tryParse(data.getStringOr("Dimension",""));
         if (id == null) return null;
         ResourceKey<Level> dimension = ResourceKey.create(Registries.DIMENSION, id);
         ServerLevel level = server.getLevel(dimension);
@@ -192,7 +192,7 @@ public final class CollectorBackpackData {
         CompoundTag data = read(backpack);
         data.putBoolean("Linked", true);
         data.store("MemoryId",net.minecraft.core.UUIDUtil.CODEC,core.identity());
-        data.putString("Dimension", level.dimension().location().toString());
+        data.putString("Dimension", level.dimension().identifier().toString());
         data.putLong("Pos", core.getBlockPos().asLong());
         data.remove("Items");
         write(backpack, data);

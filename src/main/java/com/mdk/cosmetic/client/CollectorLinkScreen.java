@@ -330,14 +330,14 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         g.enableScissor(leftPos+localX,topPos+localY,leftPos+localX+16,topPos+localY+16);
     }
 
-    @Override protected void renderSlot(GuiGraphics g, net.minecraft.world.inventory.Slot slot) {
+    @Override protected void renderSlot(GuiGraphics g, net.minecraft.world.inventory.Slot slot,int mouseX,int mouseY) {
         // Only the virtual 12x4 memory grid needs clipping. Its slot preview can
         // contain oversized animated 3D items (e.g. the Collector sword).
         boolean memoryCell = menu.isMemoryReady()
                 && slot.x >= STORE_X && slot.x < STORE_X + CollectorLinkMenu.MEMORY_COLUMNS * 18
                 && slot.y >= STORE_Y && slot.y < STORE_Y + CollectorLinkMenu.MEMORY_ROWS * 18;
         if (memoryCell) g.enableScissor(slot.x,slot.y,slot.x+16,slot.y+16);
-        super.renderSlot(g, slot);
+        super.renderSlot(g, slot,mouseX,mouseY);
         if (memoryCell) g.disableScissor();
     }
 

@@ -20,14 +20,14 @@ public final class ClientStartupSmoke implements ClientModInitializer {
             }
             var bossState=new com.mdk.cosmetic.client.UnoRenderState();
             bossState.entityType=com.mdk.cosmetic.MDKCosmetic.UNO_ENTITY.get();
-            bossState.texture=net.minecraft.resources.ResourceLocation.parse("mdkcosmetic:textures/entity/uno.png");
+            bossState.texture=net.minecraft.resources.Identifier.parse("mdkcosmetic:textures/entity/uno.png");
             var bossRenderer=client.getEntityRenderDispatcher().getRenderer(bossState);
             if(!(bossRenderer instanceof com.mdk.cosmetic.client.UnoRenderer renderer)||!renderer.getTextureLocation(bossState).equals(bossState.texture))throw new AssertionError("Boss pose incorrectly dispatched to a vanilla player/Steve renderer");
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_BOSS_RENDERER_OK: native dispatcher selects the custom boss renderer and black texture");
             if(!new com.mdk.cosmetic.client.CatEarsModel().hat.isEmpty()||!new com.mdk.cosmetic.client.FoxHatModel().hat.isEmpty()||!new com.mdk.cosmetic.client.AxolotlHatModel().hat.isEmpty())throw new AssertionError("Custom cosmetic hat must not retain a vanilla helmet cube");
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_HAT_GEOMETRY_OK: custom ears, fox and axolotl geometry have no inherited vanilla helmet cube");
             var trimAtlas=client.getAtlasManager().getAtlasOrThrow(net.minecraft.data.AtlasIds.ARMOR_TRIMS);
-            var trimSprite=trimAtlas.getSprite(net.minecraft.resources.ResourceLocation.parse("minecraft:trims/entity/humanoid/sentry_gold"));
+            var trimSprite=trimAtlas.getSprite(net.minecraft.resources.Identifier.parse("minecraft:trims/entity/humanoid/sentry_gold"));
             if(trimSprite==trimAtlas.missingSprite())throw new AssertionError("Missing armor trim atlas sprite");
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_ARMOR_TRIM_ATLAS_OK: vanilla armor trim definition resolves a real stitched sprite");
             int checked=0;

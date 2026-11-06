@@ -2,9 +2,9 @@ package com.mdk.cosmetic;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.npc.WanderingTrader;
+import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import com.mdk.cosmetic.platform.EnchantedBooks;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -40,7 +40,7 @@ public final class CollectorWanderingTrader {
         // Independent 10% chance for the unique "Collector" enchanted book.
         if (random.nextInt(10) == 0) {
             var key = ResourceKey.create(Registries.ENCHANTMENT,
-                    ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "collector"));
+                    Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "collector"));
             player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(key)
                     .ifPresent(holder -> offers.add(new MerchantOffer(
                             new ItemCost(Items.EMERALD, 18 + random.nextInt(15)), Optional.empty(),

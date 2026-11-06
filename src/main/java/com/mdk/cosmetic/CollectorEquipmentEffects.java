@@ -1,6 +1,6 @@
 package com.mdk.cosmetic;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -9,7 +9,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
 import com.mdk.cosmetic.platform.Events.LivingFallEvent;
 import com.mdk.cosmetic.platform.Events.PlayerEvent;
@@ -18,7 +18,7 @@ import com.mdk.cosmetic.platform.Events.PlayerTickEvent;
 /** Server-side armor abilities and persistence, including death-safe backpack handling. */
 public final class CollectorEquipmentEffects {
     private CollectorEquipmentEffects() {}
-    private static final ResourceLocation SPEED_ID = ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID,"collector_leg_speed");
+    private static final Identifier SPEED_ID = Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID,"collector_leg_speed");
 
     public static void onTick(PlayerTickEvent.Post event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
@@ -82,7 +82,7 @@ public final class CollectorEquipmentEffects {
     /** Equipment is dropped with other drops, so existing death-insurance can transfer all at once. */
     public static void onDrops(LivingDropsEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player) || event.isCanceled()) return;
-        if (((net.minecraft.server.level.ServerLevel)player.level()).getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) return;
+        if (((net.minecraft.server.level.ServerLevel)player.level()).getGameRules().get(GameRules.KEEP_INVENTORY)) return;
         ItemStack backpack = CollectorEquipmentData.backpack(player);
         if (backpack.isEmpty()) return;
         event.getDrops().add(new ItemEntity(player.level(), player.getX(),player.getY()+0.4D,player.getZ(),backpack.copy()));

@@ -5,13 +5,13 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mdk.cosmetic.platform.Networking.RegisterPayloadHandlersEvent;
 
 /** Small visual-only packet; clients never determine what is actually equipped. */
 public record CollectorEquipmentVisualPayload(String uuid, int model, boolean linked) implements CustomPacketPayload {
     public static final Type<CollectorEquipmentVisualPayload> TYPE = new Type<>(
-            ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID,"equipment_visual"));
+            Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID,"equipment_visual"));
     public static final StreamCodec<ByteBuf,CollectorEquipmentVisualPayload> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.STRING_UTF8,CollectorEquipmentVisualPayload::uuid,
             ByteBufCodecs.INT,CollectorEquipmentVisualPayload::model,

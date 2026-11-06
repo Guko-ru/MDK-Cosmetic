@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:block/furnace_front",
+    "layer0": "mdkcosmetic:item/collector_furnace_front",
     "layer1": "mdkcosmetic:item/collector_backpack_furnace_purple_overlay"
   }
 }
