@@ -21,7 +21,7 @@ public final class CollectorBackpackDeathVault {
             if (!(bag.getItem() instanceof CollectorBackpackItem) || !CollectorBackpackData.linked(bag)) continue;
             if (!CollectorBackpackData.hasUpgradeItem(bag, MDKCosmetic.COLLECTOR_BACKPACK_DEATH_VAULT.get(), player.registryAccess())) continue;
             if (!CollectorBackpackData.deathVaultEnabled(bag)) continue;
-            target = CollectorBackpackData.remoteCore(bag, player.getServer());
+            target = CollectorBackpackData.remoteCore(bag, com.mdk.cosmetic.platform.ServerAccess.get(player));
             if (target != null) break;
         }
         if (target == null) return;

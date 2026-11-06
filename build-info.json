@@ -1,11 +1,11 @@
 {
   "loader": "NeoForge",
-  "minecraft": "1.21.8",
-  "loader_build": "21.8.57",
+  "minecraft": "1.21.10",
+  "loader_build": "21.10.64",
   "mod_version": "1.18.79",
   "java": 21,
-  "artifact": "MDK-Cosmetic-1.21.8-NeoForge-1.18.79.jar",
-  "sha256": "36209181dd1b38fcb098ca2b008be23633d4873d797ab83bcff3856e18fc30e8",
+  "artifact": "MDK-Cosmetic-1.21.10-NeoForge-1.18.79.jar",
+  "sha256": "e25731d90758d6c13b3e53631367e330c615353205be8f9dc93a1d52f579ad8f",
   "fabric_api": null,
   "validation": {
     "required_game_tests_passed": 9,
@@ -22,7 +22,8 @@
     "native_armor_render": "3 equipped actors, custom hats, dye, glint and diamond trim, visually verified",
     "native_non_dyeable_layer_tints": true,
     "native_multiblock_3d_preview": "27 depth-tested item models",
-    "custom_hats_without_vanilla_helmet_cube": true
+    "custom_hats_without_vanilla_helmet_cube": true,
+    "native_custom_armor_poses": "3 armor stand head rotations match native animation, with custom visibility preserved"
   },
   "license": "MDK Cosmetic Non-Commercial License 1.1"
 }

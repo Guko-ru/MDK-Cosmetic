@@ -31,6 +31,11 @@ public final class ClientStartupSmoke  {
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_NATIVE_LAYER_TINT_OK: non-dyeable fox and panda layers preserve native white tint");
             if(!new com.mdk.cosmetic.client.CatEarsModel().hat.isEmpty()||!new com.mdk.cosmetic.client.FoxHatModel().hat.isEmpty()||!new com.mdk.cosmetic.client.AxolotlHatModel().hat.isEmpty())throw new AssertionError("Custom cosmetic hat must not retain a vanilla helmet cube");
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_HAT_GEOMETRY_OK: custom ears, fox and axolotl geometry have no inherited vanilla helmet cube");
+            var nativeModels=net.minecraft.client.renderer.entity.ArmorModelSet.bake(net.minecraft.client.model.geom.ModelLayers.ARMOR_STAND_ARMOR,client.getEntityModels(),net.minecraft.client.model.ArmorStandArmorModel::new);
+            var nativeHead=nativeModels.get(net.minecraft.world.entity.EquipmentSlot.HEAD);
+            var custom=net.neoforged.neoforge.client.extensions.common.IClientItemExtensions.of(com.mdk.cosmetic.MDKCosmetic.CAT_EARS.get()).getGenericArmorModel(new ItemStack(com.mdk.cosmetic.MDKCosmetic.CAT_EARS.get()),net.minecraft.client.resources.model.EquipmentClientInfo.LayerType.HUMANOID,nativeHead);
+            for(float yaw:new float[]{-35F,0F,42F}){var pose=new net.minecraft.client.renderer.entity.state.ArmorStandRenderState();pose.headPose=new net.minecraft.core.Rotations(12,yaw,3);custom.setupAnim(pose);if(Math.abs(custom.root().getChild("head").yRot-nativeHead.head.yRot)>0.00001F)throw new AssertionError("Custom hat lost native armor stand head pose");if(custom.root().getChild("body").visible)throw new AssertionError("Head cosmetic must not expose unrelated torso geometry");}
+            LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_NATIVE_ARMOR_POSE_OK: custom head geometry matches native armor stand animation across three poses");
             int checked=0;
             var missing=net.minecraft.client.renderer.texture.MissingTextureAtlasSprite.getLocation();
             for(var item:BuiltInRegistries.ITEM){

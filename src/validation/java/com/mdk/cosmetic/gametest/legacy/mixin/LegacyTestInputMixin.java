@@ -8,5 +8,5 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(InputConstants.class)
 public abstract class LegacyTestInputMixin {
  @Inject(method="isKeyDown",at=@At("HEAD"),cancellable=true)
- private static void mdk$heldTestKey(long window,int key,CallbackInfoReturnable<Boolean> result){if(Boolean.getBoolean("mdkcosmetic.clientRegressions")&&LegacyClientContext.HELD.contains(key))result.setReturnValue(true);}
+ private static void mdk$heldTestKey(com.mojang.blaze3d.platform.Window window,int key,CallbackInfoReturnable<Boolean> result){if(Boolean.getBoolean("mdkcosmetic.clientRegressions")&&LegacyClientContext.HELD.contains(key))result.setReturnValue(true);}
 }

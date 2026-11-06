@@ -38,8 +38,9 @@ public final class FoxHatClient {
     }
 
     private static void registerPlayerHelmetLayers(net.neoforged.neoforge.client.event.EntityRenderersEvent.AddLayers event) {
-        for (net.minecraft.client.resources.PlayerSkin.Model skin : event.getSkins()) {
-            if (event.getSkin(skin) instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer renderer) {
+        for (net.minecraft.world.entity.player.PlayerModelType skin : event.getSkins()) {
+            var renderer=event.getPlayerRenderer(skin);
+            if (renderer!=null) {
                 renderer.addLayer(new CollectorHelmetHeadLayer<>(renderer));
                 renderer.addLayer(new CollectorBackpackLayer(renderer));
             }

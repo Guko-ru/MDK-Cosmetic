@@ -101,7 +101,7 @@ public final class CosmeticHatTooltip {
             return;
         }
 
-        if (!Screen.hasShiftDown()) {
+        if (!net.minecraft.client.Minecraft.getInstance().hasShiftDown()) {
             lines.add(Component.translatable("tooltip.mdkcosmetic.hold_shift")
                     .withStyle(ChatFormatting.DARK_GRAY));
             return;

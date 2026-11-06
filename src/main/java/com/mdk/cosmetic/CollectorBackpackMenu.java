@@ -93,7 +93,7 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
         this.playerInventory = inv;
         backpack = equipped ? CollectorEquipmentData.backpack(inv.player) : inv.getItem(inv.getSelectedSlot());
         remote = CollectorBackpackData.linked(backpack);
-        memory = remote && inv.player.getServer() != null ? CollectorBackpackData.remoteCore(backpack, inv.player.getServer()) : null;
+        memory = remote && com.mdk.cosmetic.platform.ServerAccess.get(inv.player) != null ? CollectorBackpackData.remoteCore(backpack, com.mdk.cosmetic.platform.ServerAccess.get(inv.player)) : null;
         contents = new SimpleContainer(CAPACITY) {
             @Override public void setChanged() {
                 super.setChanged();
@@ -624,6 +624,6 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
                     CollectorEquipmentData.backpack(player), backpack)) return false;
         } else if (player.getInventory().getItem(player.getInventory().getSelectedSlot()) != backpack) return false;
         if (!remote) return true;
-        return player.getServer() != null && memory != null && CollectorBackpackData.remoteCore(backpack, player.getServer()) == memory;
+        return com.mdk.cosmetic.platform.ServerAccess.get(player) != null && memory != null && CollectorBackpackData.remoteCore(backpack, com.mdk.cosmetic.platform.ServerAccess.get(player)) == memory;
     }
 }

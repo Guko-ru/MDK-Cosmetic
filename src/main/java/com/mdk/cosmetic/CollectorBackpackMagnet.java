@@ -21,7 +21,7 @@ public final class CollectorBackpackMagnet {
                     || !CollectorBackpackData.hasMagnet(backpack, player.registryAccess())
                     || !CollectorBackpackData.magnetEnabled(backpack))continue;
             CollectorMemoryCoreBlockEntity remote=CollectorBackpackData.linked(backpack)
-                    ?CollectorBackpackData.remoteCore(backpack,player.getServer()):null;
+                    ?CollectorBackpackData.remoteCore(backpack,com.mdk.cosmetic.platform.ServerAccess.get(player)):null;
             if(CollectorBackpackData.linked(backpack) && remote==null)continue;
             List<ItemStack> stored=remote==null?CollectorBackpackData.items(backpack,player.registryAccess()):null;
             boolean changed=false;

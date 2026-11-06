@@ -36,7 +36,7 @@ public final class LegacyClientContext {
  public void waitTicks(int count){long end=TICKS.get()+count,deadline=System.nanoTime()+120_000_000_000L;while(TICKS.get()<end){if(System.nanoTime()>deadline)throw new AssertionError("Client stopped ticking");pause();}}
  public int waitFor(Predicate<Minecraft> predicate){for(int tick=0;tick<2400;tick++){if(computeOnClient(predicate::test))return tick;waitTick();}throw new AssertionError("Client condition timed out");}
  public int waitForScreen(Class<? extends Screen> screen){return waitFor(c->screen==null?c.screen==null:screen.isInstance(c.screen));}
- public void clickScreenButton(String key){runOnClient(c->{for(var child:c.screen.children())if(child instanceof Button b&&b.getMessage().getString().equals(net.minecraft.client.resources.language.I18n.get(key))){b.onPress();return;}throw new AssertionError("Button missing: "+key);});waitTick();}
+ public void clickScreenButton(String key){runOnClient(c->{for(var child:c.screen.children())if(child instanceof Button b&&b.getMessage().getString().equals(net.minecraft.client.resources.language.I18n.get(key))){b.onPress(new net.minecraft.client.input.MouseButtonInfo(0,0));return;}throw new AssertionError("Button missing: "+key);});waitTick();}
  public void takeScreenshot(String name){
   var saved=new java.util.concurrent.CompletableFuture<Void>();
   runOnClient(c->net.minecraft.client.Screenshot.takeScreenshot(c.getMainRenderTarget(),image->{try(image){var out=c.gameDirectory.toPath().resolve("screenshots");Files.createDirectories(out);image.writeToFile(out.resolve(name+".png"));saved.complete(null);}catch(Exception error){saved.completeExceptionally(error);}}));
@@ -62,10 +62,10 @@ public final class LegacyClientContext {
  }
  private static void invoke(Object target,String name,Class<?>[] types,Object...args){try{var method=target.getClass().getDeclaredMethod(name,types);method.setAccessible(true);method.invoke(target,args);}catch(ReflectiveOperationException error){throw new AssertionError(error);}}
  public final class Input {
-  public void setCursorPos(double x,double y){runOnClient(c->invoke(c.mouseHandler,"onMove",new Class<?>[]{long.class,double.class,double.class},c.getWindow().getWindow(),x,y));}
-  public void pressMouse(int button){runOnClient(c->invoke(c.mouseHandler,"onPress",new Class<?>[]{long.class,int.class,int.class,int.class},c.getWindow().getWindow(),button,GLFW.GLFW_PRESS,0));waitTick();runOnClient(c->invoke(c.mouseHandler,"onPress",new Class<?>[]{long.class,int.class,int.class,int.class},c.getWindow().getWindow(),button,GLFW.GLFW_RELEASE,0));}
+  public void setCursorPos(double x,double y){runOnClient(c->invoke(c.mouseHandler,"onMove",new Class<?>[]{long.class,double.class,double.class},c.getWindow().handle(),x,y));}
+  public void pressMouse(int button){runOnClient(c->invoke(c.mouseHandler,"onButton",new Class<?>[]{long.class,net.minecraft.client.input.MouseButtonInfo.class,int.class},c.getWindow().handle(),new net.minecraft.client.input.MouseButtonInfo(button,HELD.isEmpty()?0:GLFW.GLFW_MOD_SHIFT),GLFW.GLFW_PRESS));waitTick();runOnClient(c->invoke(c.mouseHandler,"onButton",new Class<?>[]{long.class,net.minecraft.client.input.MouseButtonInfo.class,int.class},c.getWindow().handle(),new net.minecraft.client.input.MouseButtonInfo(button,HELD.isEmpty()?0:GLFW.GLFW_MOD_SHIFT),GLFW.GLFW_RELEASE));}
   public void holdShift(){HELD.add(GLFW.GLFW_KEY_LEFT_SHIFT);}
   public void releaseShift(){HELD.remove(GLFW.GLFW_KEY_LEFT_SHIFT);}
-  public void resizeWindow(int width,int height){runOnClient(c->GLFW.glfwSetWindowSize(c.getWindow().getWindow(),width,height));waitTicks(4);}
+  public void resizeWindow(int width,int height){runOnClient(c->GLFW.glfwSetWindowSize(c.getWindow().handle(),width,height));waitTicks(4);}
  }
 }

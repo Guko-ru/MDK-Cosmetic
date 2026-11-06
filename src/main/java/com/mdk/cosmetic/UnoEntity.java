@@ -450,7 +450,7 @@ public final class UnoEntity extends Monster {
         if (nearest == null) return; // A player must be close; retry automatically next tick.
 
         // No client-side game-profile fetch and no user-facing skin command.
-        entityData.set(MIMIC_TARGET, Optional.of(new net.minecraft.world.entity.EntityReference<LivingEntity>(nearest)));
+        entityData.set(MIMIC_TARGET, Optional.of(net.minecraft.world.entity.EntityReference.<LivingEntity>of(nearest)));
         entityData.set(SECOND_PHASE, true);
         // First showcase casts shortly after transformation; subsequent uses obey full cooldowns.
         blinkCooldown = 0;
@@ -718,7 +718,7 @@ public final class UnoEntity extends Monster {
         castTicks=0; castSpell=0; castVictim=null; appleEatingTicks=0;
         entityData.set(SECOND_PHASE, tag.getBooleanOr("UnoPhaseTwo",false));
         entityData.set(MIMIC_TARGET,
-                tag.read("UnoMimicTarget",net.minecraft.core.UUIDUtil.CODEC).isPresent() ? Optional.of(new net.minecraft.world.entity.EntityReference<LivingEntity>(tag.read("UnoMimicTarget",net.minecraft.core.UUIDUtil.CODEC).orElseThrow())) : Optional.empty());
+                tag.read("UnoMimicTarget",net.minecraft.core.UUIDUtil.CODEC).isPresent() ? Optional.of(net.minecraft.world.entity.EntityReference.<LivingEntity>of(tag.read("UnoMimicTarget",net.minecraft.core.UUIDUtil.CODEC).orElseThrow())) : Optional.empty());
         if (isSecondPhase()) {
             // The copied equipment is restored by vanilla Mob NBT. Never allow it to drop.
             for (EquipmentSlot slot : MIMIC_ARMOR_SLOTS) setDropChance(slot, 0.0F);

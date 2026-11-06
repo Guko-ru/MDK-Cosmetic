@@ -55,7 +55,7 @@ public final class CollectorAdvancementEvents {
             MDKCosmetic.HORSE_FUR.get(), MDKCosmetic.DONKEY_FUR.get());
 
     private static void award(ServerPlayer player, String id) {
-        AdvancementHolder advancement = player.getServer().getAdvancements().get(
+        AdvancementHolder advancement = com.mdk.cosmetic.platform.ServerAccess.get(player).getAdvancements().get(
                 ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, id));
         if (advancement != null) player.getAdvancements().award(advancement, "done");
     }
@@ -64,7 +64,7 @@ public final class CollectorAdvancementEvents {
     private static void progress(ServerPlayer player, String metric, long count, int[] targets) {
         for (int target : targets) {
             String id = "milestone/" + metric + "_" + target;
-            AdvancementHolder advancement = player.getServer().getAdvancements().get(
+            AdvancementHolder advancement = com.mdk.cosmetic.platform.ServerAccess.get(player).getAdvancements().get(
                     ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, id));
             if (advancement == null) continue;
             for (int step = 1; step <= 5; step++) {
@@ -90,7 +90,7 @@ public final class CollectorAdvancementEvents {
     }
 
     private static long accumulate(ServerPlayer player, String metric, long count) {
-        long total = CollectorAdvancementData.get(player.getServer()).add(player, metric, count);
+        long total = CollectorAdvancementData.get(com.mdk.cosmetic.platform.ServerAccess.get(player)).add(player, metric, count);
         increased(player, metric, total);
         return total;
     }
