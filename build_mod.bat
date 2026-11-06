@@ -10,7 +10,7 @@ set "BOOTSTRAP=%~dp0.tools\gradle-%GRADLE_VER%-bin.zip"
 >>"%LOG%" echo Current dir: %CD%
 
 echo ========================================================
-echo   MDK Cosmetic - NeoForge 1.21.3 - Build
+echo   MDK Cosmetic - NeoForge 1.21.4 - Build
 
 echo ========================================================
 echo.

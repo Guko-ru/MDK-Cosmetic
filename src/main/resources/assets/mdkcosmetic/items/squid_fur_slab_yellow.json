@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "mdkcosmetic:item/squid_fur_slab_yellow",
+    "tints": [
+      {
+        "type": "mdkcosmetic:cosmetic_color",
+        "index": 0
+      },
+      {
+        "type": "mdkcosmetic:cosmetic_color",
+        "index": 1
+      }
+    ]
+  }
+}

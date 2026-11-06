@@ -7,14 +7,14 @@ version = '1.18.79'
 group = 'com.mdk.cosmetic'
 
 base {
-    archivesName = 'MDK-Cosmetic-1.21.3-NeoForge'
+    archivesName = 'MDK-Cosmetic-1.21.4-NeoForge'
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 neoForge {
     enable {
-        version = '21.3.100'
+        version = '21.4.161'
         disableRecompilation = true
     }
 }
@@ -72,6 +72,8 @@ neoForge {
 }
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
 
-// JEI does not publish an API for Minecraft 1.21.3; integration sources are retained.
-sourceSets.main.java.exclude('com/mdk/cosmetic/jei/**')
+// JEI does not publish an API for Minecraft 1.21.4; integration sources are retained.
+
 tasks.withType(JavaCompile).configureEach { options.compilerArgs += ['-Xmaxerrs','500'] }
+
+dependencies { compileOnly 'mezz.jei:jei-1.21.4-common-api:20.0.0.4'; compileOnly 'mezz.jei:jei-1.21.4-neoforge-api:20.0.0.4' }

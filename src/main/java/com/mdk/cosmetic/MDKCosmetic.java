@@ -158,11 +158,9 @@ public final class MDKCosmetic {
                                             .withStyle(ChatFormatting.AQUA))));
 
     public static final RegistryEntry<Item, SpawnEggItem> COLLECTOR_SOUL_SPAWN_EGG =
-            ITEMS.register("collector_soul_spawn_egg", () -> new SpawnEggItem(COLLECTOR_SOUL_ENTITY.get(),
-                    0x2A2038, 0xE2C47A, new Item.Properties()));
+            ITEMS.register("collector_soul_spawn_egg", () -> new SpawnEggItem(COLLECTOR_SOUL_ENTITY.get(), new Item.Properties()));
     public static final RegistryEntry<Item, SpawnEggItem> UNO_SPAWN_EGG =
-            ITEMS.register("uno_spawn_egg", () -> new SpawnEggItem(UNO_ENTITY.get(),
-                    0x392E2E, 0xC26A44, new Item.Properties()));
+            ITEMS.register("uno_spawn_egg", () -> new SpawnEggItem(UNO_ENTITY.get(), new Item.Properties()));
 
     public static final RegistryEntry<Item, CosmeticArmorItem> COLLECTOR_HELMET =
             ITEMS.register("collector_helmet", () -> new CosmeticArmorItem(
@@ -529,8 +527,7 @@ public final class MDKCosmetic {
     public static final RegistryEntry<Item, Item> COLLECTOR_BACKPACK_DEATH_VAULT =
             ITEMS.register("collector_backpack_death_vault", () -> new StyledNameItem(new Item.Properties().stacksTo(1).rarity(net.minecraft.world.item.Rarity.EPIC), ChatFormatting.LIGHT_PURPLE));
     public static final RegistryEntry<Item, SpawnEggItem> COLLECTOR_HEART_SPAWN_EGG =
-            ITEMS.register("collector_heart_spawn_egg", () -> new SpawnEggItem(COLLECTOR_HEART_ENTITY.get(),
-                    0x12304E, 0xB442D9, new Item.Properties()));
+            ITEMS.register("collector_heart_spawn_egg", () -> new SpawnEggItem(COLLECTOR_HEART_ENTITY.get(), new Item.Properties()));
     public static final RegistryEntry<Item, Item> COLLECTOR_BACKPACK_LINK_KEY =
             ITEMS.register("collector_backpack_link_key", () -> new Item(new Item.Properties().stacksTo(1).rarity(net.minecraft.world.item.Rarity.EPIC)));
     public static final RegistryEntry<MenuType<?>, MenuType<CollectorBackpackMenu>> COLLECTOR_BACKPACK_MENU =

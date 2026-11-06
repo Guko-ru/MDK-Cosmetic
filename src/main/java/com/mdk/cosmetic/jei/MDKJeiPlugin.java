@@ -330,10 +330,10 @@ public final class MDKJeiPlugin implements IModPlugin {
                     pose.pushPose();
                     try {
                         pose.translate(cell.x(), cell.y(), cell.z());
-                        mc.getItemRenderer().renderStatic(
+                        graphics.drawSpecial(buffers -> mc.getItemRenderer().renderStatic(
                                 cell.item(), ItemDisplayContext.NONE,
                                 0x00F000F0, OverlayTexture.NO_OVERLAY,
-                                pose, graphics.bufferSource(), mc.level, 0);
+                                pose, buffers, mc.level, 0));
                     } finally {
                         pose.popPose();
                     }

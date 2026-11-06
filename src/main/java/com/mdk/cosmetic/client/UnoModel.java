@@ -134,5 +134,4 @@ public final class UnoModel extends PlayerModel {
         rotate(leftLeg,sample(t,new float[][]{{0.000F,0.000F,0.000F,0.000F},{0.250F,0.000F,0.000F,0.000F},{0.440F,0.000F,0.000F,0.000F},{0.650F,0.000F,0.000F,0.000F},{0.820F,0.000F,0.000F,0.000F},{1.500F,0.000F,0.000F,0.000F}}));
     }
 
-    @Override protected HumanoidModel.ArmPose getArmPose(net.minecraft.client.renderer.entity.state.PlayerRenderState state,net.minecraft.world.entity.HumanoidArm arm){return HumanoidModel.ArmPose.ITEM;}
 }

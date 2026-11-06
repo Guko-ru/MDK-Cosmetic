@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "mdkcosmetic:item/collector_heart_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": 1192014
+      },
+      {
+        "type": "minecraft:constant",
+        "value": 11813593
+      }
+    ]
+  }
+}

@@ -21,7 +21,10 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 public final class FoxHatClient {
     public FoxHatClient(IEventBus modBus) {
         modBus.addListener((RegisterClientExtensionsEvent event)->registerClientExtensions(new NativeClientExtensions(event)));
-        modBus.addListener(FoxHatClient::registerItemColors);
+        modBus.addListener((RegisterColorHandlersEvent.ItemTintSources event)->{
+            event.register(net.minecraft.resources.ResourceLocation.parse("mdkcosmetic:cosmetic_color"),CosmeticItemTints.Source.CODEC);
+            registerItemColors(new ItemColorRegistration());
+        });
         modBus.addListener(FoxHatClient::registerScreens);
         modBus.addListener(CollectorEquipmentKeys::register);
         NeoForge.EVENT_BUS.addListener(CollectorEquipmentKeys::onTick);
@@ -52,7 +55,7 @@ public final class FoxHatClient {
         event.register(MDKCosmetic.COLLECTOR_SMELTER_MENU.get(), CollectorSmelterScreen::new);
     }
 
-    private static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+    private static void registerItemColors(ItemColorRegistration event) {
         // Generated armor item icons tint layer 1; the Collector 3D helmet tints only its secondary overlay (index 0).
         event.register((stack, tintIndex) -> tintIndex == 0
                 ? CollectorTrimColors.color(stack) : 0xFFFFFFFF, MDKCosmetic.COLLECTOR_HELMET.get());
