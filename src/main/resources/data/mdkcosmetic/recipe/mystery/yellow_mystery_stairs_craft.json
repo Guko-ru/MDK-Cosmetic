@@ -7,9 +7,7 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "mdkcosmetic:yellow_mystery_block"
-    }
+    "#": "mdkcosmetic:yellow_mystery_block"
   },
   "result": {
     "id": "mdkcosmetic:yellow_mystery_stairs",

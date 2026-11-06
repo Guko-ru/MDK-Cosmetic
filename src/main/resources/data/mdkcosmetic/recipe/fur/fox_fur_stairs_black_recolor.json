@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"fox_fur_stairs_dye","ingredients":[{"tag":"mdkcosmetic:fur/fox_stairs"},{"item":"minecraft:black_dye"}],"result":{"id":"mdkcosmetic:fox_fur_stairs_black","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "fox_fur_stairs_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/fox_stairs",
+    "minecraft:black_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:fox_fur_stairs_black",
+    "count": 1
+  }
+}

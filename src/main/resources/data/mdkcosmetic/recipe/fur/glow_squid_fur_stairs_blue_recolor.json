@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"glow_squid_fur_stairs_dye","ingredients":[{"tag":"mdkcosmetic:fur/glow_squid_stairs"},{"item":"minecraft:blue_dye"}],"result":{"id":"mdkcosmetic:glow_squid_fur_stairs_blue","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "glow_squid_fur_stairs_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/glow_squid_stairs",
+    "minecraft:blue_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:glow_squid_fur_stairs_blue",
+    "count": 1
+  }
+}

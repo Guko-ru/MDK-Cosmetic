@@ -27,7 +27,7 @@ public final class PolarBearFurShearing {
         event.setCancellationResult(InteractionResult.SUCCESS);
         event.setCanceled(true);
         if (bear.level().isClientSide()) return;
-        CompoundTag data = bear.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(bear);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT);
         if (next > now && next - now <= COOLDOWN_MS) {
@@ -36,7 +36,7 @@ public final class PolarBearFurShearing {
             return;
         }
         data.putLong(NEXT, now + COOLDOWN_MS);
-        bear.spawnAtLocation(new ItemStack(MDKCosmetic.POLAR_BEAR_FUR.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(bear,new ItemStack(MDKCosmetic.POLAR_BEAR_FUR.get()));
         bear.playSound(SoundEvents.SHEEP_SHEAR, 0.65F, 1.0F);
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

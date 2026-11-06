@@ -13,10 +13,10 @@ public final class CollectorEquipmentData {
     private CollectorEquipmentData() {}
 
     private static CompoundTag tag(Player player) {
-        return player.getPersistentData().getCompound(KEY);
+        return com.mdk.cosmetic.platform.PersistentData.of(player).getCompound(KEY);
     }
     private static void store(Player player, CompoundTag tag) {
-        player.getPersistentData().put(KEY, tag);
+        com.mdk.cosmetic.platform.PersistentData.of(player).put(KEY, tag);
     }
     public static ItemStack backpack(Player player) {
         if (player.level().isClientSide())
@@ -74,7 +74,7 @@ public final class CollectorEquipmentData {
         }
     }
     public static void copyTo(Player previous, Player next) {
-        CompoundTag data = previous.getPersistentData().getCompound(KEY);
-        if (!data.isEmpty()) next.getPersistentData().put(KEY, data.copy());
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(previous).getCompound(KEY);
+        if (!data.isEmpty()) com.mdk.cosmetic.platform.PersistentData.of(next).put(KEY, data.copy());
     }
 }

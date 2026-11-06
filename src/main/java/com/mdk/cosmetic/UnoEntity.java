@@ -28,7 +28,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -352,7 +352,7 @@ public final class UnoEntity extends Monster {
 
     /** A real throwable poison potion; poison itself never bypasses vanilla resistances. */
     private void throwPoison(ServerLevel server, LivingEntity target) {
-        ThrownPotion potion = new ThrownPotion(server,this);
+        ThrownPotion potion = new ThrownPotion(server,this, PotionContents.createItemStack(Items.SPLASH_POTION,Potions.POISON));
         potion.setItem(PotionContents.createItemStack(Items.SPLASH_POTION,Potions.POISON));
         potion.setPos(getX(),getY()+1.6D,getZ());
         Vec3 aim = target.getEyePosition().subtract(potion.position());
@@ -367,8 +367,8 @@ public final class UnoEntity extends Monster {
         Vec3 end = victim.getEyePosition();
         Vec3 delta = end.subtract(start);
         int count = Math.max(2,(int)Math.ceil(delta.length()/0.33D));
-        DustParticleOptions crimson = new DustParticleOptions(new Vector3f(0.84F,0.035F,0.06F),1.55F);
-        DustParticleOptions black = new DustParticleOptions(new Vector3f(0.045F,0.012F,0.020F),1.2F);
+        DustParticleOptions crimson = new DustParticleOptions(net.minecraft.util.ARGB.colorFromFloat(1F,0.84F,0.035F,0.06F),1.55F);
+        DustParticleOptions black = new DustParticleOptions(net.minecraft.util.ARGB.colorFromFloat(1F,0.045F,0.012F,0.020F),1.2F);
         for (int i=0; i<=count; i++) {
             Vec3 p=start.add(delta.scale((double)i/count));
             server.sendParticles(i%3==0 ? black : crimson,p.x,p.y,p.z,2,0.055D,0.055D,0.055D,0.005D);
@@ -388,7 +388,7 @@ public final class UnoEntity extends Monster {
         playAction(EAT_APPLE);
         // Preserve the Totem of Undying in the offhand while eating.
         // The apple is an ability animation, not an equipment replacement.
-        playSound(SoundEvents.GENERIC_EAT,0.8F,0.8F);
+        playSound(SoundEvents.GENERIC_EAT.value(),0.8F,0.8F);
     }
 
     /** Exactly the two ordinary golden-apple effects, no enchanted-apple buffs. */
@@ -472,7 +472,7 @@ public final class UnoEntity extends Monster {
     }
 
     /** Melee goal schedules damage at the blade's actual animation impact frame. */
-    @Override public boolean doHurtTarget(Entity victim) {
+    @Override public boolean doHurtTarget(ServerLevel damageLevel,Entity victim) {
         if (!(victim instanceof LivingEntity living) || pendingImpactTicks >= 0) return false;
         if (getAction() != IDLE && getAction() != DASH) return false;
         combo++;
@@ -499,7 +499,7 @@ public final class UnoEntity extends Monster {
         pendingTargetId = -1;
         if (!(victim instanceof LivingEntity living) || !living.isAlive()
                 || distanceToSqr(living) > 18D || !hasLineOfSight(living)) return;
-        super.doHurtTarget(living);
+        super.doHurtTarget((ServerLevel)level(),living);
         if (pendingAction == UPPERCUT) {
             living.push(0D, 0.83D, 0D);
             living.hurtMarked = true;
@@ -553,7 +553,7 @@ public final class UnoEntity extends Monster {
         }
     }
 
-    @Override public boolean hurt(DamageSource source, float amount) {
+    @Override public boolean hurtServer(ServerLevel damageLevel,DamageSource source, float amount) {
         if (!level().isClientSide() && dodgeCooldown == 0 && !isDeadOrDying()
                 && source.getEntity() instanceof LivingEntity attacker && random.nextFloat() < 0.17F) {
             dodgeCooldown = 95;
@@ -571,7 +571,7 @@ public final class UnoEntity extends Monster {
             return false;
         }
         boolean hadTotem = !totemRage && getOffhandItem().is(Items.TOTEM_OF_UNDYING);
-        boolean damaged = super.hurt(source, amount);
+        boolean damaged = super.hurtServer(damageLevel,source, amount);
         // Vanilla LivingEntity consumes totems for mobs as well as players.
         // Observe that change instead of duplicating death-protection mechanics.
         if (hadTotem && !getOffhandItem().is(Items.TOTEM_OF_UNDYING) && isAlive()) {
@@ -650,7 +650,7 @@ public final class UnoEntity extends Monster {
     }
 
     @Override public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level,
-            DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
+            DifficultyInstance difficulty, EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
         SpawnGroupData result = super.finalizeSpawn(level, difficulty, reason, spawnData);
         populateDefaultEquipmentSlots(level.getRandom(), difficulty);
         return result;

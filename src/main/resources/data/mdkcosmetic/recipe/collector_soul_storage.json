@@ -7,15 +7,9 @@
     "SCS"
   ],
   "key": {
-    "S": {
-      "item": "mdkcosmetic:power_essence"
-    },
-    "C": {
-      "item": "mdkcosmetic:charged_power_essence"
-    },
-    "D": {
-      "item": "mdkcosmetic:collector_soul"
-    }
+    "S": "mdkcosmetic:power_essence",
+    "C": "mdkcosmetic:charged_power_essence",
+    "D": "mdkcosmetic:collector_soul"
   },
   "result": {
     "id": "mdkcosmetic:collector_soul_storage",

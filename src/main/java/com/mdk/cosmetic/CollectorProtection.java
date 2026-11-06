@@ -50,8 +50,8 @@ public final class CollectorProtection {
     public static void onItemSpawn(EntityJoinLevelEvent event) {
         if (!(event.getEntity() instanceof ItemEntity dropped)) return;
         ItemStack stack = dropped.getItem();
-        if (isProtected(stack) && !stack.has(DataComponents.FIRE_RESISTANT)) {
-            stack.set(DataComponents.FIRE_RESISTANT, Unit.INSTANCE);
+        if (isProtected(stack) && !stack.has(DataComponents.DAMAGE_RESISTANT)) {
+            stack.set(DataComponents.DAMAGE_RESISTANT, new net.minecraft.world.item.component.DamageResistant(net.minecraft.tags.DamageTypeTags.IS_FIRE));
             dropped.setItem(stack);
         }
     }

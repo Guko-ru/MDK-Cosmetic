@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 /** Model generated from MDK_Donkey_Travel_Hat.bbmodel (326 original cubes). */
 /** v1.17.1 scale and positioning calibration. */
-public final class DonkeyTravelHatModel extends HumanoidModel<LivingEntity> {
+public final class DonkeyTravelHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public DonkeyTravelHatModel() {
         super(createLayer().bakeRoot());
         setAllVisible(false);
@@ -20,7 +20,7 @@ public final class DonkeyTravelHatModel extends HumanoidModel<LivingEntity> {
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+        root.getChild("head").addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         // Fixed head-local placement: geometry moves 2 px up; the head itself keeps vanilla animations.
         PartDefinition geo = head.addOrReplaceChild("fitted_geometry", CubeListBuilder.create(), PartPose.offset(0.0F,-2.0F,0.0F));

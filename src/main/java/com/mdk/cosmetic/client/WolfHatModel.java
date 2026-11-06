@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 /** Redesigned wolf/dog hat. Blockbench cubes including their individual rotations are retained. */
 /** v1.17.1 scale and positioning calibration. */
-public final class WolfHatModel extends HumanoidModel<LivingEntity> {
+public final class WolfHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public WolfHatModel() {
         super(createLayer().bakeRoot());
         setAllVisible(false);
@@ -20,7 +20,7 @@ public final class WolfHatModel extends HumanoidModel<LivingEntity> {
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+        root.getChild("head").addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         head.addOrReplaceChild("wolf_0000", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5129F, -0.5129F, -0.5129F, 1.0258F, 1.0258F, 1.0258F), PartPose.offsetAndRotation(-5.1290F, -3.3727F, -1.0258F, 0.0000F, 0.0000F, 0.0000F));
         head.addOrReplaceChild("wolf_0001", CubeListBuilder.create().texOffs(32, 0).addBox(-0.5129F, -0.5129F, -0.5129F, 1.0258F, 1.0258F, 1.0258F), PartPose.offsetAndRotation(-5.1290F, -3.3727F, 0.0000F, 0.0000F, 0.0000F, 0.0000F));

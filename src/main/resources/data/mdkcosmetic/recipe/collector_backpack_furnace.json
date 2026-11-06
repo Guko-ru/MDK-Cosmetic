@@ -7,15 +7,9 @@
     " S "
   ],
   "key": {
-    "S": {
-      "item": "mdkcosmetic:power_essence"
-    },
-    "P": {
-      "tag": "minecraft:planks"
-    },
-    "C": {
-      "item": "minecraft:furnace"
-    }
+    "S": "mdkcosmetic:power_essence",
+    "P": "#minecraft:planks",
+    "C": "minecraft:furnace"
   },
   "result": {
     "id": "mdkcosmetic:collector_backpack_furnace",

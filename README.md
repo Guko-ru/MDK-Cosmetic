@@ -1,8 +1,8 @@
-# MDK Cosmetic — Forge 1.21.1
+# MDK Cosmetic — Forge 1.21.3
 
 **Project version:** 1.18.79  
-**Forge target and minimum required version:** 52.1.21  
-**Minecraft:** 1.21.1  
+**Forge target and minimum required version:** 53.1.16  
+**Minecraft:** 1.21.3  
 **Java:** JDK 21
 
 MDK Cosmetic adds collectible cosmetics, a multiblock Collector progression system, equipment, backpacks, bosses, custom structures and the VOID dimension.
@@ -21,7 +21,7 @@ The release-ready mod JAR is copied to `build/release/` on a successful build. T
 
 ## Compatibility
 
-Keep the existing registry IDs intact when upgrading existing worlds; in particular, the Collector's Multitool still uses the historical ID `mdkcosmetic:collector_pickaxe` to preserve saved inventories and references. This project specifically targets Forge 52.1.21. Use only the Minecraft and Forge versions listed above.
+Keep the existing registry IDs intact when upgrading existing worlds; in particular, the Collector's Multitool still uses the historical ID `mdkcosmetic:collector_pickaxe` to preserve saved inventories and references. This project specifically targets Forge 53.1.16. Use only the Minecraft and Forge versions listed above.
 
 ## License
 
@@ -29,4 +29,4 @@ See `LICENSE.md` for the **MDK Cosmetic Non-Commercial License 1.1**. Commercial
 
 ## Testing status
 
-Built and tested with the native Forge client and server. 6 required GameTests passed; 1208 item models loaded. Client checks covered two machine tiers, four window/GUI configurations, inventory and memory slot clicks, both creative tabs, and both boss phases.
+Built and tested with the native Forge client and server. 7 required GameTests passed; 1208 item models loaded. Client checks covered two machine tiers, four window/GUI configurations, inventory and memory slot clicks, both creative tabs, and both boss phases.

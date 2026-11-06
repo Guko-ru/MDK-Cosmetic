@@ -5,13 +5,13 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ArmorMaterial;
+import com.mdk.cosmetic.platform.ArmorDefinition;
 import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
-import com.mdk.cosmetic.client.ForgeArmorExtensions.Appearance;
+
 import com.mdk.cosmetic.client.ForgeArmorExtensions.Registration;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import com.mdk.cosmetic.client.ForgeMenuScreens;
@@ -20,10 +20,7 @@ import com.mdk.cosmetic.client.ForgeMenuScreens;
 
 public final class FoxHatClient {
     public FoxHatClient(IEventBus modBus) {
-        modBus.addListener((net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event)->event.enqueueWork(()->{
-            registerClientExtensions(new Registration());
-            registerScreens(new ForgeMenuScreens());
-        }));
+        modBus.addListener((net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event)->event.enqueueWork(()->{registerClientExtensions(new Registration());registerScreens(new ForgeMenuScreens());}));
         modBus.addListener(FoxHatClient::registerItemColors);
         modBus.addListener(CollectorEquipmentKeys::register);
         MinecraftForge.EVENT_BUS.addListener(CollectorEquipmentKeys::onTick);
@@ -97,9 +94,9 @@ public final class FoxHatClient {
         // NeoForge renders the armor layer textures on the original humanoid model.
         // Keep standard humanoid armor geometry; tint only the second armor material layer.
         final SakuraThinkerModel sakuraThinkerModel = new SakuraThinkerModel();
-        final Appearance collectorArmorExtensions = new Appearance() {
+        final ArmorAppearance collectorArmorExtensions = new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 // The exact 3D item model is now rendered by CollectorHelmetHeadLayer.
                 // Its old 74-part baked armor conversion is intentionally not used.
@@ -112,15 +109,15 @@ public final class FoxHatClient {
             }
 
             @Override
-            public int getArmorLayerTintColor(ItemStack stack, LivingEntity entity,
-                    ArmorMaterial.Layer layer, int layerIdx, int fallbackColor) {
+            public int getArmorLayerTintColor(ItemStack stack, net.minecraft.client.renderer.entity.state.HumanoidRenderState entity,
+                    ArmorDefinition.Layer layer, int layerIdx, int fallbackColor) {
                 if (stack.is(MDKCosmetic.COLLECTOR_HELMET.get())) return 0;
                 return layer.dyeable() ? CollectorTrimColors.color(stack) : 0xFFFFFFFF;
             }
         };
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? sakuraThinkerModel : original;
             }
@@ -144,24 +141,24 @@ public final class FoxHatClient {
         final WolfHatModel wolfHatModel = new WolfHatModel();
         final HorseRidingHatModel horseHatModel = new HorseRidingHatModel();
         final DonkeyTravelHatModel donkeyHatModel = new DonkeyTravelHatModel();
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 // NeoForge copies the original humanoid head pose onto the replacement model.
                 return slot == EquipmentSlot.HEAD ? hatModel : original;
             }
         }, MDKCosmetic.FOX_HAT.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? pandaHatModel : original;
             }
         }, MDKCosmetic.PANDA_HAT.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? catEarsModel : original;
             }
@@ -174,23 +171,23 @@ public final class FoxHatClient {
             }
 
             @Override
-            public int getArmorLayerTintColor(ItemStack stack, LivingEntity entity,
-                    ArmorMaterial.Layer layer, int layerIdx, int fallbackColor) {
+            public int getArmorLayerTintColor(ItemStack stack, net.minecraft.client.renderer.entity.state.HumanoidRenderState entity,
+                    ArmorDefinition.Layer layer, int layerIdx, int fallbackColor) {
                 return layer.dyeable()
                         ? (0xFF000000 | DyedItemColor.getOrDefault(stack, 0x303038))
                         : 0xFFFFFFFF;
             }
         }, MDKCosmetic.CAT_EARS.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? allayHatModel : original;
             }
         }, MDKCosmetic.ALLAY_HAT.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? axolotlHatModel : original;
             }
@@ -199,16 +196,16 @@ public final class FoxHatClient {
                 return 0xFFF4B5D2;
             }
             @Override
-            public int getArmorLayerTintColor(ItemStack stack, LivingEntity entity,
-                    ArmorMaterial.Layer layer, int layerIdx, int fallbackColor) {
+            public int getArmorLayerTintColor(ItemStack stack, net.minecraft.client.renderer.entity.state.HumanoidRenderState entity,
+                    ArmorDefinition.Layer layer, int layerIdx, int fallbackColor) {
                 return layer.dyeable()
                         ? (0xFF000000 | DyedItemColor.getOrDefault(stack, 0xF4B5D2))
                         : 0xFFFFFFFF;
             }
         }, MDKCosmetic.AXOLOTL_HAT.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? rabbitEarsModel : original;
             }
@@ -217,65 +214,65 @@ public final class FoxHatClient {
                 return 0xFFF1EBE1; // Original undyed off-white rabbit ears.
             }
             @Override
-            public int getArmorLayerTintColor(ItemStack stack, LivingEntity entity,
-                    ArmorMaterial.Layer layer, int layerIdx, int fallbackColor) {
+            public int getArmorLayerTintColor(ItemStack stack, net.minecraft.client.renderer.entity.state.HumanoidRenderState entity,
+                    ArmorDefinition.Layer layer, int layerIdx, int fallbackColor) {
                 return layer.dyeable()
                         ? (0xFF000000 | DyedItemColor.getOrDefault(stack, 0xF1EBE1))
                         : 0xFFFFFFFF;
             }
         }, MDKCosmetic.RABBIT_EARS.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? octopusHatModel : original;
             }
         }, MDKCosmetic.OCTOPUS_HAT.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? octopusHatModel : original;
             }
         }, MDKCosmetic.GLOW_SQUID_HAT.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? camelHatModel : original;
             }
         }, MDKCosmetic.CAMEL_HAT.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? cowHatModel : original;
             }
         }, MDKCosmetic.COW_HAT.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? mooshroomHatModel : original;
             }
         }, MDKCosmetic.MOOSHROOM_HAT.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? polarBearHatModel : original;
             }
         }, MDKCosmetic.POLAR_BEAR_HAT.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? llamaHatModel : original;
             }
         }, MDKCosmetic.LLAMA_HAT.get());
-        event.registerItem(new Appearance() {
+        event.registerItem(new ArmorAppearance() {
             @Override
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+            public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? sheepHatModel : original;
             }
@@ -284,47 +281,47 @@ public final class FoxHatClient {
                 return 0xFFF1F1F1;
             }
             @Override
-            public int getArmorLayerTintColor(ItemStack stack, LivingEntity entity,
-                    ArmorMaterial.Layer layer, int layerIdx, int fallbackColor) {
+            public int getArmorLayerTintColor(ItemStack stack, net.minecraft.client.renderer.entity.state.HumanoidRenderState entity,
+                    ArmorDefinition.Layer layer, int layerIdx, int fallbackColor) {
                 return layer.dyeable()
                         ? (0xFF000000 | DyedItemColor.getOrDefault(stack, 0xF1F1F1))
                         : 0xFFFFFFFF;
             }
         }, MDKCosmetic.SHEEP_HAT.get());
-        event.registerItem(new Appearance() {
-            @Override public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+        event.registerItem(new ArmorAppearance() {
+            @Override public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? wolfHatModel : original;
             }
             @Override public int getDefaultDyeColor(ItemStack stack) { return 0xFFB4B4B4; }
-            @Override public int getArmorLayerTintColor(ItemStack stack, LivingEntity entity,
-                    ArmorMaterial.Layer layer, int layerIdx, int fallbackColor) {
+            @Override public int getArmorLayerTintColor(ItemStack stack, net.minecraft.client.renderer.entity.state.HumanoidRenderState entity,
+                    ArmorDefinition.Layer layer, int layerIdx, int fallbackColor) {
                 return layer.dyeable()
                         ? (0xFF000000 | DyedItemColor.getOrDefault(stack, 0xB4B4B4))
                         : 0xFFFFFFFF;
             }
         }, MDKCosmetic.WOLF_HAT.get());
-        event.registerItem(new Appearance() {
-            @Override public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+        event.registerItem(new ArmorAppearance() {
+            @Override public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? horseHatModel : original;
             }
             @Override public int getDefaultDyeColor(ItemStack stack) { return 0xFFF4EEE5; }
-            @Override public int getArmorLayerTintColor(ItemStack stack, LivingEntity entity,
-                    ArmorMaterial.Layer layer, int layerIdx, int fallbackColor) {
+            @Override public int getArmorLayerTintColor(ItemStack stack, net.minecraft.client.renderer.entity.state.HumanoidRenderState entity,
+                    ArmorDefinition.Layer layer, int layerIdx, int fallbackColor) {
                 return layer.dyeable()
                         ? (0xFF000000 | DyedItemColor.getOrDefault(stack, 0xF4EEE5))
                         : 0xFFFFFFFF;
             }
         }, MDKCosmetic.HORSE_HAT.get());
-        event.registerItem(new Appearance() {
-            @Override public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
+        event.registerItem(new ArmorAppearance() {
+            @Override public HumanoidModel<?> getHumanoidArmorModel(net.minecraft.client.renderer.entity.state.HumanoidRenderState entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? donkeyHatModel : original;
             }
             @Override public int getDefaultDyeColor(ItemStack stack) { return 0xFFE5D6B9; }
-            @Override public int getArmorLayerTintColor(ItemStack stack, LivingEntity entity,
-                    ArmorMaterial.Layer layer, int layerIdx, int fallbackColor) {
+            @Override public int getArmorLayerTintColor(ItemStack stack, net.minecraft.client.renderer.entity.state.HumanoidRenderState entity,
+                    ArmorDefinition.Layer layer, int layerIdx, int fallbackColor) {
                 return layer.dyeable()
                         ? (0xFF000000 | DyedItemColor.getOrDefault(stack, 0xE5D6B9))
                         : 0xFFFFFFFF;

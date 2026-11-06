@@ -229,7 +229,7 @@ public final class CollectorSoulStorageBlockEntity extends BlockEntity {
         level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME,
                 center.x, center.y, center.z, 160, 1.7, 1.7, 1.7, 0.18);
         level.explode(null, center.x, center.y, center.z, 3.0F, Level.ExplosionInteraction.BLOCK);
-        CollectorSoulEntity soul = MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level);
+        CollectorSoulEntity soul = MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         if (soul != null) {
             soul.moveTo(center.x, center.y + 0.5, center.z,
                     level.random.nextFloat() * 360.0F, 0.0F);

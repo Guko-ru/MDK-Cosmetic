@@ -7,15 +7,9 @@
     "III"
   ],
   "key": {
-    "S": {
-      "item": "mdkcosmetic:power_essence"
-    },
-    "C": {
-      "item": "mdkcosmetic:charged_power_essence"
-    },
-    "I": {
-      "item": "minecraft:iron_block"
-    }
+    "S": "mdkcosmetic:power_essence",
+    "C": "mdkcosmetic:charged_power_essence",
+    "I": "minecraft:iron_block"
   },
   "result": {
     "id": "mdkcosmetic:collector_link",

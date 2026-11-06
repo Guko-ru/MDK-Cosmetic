@@ -1,1 +1,14 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["BB"],"key":{"B":{"item":"mdkcosmetic:cat_fur_block_magenta"}},"result":{"id":"mdkcosmetic:cat_fur_carpet_magenta","count":3}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:cat_fur_block_magenta"
+  },
+  "result": {
+    "id": "mdkcosmetic:cat_fur_carpet_magenta",
+    "count": 3
+  }
+}

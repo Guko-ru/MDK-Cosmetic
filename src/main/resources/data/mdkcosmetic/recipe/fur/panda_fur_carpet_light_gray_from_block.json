@@ -1,1 +1,14 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["BB"],"key":{"B":{"item":"mdkcosmetic:panda_fur_block_light_gray"}},"result":{"id":"mdkcosmetic:panda_fur_carpet_light_gray","count":3}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:panda_fur_block_light_gray"
+  },
+  "result": {
+    "id": "mdkcosmetic:panda_fur_carpet_light_gray",
+    "count": 3
+  }
+}

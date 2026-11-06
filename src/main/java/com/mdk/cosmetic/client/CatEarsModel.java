@@ -15,7 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
  * The Y axis is converted from Blockbench into Minecraft head coordinates.
  */
 /** v1.17.1 scale and positioning calibration. */
-public final class CatEarsModel extends HumanoidModel<LivingEntity> {
+public final class CatEarsModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public CatEarsModel() {
         super(createLayer().bakeRoot());
         this.setAllVisible(false);
@@ -25,7 +25,7 @@ public final class CatEarsModel extends HumanoidModel<LivingEntity> {
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+        root.getChild("head").addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         head.addOrReplaceChild("ear_000", CubeListBuilder.create().texOffs(6, 12).addBox(-5.4181F, -6.7735F, -2.8546F, 0.6711F, 1.0035F, 3.0295F), PartPose.ZERO); // left layer0_seg0
         head.addOrReplaceChild("ear_001", CubeListBuilder.create().texOffs(6, 12).addBox(-4.7189F, -6.7735F, -2.9245F, 0.6711F, 1.0035F, 3.1227F), PartPose.ZERO); // left layer0_seg1

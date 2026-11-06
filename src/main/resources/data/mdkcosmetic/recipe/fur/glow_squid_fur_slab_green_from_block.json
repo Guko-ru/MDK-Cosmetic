@@ -1,1 +1,14 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["BBB"],"key":{"B":{"item":"mdkcosmetic:glow_squid_fur_block_green"}},"result":{"id":"mdkcosmetic:glow_squid_fur_slab_green","count":6}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BBB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:glow_squid_fur_block_green"
+  },
+  "result": {
+    "id": "mdkcosmetic:glow_squid_fur_slab_green",
+    "count": 6
+  }
+}

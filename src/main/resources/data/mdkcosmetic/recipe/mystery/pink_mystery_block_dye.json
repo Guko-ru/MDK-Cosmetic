@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    {
-      "item": "mdkcosmetic:white_mystery_block"
-    },
-    {
-      "item": "minecraft:pink_dye"
-    }
+    "mdkcosmetic:white_mystery_block",
+    "minecraft:pink_dye"
   ],
   "result": {
     "id": "mdkcosmetic:pink_mystery_block",

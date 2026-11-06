@@ -221,9 +221,9 @@ public final class CollectorAdvancementEvents {
         }
         if (player.getItemBySlot(EquipmentSlot.HEAD).is(MDKCosmetic.SAKURA_THINKER.get()))
             award(player,"challenge/wear_sakura");
-        if (player.hasEffect(MDKCosmetic.GREED_AURA)) award(player,"challenge/greedy");
-        if (player.hasEffect(MDKCosmetic.PRODUCTIVITY_AURA)) award(player,"challenge/productive");
-        if (player.hasEffect(MDKCosmetic.GREED_AURA) && player.hasEffect(MDKCosmetic.PRODUCTIVITY_AURA))
+        if (player.hasEffect(MDKCosmetic.GREED_AURA.holder())) award(player,"challenge/greedy");
+        if (player.hasEffect(MDKCosmetic.PRODUCTIVITY_AURA.holder())) award(player,"challenge/productive");
+        if (player.hasEffect(MDKCosmetic.GREED_AURA.holder()) && player.hasEffect(MDKCosmetic.PRODUCTIVITY_AURA.holder()))
             award(player,"challenge/two_spheres");
         if (armor && !player.level().getEntitiesOfClass(Warden.class,
                 player.getBoundingBox().inflate(18.0D)).isEmpty()) award(player,"challenge/fearless_warden");

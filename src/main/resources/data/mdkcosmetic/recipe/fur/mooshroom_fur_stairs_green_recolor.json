@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"mooshroom_fur_stairs_dye","ingredients":[{"tag":"mdkcosmetic:fur/mooshroom_stairs"},{"item":"minecraft:green_dye"}],"result":{"id":"mdkcosmetic:mooshroom_fur_stairs_green","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "mooshroom_fur_stairs_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/mooshroom_stairs",
+    "minecraft:green_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:mooshroom_fur_stairs_green",
+    "count": 1
+  }
+}

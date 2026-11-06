@@ -7,24 +7,12 @@
     "LLL"
   ],
   "key": {
-    "S": {
-      "item": "minecraft:string"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "F": {
-      "item": "mdkcosmetic:fox_fur"
-    },
-    "P": {
-      "tag": "minecraft:planks"
-    },
-    "C": {
-      "item": "minecraft:crafting_table"
-    },
-    "L": {
-      "tag": "minecraft:wooden_slabs"
-    }
+    "S": "minecraft:string",
+    "I": "minecraft:iron_ingot",
+    "F": "mdkcosmetic:fox_fur",
+    "P": "#minecraft:planks",
+    "C": "minecraft:crafting_table",
+    "L": "#minecraft:wooden_slabs"
   },
   "result": {
     "id": "mdkcosmetic:tailoring_table",

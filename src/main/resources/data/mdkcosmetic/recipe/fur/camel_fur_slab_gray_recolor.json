@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"camel_fur_slab_dye","ingredients":[{"tag":"mdkcosmetic:fur/camel_slab"},{"item":"minecraft:gray_dye"}],"result":{"id":"mdkcosmetic:camel_fur_slab_gray","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "camel_fur_slab_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/camel_slab",
+    "minecraft:gray_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:camel_fur_slab_gray",
+    "count": 1
+  }
+}

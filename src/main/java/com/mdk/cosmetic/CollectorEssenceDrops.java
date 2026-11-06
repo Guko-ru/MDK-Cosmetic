@@ -37,8 +37,8 @@ public final class CollectorEssenceDrops {
         ItemStack weapon = event.getSource().getDirectEntity() instanceof ThrownTrident trident
                 ? trident.getWeaponItem() : holder.getMainHandItem();
         if (weapon.isEmpty() || !weapon.is(MDKCosmetic.COLLECTOR_WEAPONS)) return;
-        Holder<Enchantment> enchantment = victim.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT)
-                .getHolderOrThrow(COLLECTOR);
+        Holder<Enchantment> enchantment = victim.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                .getOrThrow(COLLECTOR);
         if (EnchantmentHelper.getItemEnchantmentLevel(enchantment, weapon) <= 0) return;
 
         int count = 1;
@@ -51,7 +51,7 @@ public final class CollectorEssenceDrops {
         if (victim.getRandom().nextDouble() >= chance) return;
         // Greed affects only shards dropped by this enchantment, not normal mob loot.
         if (holder instanceof net.minecraft.world.entity.player.Player player
-                && player.hasEffect(MDKCosmetic.GREED_AURA)) count *= 2;
+                && player.hasEffect(MDKCosmetic.GREED_AURA.holder())) count *= 2;
         event.getDrops().add(new ItemEntity(victim.level(), victim.getX(), victim.getY()+0.20, victim.getZ(),
                 new ItemStack(MDKCosmetic.POWER_ESSENCE.get(), count)));
         if (victim.level() instanceof ServerLevel server) {

@@ -13,7 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
  * Empty vanilla head and hat geometry prevents textured face overlays.
  */
 /** v1.17.1 scale and positioning calibration. */
-public final class AllayHatModel extends HumanoidModel<LivingEntity> {
+public final class AllayHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public AllayHatModel() {
         super(createLayer().bakeRoot());
         this.setAllVisible(false);
@@ -22,7 +22,7 @@ public final class AllayHatModel extends HumanoidModel<LivingEntity> {
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+        root.getChild("head").addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         head.addOrReplaceChild("allay_000", CubeListBuilder.create().texOffs(3, 3).addBox(-4.4600F, -5.2125F, -5.5750F, 8.9200F, 0.5575F, 0.5575F), PartPose.ZERO);
         head.addOrReplaceChild("allay_001", CubeListBuilder.create().texOffs(25, 3).addBox(-5.0175F, -5.2125F, -5.0175F, 0.5575F, 0.5575F, 0.5575F), PartPose.ZERO);

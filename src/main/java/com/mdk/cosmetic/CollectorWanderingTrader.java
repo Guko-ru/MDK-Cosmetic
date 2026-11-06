@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.WanderingTrader;
-import net.minecraft.world.item.EnchantedBookItem;
+import com.mdk.cosmetic.platform.EnchantedBooks;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
@@ -26,9 +26,9 @@ public final class CollectorWanderingTrader {
     public static void onInteract(PlayerInteractEvent.EntityInteract event) {
         if (!(event.getTarget() instanceof WanderingTrader trader)
                 || !(event.getEntity() instanceof ServerPlayer player)) return;
-        if (trader.getPersistentData().getBoolean(ROLLED)) return;
+        if (com.mdk.cosmetic.platform.PersistentData.of(trader).getBoolean(ROLLED)) return;
         // Set marker BEFORE generating offers so a nested interaction cannot roll again.
-        trader.getPersistentData().putBoolean(ROLLED, true);
+        com.mdk.cosmetic.platform.PersistentData.of(trader).putBoolean(ROLLED, true);
         MerchantOffers offers = trader.getOffers();
         var random = trader.getRandom();
 
@@ -41,10 +41,10 @@ public final class CollectorWanderingTrader {
         if (random.nextInt(10) == 0) {
             var key = ResourceKey.create(Registries.ENCHANTMENT,
                     ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "collector"));
-            player.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolder(key)
+            player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(key)
                     .ifPresent(holder -> offers.add(new MerchantOffer(
                             new ItemCost(Items.EMERALD, 18 + random.nextInt(15)), Optional.empty(),
-                            EnchantedBookItem.createForEnchantment(new EnchantmentInstance(holder, 1)),
+                            EnchantedBooks.createForEnchantment(new EnchantmentInstance(holder, 1)),
                             1, 0, 0.0F)));
         }
         // A rare Sakura hat offer.

@@ -132,7 +132,7 @@ public final class CollectorEquipmentScreen extends AbstractContainerScreen<Coll
         }
         return super.mouseDragged(mx/scale,my/scale,button,dx/scale,dy/scale);
     }
-    // mdk: unified scaled canvas; native callbacks must not draw a second machine background.
+    // mdk: unified scaled canvas; native background callbacks must not draw it a second time.
     @Override public void renderBackground(GuiGraphics graphics,int mouseX,int mouseY,float partial) {}
 
     @Override public void render(GuiGraphics g,int mx,int my,float pt){

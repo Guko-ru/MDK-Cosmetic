@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[52,)"
+loaderVersion="[53,)"
 license="MDK Cosmetic Non-Commercial License 1.1"
 
 [[mods]]
@@ -14,13 +14,14 @@ Decorative cosmetics and a tailoring workstation.
 [[dependencies.mdkcosmetic]]
 modId="forge"
 mandatory=true
-versionRange="[52.1.21,)"
+versionRange="[53.1.16,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.mdkcosmetic]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.21.1,1.21.2)"
+versionRange="[1.21.3]"
 ordering="NONE"
 side="BOTH"
+

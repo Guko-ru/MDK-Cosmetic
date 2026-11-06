@@ -1,1 +1,16 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["B  ","BB ","BBB"],"key":{"B":{"item":"mdkcosmetic:glow_squid_fur_block_gray"}},"result":{"id":"mdkcosmetic:glow_squid_fur_stairs_gray","count":4}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:glow_squid_fur_block_gray"
+  },
+  "result": {
+    "id": "mdkcosmetic:glow_squid_fur_stairs_gray",
+    "count": 4
+  }
+}

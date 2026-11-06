@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"wolf_fur_block_dye","ingredients":[{"tag":"mdkcosmetic:fur/wolf_block"},{"item":"minecraft:red_dye"}],"result":{"id":"mdkcosmetic:wolf_fur_block_red","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "wolf_fur_block_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/wolf_block",
+    "minecraft:red_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:wolf_fur_block_red",
+    "count": 1
+  }
+}

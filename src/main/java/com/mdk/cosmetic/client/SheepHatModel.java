@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 /** Exact sheep-hat geometry from the editable Blockbench model. */
 /** v1.17.1 scale and positioning calibration. */
-public final class SheepHatModel extends HumanoidModel<LivingEntity> {
+public final class SheepHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public SheepHatModel() {
         super(createLayer().bakeRoot());
         setAllVisible(false);
@@ -20,7 +20,7 @@ public final class SheepHatModel extends HumanoidModel<LivingEntity> {
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+        root.getChild("head").addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         head.addOrReplaceChild("sheep_0000", CubeListBuilder.create().texOffs(0,0).addBox(-4.1813F, -1.0312F, -4.1813F, 0.5575F, 2.2300F, 0.5575F),PartPose.ZERO); // wool_light
         head.addOrReplaceChild("sheep_0001", CubeListBuilder.create().texOffs(32,0).addBox(3.6237F, -1.0312F, -4.1813F, 0.5575F, 2.2300F, 0.5575F),PartPose.ZERO); // wool_light

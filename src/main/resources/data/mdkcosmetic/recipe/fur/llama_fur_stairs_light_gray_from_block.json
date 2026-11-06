@@ -1,1 +1,16 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["B  ","BB ","BBB"],"key":{"B":{"item":"mdkcosmetic:llama_fur_block_light_gray"}},"result":{"id":"mdkcosmetic:llama_fur_stairs_light_gray","count":4}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:llama_fur_block_light_gray"
+  },
+  "result": {
+    "id": "mdkcosmetic:llama_fur_stairs_light_gray",
+    "count": 4
+  }
+}

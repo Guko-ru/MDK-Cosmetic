@@ -19,8 +19,8 @@ public final class ForgeChestLootModifier extends LootModifier {
   var serializers=DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS,"mdkcosmetic");
   serializers.register("add_chest_table",()->CODEC);serializers.register(bus);
  }
- @Override protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generated,LootContext context){
-  context.getResolver().get(Registries.LOOT_TABLE,table).ifPresent(holder->holder.value().getRandomItemsRaw(context,generated::add));return generated;
+ @Override protected ObjectArrayList<ItemStack> doApply(LootTable originalTable,ObjectArrayList<ItemStack> generated,LootContext context){
+  context.getResolver().get(table).ifPresent(holder->holder.value().getRandomItemsRaw(context,generated::add));return generated;
  }
  @Override public MapCodec<? extends IGlobalLootModifier> codec(){return CODEC;}
 }

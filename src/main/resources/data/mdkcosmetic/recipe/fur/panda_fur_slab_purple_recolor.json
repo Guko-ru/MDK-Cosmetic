@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"panda_fur_slab_dye","ingredients":[{"tag":"mdkcosmetic:fur/panda_slab"},{"item":"minecraft:purple_dye"}],"result":{"id":"mdkcosmetic:panda_fur_slab_purple","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "panda_fur_slab_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/panda_slab",
+    "minecraft:purple_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:panda_fur_slab_purple",
+    "count": 1
+  }
+}

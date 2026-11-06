@@ -5,9 +5,7 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "mdkcosmetic:light_blue_mystery_block"
-    }
+    "#": "mdkcosmetic:light_blue_mystery_block"
   },
   "result": {
     "id": "mdkcosmetic:light_blue_mystery_slab",

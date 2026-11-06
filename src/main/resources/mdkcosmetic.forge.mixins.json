@@ -3,13 +3,19 @@
   "package": "com.mdk.cosmetic.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ItemPropertiesMixin",
+    "BlockPropertiesMixin",
+    "SquidMovementMixin",
+    "PickupTargetMixin",
+    "SoulAllianceMixin",
     "ForgeLivingTickMixin",
-    "BlockLootMixin",
-    "ItemStackHooksMixin",
     "ForgeItemProtectionMixin",
-    "ItemPickupTargetAccessor"
+    "BlockLootMixin",
+    "ItemStackHooksMixin"
   ],
   "client": [
+    "client.EquipmentRenderStateMixin",
+    "client.EquipmentExtractionMixin",
     "client.ForgeArmorLayerMixin",
     "client.ForgeHudMixin"
   ],

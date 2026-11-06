@@ -34,7 +34,7 @@ public final class CatFurShearing {
         event.setCanceled(true);
         if (animal.level().isClientSide()) return;
 
-        CompoundTag data = animal.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(animal);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT_SHEAR_AT);
         if (next > now && next - now <= COOLDOWN_MILLIS) {
@@ -44,7 +44,7 @@ public final class CatFurShearing {
             return;
         }
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);
-        animal.spawnAtLocation(new ItemStack(MDKCosmetic.CAT_FUR.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(animal,new ItemStack(MDKCosmetic.CAT_FUR.get()));
         animal.playSound(SoundEvents.SHEEP_SHEAR, 0.85F, 1.2F);
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

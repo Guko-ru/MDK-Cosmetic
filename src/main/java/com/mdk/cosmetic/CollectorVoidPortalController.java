@@ -16,7 +16,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.portal.DimensionTransition;
+import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -107,8 +107,8 @@ public final class CollectorVoidPortalController {
         boolean first = state.markWelcomed(id);
         Vec3 landing = new Vec3(center.getX() + 0.5, center.getY() + 1.0, center.getZ() + 0.5);
         origin.playSound(null, portalPos, SoundEvents.END_PORTAL_SPAWN, SoundSource.BLOCKS, 0.7f, 1.4f);
-        player.changeDimension(new DimensionTransition(destination, landing, Vec3.ZERO,
-                player.getYRot(), player.getXRot(), DimensionTransition.PLAY_PORTAL_SOUND));
+        player.teleport(new TeleportTransition(destination, landing, Vec3.ZERO,
+                player.getYRot(), player.getXRot(), TeleportTransition.PLAY_PORTAL_SOUND));
         CollectorVoidAchievements.onEnter(player);
         if (first) {
             // Vanilla subtitles use a medium-size font, unlike the huge main title.
@@ -140,13 +140,13 @@ public final class CollectorVoidPortalController {
         ServerLevel overworld = player.getServer().overworld();
         if (player.getRespawnDimension().equals(Level.OVERWORLD)) {
             // Vanilla validates the saved bed and falls back to the world spawn if missing.
-            player.changeDimension(player.findRespawnPositionAndUseSpawnBlock(
-                    false, DimensionTransition.PLAY_PORTAL_SOUND));
+            player.teleport(player.findRespawnPositionAndUseSpawnBlock(
+                    false, TeleportTransition.PLAY_PORTAL_SOUND));
         } else {
             BlockPos spawn = overworld.getSharedSpawnPos();
-            player.changeDimension(new DimensionTransition(overworld,
+            player.teleport(new TeleportTransition(overworld,
                     Vec3.atBottomCenterOf(spawn).add(0.0, 1.0, 0.0), Vec3.ZERO,
-                    player.getYRot(), player.getXRot(), DimensionTransition.PLAY_PORTAL_SOUND));
+                    player.getYRot(), player.getXRot(), TeleportTransition.PLAY_PORTAL_SOUND));
         }
         CollectorVoidAchievements.onReturn(player);
     }
