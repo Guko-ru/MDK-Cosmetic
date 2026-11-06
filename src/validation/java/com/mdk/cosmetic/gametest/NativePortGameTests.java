@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -73,9 +73,9 @@ public final class NativePortGameTests {
         }
         var registry=helper.getLevel().registryAccess().lookupOrThrow(Registries.PLACED_FEATURE);
         for(String id:java.util.List.of("collector_ore_overworld","collector_ore_nether","collector_ore_end","collector_ore_end_surface")){
-            assertTrue(helper,registry.containsKey(ResourceLocation.fromNamespaceAndPath("mdkcosmetic",id)),"Ore placement resource must load: "+id);
+            assertTrue(helper,registry.containsKey(Identifier.fromNamespaceAndPath("mdkcosmetic",id)),"Ore placement resource must load: "+id);
         }
-        var key=ResourceKey.create(Registries.LOOT_TABLE,ResourceLocation.parse("mdkcosmetic:chests/collector_book"));
+        var key=ResourceKey.create(Registries.LOOT_TABLE,Identifier.parse("mdkcosmetic:chests/collector_book"));
         var table=helper.getLevel().getServer().reloadableRegistries().getLootTable(key);
         assertTrue(helper,table!=net.minecraft.world.level.storage.loot.LootTable.EMPTY,"Collector chest loot table must load");
         helper.succeed();
@@ -86,15 +86,15 @@ public final class NativePortGameTests {
             var expected=com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
             var server=helper.getLevel().getServer();
             for(var value:expected.getAsJsonArray("recipe")){
-                var id=ResourceLocation.parse(value.getAsString());
+                var id=Identifier.parse(value.getAsString());
                 assertTrue(helper,server.getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,id)).isPresent(),"Recipe file must decode and register: "+id);
             }
             for(var value:expected.getAsJsonArray("advancement")){
-                var id=ResourceLocation.parse(value.getAsString());
+                var id=Identifier.parse(value.getAsString());
                 assertTrue(helper,server.getAdvancements().get(id)!=null,"Advancement file must decode and register: "+id);
             }
             for(var value:expected.getAsJsonArray("loot_table")){
-                var id=ResourceLocation.parse(value.getAsString());
+                var id=Identifier.parse(value.getAsString());
                 assertTrue(helper,server.reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE,id))!=net.minecraft.world.level.storage.loot.LootTable.EMPTY,"Loot table file must decode and register: "+id);
             }
         }
@@ -179,8 +179,8 @@ public final class NativePortGameTests {
    if(manager.getAllLootMods().stream().filter(value->value instanceof com.mdk.cosmetic.platform.ForgeChestLootModifier).count()!=9)throw new AssertionError("All nine native Forge chest modifiers must load");
   }catch(ReflectiveOperationException error){throw new AssertionError(error);}
   var params=new net.minecraft.world.level.storage.loot.LootParams.Builder(level).withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN,net.minecraft.world.phys.Vec3.ZERO).create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.CHEST);
-  var table=server.reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE,ResourceLocation.parse("minecraft:chests/abandoned_mineshaft")));
-  var collector=level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ResourceKey.create(Registries.ENCHANTMENT,ResourceLocation.parse("mdkcosmetic:collector")));
+  var table=server.reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE,Identifier.parse("minecraft:chests/abandoned_mineshaft")));
+  var collector=level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ResourceKey.create(Registries.ENCHANTMENT,Identifier.parse("mdkcosmetic:collector")));
   int found=0;for(long seed=1;seed<=256;seed++)for(var item:table.getRandomItems(params,seed))if(item.getOrDefault(net.minecraft.core.component.DataComponents.STORED_ENCHANTMENTS,net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY).getLevel(collector)>0){found++;break;}
   if(found<1||found>=64)throw new AssertionError("Seeded mineshaft Collector book chance must remain near original 8%, observed "+found+"/256");
   org.slf4j.LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_NATIVE_CHEST_LOOT_OK: all 9 Forge modifiers loaded; original chest book chance retained");

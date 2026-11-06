@@ -9,7 +9,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 /** Bridges the original item color functions into Minecraft's native client-item tint source. */
 public final class CosmeticItemTints {
  @FunctionalInterface public interface Color {int getColor(ItemStack stack,int index);}

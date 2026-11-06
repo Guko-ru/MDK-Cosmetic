@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -56,7 +56,7 @@ public final class CollectorAdvancementEvents {
 
     private static void award(ServerPlayer player, String id) {
         AdvancementHolder advancement = com.mdk.cosmetic.platform.ServerAccess.get(player).getAdvancements().get(
-                ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, id));
+                Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID, id));
         if (advancement != null) player.getAdvancements().award(advancement, "done");
     }
 
@@ -65,7 +65,7 @@ public final class CollectorAdvancementEvents {
         for (int target : targets) {
             String id = "milestone/" + metric + "_" + target;
             AdvancementHolder advancement = com.mdk.cosmetic.platform.ServerAccess.get(player).getAdvancements().get(
-                    ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, id));
+                    Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID, id));
             if (advancement == null) continue;
             for (int step = 1; step <= 5; step++) {
                 long required = (target * (long) step + 4L) / 5L;

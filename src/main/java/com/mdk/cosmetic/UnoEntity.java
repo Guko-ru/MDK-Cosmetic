@@ -6,7 +6,7 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.projectile.ThrownSplashPotion;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownSplashPotion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.phys.AABB;
@@ -16,7 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.server.level.ServerLevel;
@@ -113,7 +113,7 @@ public final class UnoEntity extends Monster {
     private Vec3 totemWaveOrigin;
     private static final int RAGE_SONIC_COOLDOWN = 20 * 5;
     private static final double TARGET_RADIUS_SQUARED = 50.0D * 50.0D;
-    private static final ResourceLocation RAGE_SPEED_ID = ResourceLocation.fromNamespaceAndPath(
+    private static final Identifier RAGE_SPEED_ID = Identifier.fromNamespaceAndPath(
             MDKCosmetic.MOD_ID, "uno_phase_three_double_speed");
     private BlockPos endAnchor;
 
@@ -629,7 +629,7 @@ public final class UnoEntity extends Monster {
             double force = 3.4D + (20.0D - d) * 0.035D;
             other.setDeltaMovement(dx / d * force, Math.max(0.65D, other.getDeltaMovement().y),
                     dz / d * force);
-            other.hasImpulse = true;
+            other.needsSync = true;
             other.hurtMarked = true;
             server.sendParticles(ParticleTypes.CLOUD, other.getX(), other.getY() + 0.5D,
                     other.getZ(), 15, 0.4D, 0.3D, 0.4D, 0.08D);

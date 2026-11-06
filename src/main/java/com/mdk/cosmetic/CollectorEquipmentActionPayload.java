@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.network.chat.Component;
@@ -13,7 +13,7 @@ import com.mdk.cosmetic.platform.ForgePayloads.Registration;
 /** The only two key actions; menu opens are server-validated. */
 public record CollectorEquipmentActionPayload(int action) implements CustomPacketPayload {
     public static final Type<CollectorEquipmentActionPayload> TYPE = new Type<>(
-            ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID,"equipment_keys"));
+            Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID,"equipment_keys"));
     public static final StreamCodec<ByteBuf,CollectorEquipmentActionPayload> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.INT, CollectorEquipmentActionPayload::action, CollectorEquipmentActionPayload::new);
     @Override public Type<? extends CustomPacketPayload> type(){ return TYPE; }

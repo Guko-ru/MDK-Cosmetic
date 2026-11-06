@@ -5,13 +5,13 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mdk.cosmetic.platform.ForgePayloads.Registration;
 
 /** Client-only screen encounter cue; no control packets or commands. */
 public record UnoEncounterPayload(int blackoutTicks,int shakeTicks) implements CustomPacketPayload {
     public static final Type<UnoEncounterPayload> TYPE = new Type<>(
-            ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID,"uno_encounter"));
+            Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID,"uno_encounter"));
     public static final StreamCodec<ByteBuf,UnoEncounterPayload> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.INT,UnoEncounterPayload::blackoutTicks,
             ByteBufCodecs.INT,UnoEncounterPayload::shakeTicks,UnoEncounterPayload::new);

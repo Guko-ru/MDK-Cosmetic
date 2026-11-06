@@ -2,7 +2,7 @@ package com.mdk.cosmetic;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -34,7 +34,7 @@ public final class CollectorProtection {
                 || path.equals("productivity_orb");
     }
 
-    private static boolean protectedId(ResourceLocation id) {
+    private static boolean protectedId(Identifier id) {
         return id != null && MDKCosmetic.MOD_ID.equals(id.getNamespace()) && protectedPath(id.getPath());
     }
 

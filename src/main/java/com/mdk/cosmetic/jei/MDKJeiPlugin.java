@@ -21,13 +21,13 @@ import org.lwjgl.glfw.GLFW;
 import com.mojang.math.Axis;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import java.util.LinkedHashMap;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Map;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
@@ -43,7 +43,7 @@ public final class MDKJeiPlugin implements IModPlugin {
     public static final RecipeType<JeiData.Structure> LARGE = RecipeType.create(MDKCosmetic.MOD_ID, "collector_5x5_upgrade", JeiData.Structure.class);
     public static final RecipeType<JeiData.Structure> FINAL = RecipeType.create(MDKCosmetic.MOD_ID, "collector_void_final", JeiData.Structure.class);
 
-    @Override public ResourceLocation getPluginUid() { return ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "integrated_jei"); }
+    @Override public Identifier getPluginUid() { return Identifier.fromNamespaceAndPath(MDKCosmetic.MOD_ID, "integrated_jei"); }
     @Override public void registerCategories(IRecipeCategoryRegistration registration) {
         IGuiHelper gui = registration.getJeiHelpers().getGuiHelper();
         registration.addRecipeCategories(
@@ -86,7 +86,8 @@ public final class MDKJeiPlugin implements IModPlugin {
         }
         @Override public RecipeType<T> getRecipeType() { return type; }
         @Override public Component getTitle() { return name; }
-        @Override public IDrawable getBackground() { return background; }
+        @Override public int getWidth() { return background.getWidth(); }
+        @Override public int getHeight() { return background.getHeight(); }
         @Override public IDrawable getIcon() { return icon; }
         private static void slot(IRecipeLayoutBuilder b, RecipeIngredientRole role, int x,int y,ItemStack stack) {
             b.addSlot(role,x,y).addItemStack(stack);
@@ -114,16 +115,16 @@ public final class MDKJeiPlugin implements IModPlugin {
             long now = Util.getMillis();
             int base = 0xFFCCCCCC;
             graphics.fill(6, 8, 160, 99, 0xFF15111D);
-            graphics.submitOutline(6, 8, 154, 91, 0xFF5F4D82);
+            graphics.renderOutline(6, 8, 154, 91, 0xFF5F4D82);
             graphics.drawString(font, tr("trade_head"), 12, 13, 0xFFE8DBFF, false);
             graphics.drawString(font, tr("trade_info"), 12, 24, 0xFFB6B0C7, false);
 
             graphics.fill(10, 35, 52, 77, 0xFF241D33);
-            graphics.submitOutline(10, 35, 42, 42, 0xFF6B5A8D);
+            graphics.renderOutline(10, 35, 42, 42, 0xFF6B5A8D);
             graphics.fill(104, 35, 146, 77, 0xFF241D33);
-            graphics.submitOutline(104, 35, 42, 42, 0xFF8B72C4);
+            graphics.renderOutline(104, 35, 42, 42, 0xFF8B72C4);
             graphics.fill(63, 38, 98, 73, 0xFF1C1725);
-            graphics.submitOutline(63, 38, 35, 35, 0xFF4E4460);
+            graphics.renderOutline(63, 38, 35, 35, 0xFF4E4460);
 
             int arrowX = 68 + (int)((now / 90L) % 20L);
             graphics.fill(69, 54, 94, 56, 0xFF5E5870);
@@ -142,7 +143,7 @@ public final class MDKJeiPlugin implements IModPlugin {
             graphics.drawString(font, tr("stress"), 11, 82, base, false);
             graphics.fill(11, 92, 147, 97, 0xFF30283E);
             graphics.fill(11, 92, 11 + Math.round(136f * stress / 100f), 97, 0xFFB07DFF);
-            graphics.submitOutline(11, 92, 136, 5, 0xFF54486A);
+            graphics.renderOutline(11, 92, 136, 5, 0xFF54486A);
             graphics.drawString(font, stress + tr("stress_unit"), 120, 82, 0xFFEBD5FF, false);
             String label = font.plainSubstrByWidth(r.product().getHoverName().getString(), 100);
             graphics.drawString(font, label, 58, 67, 0xFFC8BCDD, false);
@@ -202,7 +203,8 @@ public final class MDKJeiPlugin implements IModPlugin {
         @Override public RecipeType<JeiData.Structure> getRecipeType() { return type; }
         @Override public Component getTitle() { return title; }
         @Override public IDrawable getIcon() { return icon; }
-        @Override public IDrawable getBackground() { return background; }
+        @Override public int getWidth() { return background.getWidth(); }
+        @Override public int getHeight() { return background.getHeight(); }
 
         @Override public void setRecipe(IRecipeLayoutBuilder builder, JeiData.Structure recipe, IFocusGroup focuses) {
             Map<net.minecraft.world.item.Item, Integer> counts = new LinkedHashMap<>();
@@ -223,7 +225,7 @@ public final class MDKJeiPlugin implements IModPlugin {
         }
         private void drawControl(GuiGraphics graphics, String label, int x, int y, int w, boolean selected) {
             graphics.fill(x,y,x+w,y+16, selected ? 0xB0504273 : 0xA02A303C);
-            graphics.submitOutline(x,y,w,16,selected ? 0xFFB996FF : 0xFF667080);
+            graphics.renderOutline(x,y,w,16,selected ? 0xFFB996FF : 0xFF667080);
             graphics.drawCenteredString(Minecraft.getInstance().font,label,x+w/2,y+4,0xFFECE5FF);
         }
 
@@ -343,7 +345,7 @@ public final class MDKJeiPlugin implements IModPlugin {
         private void drawSelectionPanel(GuiGraphics graphics, double mx, double my, JeiData.Structure recipe) {
             var font = Minecraft.getInstance().font;
             graphics.fill(8, 23, 78, 43, 0xC0181322);
-            graphics.submitOutline(8, 23, 70, 20, 0xFF6E5B92);
+            graphics.renderOutline(8, 23, 70, 20, 0xFF6E5B92);
             if (selectedStack.isEmpty()) {
                 graphics.drawString(font, tr("pick_block"), 12, 27, 0xFFE8DFFF, false);
                 graphics.drawString(font, tr("pick_info"), 12, 35, 0xFFBAACC9, false);
@@ -362,7 +364,7 @@ public final class MDKJeiPlugin implements IModPlugin {
                     if (cell.cell().equals(selectedCell)) {
                         int left = (int)Math.round(cell.x() - 8);
                         int top = (int)Math.round(cell.y() - 8);
-                        graphics.submitOutline(left, top, 16, 16, 0xFFCCA7FF);
+                        graphics.renderOutline(left, top, 16, 16, 0xFFCCA7FF);
                         break;
                     }
                 }
@@ -379,7 +381,7 @@ public final class MDKJeiPlugin implements IModPlugin {
                     recipe.finalTier() ? tr("final_title") : (recipe.upgrade() ? tr("upgrade_title") : tr("base_title")),
                     6,6,0xFFE7DAFF,false);
             graphics.fill(4,19,162,135,0xA0101623);
-            graphics.submitOutline(4,19,158,116,0xFF4B5567);
+            graphics.renderOutline(4,19,158,116,0xFF4B5567);
 
             int visibleCount = 0;
             for (JeiData.Cell cell : recipe.cells()) {

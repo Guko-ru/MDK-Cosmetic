@@ -31,7 +31,7 @@ public final class CollectorSoulWorldEvents {
                 BlockPos pos=player.blockPosition();
                 StructureStart start=level.structureManager().getStructureWithPieceAt(pos,city);
                 if (!start.isValid()) continue;
-                String id=level.dimension().location()+":"+start.getChunkPos().x+":"+start.getChunkPos().z;
+                String id=level.dimension().identifier()+":"+start.getChunkPos().x+":"+start.getChunkPos().z;
                 if (data.contains(id)) continue;
                 // Prefer a nearby safe air space inside the actual structure.
                 for (int attempt=0;attempt<48;attempt++) {

@@ -2,7 +2,7 @@ package com.mdk.cosmetic;
 import java.util.EnumSet;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.animal.horse.Llama;
+import net.minecraft.world.entity.animal.equine.Llama;
 /** Llamas stay leashed, caravan and ridden when appropriate; otherwise follow hats. */
 public final class LlamaHatAttractionGoal extends Goal {
  private final Llama llama;private LivingEntity target;private int refresh;

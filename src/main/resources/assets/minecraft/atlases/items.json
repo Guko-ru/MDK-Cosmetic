@@ -1,0 +1,14 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:single",
+      "resource": "minecraft:block/crafting_table_front",
+      "sprite": "mdkcosmetic:item/collector_crafting_table_front"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "minecraft:block/furnace_front",
+      "sprite": "mdkcosmetic:item/collector_furnace_front"
+    }
+  ]
+}

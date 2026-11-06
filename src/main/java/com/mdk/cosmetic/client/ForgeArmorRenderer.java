@@ -5,7 +5,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -46,12 +47,12 @@ public final class ForgeArmorRenderer {
             int fallback=layer.dyeable()?0xFF000000|DyedItemColor.getOrDefault(stack,appearance.getDefaultDyeColor(stack)):0xFFFFFFFF;
             int tint=appearance.getArmorLayerTintColor(stack,entity,layer,i,fallback);
             if((tint>>>24)==0)continue;
-            buffers.order(i*2+1).submitModel(frozen,snapshot,pose,RenderType.armorCutoutNoCull(layer.texture(slot==EquipmentSlot.LEGS)),light,OverlayTexture.NO_OVERLAY,tint,null,entity.outlineColor,null);
-            if(stack.hasFoil())buffers.order(i*2+2).submitModel(frozen,snapshot,pose,RenderType.armorEntityGlint(),light,OverlayTexture.NO_OVERLAY,tint,null,entity.outlineColor,null);
+            buffers.order(i*2+1).submitModel(frozen,snapshot,pose,RenderTypes.armorCutoutNoCull(layer.texture(slot==EquipmentSlot.LEGS)),light,OverlayTexture.NO_OVERLAY,tint,null,entity.outlineColor,null);
+            if(stack.hasFoil())buffers.order(i*2+2).submitModel(frozen,snapshot,pose,RenderTypes.armorEntityGlint(),light,OverlayTexture.NO_OVERLAY,tint,null,entity.outlineColor,null);
         }
         var trim=stack.get(net.minecraft.core.component.DataComponents.TRIM);
         if(trim!=null && !stack.is(com.mdk.cosmetic.MDKCosmetic.COLLECTOR_HELMET.get())){
-            var texture=net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(trim.pattern().value().assetId().getNamespace(),"trims/entity/"+(slot==EquipmentSlot.LEGS?"humanoid_leggings/":"humanoid/")+trim.pattern().value().assetId().getPath()+"_"+trim.material().value().assets().base().suffix());
+            var texture=net.minecraft.resources.Identifier.fromNamespaceAndPath(trim.pattern().value().assetId().getNamespace(),"trims/entity/"+(slot==EquipmentSlot.LEGS?"humanoid_leggings/":"humanoid/")+trim.pattern().value().assetId().getPath()+"_"+trim.material().value().assets().base().suffix());
             var atlas=Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(net.minecraft.data.AtlasIds.ARMOR_TRIMS);
             var sprite=atlas.getSprite(texture);
             buffers.order(layers.size()*2+1).submitModel(frozen,snapshot,pose,net.minecraft.client.renderer.Sheets.armorTrimsSheet(trim.pattern().value().decal()),light,OverlayTexture.NO_OVERLAY,0xFFFFFFFF,sprite,entity.outlineColor,null);

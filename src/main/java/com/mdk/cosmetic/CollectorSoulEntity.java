@@ -26,9 +26,9 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.warden.Warden;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.entity.projectile.ThrownSplashPotion;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownSplashPotion;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -419,7 +419,7 @@ public final class CollectorSoulEntity extends PathfinderMob {
             Vec3 velocity=victim.getDeltaMovement();
             victim.setDeltaMovement(dx/d*force,Math.max(0.65,velocity.y),dz/d*force);
             victim.hurtMarked=true;
-            victim.hasImpulse=true;
+            victim.needsSync=true;
             level.sendParticles(ParticleTypes.CLOUD,victim.getX(),victim.getY()+0.5,
                     victim.getZ(),18,0.4,0.4,0.4,0.1);
         }

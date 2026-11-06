@@ -17,7 +17,7 @@ public final class CollectorTrimColors {
         if (trim == null) return DEFAULT_PURPLE;
         // Use registry IDs rather than matching translated item names or tooltips.
         String material = trim.material().unwrapKey()
-                .map(key -> key.location().getPath()).orElse("");
+                .map(key -> key.identifier().getPath()).orElse("");
         return switch (material) {
             case "quartz" -> 0xFFE9E6DB;
             case "iron" -> 0xFFB8C5D0;
