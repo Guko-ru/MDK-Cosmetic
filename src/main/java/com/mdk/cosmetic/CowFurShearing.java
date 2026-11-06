@@ -20,7 +20,7 @@ public final class CowFurShearing {
     private static final long COOLDOWN_MS = 5L * 60L * 1000L;
     private CowFurShearing() { }
 
-    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+    public static boolean onInteract(PlayerInteractEvent.EntityInteractSpecific event) {
         boolean[] mdk$cancelled={false};
         mdk$handler: {
 
@@ -36,8 +36,8 @@ public final class CowFurShearing {
         long now = System.currentTimeMillis();
         long next = data.getLongOr(NEXT,0L);
         if (next > now && next - now <= COOLDOWN_MS) {
-            event.getEntity().displayClientMessage(Component.translatable(
-                    "message.mdkcosmetic.cow_regrowing", (next - now + 59999L) / 60000L), true);
+            event.getEntity().sendOverlayMessage(Component.translatable(
+                    "message.mdkcosmetic.cow_regrowing", (next - now + 59999L) / 60000L));
             break mdk$handler;
         }
         data.putLong(NEXT, now + COOLDOWN_MS);

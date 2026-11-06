@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 /** Cow hat rebuilt from scratch in v1.17.1. Geometry is in head-local coordinates. */
 public final class CowHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
-    public CowHatModel() { super(createLayer().bakeRoot()); setAllVisible(false); head.visible = true; }
+    public CowHatModel() { super(createLayer().bakeRoot()); com.mdk.cosmetic.client.ModelVisibility.set(this,false); head.visible = true; }
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition root = mesh.getRoot();

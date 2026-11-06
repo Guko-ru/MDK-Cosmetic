@@ -20,7 +20,7 @@ public final class GlowSquidInkHarvest {
     private static final long COOLDOWN = 5L * 60L * 1000L;
     private GlowSquidInkHarvest() { }
 
-    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+    public static boolean onInteract(PlayerInteractEvent.EntityInteractSpecific event) {
         boolean[] mdk$cancelled={false};
         mdk$handler: {
 
@@ -35,8 +35,8 @@ public final class GlowSquidInkHarvest {
         long now = System.currentTimeMillis();
         long until = data.getLongOr(NEXT,0L);
         if (until > now && until - now <= COOLDOWN) {
-            event.getEntity().displayClientMessage(Component.translatable(
-                    "message.mdkcosmetic.glow_squid_refilling", (until - now + 59999L) / 60000L), true);
+            event.getEntity().sendOverlayMessage(Component.translatable(
+                    "message.mdkcosmetic.glow_squid_refilling", (until - now + 59999L) / 60000L));
             break mdk$handler;
         }
         data.putLong(NEXT, now + COOLDOWN);

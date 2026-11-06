@@ -51,7 +51,7 @@ public final class CollectorProtection {
         if (!(event.getEntity() instanceof ItemEntity dropped)) return;
         ItemStack stack = dropped.getItem();
         if (isProtected(stack) && !stack.has(DataComponents.DAMAGE_RESISTANT)) {
-            stack.set(DataComponents.DAMAGE_RESISTANT, new net.minecraft.world.item.component.DamageResistant(net.minecraft.tags.DamageTypeTags.IS_FIRE));
+            stack.set(DataComponents.DAMAGE_RESISTANT, new net.minecraft.world.item.component.DamageResistant(dropped.level().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.DAMAGE_TYPE).getOrThrow(net.minecraft.tags.DamageTypeTags.IS_FIRE)));
             dropped.setItem(stack);
         }
     }

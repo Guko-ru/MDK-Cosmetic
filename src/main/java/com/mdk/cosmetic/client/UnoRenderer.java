@@ -31,6 +31,6 @@ public final class UnoRenderer extends MobRenderer<UnoEntity,AvatarRenderState,U
   var connection=Minecraft.getInstance().getConnection();
   if(entity.isSecondPhase()&&connection!=null){var skin=entity.getMimicTarget().map(connection::getPlayerInfo).map(net.minecraft.client.multiplayer.PlayerInfo::getSkin).orElse(null);if(skin!=null){state.skin=skin;state.texture=skin.body().texturePath();state.slim=skin.model()==net.minecraft.world.entity.player.PlayerModelType.SLIM;}}
  }
- @Override public void submit(AvatarRenderState base,PoseStack pose,net.minecraft.client.renderer.SubmitNodeCollector buffers,net.minecraft.client.renderer.state.CameraRenderState camera){model=((UnoRenderState)base).slim?slimModel:wideModel;super.submit(base,pose,buffers,camera);}
+ @Override public void submit(AvatarRenderState base,PoseStack pose,net.minecraft.client.renderer.SubmitNodeCollector buffers,net.minecraft.client.renderer.state.level.CameraRenderState camera){model=((UnoRenderState)base).slim?slimModel:wideModel;super.submit(base,pose,buffers,camera);}
  @Override public Identifier getTextureLocation(AvatarRenderState state){return ((UnoRenderState)state).texture;}
 }

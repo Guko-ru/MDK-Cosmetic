@@ -19,7 +19,8 @@
     "client.UnoRendererDispatchMixin",
     "client.ForgeArmorLayerMixin",
     "client.ForgeHudMixin",
-    "client.CosmeticItemTintSourcesMixin"
+    "client.CosmeticItemTintSourcesMixin",
+    "client.GuiScissorStackAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

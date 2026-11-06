@@ -19,7 +19,7 @@ public final class AxolotlSkinHarvest {
     private static final long COOLDOWN = 5L * 60L * 1000L;
     private AxolotlSkinHarvest() { }
 
-    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+    public static boolean onInteract(PlayerInteractEvent.EntityInteractSpecific event) {
         boolean[] mdk$cancelled={false};
         mdk$handler: {
 
@@ -35,8 +35,7 @@ public final class AxolotlSkinHarvest {
         long next = data.getLongOr(NEXT,0L);
         if (next > now && next - now <= COOLDOWN) {
             long minutes = (next-now+59999L)/60000L;
-            event.getEntity().displayClientMessage(
-                Component.translatable("message.mdkcosmetic.axolotl_regrowing", minutes), true);
+            event.getEntity().sendOverlayMessage(Component.translatable("message.mdkcosmetic.axolotl_regrowing", minutes));
             break mdk$handler;
         }
         data.putLong(NEXT,now+COOLDOWN);

@@ -19,7 +19,7 @@ public final class RabbitFurShearing {
     private static final long COOLDOWN_MILLIS = 5L * 60L * 1000L;
     private RabbitFurShearing() { }
 
-    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+    public static boolean onInteract(PlayerInteractEvent.EntityInteractSpecific event) {
         boolean[] mdk$cancelled={false};
         mdk$handler: {
 
@@ -36,8 +36,8 @@ public final class RabbitFurShearing {
         long next = data.getLongOr(NEXT_SHEAR_AT,0L);
         if (next > now && next - now <= COOLDOWN_MILLIS) {
             long remainingMinutes = (next - now + 59999L) / 60000L;
-            event.getEntity().displayClientMessage(Component.translatable(
-                    "message.mdkcosmetic.rabbit_regrowing", remainingMinutes), true);
+            event.getEntity().sendOverlayMessage(Component.translatable(
+                    "message.mdkcosmetic.rabbit_regrowing", remainingMinutes));
             break mdk$handler;
         }
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);

@@ -23,7 +23,7 @@ public final class CollectorWanderingTrader {
     private static final String ROLLED = "mdkcosmetic_collector_trades_rolled";
     private CollectorWanderingTrader() { }
 
-    public static void onInteract(PlayerInteractEvent.EntityInteract event) {
+    public static void onInteract(PlayerInteractEvent.EntityInteractSpecific event) {
         if (!(event.getTarget() instanceof WanderingTrader trader)
                 || !(event.getEntity() instanceof ServerPlayer player)) return;
         if (com.mdk.cosmetic.platform.PersistentData.of(trader).getBooleanOr(ROLLED,false)) return;

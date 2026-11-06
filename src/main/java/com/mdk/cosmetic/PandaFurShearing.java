@@ -20,7 +20,7 @@ public final class PandaFurShearing {
 
     private PandaFurShearing() { }
 
-    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+    public static boolean onInteract(PlayerInteractEvent.EntityInteractSpecific event) {
         boolean[] mdk$cancelled={false};
         mdk$handler: {
 
@@ -37,8 +37,8 @@ public final class PandaFurShearing {
         long next = data.getLongOr(NEXT_SHEAR_AT,0L);
         if (next > now && next - now <= COOLDOWN_MILLIS) {
             long remainingSeconds = (next - now + 999L) / 1000L;
-            event.getEntity().displayClientMessage(Component.translatable(
-                    "message.mdkcosmetic.panda_regrowing", (remainingSeconds + 59L) / 60L), true);
+            event.getEntity().sendOverlayMessage(Component.translatable(
+                    "message.mdkcosmetic.panda_regrowing", (remainingSeconds + 59L) / 60L));
             break mdk$handler;
         }
 

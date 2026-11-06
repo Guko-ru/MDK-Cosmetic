@@ -17,7 +17,7 @@ public final class CollectorMeteorBlock extends Block {
         return super.getDestroyProgress(state, player, world, pos);
     }
 
-    public static boolean onBreak(BlockEvent.BreakEvent event) {
+    public static boolean onBreak(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
         boolean[] mdk$cancelled={false};
         mdk$handler: {
 

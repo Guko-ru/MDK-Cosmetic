@@ -10,7 +10,7 @@ set "BOOTSTRAP=%~dp0.tools\gradle-%GRADLE_VER%-bin.zip"
 >>"%LOG%" echo Current dir: %CD%
 
 echo ========================================================
-echo   MDK Cosmetic - Forge 1.21.11 - Build
+echo   MDK Cosmetic - Forge 26.1.2 - Build
 
 echo ========================================================
 echo.
@@ -19,7 +19,7 @@ echo.
 
 where java >nul 2>nul
 if errorlevel 1 (
-  echo ERROR: Java was not found. Install JDK 21 and set JAVA_HOME/PATH.
+  echo ERROR: Java was not found. Install JDK 25 and set JAVA_HOME/PATH.
   >>"%LOG%" echo ERROR: Java was not found.
   goto :failure
 )

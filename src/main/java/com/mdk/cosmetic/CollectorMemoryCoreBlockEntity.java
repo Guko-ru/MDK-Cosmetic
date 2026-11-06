@@ -197,7 +197,7 @@ public final class CollectorMemoryCoreBlockEntity extends BlockEntity implements
         ItemStack input=core.furnace.get(0);
         var match=input.isEmpty()?java.util.Optional.<net.minecraft.world.item.crafting.RecipeHolder<net.minecraft.world.item.crafting.SmeltingRecipe>>empty():
                 ((net.minecraft.server.level.ServerLevel)level).recipeAccess().getRecipeFor(RecipeType.SMELTING,new SingleRecipeInput(input),level);
-        ItemStack result=match.isPresent()?match.get().value().assemble(new SingleRecipeInput(input),level.registryAccess()):ItemStack.EMPTY;
+        ItemStack result=match.isPresent()?match.get().value().assemble(new SingleRecipeInput(input)):ItemStack.EMPTY;
         ItemStack output=core.furnace.get(2);
         boolean canCook=!result.isEmpty() && (output.isEmpty() ||
                 (ItemStack.isSameItemSameComponents(output,result) && output.getCount()+result.getCount()<=output.getMaxStackSize()));

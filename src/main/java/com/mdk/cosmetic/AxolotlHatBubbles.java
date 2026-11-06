@@ -13,8 +13,8 @@ public final class AxolotlHatBubbles {
         Player player = event.player();
         if (!(player.level() instanceof ServerLevel server) || player.tickCount % 14 != 0) return;
         if (!player.getItemBySlot(EquipmentSlot.HEAD).is(MDKCosmetic.AXOLOTL_HAT.get())) return;
-        double a = server.random.nextDouble()*Math.PI*2D;
-        double r = 0.25D + server.random.nextDouble()*0.30D;
+        double a = server.getRandom().nextDouble()*Math.PI*2D;
+        double r = 0.25D + server.getRandom().nextDouble()*0.30D;
         server.sendParticles(player.isInWater() ? ParticleTypes.BUBBLE : ParticleTypes.BUBBLE_POP,
                 player.getX()+Math.cos(a)*r,
                 player.getY()+player.getEyeHeight()+0.10D,

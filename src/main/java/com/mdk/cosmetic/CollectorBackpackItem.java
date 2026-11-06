@@ -47,24 +47,24 @@ public final class CollectorBackpackItem extends Item {
             return InteractionResult.PASS;
         if (!(ctx.getLevel() instanceof ServerLevel level)) return InteractionResult.SUCCESS;
         if (!backpack.is(MDKCosmetic.COLLECTOR_BACKPACK_REINFORCED.get())) {
-            player.displayClientMessage(Component.translatable("message.mdkcosmetic.backpack_reinforced_required"), true);
+            player.sendOverlayMessage(Component.translatable("message.mdkcosmetic.backpack_reinforced_required"));
             return InteractionResult.FAIL;
         }
         if (CollectorBackpackData.linked(backpack)) return InteractionResult.FAIL;
         if (!(level.getBlockEntity(ctx.getClickedPos()) instanceof CollectorMemoryCoreBlockEntity core)
                 || !CollectorMemoryStructure.ready(level, ctx.getClickedPos().above(2))) {
-            player.displayClientMessage(Component.translatable("message.mdkcosmetic.backpack_memory_not_ready"), true);
+            player.sendOverlayMessage(Component.translatable("message.mdkcosmetic.backpack_memory_not_ready"));
             return InteractionResult.FAIL;
         }
         List<ItemStack> stored = CollectorBackpackData.items(backpack, level.registryAccess());
         if (!core.depositBatch(stored)) {
-            player.displayClientMessage(Component.translatable("message.mdkcosmetic.backpack_memory_full"), true);
+            player.sendOverlayMessage(Component.translatable("message.mdkcosmetic.backpack_memory_full"));
             return InteractionResult.FAIL;
         }
         CollectorBackpackData.link(backpack, core, level);
         if (player instanceof ServerPlayer serverPlayer) CollectorAdvancementEvents.onBackpackLink(serverPlayer);
         if (!player.getAbilities().instabuild) key.shrink(1);
-        player.displayClientMessage(Component.translatable("message.mdkcosmetic.backpack_linked"), true);
+        player.sendOverlayMessage(Component.translatable("message.mdkcosmetic.backpack_linked"));
         return InteractionResult.SUCCESS;
     }
 

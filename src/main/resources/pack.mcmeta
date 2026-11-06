@@ -3,14 +3,14 @@
     "pack_format": 64,
     "supported_formats": [
       64,
-      94
+      101
     ],
     "min_format": [
       64,
       0
     ],
     "max_format": [
-      94,
+      101,
       1
     ],
     "description": "MDK Cosmetic"

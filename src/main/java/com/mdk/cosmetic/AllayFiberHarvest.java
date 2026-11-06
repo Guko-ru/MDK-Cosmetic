@@ -20,7 +20,7 @@ public final class AllayFiberHarvest {
 
     private AllayFiberHarvest() {}
 
-    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+    public static boolean onInteract(PlayerInteractEvent.EntityInteractSpecific event) {
         boolean[] mdk$cancelled={false};
         mdk$handler: {
 
@@ -36,8 +36,7 @@ public final class AllayFiberHarvest {
         long next = data.getLongOr(NEXT_SHEAR_AT,0L);
         if (next > now && next - now <= COOLDOWN_MILLIS) {
             long mins = ((next - now + 999L) / 1000L + 59L) / 60L;
-            event.getEntity().displayClientMessage(
-                Component.translatable("message.mdkcosmetic.allay_regrowing", mins), true);
+            event.getEntity().sendOverlayMessage(Component.translatable("message.mdkcosmetic.allay_regrowing", mins));
             break mdk$handler;
         }
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);

@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.ResultSlot;
 import net.minecraft.world.inventory.SimpleContainerData;
@@ -224,7 +224,7 @@ public final class CollectorLinkMenu extends AbstractContainerMenu {
             ItemStack result = ItemStack.EMPTY;
             if (recipe.isPresent()) {
                 RecipeHolder<CraftingRecipe> found = recipe.get();
-                result = found.value().assemble(input, player.level().registryAccess());
+                result = found.value().assemble(input);
                 craftResult.setRecipeUsed(found);
             } else craftResult.setRecipeUsed(null);
             craftResult.setItem(0, result);
@@ -268,17 +268,17 @@ public final class CollectorLinkMenu extends AbstractContainerMenu {
         return original;
     }
 
-    @Override public void clicked(int slotId, int mouseButton, ClickType clickType, Player player) {
+    @Override public void clicked(int slotId, int mouseButton, ContainerInput clickType, Player player) {
         if (slotId == 1) {
-            if (clickType != ClickType.PICKUP || !getCarried().isEmpty()) return;
+            if (clickType != ContainerInput.PICKUP || !getCarried().isEmpty()) return;
             mouseButton = 0;
         }
         if (slotId >= MEMORY_START && slotId < CRAFT_START) {
-            if (clickType == ClickType.QUICK_MOVE && mouseButton == 0) {
+            if (clickType == ContainerInput.QUICK_MOVE && mouseButton == 0) {
                 withdrawMemoryToPlayer(player, slotId);
                 return;
             }
-            if (memory == null || !memoryReadyNow() || !stillValid(player) || clickType != ClickType.PICKUP) return;
+            if (memory == null || !memoryReadyNow() || !stillValid(player) || clickType != ContainerInput.PICKUP) return;
             int index = cellIndex(slotId - MEMORY_START);
             ItemStack held = getCarried();
             if (!held.isEmpty()) {

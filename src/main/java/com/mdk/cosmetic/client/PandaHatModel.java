@@ -19,7 +19,7 @@ import net.minecraft.world.entity.LivingEntity;
 public final class PandaHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public PandaHatModel() {
         super(createLayer().bakeRoot());
-        this.setAllVisible(false);
+        com.mdk.cosmetic.client.ModelVisibility.set(this,false);
         this.head.visible = true;
     }
 

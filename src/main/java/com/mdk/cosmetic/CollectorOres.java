@@ -46,7 +46,7 @@ public final class CollectorOres {
         if(isOre(event.getState()) && !event.getEntity().isCreative()
                 && !event.getEntity().getMainHandItem().is(MDKCosmetic.COLLECTOR_PICKAXE.get())) event.setNewSpeed(0);
     }
-    public static boolean onBreak(BlockEvent.BreakEvent event) {
+    public static boolean onBreak(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
         boolean[] mdk$cancelled={false};
         mdk$handler: {
 

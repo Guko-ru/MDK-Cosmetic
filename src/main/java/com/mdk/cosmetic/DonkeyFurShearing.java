@@ -19,7 +19,7 @@ public final class DonkeyFurShearing {
     private static final long COOLDOWN_MS = 300000L;
     private DonkeyFurShearing() { }
 
-    public static boolean onInteract(PlayerInteractEvent.EntityInteract event) {
+    public static boolean onInteract(PlayerInteractEvent.EntityInteractSpecific event) {
         boolean[] mdk$cancelled={false};
         mdk$handler: {
 
@@ -34,8 +34,8 @@ public final class DonkeyFurShearing {
         long now = System.currentTimeMillis();
         long next = data.getLongOr(NEXT,0L);
         if (next > now && next - now <= COOLDOWN_MS) {
-            event.getEntity().displayClientMessage(Component.translatable(
-                "message.mdkcosmetic.donkey_regrowing", (next - now + 59999L) / 60000L), true);
+            event.getEntity().sendOverlayMessage(Component.translatable(
+                "message.mdkcosmetic.donkey_regrowing", (next - now + 59999L) / 60000L));
             break mdk$handler;
         }
         data.putLong(NEXT, now + COOLDOWN_MS);

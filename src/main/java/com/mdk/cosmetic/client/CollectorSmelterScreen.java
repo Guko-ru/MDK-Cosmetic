@@ -1,17 +1,17 @@
 package com.mdk.cosmetic.client;
 
 import com.mdk.cosmetic.CollectorSmelterMenu;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 public final class CollectorSmelterScreen extends AbstractContainerScreen<CollectorSmelterMenu> {
     public CollectorSmelterScreen(CollectorSmelterMenu menu,Inventory inv,Component title){
-        super(menu,inv,title);imageWidth=176;imageHeight=198;inventoryLabelY=99;
+        super(menu,inv,title,176,198);inventoryLabelY=99;
     }
-    private void fill(GuiGraphics g,int x,int y,int w,int h,int color){g.fill(leftPos+x,topPos+y,leftPos+x+w,topPos+y+h,color);}
-    @Override protected void renderBg(GuiGraphics g,float partial,int mx,int my){
+    private void fill(GuiGraphicsExtractor g,int x,int y,int w,int h,int color){g.fill(leftPos+x,topPos+y,leftPos+x+w,topPos+y+h,color);}
+    private void renderMachineBackground(GuiGraphicsExtractor g,float partial,int mx,int my){
         fill(g,0,0,176,198,0xFF191121);fill(g,2,2,172,194,0xFF392748);
         fill(g,6,18,164,77,0xFF251B30);fill(g,6,104,164,90,0xFF24172E);
         for(int i=0;i<39;i++){
@@ -24,11 +24,12 @@ public final class CollectorSmelterScreen extends AbstractContainerScreen<Collec
         fill(g,82,39,Math.min(26,menu.progress()*26/menu.total()),8,0xFFB86FEA);
         if(menu.isLit()){fill(g,58,58,9,9,0xFFFF9D29);fill(g,60,55,5,5,0xFFEBC252);}
     }
-    @Override protected void renderLabels(GuiGraphics g,int mx,int my){
-        g.drawCenteredString(font,title,88,6,0xFFFFD8FF);
-        g.drawString(font,Component.translatable("container.inventory"),8,99,0xFFDFBDE8,false);
+    @Override protected void extractLabels(GuiGraphicsExtractor g,int mx,int my){
+        g.centeredText(font,title,88,6,0xFFFFD8FF);
+        g.text(font,Component.translatable("container.inventory"),8,99,0xFFDFBDE8,false);
     }
-    @Override public void render(GuiGraphics g,int mx,int my,float partial){
-        renderBackground(g,mx,my,partial);super.render(g,mx,my,partial);renderTooltip(g,mx,my);
+    @Override public void extractBackground(GuiGraphicsExtractor graphics,int mouseX,int mouseY,float partial) {}
+    @Override public void extractRenderState(GuiGraphicsExtractor g,int mx,int my,float partial){
+        extractTransparentBackground(g);renderMachineBackground(g,partial,mx,my);super.extractRenderState(g,mx,my,partial);extractTooltip(g,mx,my);
     }
 }
