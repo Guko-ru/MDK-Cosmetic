@@ -344,7 +344,7 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
         if (!player.level().isClientSide()) {
             for (int i = 0; i < 9; i++) {
                 ItemStack item = crafting.removeItemNoUpdate(i);
-                if (!item.isEmpty() && !player.getInventory().add(item)) player.drop(item, false);
+                if (!item.isEmpty() && !player.getInventory().add(item)) player.drop(item, false, net.minecraft.util.Prediction.SERVER_ONLY);
             }
         }
     }

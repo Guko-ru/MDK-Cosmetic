@@ -7,14 +7,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:enchanted_book",
-          "functions": [
-            {
-              "function": "minecraft:set_enchantments",
-              "enchantments": {
-                "mdkcosmetic:collector": 1
-              }
-            }
-          ]
+          "modifier": {
+            "enchantments": {
+              "mdkcosmetic:collector": 1
+            },
+            "type": "minecraft:set_enchantments"
+          }
         }
       ]
     }

@@ -1,1 +1,28 @@
-{"type":"minecraft:block","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"mdkcosmetic:horse_fur_slab_gray","functions":[{"function":"minecraft:set_count","count":2,"conditions":[{"condition":"minecraft:block_state_property","block":"mdkcosmetic:horse_fur_slab_gray","properties":{"type":"double"}}]}]}],"conditions":[{"condition":"minecraft:survives_explosion"}]}]}
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "mdkcosmetic:horse_fur_slab_gray",
+          "modifier": {
+            "count": 2,
+            "type": "minecraft:set_count",
+            "condition": {
+              "type": "minecraft:match_block",
+              "blocks": "mdkcosmetic:horse_fur_slab_gray",
+              "state": {
+                "type": "double"
+              }
+            }
+          }
+        }
+      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
+    }
+  ]
+}

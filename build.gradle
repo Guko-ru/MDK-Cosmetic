@@ -4,12 +4,12 @@ plugins {
 }
 version = '1.18.79'
 group = 'com.mdk.cosmetic'
-base.archivesName = 'MDK-Cosmetic-26.2-Forge'
+base.archivesName = 'MDK-Cosmetic-26.3-Forge'
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 sourceSets { validation { compileClasspath += sourceSets.main.output; runtimeClasspath += sourceSets.main.output } }
 configurations { validationImplementation.extendsFrom implementation; validationCompileOnly.extendsFrom compileOnly; validationRuntimeOnly.extendsFrom runtimeOnly }
 minecraft {
- mappings channel: 'official', version: '26.2'
+ mappings channel: 'official', version: '26.3'
  runs {
   configureEach {
    workingDir.convention layout.projectDirectory.dir('run')
@@ -47,7 +47,7 @@ repositories {
  mavenCentral()
 }
 dependencies {
- implementation minecraft.dependency('net.minecraftforge:forge:26.2-65.1.5')
+ implementation minecraft.dependency('net.minecraftforge:forge:26.3-66.1.0')
 }
 tasks.withType(JavaCompile).configureEach { options.encoding='UTF-8' }
 tasks.named('jar',Jar) {

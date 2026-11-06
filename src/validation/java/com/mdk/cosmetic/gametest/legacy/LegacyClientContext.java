@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 
 /** Native-client test adapter for versions predating Fabric's client gametest API. Test mod only. */
 public final class LegacyClientContext {
@@ -62,10 +62,12 @@ public final class LegacyClientContext {
  }
  private static void invoke(Object target,String name,Class<?>[] types,Object...args){try{var method=target.getClass().getDeclaredMethod(name,types);method.setAccessible(true);method.invoke(target,args);}catch(ReflectiveOperationException error){throw new AssertionError(error);}}
  public final class Input {
-  public void setCursorPos(double x,double y){runOnClient(c->invoke(c.mouseHandler,"onMove",new Class<?>[]{long.class,double.class,double.class},c.getWindow().handle(),x,y));}
-  public void pressMouse(int button){runOnClient(c->invoke(c.mouseHandler,"onButton",new Class<?>[]{long.class,net.minecraft.client.input.MouseButtonInfo.class,int.class},c.getWindow().handle(),new net.minecraft.client.input.MouseButtonInfo(button,HELD.isEmpty()?0:GLFW.GLFW_MOD_SHIFT),GLFW.GLFW_PRESS));waitTick();runOnClient(c->invoke(c.mouseHandler,"onButton",new Class<?>[]{long.class,net.minecraft.client.input.MouseButtonInfo.class,int.class},c.getWindow().handle(),new net.minecraft.client.input.MouseButtonInfo(button,HELD.isEmpty()?0:GLFW.GLFW_MOD_SHIFT),GLFW.GLFW_RELEASE));}
-  public void holdShift(){HELD.add(GLFW.GLFW_KEY_LEFT_SHIFT);}
-  public void releaseShift(){HELD.remove(GLFW.GLFW_KEY_LEFT_SHIFT);}
-  public void resizeWindow(int width,int height){runOnClient(c->GLFW.glfwSetWindowSize(c.getWindow().handle(),width,height));waitTicks(4);}
+  public void setCursorPos(double x,double y){runOnClient(c->c.mouseHandler.onMove(c.getWindow().handle(),x,y,0,0));}
+  private int nativeButton(int button){return button==0?InputConstants.MOUSE_BUTTON_LEFT:button==1?InputConstants.MOUSE_BUTTON_RIGHT:button;}
+  public void pressMouse(int button){runOnClient(c->c.mouseHandler.onButton(c.getWindow().handle(),new net.minecraft.client.input.MouseButtonInfo(nativeButton(button),HELD.isEmpty()?0:org.lwjgl.sdl.SDLKeycode.SDL_KMOD_SHIFT),InputConstants.PRESS));waitTick();runOnClient(c->c.mouseHandler.onButton(c.getWindow().handle(),new net.minecraft.client.input.MouseButtonInfo(nativeButton(button),HELD.isEmpty()?0:org.lwjgl.sdl.SDLKeycode.SDL_KMOD_SHIFT),InputConstants.RELEASE));}
+  public void holdShift(){HELD.add(InputConstants.KEY_LSHIFT);}
+  public void releaseShift(){HELD.remove(InputConstants.KEY_LSHIFT);}
+  public void resizeWindow(int width,int height){runOnClient(c->c.getWindow().setWindowed(width,height));waitTicks(4);}
+
  }
 }

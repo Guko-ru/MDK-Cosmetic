@@ -1,1 +1,28 @@
-{"type":"minecraft:block","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"mdkcosmetic:squid_fur_slab_black","functions":[{"function":"minecraft:set_count","count":2,"conditions":[{"condition":"minecraft:block_state_property","block":"mdkcosmetic:squid_fur_slab_black","properties":{"type":"double"}}]}]}],"conditions":[{"condition":"minecraft:survives_explosion"}]}]}
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "mdkcosmetic:squid_fur_slab_black",
+          "modifier": {
+            "count": 2,
+            "type": "minecraft:set_count",
+            "condition": {
+              "type": "minecraft:match_block",
+              "blocks": "mdkcosmetic:squid_fur_slab_black",
+              "state": {
+                "type": "double"
+              }
+            }
+          }
+        }
+      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
+    }
+  ]
+}

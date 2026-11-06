@@ -317,7 +317,7 @@ public final class CollectorSoulEntity extends PathfinderMob {
         target.hurt(level.damageSources().sonicBoom(this),10.0F); // 5 hearts base damage
         Vec3 push=delta.normalize().scale(1.2);
         target.push(push.x,0.25,push.z);
-        target.hurtMarked=true;
+        target.syncVelocity=true;
     }
 
     /** Non-incendiary lightning with exactly five hearts of base magic damage. */
@@ -418,7 +418,7 @@ public final class CollectorSoulEntity extends PathfinderMob {
             double force=3.4+(WAVE_RADIUS-d)*0.035;
             Vec3 velocity=victim.getDeltaMovement();
             victim.setDeltaMovement(dx/d*force,Math.max(0.65,velocity.y),dz/d*force);
-            victim.hurtMarked=true;
+            victim.syncVelocity=true;
             victim.needsSync=true;
             level.sendParticles(ParticleTypes.CLOUD,victim.getX(),victim.getY()+0.5,
                     victim.getZ(),18,0.4,0.4,0.4,0.1);
@@ -472,7 +472,7 @@ public final class CollectorSoulEntity extends PathfinderMob {
                     if (!(level.getBlockEntity(pos) instanceof SculkShriekerBlockEntity)) continue;
                     if (!level.getBlockState(pos).hasProperty(SculkShriekerBlock.CAN_SUMMON)
                             || !level.getBlockState(pos).getValue(SculkShriekerBlock.CAN_SUMMON)) continue;
-                    if (!level.structureManager().getStructureWithPieceAt(pos,
+                    if (!level.structureManager().getStructureWithPieceAt(pos.getX(),pos.getY(),pos.getZ(),
                             level.registryAccess().lookupOrThrow(Registries.STRUCTURE)
                             .getOrThrow(BuiltinStructures.ANCIENT_CITY).value()).isValid()) continue;
                     candidates.add(pos.immutable());

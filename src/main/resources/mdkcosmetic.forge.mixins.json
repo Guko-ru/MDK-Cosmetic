@@ -17,10 +17,13 @@
     "client.EquipmentRenderStateMixin",
     "client.EquipmentExtractionMixin",
     "client.UnoRendererDispatchMixin",
+    "client.GuiDrawScissorAccessor",
+    "client.GuiClippedDrawMixin",
     "client.ForgeArmorLayerMixin",
     "client.ForgeHudMixin",
     "client.CosmeticItemTintSourcesMixin",
-    "client.GuiScissorStackAccessor"
+    "client.GuiScissorStackAccessor",
+    "client.EntityEquipmentAssetsAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

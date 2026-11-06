@@ -1,14 +1,19 @@
 {
   "type": "mdkcosmetic:add_chest_table",
+  "table": "mdkcosmetic:chests/collector_book",
   "conditions": [
     {
-      "condition": "forge:loot_table_id",
-      "loot_table_id": "minecraft:chests/village/village_snowy_house"
-    },
-    {
-      "condition": "minecraft:random_chance",
-      "chance": 0.04
+      "type": "minecraft:all_of",
+      "terms": [
+        {
+          "loot_table_id": "minecraft:chests/village/village_snowy_house",
+          "type": "forge:loot_table_id"
+        },
+        {
+          "chance": 0.04,
+          "type": "minecraft:random_chance"
+        }
+      ]
     }
-  ],
-  "table": "mdkcosmetic:chests/collector_book"
+  ]
 }

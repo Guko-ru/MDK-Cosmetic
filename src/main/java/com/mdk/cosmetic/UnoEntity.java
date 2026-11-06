@@ -379,7 +379,7 @@ public final class UnoEntity extends Monster {
         if (delta.lengthSqr()>0.001D) {
             Vec3 push=delta.normalize().scale(1.0D);
             victim.push(push.x,0.28D,push.z);
-            victim.hurtMarked=true;
+            victim.syncVelocity=true;
         }
     }
 
@@ -413,7 +413,7 @@ public final class UnoEntity extends Monster {
                 double y=Math.floor(target.getY())+dy;
                 BlockPos feet=BlockPos.containing(x,y,z);
                 if (!server.hasChunkAt(feet) || server.getBlockState(feet.below()).isAir()
-                        || !server.getBlockState(feet.below()).blocksMotion()) continue;
+                        || !server.getBlockState(feet.below()).isSolid()) continue;
                 AABB box=getBoundingBox().move(x-getX(), y-getY(),z-getZ());
                 if (!server.noCollision(this,box)) continue;
                 Vec3 old=position();
@@ -437,7 +437,7 @@ public final class UnoEntity extends Monster {
         if (direction.lengthSqr()<7D) {dashTicks=0;return;}
         direction=direction.normalize().scale(1.38D);
         setDeltaMovement(direction.x,Math.max(0.0D,getDeltaMovement().y),direction.z);
-        hurtMarked=true;
+        syncVelocity=true;
     }
 
     /** Copies the appearance and armor of the nearest player, never their inventory items. */
@@ -502,13 +502,13 @@ public final class UnoEntity extends Monster {
         super.doHurtTarget((ServerLevel)level(),living);
         if (pendingAction == UPPERCUT) {
             living.push(0D, 0.83D, 0D);
-            living.hurtMarked = true;
+            living.syncVelocity = true;
         } else if (pendingAction == HEAVY_SLASH || pendingAction == FINISHER) {
             Vec3 away = living.position().subtract(position());
             if (away.lengthSqr() > 0.001D) {
                 Vec3 direction = away.normalize();
                 living.push(direction.x * 0.9D, 0.36D, direction.z * 0.9D);
-                living.hurtMarked = true;
+                living.syncVelocity = true;
             }
             if (pendingAction == FINISHER) living.hurt(damageSources().mobAttack(this), 5F);
         }
@@ -548,7 +548,7 @@ public final class UnoEntity extends Monster {
             if (v.lengthSqr() > 0.001D) {
                 Vec3 away = v.normalize().scale(0.9D);
                 other.push(away.x, 0.35D, away.z);
-                other.hurtMarked = true;
+                other.syncVelocity = true;
             }
         }
     }
@@ -562,7 +562,7 @@ public final class UnoEntity extends Monster {
             if (away.lengthSqr() > 0.001D) {
                 away = away.normalize().scale(0.7D);
                 setDeltaMovement(away.x, 0.23D, away.z);
-                hurtMarked = true;
+                syncVelocity = true;
             }
             playSound(SoundEvents.ARMOR_EQUIP_LEATHER.value(), 0.6F, 1.25F);
             if (level() instanceof ServerLevel server)
@@ -630,7 +630,7 @@ public final class UnoEntity extends Monster {
             other.setDeltaMovement(dx / d * force, Math.max(0.65D, other.getDeltaMovement().y),
                     dz / d * force);
             other.needsSync = true;
-            other.hurtMarked = true;
+            other.syncVelocity = true;
             server.sendParticles(ParticleTypes.CLOUD, other.getX(), other.getY() + 0.5D,
                     other.getZ(), 15, 0.4D, 0.3D, 0.4D, 0.08D);
         }

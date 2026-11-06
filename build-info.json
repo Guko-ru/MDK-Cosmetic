@@ -1,11 +1,11 @@
 {
   "loader": "Forge",
-  "minecraft": "26.2",
-  "loader_build": "65.1.5",
+  "minecraft": "26.3",
+  "loader_build": "66.1.0",
   "mod_version": "1.18.79",
   "java": 25,
-  "artifact": "MDK-Cosmetic-26.2-Forge-1.18.79.jar",
-  "sha256": "3f3b8279a4227285384e8069891c8cc73360ae831edb773980d13f64eec9f43c",
+  "artifact": "MDK-Cosmetic-26.3-Forge-1.18.79.jar",
+  "sha256": "7dfc3e46b794255e9fcba74680d9ba7fa37e240ccff8d33ec147f81c6ac9d875",
   "fabric_api": null,
   "validation": {
     "required_game_tests_passed": 9,
@@ -24,8 +24,7 @@
     "native_multiblock_3d_preview": "27 depth-tested item models",
     "custom_hats_without_vanilla_helmet_cube": true,
     "deferred_armor_poses": "three queued snapshots independently restore captured hat poses and visibility",
-    "native_chest_loot": "9 native modifiers loaded; seeded mineshaft rolls produce the Collector enchantment book",
-    "armor_trim_atlas": "vanilla atlas definition and real stitched sprite verified in client"
+    "native_chest_loot": "9 native modifiers loaded; seeded mineshaft rolls produce the Collector enchantment book"
   },
   "license": "MDK Cosmetic Non-Commercial License 1.1"
 }

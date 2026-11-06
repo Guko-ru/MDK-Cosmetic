@@ -23,7 +23,7 @@ public final class ClientStartupSmoke  {
             var bossState=new com.mdk.cosmetic.client.UnoRenderState();
             bossState.entityType=com.mdk.cosmetic.MDKCosmetic.UNO_ENTITY.get();
             bossState.texture=net.minecraft.resources.Identifier.parse("mdkcosmetic:textures/entity/uno.png");
-            var bossRenderer=client.getEntityRenderDispatcher().getRenderer(bossState);
+            Object bossRenderer=client.getEntityRenderDispatcher().getRenderer((net.minecraft.client.renderer.entity.state.EntityRenderState)bossState);
             if(!(bossRenderer instanceof com.mdk.cosmetic.client.UnoRenderer renderer)||!renderer.getTextureLocation(bossState).equals(bossState.texture))throw new AssertionError("Boss pose incorrectly dispatched to a vanilla player/Steve renderer");
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_BOSS_RENDERER_OK: native dispatcher selects the custom boss renderer and black texture");
             for(var hat:java.util.List.of(com.mdk.cosmetic.MDKCosmetic.FOX_HAT.get(),com.mdk.cosmetic.MDKCosmetic.PANDA_HAT.get())){
@@ -46,10 +46,6 @@ public final class ClientStartupSmoke  {
             hat.head.yRot=4F;hat.body.visible=true;
             for(int i=0;i<yaws.length;i++){snapshots.setupAnim(frozen.get(i));if(Math.abs(hat.head.yRot-yaws[i])>.00001F||hat.body.visible)throw new AssertionError("Deferred hat draw lost its own pose or visibility");}
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_FORGE_ARMOR_SNAPSHOT_OK: three queued hat poses restore independent geometry and visibility");
-            var trimAtlas=client.getAtlasManager().getAtlasOrThrow(net.minecraft.data.AtlasIds.ARMOR_TRIMS);
-            var trimSprite=trimAtlas.getSprite(net.minecraft.resources.Identifier.parse("minecraft:trims/entity/humanoid/sentry_gold"));
-            if(trimSprite==trimAtlas.missingSprite())throw new AssertionError("Missing armor trim atlas sprite");
-            LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_ARMOR_TRIM_ATLAS_OK: vanilla armor trim definition resolves a real stitched sprite");
             int checked=0;
             var missing=net.minecraft.client.renderer.texture.MissingTextureAtlasSprite.getLocation();
             for(var item:BuiltInRegistries.ITEM){

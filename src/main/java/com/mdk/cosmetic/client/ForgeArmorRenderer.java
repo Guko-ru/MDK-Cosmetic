@@ -41,21 +41,22 @@ public final class ForgeArmorRenderer {
             default -> {return;}
         }
         var frozen=snapshots.computeIfAbsent(selected.root(),ArmorSnapshotModel::new);var snapshot=frozen.capture();
-        var layers=armor.getMaterial().layers();
+        var layers=armor.getMaterial().layers();boolean foil=stack.hasFoil();
         for(int i=0;i<layers.size();i++){
             var layer=layers.get(i);
             int fallback=layer.dyeable()?0xFF000000|DyedItemColor.getOrDefault(stack,appearance.getDefaultDyeColor(stack)):0xFFFFFFFF;
             int tint=appearance.getArmorLayerTintColor(stack,entity,layer,i,fallback);
             if((tint>>>24)==0)continue;
-            buffers.order(i*2+1).submitModel(frozen,snapshot,pose,RenderTypes.armorCutoutNoCull(layer.texture(slot==EquipmentSlot.LEGS)),light,OverlayTexture.NO_OVERLAY,tint,null,entity.outlineColor,null);
-            if(stack.hasFoil())buffers.order(i*2+2).submitModel(frozen,snapshot,pose,RenderTypes.armorEntityGlint(),light,OverlayTexture.NO_OVERLAY,tint,null,entity.outlineColor,null);
+            buffers.order(i*2+1).submitModel(frozen,snapshot,pose,(foil?RenderTypes.armorCutoutNoCullGlint(layer.texture(slot==EquipmentSlot.LEGS)):RenderTypes.armorCutoutNoCull(layer.texture(slot==EquipmentSlot.LEGS))),light,OverlayTexture.NO_OVERLAY,tint,null,entity.outlineColor);
+            foil=false;
         }
         var trim=stack.get(net.minecraft.core.component.DataComponents.TRIM);
         if(trim!=null && !stack.is(com.mdk.cosmetic.MDKCosmetic.COLLECTOR_HELMET.get())){
-            var texture=net.minecraft.resources.Identifier.fromNamespaceAndPath(trim.pattern().value().assetId().getNamespace(),"trims/entity/"+(slot==EquipmentSlot.LEGS?"humanoid_leggings/":"humanoid/")+trim.pattern().value().assetId().getPath()+"_"+trim.material().value().assets().base().suffix());
-            var atlas=Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(net.minecraft.data.AtlasIds.ARMOR_TRIMS);
-            var sprite=atlas.getSprite(texture);
-            buffers.order(layers.size()*2+1).submitModel(frozen,snapshot,pose,net.minecraft.client.renderer.Sheets.armorTrimsSheet(trim.pattern().value().decal()),light,OverlayTexture.NO_OVERLAY,0xFFFFFFFF,sprite,entity.outlineColor,null);
+            var client=Minecraft.getInstance();
+            var type=slot==EquipmentSlot.LEGS?net.minecraft.client.resources.model.EquipmentClientInfo.LayerType.HUMANOID_LEGGINGS:net.minecraft.client.resources.model.EquipmentClientInfo.LayerType.HUMANOID;
+            var texture=ForgeArmorTrimTextures.resolve(client,armor.getMaterial().nativeMaterial().assetId(),trim,type);
+            buffers.order(layers.size()*2+1).submitModel(frozen,snapshot,pose,RenderTypes.armorTrim(texture.textureLocation(),trim.pattern().value().decal()),light,OverlayTexture.NO_OVERLAY,0xFFFFFFFF,texture,entity.outlineColor);
+            if(stack.hasFoil())buffers.order(layers.size()*2+2).submitModel(frozen,snapshot,pose,RenderTypes.trimmedArmorGlint(),light,OverlayTexture.NO_OVERLAY,0xFFFFFFFF,null,0);
         }
     }
 }

@@ -10,7 +10,7 @@ set "BOOTSTRAP=%~dp0.tools\gradle-%GRADLE_VER%-bin.zip"
 >>"%LOG%" echo Current dir: %CD%
 
 echo ========================================================
-echo   MDK Cosmetic - Forge 26.2 - Build
+echo   MDK Cosmetic - Forge 26.3 - Build
 
 echo ========================================================
 echo.
