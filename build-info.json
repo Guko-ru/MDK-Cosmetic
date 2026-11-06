@@ -1,11 +1,11 @@
 {
   "loader": "NeoForge",
-  "minecraft": "1.21.5",
-  "loader_build": "21.5.101",
+  "minecraft": "1.21.8",
+  "loader_build": "21.8.57",
   "mod_version": "1.18.79",
   "java": 21,
-  "artifact": "MDK-Cosmetic-1.21.5-NeoForge-1.18.79.jar",
-  "sha256": "472b1d04539eb9041eb12eb2b440931b907d48ce7e8cf1349e4483d2c3dbb8a2",
+  "artifact": "MDK-Cosmetic-1.21.8-NeoForge-1.18.79.jar",
+  "sha256": "36209181dd1b38fcb098ca2b008be23633d4873d797ab83bcff3856e18fc30e8",
   "fabric_api": null,
   "validation": {
     "required_game_tests_passed": 9,
@@ -21,6 +21,7 @@
     "fabric_class_references": 0,
     "native_armor_render": "3 equipped actors, custom hats, dye, glint and diamond trim, visually verified",
     "native_non_dyeable_layer_tints": true,
+    "native_multiblock_3d_preview": "27 depth-tested item models",
     "custom_hats_without_vanilla_helmet_cube": true
   },
   "license": "MDK Cosmetic Non-Commercial License 1.1"

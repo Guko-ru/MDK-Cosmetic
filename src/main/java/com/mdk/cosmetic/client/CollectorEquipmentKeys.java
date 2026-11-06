@@ -24,7 +24,7 @@ public final class CollectorEquipmentKeys {
     public static void onTick(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.screen != null) return;
-        while (EQUIPMENT.consumeClick()) PacketDistributor.sendToServer(new CollectorEquipmentActionPayload(0));
-        while (BACKPACK.consumeClick()) PacketDistributor.sendToServer(new CollectorEquipmentActionPayload(1));
+        while (EQUIPMENT.consumeClick()) net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(new CollectorEquipmentActionPayload(0));
+        while (BACKPACK.consumeClick()) net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(new CollectorEquipmentActionPayload(1));
     }
 }

@@ -36,14 +36,14 @@ public final class CollectorDialogueOverlay {
         List<FormattedCharSequence> lines=font.split(Component.translatable(dialogue),maxWidth);
         float alpha=Math.min(1F,Math.min(elapsed/260F,(DURATION_MS-elapsed)/350F));
         int argb=((int)(alpha*255)<<24)|color;
-        g.pose().pushPose();
-        g.pose().scale(scale,scale,1.0F);
+        g.pose().pushMatrix();
+        g.pose().scale(scale,scale);
         int x=(int)(screenWidth/(scale*2F));
         int y=(int)(screenHeight/(scale*2F))-(lines.size()*12)/2;
         for(FormattedCharSequence line:lines) {
             g.drawCenteredString(font,line,x,y,argb);
             y+=12;
         }
-        g.pose().popPose();
+        g.pose().popMatrix();
     }
 }

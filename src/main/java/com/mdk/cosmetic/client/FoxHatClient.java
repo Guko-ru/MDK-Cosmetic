@@ -20,6 +20,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 @Mod(value = MDKCosmetic.MOD_ID, dist = Dist.CLIENT)
 public final class FoxHatClient {
     public FoxHatClient(IEventBus modBus) {
+        modBus.addListener(MultiblockPreview::register);
         modBus.addListener((RegisterClientExtensionsEvent event)->registerClientExtensions(new NativeClientExtensions(event)));
         modBus.addListener((RegisterColorHandlersEvent.ItemTintSources event)->{
             event.register(net.minecraft.resources.ResourceLocation.parse("mdkcosmetic:cosmetic_color"),CosmeticItemTints.Source.CODEC);

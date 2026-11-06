@@ -220,11 +220,11 @@ public final class CollectorLinkMenu extends AbstractContainerMenu {
     @Override public void slotsChanged(Container container) {
         if (container == craft && memoryReadyNow() && owner instanceof ServerPlayer player) {
             var input = craft.asCraftInput();
-            var recipe = player.serverLevel().recipeAccess().getRecipeFor(RecipeType.CRAFTING, input, player.serverLevel());
+            var recipe = player.level().recipeAccess().getRecipeFor(RecipeType.CRAFTING, input, player.level());
             ItemStack result = ItemStack.EMPTY;
             if (recipe.isPresent()) {
                 RecipeHolder<CraftingRecipe> found = recipe.get();
-                result = found.value().assemble(input, player.serverLevel().registryAccess());
+                result = found.value().assemble(input, player.level().registryAccess());
                 craftResult.setRecipeUsed(found);
             } else craftResult.setRecipeUsed(null);
             craftResult.setItem(0, result);
