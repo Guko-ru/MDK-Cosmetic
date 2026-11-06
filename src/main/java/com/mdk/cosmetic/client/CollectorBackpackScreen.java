@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import com.mdk.cosmetic.platform.Networking;
-import org.lwjgl.glfw.GLFW;
+
 
 /** Collector backpack with five universal vertical modules and an expandable contextual panel. */
 public final class CollectorBackpackScreen extends AbstractContainerScreen<CollectorBackpackMenu> {
@@ -252,7 +252,7 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
         g.pose().popMatrix();
     }
 
-    @Override public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mdk$mouse,boolean mdk$doubleClick){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
+    @Override public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mdk$mouse,boolean mdk$doubleClick){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT?0:mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT?1:mdk$mouse.button();
         double vx = mx / scale;
         double vy = my / scale;
         int x = (int) Math.floor(vx) - leftPos;
@@ -299,12 +299,12 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
         return super.mouseClicked(new net.minecraft.client.input.MouseButtonEvent(vx,vy,mdk$mouse.buttonInfo()),mdk$doubleClick);
     }
 
-    @Override public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent mdk$mouse,double dx,double dy){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
+    @Override public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent mdk$mouse,double dx,double dy){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT?0:mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT?1:mdk$mouse.button();
         if (button == 0 && draggingMemory) { scrollMemory(my / scale); return true; }
         if (button == 0 && draggingFilter) { scrollFilter(my / scale); return true; }
         return super.mouseDragged(new net.minecraft.client.input.MouseButtonEvent(mx / scale,my / scale,mdk$mouse.buttonInfo()),dx / scale,dy / scale);
     }
-    @Override public boolean mouseReleased(net.minecraft.client.input.MouseButtonEvent mdk$mouse){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
+    @Override public boolean mouseReleased(net.minecraft.client.input.MouseButtonEvent mdk$mouse){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT?0:mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT?1:mdk$mouse.button();
         draggingMemory = false;
         draggingFilter = false;
         return super.mouseReleased(new net.minecraft.client.input.MouseButtonEvent(mx / scale,my / scale,mdk$mouse.buttonInfo()));
@@ -329,9 +329,9 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
         if (minecraft != null && minecraft.gameMode != null)
             minecraft.gameMode.handleInventoryButtonClick(menu.containerId, id);
     }
-    @Override public boolean keyPressed(net.minecraft.client.input.KeyEvent mdk$key){int key=mdk$key.key(),scan=mdk$key.scancode(),mods=mdk$key.modifiers();
+    @Override public boolean keyPressed(net.minecraft.client.input.KeyEvent mdk$key){int key=mdk$key.key(),scan=mdk$key.keycode(),mods=mdk$key.modifiers();
         if (search != null && search.isFocused()) {
-            if (key == GLFW.GLFW_KEY_ESCAPE) { search.setFocused(false); return true; }
+            if (key == com.mojang.blaze3d.platform.InputConstants.KEY_ESCAPE) { search.setFocused(false); return true; }
             search.keyPressed(mdk$key);
             return true;
         }

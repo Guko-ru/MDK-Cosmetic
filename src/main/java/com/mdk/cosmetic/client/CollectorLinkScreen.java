@@ -17,7 +17,7 @@ import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import com.mdk.cosmetic.platform.Networking;
-import org.lwjgl.glfw.GLFW;
+
 
 /** Compact, resolution-adaptive screen. All inventory slot positions are defined in CollectorLinkMenu. */
 public final class CollectorLinkScreen extends AbstractContainerScreen<CollectorLinkMenu> {
@@ -72,9 +72,9 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
     }
 
     /** Never let the inventory key (normally E) close the screen while typing in search. */
-    @Override public boolean keyPressed(net.minecraft.client.input.KeyEvent mdk$key){int keyCode=mdk$key.key(),scanCode=mdk$key.scancode(),modifiers=mdk$key.modifiers();
+    @Override public boolean keyPressed(net.minecraft.client.input.KeyEvent mdk$key){int keyCode=mdk$key.key(),scanCode=mdk$key.keycode(),modifiers=mdk$key.modifiers();
         if (search != null && search.isFocused()) {
-            if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
+            if (keyCode == com.mojang.blaze3d.platform.InputConstants.KEY_ESCAPE) {
                 search.setFocused(false);
                 return true;
             }
@@ -166,7 +166,7 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         offerRow = (int)Math.round(ratio * offerMaxRow());
     }
 
-    @Override public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mdk$mouse,boolean mdk$doubleClick){double mouseX=mdk$mouse.x(),mouseY=mdk$mouse.y();int button=mdk$mouse.button();
+    @Override public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mdk$mouse,boolean mdk$doubleClick){double mouseX=mdk$mouse.x(),mouseY=mdk$mouse.y();int button=mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT?0:mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT?1:mdk$mouse.button();
         // Entry points receive physical GUI coordinates, then convert to the virtual canvas.
         double vx = mouseX / uiScale, vy = mouseY / uiScale;
         int x = (int)vx - leftPos, y = (int)vy - topPos;
@@ -199,12 +199,12 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         }
         return super.mouseClicked(new net.minecraft.client.input.MouseButtonEvent(vx,vy,mdk$mouse.buttonInfo()),mdk$doubleClick);
     }
-    @Override public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent mdk$mouse,double dx,double dy){double mouseX=mdk$mouse.x(),mouseY=mdk$mouse.y();int button=mdk$mouse.button();
+    @Override public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent mdk$mouse,double dx,double dy){double mouseX=mdk$mouse.x(),mouseY=mdk$mouse.y();int button=mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT?0:mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT?1:mdk$mouse.button();
         if (draggingShopScrollbar && button == 0) { seekShop(mouseY / uiScale); return true; }
         if (draggingMemoryScrollbar && button == 0) { seekMemory(mouseY / uiScale); return true; }
         return super.mouseDragged(new net.minecraft.client.input.MouseButtonEvent(mouseX / uiScale,mouseY / uiScale,mdk$mouse.buttonInfo()),dx / uiScale,dy / uiScale);
     }
-    @Override public boolean mouseReleased(net.minecraft.client.input.MouseButtonEvent mdk$mouse){double mouseX=mdk$mouse.x(),mouseY=mdk$mouse.y();int button=mdk$mouse.button();
+    @Override public boolean mouseReleased(net.minecraft.client.input.MouseButtonEvent mdk$mouse){double mouseX=mdk$mouse.x(),mouseY=mdk$mouse.y();int button=mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT?0:mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT?1:mdk$mouse.button();
         draggingShopScrollbar = false;
         draggingMemoryScrollbar = false;
         return super.mouseReleased(new net.minecraft.client.input.MouseButtonEvent(mouseX / uiScale,mouseY / uiScale,mdk$mouse.buttonInfo()));

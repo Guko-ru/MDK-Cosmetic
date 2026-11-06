@@ -32,14 +32,8 @@ import org.joml.Vector3f;
 /** Decorative artisan worktable with a persistent 64-unit essence charging interface. */
 public final class EssenceWorktableBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
-    public static final MapCodec<EssenceWorktableBlock> CODEC = simpleCodec(EssenceWorktableBlock::new);
     private static final DustParticleOptions ESSENCE_SPARK =
             new DustParticleOptions(net.minecraft.util.ARGB.colorFromFloat(1F,0.66F, 0.28F, 0.95F), 0.65F);
-
-    @Override
-    protected MapCodec<EssenceWorktableBlock> codec() {
-        return CODEC;
-    }
 
     public EssenceWorktableBlock(Properties properties) {
         super(properties);

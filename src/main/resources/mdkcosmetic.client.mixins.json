@@ -9,7 +9,9 @@
     "CameraEffectsMixin",
     "EquipmentRenderStateMixin",
     "EquipmentExtractionMixin",
-    "UnoRendererDispatchMixin"
+    "UnoRendererDispatchMixin",
+    "GuiDrawScissorAccessor",
+    "GuiClippedDrawMixin"
   ],
   "minVersion": "0.8"
 }

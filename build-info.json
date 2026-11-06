@@ -1,12 +1,12 @@
 {
   "loader": "Fabric",
-  "minecraft": "26.2",
+  "minecraft": "26.3",
   "loader_build": "0.20.1",
   "mod_version": "1.18.78",
   "java": 25,
-  "artifact": "MDK-Cosmetic-26.2-Fabric-1.18.78.jar",
-  "sha256": "17dca760d9c7cc3a6c2ed5326d51bb250da536e746ffb1cde78dfcf49fc7799e",
-  "fabric_api": "0.161.0+26.2",
+  "artifact": "MDK-Cosmetic-26.3-Fabric-1.18.78.jar",
+  "sha256": "10ce3d45da596ec146317f7001d66f450395826fe0f6c73c43dda0f516033882",
+  "fabric_api": "0.165.2+26.3",
   "validation": {
     "required_game_tests_passed": 9,
     "recipes_loaded": 1668,
@@ -27,8 +27,7 @@
       "native_slot_hit_tests": true,
       "creative_tabs": "66 cosmetic entries and 1140 decorative entries, visible MDK shortcut",
       "boss_phases": "black original with smoke and ash at spawn; opponent skin and copied equipment in phase II"
-    },
-    "armor_trim_atlas": "vanilla atlas definition and real stitched sprite verified in client"
+    }
   },
   "license": "MDK Cosmetic Non-Commercial License 1.1"
 }

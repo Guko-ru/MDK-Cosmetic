@@ -22,8 +22,12 @@
       "trigger": "minecraft:location",
       "conditions": {
         "player": {
-          "minecraft:location": {
-            "dimension": "minecraft:overworld"
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "dimension": "minecraft:overworld"
+            }
           }
         }
       }

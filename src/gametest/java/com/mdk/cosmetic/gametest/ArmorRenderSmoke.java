@@ -44,9 +44,11 @@ public final class ArmorRenderSmoke {
    for(int actor=0;actor<3;actor++){
     pose.pushPose();pose.translate((actor-1)*1.8F,0,0);
     var view=new HumanoidRenderState();view.speedValue=1F;view.ageInTicks=30F;view.yRot=(actor-1)*12F;view.walkAnimationPos=actor*1.2F;view.walkAnimationSpeed=.12F;context.setupAnim(view);
-    queue.order(0).submitModel(context,view,pose,RenderTypes.entityCutout(Identifier.parse("mdkcosmetic:textures/entity/uno.png")),0x00F000F0,OverlayTexture.NO_OVERLAY,-1,null,0,null);
+    queue.order(0).submitModel(context,view,pose,RenderTypes.entityCutout(Identifier.parse("mdkcosmetic:textures/entity/uno.png")),0x00F000F0,OverlayTexture.NO_OVERLAY,-1,null,0);
     var pieces=java.util.List.of(hats.get(actor),MDKCosmetic.COLLECTOR_CHESTPLATE.get(),MDKCosmetic.COLLECTOR_LEGGINGS.get(),MDKCosmetic.COLLECTOR_BOOTS.get());var slots=new EquipmentSlot[]{EquipmentSlot.HEAD,EquipmentSlot.CHEST,EquipmentSlot.LEGS,EquipmentSlot.FEET};
-    for(int i=0;i<pieces.size();i++){var stack=new ItemStack(pieces.get(i));stack.set(DataComponents.DYED_COLOR,new DyedItemColor(colors[actor]));if(actor==1)stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE,true);var renderer=ArmorRendererRegistryImpl.get(stack.getItem());if(renderer==null)throw new AssertionError("Missing production armor renderer: "+stack);renderer.render(pose,queue,stack,view,slots[i],0x00F000F0,context);}
+    for(int i=0;i<pieces.size();i++){var stack=new ItemStack(pieces.get(i));stack.set(DataComponents.DYED_COLOR,new DyedItemColor(colors[actor]));if(actor==1)stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE,true);
+     if(actor==2&&i==1)stack.set(DataComponents.TRIM,new net.minecraft.world.item.equipment.trim.ArmorTrim(client.level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.TRIM_MATERIAL).getOrThrow(net.minecraft.world.item.equipment.trim.TrimMaterials.DIAMOND),client.level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.TRIM_PATTERN).getOrThrow(net.minecraft.world.item.equipment.trim.TrimPatterns.SENTRY)));
+     var renderer=ArmorRendererRegistryImpl.get(stack.getItem());if(renderer==null)throw new AssertionError("Missing production armor renderer: "+stack);renderer.render(pose,queue,stack,view,slots[i],0x00F000F0,context);}
     pose.popPose();
    }
    frames++;

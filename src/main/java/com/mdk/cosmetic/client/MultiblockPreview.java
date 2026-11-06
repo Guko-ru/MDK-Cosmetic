@@ -30,7 +30,7 @@ public final class MultiblockPreview {
   @Override protected String getTextureLabel(){return "MDK multiblock preview";}
   @Override protected void renderToTexture(State state,PoseStack pose,net.minecraft.client.renderer.SubmitNodeCollector queue){
    var client=Minecraft.getInstance();client.gameRenderer.lighting().setupFor(Lighting.Entry.ITEMS_3D);
-   pose.scale(1,1,-1);pose.translate(0,-3,0);pose.mulPose(Axis.XP.rotationDegrees(state.elevation()));pose.mulPose(Axis.YP.rotationDegrees(state.yaw()));pose.scale(state.unit(),-state.unit(),state.unit());
+   pose.scale(1,1,-1);pose.translate(0,-3,0);pose.rotate(Axis.XP.rotationDegrees(state.elevation()));pose.rotate(Axis.YP.rotationDegrees(state.yaw()));pose.scale(state.unit(),-state.unit(),state.unit());
    
    for(var cell:state.cells()){pose.pushPose();try{pose.translate(cell.x(),cell.y(),cell.z());ModelSubmission.item(cell.item(),ItemDisplayContext.NONE,0x00F000F0,OverlayTexture.NO_OVERLAY,pose,queue,0,0);}finally{pose.popPose();}}
    

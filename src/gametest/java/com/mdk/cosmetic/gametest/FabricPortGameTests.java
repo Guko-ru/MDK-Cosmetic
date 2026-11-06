@@ -131,7 +131,7 @@ public final class FabricPortGameTests {
         var input=new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.IRON_ORE));
         var smelt=level.recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMELTING,input,level);
         assertTrue(helper,smelt.orElseThrow().value().assemble(input).is(Items.IRON_INGOT),"Backpack smelting must use the new recipe assembly API");
-        assertTrue(helper,level.fuelValues().burnDuration(new ItemStack(Items.COAL))>0,"Backpack fuel duration must resolve from the world");
+        assertTrue(helper,com.mdk.cosmetic.platform.FurnaceFuel.burnTime(level,new ItemStack(Items.COAL))==1600,"Backpack fuel duration must resolve from the world");
         var soul=MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         var warden=net.minecraft.world.entity.EntityTypes.WARDEN.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         assertTrue(helper,soul.isAlliedTo(warden),"Soul must remain allied with Wardens");

@@ -33,7 +33,6 @@ import org.joml.Vector3f;
 public final class CollectorLinkBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
-    public static final MapCodec<CollectorLinkBlock> CODEC = simpleCodec(CollectorLinkBlock::new);
     private static final DustParticleOptions PURPLE_SPARK =
             new DustParticleOptions(net.minecraft.util.ARGB.colorFromFloat(1F,0.70F, 0.35F, 0.98F), 0.85F);
 
@@ -43,9 +42,6 @@ public final class CollectorLinkBlock extends HorizontalDirectionalBlock impleme
                 .setValue(FACING, Direction.NORTH)
                 .setValue(ACTIVE, false));
     }
-
-    @Override
-    protected MapCodec<CollectorLinkBlock> codec() { return CODEC; }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

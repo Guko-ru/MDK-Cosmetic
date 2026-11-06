@@ -17,7 +17,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.IFocusGroup;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import org.lwjgl.glfw.GLFW;
+
 import com.mojang.math.Axis;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -270,9 +270,9 @@ public final class MDKJeiPlugin implements IModPlugin {
         }
 
         private void handleMouse(JeiData.Structure recipe, double x, double y) {
-            boolean down = GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().handle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS;
+            boolean down = Minecraft.getInstance().mouseHandler.isLeftPressed();
             boolean newlyPressed = down && !previousMouseDown;
-            boolean rightDown = GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().handle(), GLFW.GLFW_MOUSE_BUTTON_RIGHT) == GLFW.GLFW_PRESS;
+            boolean rightDown = Minecraft.getInstance().mouseHandler.isRightPressed();
             if (rightDown && !previousRightDown && hit(x, y, 5, 21, 161, 133)) {
                 iconsFallback = !iconsFallback;
             }

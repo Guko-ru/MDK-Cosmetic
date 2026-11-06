@@ -51,7 +51,7 @@ public final class CollectorMemoryScreen extends AbstractContainerScreen<Collect
             g.text(font,count,x+16-font.width(count),y+10,0xFFFFE4FF,true);
         }
     }
-    @Override public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mdk$mouse,boolean mdk$doubleClick){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
+    @Override public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mdk$mouse,boolean mdk$doubleClick){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT?0:mdk$mouse.button()==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT?1:mdk$mouse.button();
         if(button==0){int x=(int)mx-leftPos,y=(int)my-topPos;
             if(y>=87&&y<104 && x>=8&&x<35){
                 if(minecraft!=null&&minecraft.gameMode!=null)

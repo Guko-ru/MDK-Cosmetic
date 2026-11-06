@@ -29,7 +29,7 @@ public final class CollectorSoulWorldEvents {
             for (ServerPlayer player:level.players()) {
                 if (player.isSpectator() || player.getY()>0) continue;
                 BlockPos pos=player.blockPosition();
-                StructureStart start=level.structureManager().getStructureWithPieceAt(pos,city);
+                StructureStart start=level.structureManager().getStructureWithPieceAt(pos.getX(),pos.getY(),pos.getZ(),city);
                 if (!start.isValid()) continue;
                 String id=level.dimension().identifier()+":"+start.getChunkPos().x()+":"+start.getChunkPos().z();
                 if (data.contains(id)) continue;
@@ -40,7 +40,7 @@ public final class CollectorSoulWorldEvents {
                     BlockPos dest=pos.offset(dx,dy,dz);
                     if (!level.hasChunkAt(dest) || !level.getBlockState(dest).isAir()) continue;
                     if (!level.getBlockState(dest.above()).isAir()) continue;
-                    if (!level.structureManager().getStructureWithPieceAt(dest,city).isValid()) continue;
+                    if (!level.structureManager().getStructureWithPieceAt(dest.getX(),dest.getY(),dest.getZ(),city).isValid()) continue;
                     CollectorSoulEntity soul=MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
                     if (soul==null) break;
                     soul.snapTo(dest.getX()+0.5,dest.getY()+0.25,dest.getZ()+0.5,

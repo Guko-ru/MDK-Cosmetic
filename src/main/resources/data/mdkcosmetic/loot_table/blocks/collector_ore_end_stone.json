@@ -7,33 +7,31 @@
         {
           "type": "minecraft:item",
           "name": "mdkcosmetic:power_essence",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
                 "max": 2
-              }
+              },
+              "type": "minecraft:set_count"
             },
             {
-              "function": "minecraft:apply_bonus",
               "enchantment": "minecraft:fortune",
-              "formula": "minecraft:ore_drops"
+              "formula": "minecraft:ore_drops",
+              "type": "minecraft:apply_bonus"
             }
           ]
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:match_tool",
-          "predicate": {
-            "items": [
-              "mdkcosmetic:collector_pickaxe"
-            ]
-          }
-        }
-      ]
+      "condition": {
+        "predicate": {
+          "items": [
+            "mdkcosmetic:collector_pickaxe"
+          ]
+        },
+        "type": "minecraft:match_tool"
+      }
     }
   ]
 }

@@ -27,14 +27,8 @@ import org.joml.Vector3f;
 /** Tailoring station with a proper, server-authoritative villager-style exchange GUI. */
 public final class TailoringTableBlock extends HorizontalDirectionalBlock {
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
-    public static final MapCodec<TailoringTableBlock> CODEC = simpleCodec(TailoringTableBlock::new);
     private static final DustParticleOptions AMBER_SPARK =
             new DustParticleOptions(net.minecraft.util.ARGB.colorFromFloat(1F,1.0F, 0.50F, 0.13F), 0.70F);
-
-    @Override
-    protected MapCodec<TailoringTableBlock> codec() {
-        return CODEC;
-    }
 
     public TailoringTableBlock(Properties properties) {
         super(properties);
