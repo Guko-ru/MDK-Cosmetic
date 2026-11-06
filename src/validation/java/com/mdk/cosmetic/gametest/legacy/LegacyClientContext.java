@@ -37,7 +37,12 @@ public final class LegacyClientContext {
  public int waitFor(Predicate<Minecraft> predicate){for(int tick=0;tick<2400;tick++){if(computeOnClient(predicate::test))return tick;waitTick();}throw new AssertionError("Client condition timed out");}
  public int waitForScreen(Class<? extends Screen> screen){return waitFor(c->screen==null?c.screen==null:screen.isInstance(c.screen));}
  public void clickScreenButton(String key){runOnClient(c->{for(var child:c.screen.children())if(child instanceof Button b&&b.getMessage().getString().equals(net.minecraft.client.resources.language.I18n.get(key))){b.onPress();return;}throw new AssertionError("Button missing: "+key);});waitTick();}
- public void takeScreenshot(String name){runOnClient(c->{try(var image=net.minecraft.client.Screenshot.takeScreenshot(c.getMainRenderTarget())){var out=c.gameDirectory.toPath().resolve("screenshots");Files.createDirectories(out);image.writeToFile(out.resolve(name+".png"));}catch(Exception error){throw new AssertionError(error);}});}
+ public void takeScreenshot(String name){
+  var saved=new java.util.concurrent.CompletableFuture<Void>();
+  runOnClient(c->net.minecraft.client.Screenshot.takeScreenshot(c.getMainRenderTarget(),image->{try(image){var out=c.gameDirectory.toPath().resolve("screenshots");Files.createDirectories(out);image.writeToFile(out.resolve(name+".png"));saved.complete(null);}catch(Exception error){saved.completeExceptionally(error);}}));
+  saved.join();
+ }
+
  public Input getInput(){return new Input();}
  public WorldBuilder worldBuilder(){return new WorldBuilder();}
  public final class WorldBuilder {

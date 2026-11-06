@@ -26,7 +26,7 @@ public final class CollectorWanderingTrader {
     public static void onInteract(PlayerInteractEvent.EntityInteract event) {
         if (!(event.getTarget() instanceof WanderingTrader trader)
                 || !(event.getEntity() instanceof ServerPlayer player)) return;
-        if (com.mdk.cosmetic.platform.PersistentData.of(trader).getBoolean(ROLLED)) return;
+        if (com.mdk.cosmetic.platform.PersistentData.of(trader).getBooleanOr(ROLLED,false)) return;
         // Set marker BEFORE generating offers so a nested interaction cannot roll again.
         com.mdk.cosmetic.platform.PersistentData.of(trader).putBoolean(ROLLED, true);
         MerchantOffers offers = trader.getOffers();

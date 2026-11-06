@@ -24,6 +24,6 @@ public final class CollectorMultitoolItem extends Item {
             new Tool.Rule(BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK).getOrThrow(BlockTags.MINEABLE_WITH_PICKAXE), Optional.of(SPEED), Optional.of(true)),
             new Tool.Rule(BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK).getOrThrow(BlockTags.MINEABLE_WITH_AXE), Optional.of(SPEED), Optional.of(true)),
             new Tool.Rule(BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK).getOrThrow(BlockTags.MINEABLE_WITH_SHOVEL), Optional.of(SPEED), Optional.of(true))
-        ), 1.0F, 1);
+        ), 1.0F, 1,true);
     }
 }

@@ -23,11 +23,11 @@ public final class CollectorBackpackFurnace {
     public static List<ItemStack> read(ItemStack backpack, HolderLookup.Provider provider) {
         List<ItemStack> values = new java.util.ArrayList<>();
         for (int i = 0; i < 3; i++) values.add(ItemStack.EMPTY);
-        ListTag saved = CollectorBackpackData.read(backpack).getList(ITEM_KEY, 10);
+        ListTag saved = CollectorBackpackData.read(backpack).getListOrEmpty(ITEM_KEY);
         for (int i = 0; i < saved.size(); i++) {
-            CompoundTag entry = saved.getCompound(i);
-            int slot = entry.getInt("Slot");
-            if (slot >= 0 && slot < 3) values.set(slot, ItemStack.parseOptional(provider, entry.getCompound("Stack")));
+            CompoundTag entry = saved.getCompoundOrEmpty(i);
+            int slot = entry.getIntOr("Slot",0);
+            if (slot >= 0 && slot < 3) values.set(slot, com.mdk.cosmetic.platform.StackNbt.parse(provider, entry.getCompoundOrEmpty("Stack")));
         }
         return values;
     }
@@ -40,7 +40,7 @@ public final class CollectorBackpackFurnace {
             if (item.isEmpty()) continue;
             CompoundTag slot = new CompoundTag();
             slot.putInt("Slot", i);
-            slot.put("Stack", item.saveOptional(provider));
+            slot.put("Stack", com.mdk.cosmetic.platform.StackNbt.save(item,provider));
             result.add(slot);
         }
         data.put(ITEM_KEY, result);
@@ -70,7 +70,7 @@ public final class CollectorBackpackFurnace {
         return new ContainerData() {
             @Override public int get(int index) {
                 return index >= 0 && index < DATA_KEYS.length
-                        ? CollectorBackpackData.read(backpack).getInt(DATA_KEYS[index]) : 0;
+                        ? CollectorBackpackData.read(backpack).getIntOr(DATA_KEYS[index],0) : 0;
             }
             @Override public void set(int index, int value) {
                 if (index < 0 || index >= DATA_KEYS.length) return;
@@ -96,7 +96,7 @@ public final class CollectorBackpackFurnace {
             this.storage = storage;
         }
         @Override public boolean stillValid(net.minecraft.world.entity.player.Player player) {
-            return player.getInventory().getItem(player.getInventory().selected) == backpack;
+            return player.getInventory().getItem(player.getInventory().getSelectedSlot()) == backpack;
         }
     }
 
@@ -128,9 +128,9 @@ public final class CollectorBackpackFurnace {
         ItemStack fuel = storage.getItem(1);
         ItemStack output = storage.getItem(2);
         CompoundTag state = CollectorBackpackData.read(backpack);
-        int burn = Math.max(0, state.getInt(DATA_KEYS[0]));
-        int burnTotal = Math.max(0, state.getInt(DATA_KEYS[1]));
-        int progress = Math.max(0, state.getInt(DATA_KEYS[2]));
+        int burn = Math.max(0, state.getIntOr(DATA_KEYS[0],0));
+        int burnTotal = Math.max(0, state.getIntOr(DATA_KEYS[1],0));
+        int progress = Math.max(0, state.getIntOr(DATA_KEYS[2],0));
         var match = input.isEmpty() ? java.util.Optional.<net.minecraft.world.item.crafting.RecipeHolder<net.minecraft.world.item.crafting.SmeltingRecipe>>empty()
                 : player.serverLevel().recipeAccess().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(input), player.level());
         ItemStack result = match.isPresent() ? match.get().value().assemble(new SingleRecipeInput(input),player.registryAccess()) : ItemStack.EMPTY;

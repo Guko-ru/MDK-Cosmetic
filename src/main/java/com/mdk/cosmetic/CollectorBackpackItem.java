@@ -68,19 +68,19 @@ public final class CollectorBackpackItem extends Item {
         return InteractionResult.SUCCESS;
     }
 
-    @Override public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        if (CollectorBackpackData.linked(stack)) tooltip.add(Component.translatable("tooltip.mdkcosmetic.backpack_linked"));
-        else tooltip.add(Component.translatable("tooltip.mdkcosmetic.backpack_capacity", CollectorBackpackData.capacity(stack)));
-        tooltip.add(Component.translatable("tooltip.mdkcosmetic.backpack_modules",
+    @Override public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack,context,display,tooltip,flag);
+        if (CollectorBackpackData.linked(stack)) tooltip.accept(Component.translatable("tooltip.mdkcosmetic.backpack_linked"));
+        else tooltip.accept(Component.translatable("tooltip.mdkcosmetic.backpack_capacity", CollectorBackpackData.capacity(stack)));
+        tooltip.accept(Component.translatable("tooltip.mdkcosmetic.backpack_modules",
                 CollectorBackpackData.hasMagnet(stack, context.registries())
                         ? Component.translatable("tooltip.mdkcosmetic.installed")
                         : Component.translatable("tooltip.mdkcosmetic.not_installed"),
                 CollectorBackpackData.hasFilter(stack, context.registries())
                         ? Component.translatable("tooltip.mdkcosmetic.installed")
                         : Component.translatable("tooltip.mdkcosmetic.not_installed")));
-        tooltip.add(Component.translatable("tooltip.mdkcosmetic.backpack_equip_hint"));
+        tooltip.accept(Component.translatable("tooltip.mdkcosmetic.backpack_equip_hint"));
         if (stack.is(MDKCosmetic.COLLECTOR_BACKPACK_BASIC.get()))
-            tooltip.add(Component.translatable("tooltip.mdkcosmetic.backpack_upgrade_cost"));
+            tooltip.accept(Component.translatable("tooltip.mdkcosmetic.backpack_upgrade_cost"));
     }
 }

@@ -27,6 +27,6 @@ public final class ForgeGameplayEvents {
   public ItemAttributeModifierEvent(ItemStack stack,ItemAttributeModifiers original){this.stack=stack;entries=new ArrayList<>(original.modifiers());}
   public ItemStack getItemStack(){return stack;}
   public void addModifier(Holder<Attribute> attribute,AttributeModifier modifier,EquipmentSlotGroup slot){entries.add(new ItemAttributeModifiers.Entry(attribute,modifier,slot));}
-  public ItemAttributeModifiers result(boolean show){return new ItemAttributeModifiers(List.copyOf(entries),show);}
+  public ItemAttributeModifiers result(boolean show){return new ItemAttributeModifiers(List.copyOf(entries));}
  }
 }

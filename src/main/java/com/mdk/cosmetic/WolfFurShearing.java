@@ -6,7 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -30,7 +30,7 @@ public final class WolfFurShearing {
 
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(wolf);
         long now = System.currentTimeMillis();
-        long next = data.getLong(NEXT);
+        long next = data.getLongOr(NEXT,0L);
         if (next > now && next - now <= COOLDOWN_MS) {
             event.getEntity().displayClientMessage(Component.translatable(
                     "message.mdkcosmetic.wolf_regrowing", (next - now + 59999L) / 60000L), true);

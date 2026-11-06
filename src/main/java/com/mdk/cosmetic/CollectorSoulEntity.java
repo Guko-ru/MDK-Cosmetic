@@ -28,7 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.entity.projectile.ThrownPotion;
+import net.minecraft.world.entity.projectile.ThrownSplashPotion;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -292,7 +292,7 @@ public final class CollectorSoulEntity extends PathfinderMob {
 
     /** Throw a real splash poison potion, complete with vanilla bottle trajectory and impact. */
     private void throwPoison(ServerLevel level,ServerPlayer target) {
-        ThrownPotion potion=new ThrownPotion(level,this, PotionContents.createItemStack(Items.SPLASH_POTION,Potions.POISON));
+        ThrownSplashPotion potion=new ThrownSplashPotion(level,this, PotionContents.createItemStack(Items.SPLASH_POTION,Potions.POISON));
         potion.setItem(PotionContents.createItemStack(Items.SPLASH_POTION,Potions.POISON));
         potion.setPos(getX(),getY()+0.55,getZ());
         Vec3 aim=target.position().add(0.0,1.0,0.0).subtract(potion.position());
@@ -324,7 +324,7 @@ public final class CollectorSoulEntity extends PathfinderMob {
     private void strikeLightning(ServerLevel level, ServerPlayer target) {
         LightningBolt bolt=EntityType.LIGHTNING_BOLT.create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         if (bolt!=null) {
-            bolt.moveTo(target.getX(),target.getY(),target.getZ());
+            bolt.snapTo(target.getX(),target.getY(),target.getZ());
             bolt.setVisualOnly(true);
             level.addFreshEntity(bolt);
         }
@@ -546,19 +546,19 @@ public final class CollectorSoulEntity extends PathfinderMob {
     }
     @Override public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        teleportCooldown=tag.getInt("TeleportCooldown");
-        lightningCooldown=tag.getInt("LightningCooldown");
-        arrowCooldown=tag.getInt("ArrowCooldown");
-        poisonCooldown=tag.getInt("PoisonCooldown");
-        sonicCooldown=tag.getInt("SonicCooldown");
-        hasSummonedGuardian=tag.getBoolean("SummonedGuardian");
+        teleportCooldown=tag.getIntOr("TeleportCooldown",0);
+        lightningCooldown=tag.getIntOr("LightningCooldown",0);
+        arrowCooldown=tag.getIntOr("ArrowCooldown",0);
+        poisonCooldown=tag.getIntOr("PoisonCooldown",0);
+        sonicCooldown=tag.getIntOr("SonicCooldown",0);
+        hasSummonedGuardian=tag.getBooleanOr("SummonedGuardian",false);
         if (tag.contains("HighestDialogueStage")) {
-            highestTauntStage = Mth.clamp(tag.getInt("HighestDialogueStage"), -1, 13);
+            highestTauntStage = Mth.clamp(tag.getIntOr("HighestDialogueStage",0), -1, 13);
         } else if (tag.contains("LastTauntStage")) {
             // Upgrade a soul saved on v1.18.20. Old dialogue had four health bands.
             // Map its highest shown band to the new sequence without replaying
             // already surpassed health bands. The old timer is intentionally ignored.
-            highestTauntStage = switch (tag.getInt("LastTauntStage")) {
+            highestTauntStage = switch (tag.getIntOr("LastTauntStage",0)) {
                 case 0 -> 4;
                 case 1 -> 8;
                 case 2 -> 12;

@@ -67,9 +67,9 @@ public final class CollectorSoulStorageBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        stress = Math.clamp(tag.getInt("CollectorStress"), 0, 100);
-        assembled = tag.getBoolean("CollectorAssembled");
-        everActivated = tag.getBoolean("CollectorEverActivated");
+        stress = Math.clamp(tag.getIntOr("CollectorStress",0), 0, 100);
+        assembled = tag.getBooleanOr("CollectorAssembled",false);
+        everActivated = tag.getBooleanOr("CollectorEverActivated",false);
         waveTicks = 0; // visual effect does not resume after a server restart
         waveHit.clear();
     }
@@ -231,7 +231,7 @@ public final class CollectorSoulStorageBlockEntity extends BlockEntity {
         level.explode(null, center.x, center.y, center.z, 3.0F, Level.ExplosionInteraction.BLOCK);
         CollectorSoulEntity soul = MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         if (soul != null) {
-            soul.moveTo(center.x, center.y + 0.5, center.z,
+            soul.snapTo(center.x, center.y + 0.5, center.z,
                     level.random.nextFloat() * 360.0F, 0.0F);
             level.addFreshEntity(soul);
         }

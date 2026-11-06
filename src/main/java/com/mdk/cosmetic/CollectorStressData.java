@@ -15,15 +15,15 @@ import net.minecraft.world.level.saveddata.SavedData;
  * breaks and re-places the storage block. Each dimension stores its own data.
  * Only a meltdown clears its entry. This prevents free reset by reassembly.
  */
-public final class CollectorStressData extends SavedData {
+public final class CollectorStressData extends SavedData implements com.mdk.cosmetic.platform.LegacySavedData {
     private final Map<Long, Entry> entries = new HashMap<>();
     public record Entry(int stress, boolean everActivated) {}
 
-    private static final SavedData.Factory<CollectorStressData> FACTORY =
-            new SavedData.Factory<>(CollectorStressData::new, CollectorStressData::load, null);
+    private static final net.minecraft.world.level.saveddata.SavedDataType<CollectorStressData> FACTORY =
+            com.mdk.cosmetic.platform.SavedDataTypes.create("mdkcosmetic_collector_stress", CollectorStressData::new, CollectorStressData::load);
 
     public static CollectorStressData forLevel(ServerLevel level) {
-        return level.getDataStorage().computeIfAbsent(FACTORY, "mdkcosmetic_collector_stress");
+        return level.getDataStorage().computeIfAbsent(FACTORY);
     }
 
     public Entry read(BlockPos pos) {
@@ -41,12 +41,12 @@ public final class CollectorStressData extends SavedData {
 
     private static CollectorStressData load(CompoundTag tag, HolderLookup.Provider registries) {
         CollectorStressData data = new CollectorStressData();
-        ListTag list = tag.getList("Storages", Tag.TAG_COMPOUND);
+        ListTag list = tag.getListOrEmpty("Storages");
         for (int i = 0; i < list.size(); i++) {
-            CompoundTag element = list.getCompound(i);
-            data.entries.put(element.getLong("Position"),
-                    new Entry(Math.clamp(element.getInt("Stress"), 0, 100),
-                            element.getBoolean("Activated")));
+            CompoundTag element = list.getCompoundOrEmpty(i);
+            data.entries.put(element.getLongOr("Position",0L),
+                    new Entry(Math.clamp(element.getIntOr("Stress",0), 0, 100),
+                            element.getBooleanOr("Activated",false)));
         }
         return data;
     }

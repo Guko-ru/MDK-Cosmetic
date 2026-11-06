@@ -30,8 +30,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.ToolMaterial;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.SoundType;

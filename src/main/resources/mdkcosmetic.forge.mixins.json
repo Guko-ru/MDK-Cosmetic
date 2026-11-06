@@ -16,6 +16,7 @@
   "client": [
     "client.EquipmentRenderStateMixin",
     "client.EquipmentExtractionMixin",
+    "client.UnoRendererDispatchMixin",
     "client.ForgeArmorLayerMixin",
     "client.ForgeHudMixin",
     "client.CosmeticItemTintSourcesMixin"

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:function",
+  "function": "mdkcosmetic_validation:equipment_combat_and_protection_survive_migration",
+  "environment": "minecraft:default",
+  "structure": "mdkcosmetic_validation:empty",
+  "max_ticks": 200,
+  "required": true
+}

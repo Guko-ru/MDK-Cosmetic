@@ -8,7 +8,7 @@ public final class CosmeticArmorItem extends Item {
  private final ArmorDefinition material;
  private final ArmorType type;
  public CosmeticArmorItem(ArmorDefinition material,ArmorType type,Properties properties){super(properties(material,type,properties));this.material=material;this.type=type;}
- private static Properties properties(ArmorDefinition material,ArmorType type,Properties properties){var original=((ItemPropertiesAccess)properties).mdk$getComponents().build().get(DataComponents.MAX_DAMAGE);material.nativeMaterial().humanoidProperties(properties,type);if(!material.enchantable())properties.component(DataComponents.ENCHANTABLE,null);if(original!=null)properties.durability(original);return properties;}
+ private static Properties properties(ArmorDefinition material,ArmorType type,Properties properties){var original=((ItemPropertiesAccess)properties).mdk$getComponents().build().get(DataComponents.MAX_DAMAGE);properties.humanoidArmor(material.nativeMaterial(),type);if(!material.enchantable())properties.component(DataComponents.ENCHANTABLE,null);if(original!=null)properties.durability(original);return properties;}
  public ArmorDefinition getMaterial(){return material;}
  public EquipmentSlot getEquipmentSlot(){return type.getSlot();}
 }

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:function",
+  "function": "mdkcosmetic_validation:inventories_and_world_data_survive_save_and_removal",
+  "environment": "minecraft:default",
+  "structure": "mdkcosmetic_validation:empty",
+  "max_ticks": 200,
+  "required": true
+}

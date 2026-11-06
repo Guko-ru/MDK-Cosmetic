@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mdkcosmetic:item/legacy_spawn_egg",
+    "layer1": "mdkcosmetic:item/legacy_spawn_egg_overlay"
+  }
+}

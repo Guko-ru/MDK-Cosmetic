@@ -15,23 +15,23 @@ import net.minecraft.world.level.saveddata.SavedData;
  * World-persistent, per-player advancement counters. SavedData avoids losing
  * achievement totals on player death, entity cloning or inventory transfers.
  */
-public final class CollectorAdvancementData extends SavedData {
+public final class CollectorAdvancementData extends SavedData implements com.mdk.cosmetic.platform.LegacySavedData {
     private static final String SAVE_ID = "mdkcosmetic_collector_advancement_counters";
-    private static final SavedData.Factory<CollectorAdvancementData> FACTORY =
-            new SavedData.Factory<>(CollectorAdvancementData::new, CollectorAdvancementData::load, null);
+    private static final net.minecraft.world.level.saveddata.SavedDataType<CollectorAdvancementData> FACTORY =
+            com.mdk.cosmetic.platform.SavedDataTypes.create(SAVE_ID, CollectorAdvancementData::new, CollectorAdvancementData::load);
     private final Map<UUID, Map<String, Long>> byPlayer = new HashMap<>();
 
     private static CollectorAdvancementData load(CompoundTag nbt, HolderLookup.Provider registries) {
         CollectorAdvancementData data = new CollectorAdvancementData();
-        ListTag list = nbt.getList("Players", Tag.TAG_COMPOUND);
+        ListTag list = nbt.getListOrEmpty("Players");
         for (int i = 0; i < list.size(); i++) {
-            CompoundTag row = list.getCompound(i);
-            if (!row.hasUUID("Id")) continue;
-            UUID id = row.getUUID("Id");
-            CompoundTag values = row.getCompound("Counters");
+            CompoundTag row = list.getCompoundOrEmpty(i);
+            if (!row.read("Id",net.minecraft.core.UUIDUtil.CODEC).isPresent()) continue;
+            UUID id = row.read("Id",net.minecraft.core.UUIDUtil.CODEC).orElseThrow();
+            CompoundTag values = row.getCompoundOrEmpty("Counters");
             Map<String, Long> counts = new HashMap<>();
-            for (String key : values.getAllKeys()) {
-                if (values.contains(key, Tag.TAG_LONG)) counts.put(key, Math.max(0L, values.getLong(key)));
+            for (String key : values.keySet()) {
+                if (values.getLong(key).isPresent()) counts.put(key, Math.max(0L, values.getLongOr(key,0L)));
             }
             data.byPlayer.put(id, counts);
         }
@@ -39,7 +39,7 @@ public final class CollectorAdvancementData extends SavedData {
     }
 
     public static CollectorAdvancementData get(MinecraftServer server) {
-        return server.overworld().getDataStorage().computeIfAbsent(FACTORY, SAVE_ID);
+        return server.overworld().getDataStorage().computeIfAbsent(FACTORY);
     }
 
     public long count(ServerPlayer player, String metric) {
@@ -61,7 +61,7 @@ public final class CollectorAdvancementData extends SavedData {
         ListTag list = new ListTag();
         for (var user : byPlayer.entrySet()) {
             CompoundTag row = new CompoundTag();
-            row.putUUID("Id", user.getKey());
+            row.store("Id",net.minecraft.core.UUIDUtil.CODEC,user.getKey());
             CompoundTag counts = new CompoundTag();
             for (var entry : user.getValue().entrySet()) counts.putLong(entry.getKey(), entry.getValue());
             row.put("Counters", counts);

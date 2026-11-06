@@ -43,7 +43,7 @@ public final class CollectorSoulWorldEvents {
                     if (!level.structureManager().getStructureWithPieceAt(dest,city).isValid()) continue;
                     CollectorSoulEntity soul=MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
                     if (soul==null) break;
-                    soul.moveTo(dest.getX()+0.5,dest.getY()+0.25,dest.getZ()+0.5,
+                    soul.snapTo(dest.getX()+0.5,dest.getY()+0.25,dest.getZ()+0.5,
                             level.random.nextFloat()*360,0.0F);
                     if (!level.noCollision(soul,soul.getBoundingBox())) continue;
                     if (level.addFreshEntity(soul)) data.claim(id);

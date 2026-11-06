@@ -2,7 +2,7 @@ package com.mdk.cosmetic;
 import java.util.EnumSet;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.player.Player;
 /** Wild wolves follow wolf hats on players or monsters; dogs only follow their owners. */
 public final class WolfHatAttractionGoal extends Goal {
@@ -12,7 +12,7 @@ public final class WolfHatAttractionGoal extends Goal {
   && !wolf.isPassenger() && !wolf.isInSittingPose() && wolf.getTarget()==null && !wolf.isAngry();}
  private boolean eligible(LivingEntity entity,double range){return HatWearerFinder.eligible(wolf,entity,
   MDKCosmetic.WOLF_HAT.get(),range) && (!wolf.isTame() || (entity instanceof Player p
-  && wolf.getOwnerUUID()!=null && wolf.getOwnerUUID().equals(p.getUUID())));}
+  && wolf.getOwnerReference()!=null && wolf.getOwnerReference().getUUID().equals(p.getUUID())));}
  @Override public boolean canUse(){if(!safe())return false;
   following=HatWearerFinder.closest(wolf,MDKCosmetic.WOLF_HAT.get(),256);
   if(following!=null && eligible(following,256))return true;

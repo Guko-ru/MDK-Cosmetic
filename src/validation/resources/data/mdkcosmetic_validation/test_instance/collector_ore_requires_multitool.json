@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:function",
+  "function": "mdkcosmetic_validation:collector_ore_requires_multitool",
+  "environment": "minecraft:default",
+  "structure": "mdkcosmetic_validation:empty",
+  "max_ticks": 200,
+  "required": true
+}

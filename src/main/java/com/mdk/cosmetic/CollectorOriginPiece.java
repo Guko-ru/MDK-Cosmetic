@@ -45,11 +45,11 @@ public final class CollectorOriginPiece extends StructurePiece {
 
     public CollectorOriginPiece(CompoundTag tag) {
         super(MDKCosmetic.COLLECTOR_ORIGIN_PIECE_TYPE.get(), tag);
-        centerX = tag.getInt("OriginX");
-        centerZ = tag.getInt("OriginZ");
-        surfaceY = tag.getInt("SurfaceY");
-        minY = tag.getInt("WorldMinY");
-        seed = tag.getLong("OriginSeed");
+        centerX = tag.getIntOr("OriginX",0);
+        centerZ = tag.getIntOr("OriginZ",0);
+        surfaceY = tag.getIntOr("SurfaceY",0);
+        minY = tag.getIntOr("WorldMinY",0);
+        seed = tag.getLongOr("OriginSeed",0L);
     }
 
     @Override

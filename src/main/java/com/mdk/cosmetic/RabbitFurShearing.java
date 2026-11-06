@@ -30,7 +30,7 @@ public final class RabbitFurShearing {
 
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(rabbit);
         long now = System.currentTimeMillis();
-        long next = data.getLong(NEXT_SHEAR_AT);
+        long next = data.getLongOr(NEXT_SHEAR_AT,0L);
         if (next > now && next - now <= COOLDOWN_MILLIS) {
             long remainingMinutes = (next - now + 59999L) / 60000L;
             event.getEntity().displayClientMessage(Component.translatable(

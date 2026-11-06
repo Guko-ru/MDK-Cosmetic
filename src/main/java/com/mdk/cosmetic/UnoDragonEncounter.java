@@ -21,7 +21,7 @@ public final class UnoDragonEncounter {
         if (!(event.getEntity() instanceof EnderDragon dragon)
                 || !(dragon.level() instanceof ServerLevel level)
                 || level.dimension()!=Level.END || dragon.getHealth()>0.0F
-                || com.mdk.cosmetic.platform.PersistentData.of(dragon).getBoolean(TRIGGERED)) return;
+                || com.mdk.cosmetic.platform.PersistentData.of(dragon).getBooleanOr(TRIGGERED,false)) return;
 
         // The killer is preferred, otherwise the nearest eligible End player.
         ServerPlayer target=level.players().stream()
@@ -42,7 +42,7 @@ public final class UnoDragonEncounter {
                     double y=Math.floor(target.getY())+offset;
                     BlockPos feet=BlockPos.containing(x,y,z);
                     if(!level.hasChunkAt(feet) || !level.getBlockState(feet.below()).blocksMotion()) continue;
-                    uno.moveTo(x,y,z,level.random.nextFloat()*360F,0F);
+                    uno.snapTo(x,y,z,level.random.nextFloat()*360F,0F);
                     if(level.noCollision(uno,uno.getBoundingBox())
                             && uno.getBoundingBox().maxY<=level.getMaxY()) {
                         placed=true;
@@ -64,7 +64,7 @@ public final class UnoDragonEncounter {
                 int y=level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,ix,iz);
                 BlockPos feet=new BlockPos(ix,y,iz);
                 if (!level.hasChunkAt(feet) || !level.getBlockState(feet.below()).blocksMotion()) continue;
-                uno.moveTo(x,y,z,level.random.nextFloat()*360F,0F);
+                uno.snapTo(x,y,z,level.random.nextFloat()*360F,0F);
                 if (level.noCollision(uno,uno.getBoundingBox())) { placed=true;break; }
             }
         }

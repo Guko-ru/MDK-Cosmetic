@@ -27,7 +27,7 @@ public final class HostileHatSpawns {
     public static void onJoin(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide() || !(event.getEntity() instanceof Mob mob) || !eligible(mob)) return;
         CompoundTag tag = com.mdk.cosmetic.platform.PersistentData.of(mob);
-        if (tag.getBoolean(ROLLED)) return;
+        if (tag.getBooleanOr(ROLLED,false)) return;
         tag.putBoolean(ROLLED, true);
         if (!mob.getItemBySlot(EquipmentSlot.HEAD).isEmpty() || mob.getRandom().nextFloat() >= CHANCE) return;
         List<Item> hats = List.of(
