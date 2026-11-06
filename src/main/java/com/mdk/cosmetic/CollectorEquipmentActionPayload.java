@@ -35,7 +35,7 @@ public record CollectorEquipmentActionPayload(int action) implements CustomPacke
                 player.displayClientMessage(Component.translatable("message.mdkcosmetic.no_equipped_backpack"),true);
                 return;
             }
-            if (CollectorBackpackData.linked(stack) && CollectorBackpackData.remoteCore(stack,player.getServer()) == null) {
+            if (CollectorBackpackData.linked(stack) && CollectorBackpackData.remoteCore(stack,com.mdk.cosmetic.platform.ServerAccess.get(player)) == null) {
                 player.displayClientMessage(Component.translatable("message.mdkcosmetic.backpack_memory_unavailable"),true);
                 return;
             }

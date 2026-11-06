@@ -3047,5 +3047,6 @@
   "tooltip.mdkcosmetic.rework.spawn_egg": "Если ты это видишь, значит, ты в креативе. Спасибо, что играешь с моим модом :)",
   "tooltip.mdkcosmetic.rework.tailoring_table": "Взаимодействуйте со столом, чтобы начать создавать, возможно, даже полезные шапочки :)",
   "tooltip.mdkcosmetic.sakura_thinker.buff": "Когда надето: Удача I и +2 к дальности взаимодействия с блоками.",
-  "tooltip.mdkcosmetic.storage_stress": "Состояние стресса: %s%%"
+  "tooltip.mdkcosmetic.storage_stress": "Состояние стресса: %s%%",
+  "key.category.mdkcosmetic.equipment": "MDK Cosmetic"
 }

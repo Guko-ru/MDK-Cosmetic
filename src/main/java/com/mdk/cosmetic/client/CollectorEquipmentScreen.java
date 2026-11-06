@@ -97,7 +97,7 @@ public final class CollectorEquipmentScreen extends AbstractContainerScreen<Coll
         if(!enabled(section))label(g,tr("requires_piece"),197,167,143,0xFF977FAD);
     }
     private void press(int action){if(minecraft!=null&&minecraft.gameMode!=null)minecraft.gameMode.handleInventoryButtonClick(menu.containerId,action);}
-    @Override public boolean mouseClicked(double mx,double my,int button){
+    @Override public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mdk$mouse,boolean mdk$doubleClick){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
         double vx=mx/scale,vy=my/scale;
         int x=(int)vx-leftPos,y=(int)vy-topPos;
         if(button==0){
@@ -117,20 +117,20 @@ public final class CollectorEquipmentScreen extends AbstractContainerScreen<Coll
             }
             if(x>=196&&x<337&&y>=77&&y<99&&enabled(section)&&section!=3){press(section==4?5:section);return true;}
         }
-        return super.mouseClicked(vx,vy,button);
+        return super.mouseClicked(new net.minecraft.client.input.MouseButtonEvent(vx,vy,mdk$mouse.buttonInfo()),mdk$doubleClick);
     }
-    @Override public boolean mouseReleased(double mx,double my,int button){
+    @Override public boolean mouseReleased(net.minecraft.client.input.MouseButtonEvent mdk$mouse){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
         draggingSpeed=false;
-        return super.mouseReleased(mx/scale,my/scale,button);
+        return super.mouseReleased(new net.minecraft.client.input.MouseButtonEvent(mx/scale,my/scale,mdk$mouse.buttonInfo()));
     }
-    @Override public boolean mouseDragged(double mx,double my,int button,double dx,double dy){
+    @Override public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent mdk$mouse,double dx,double dy){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
         if(button==0 && draggingSpeed && menu.legs()) {
             int x=(int)(mx/scale)-leftPos;
             int target=Math.clamp(Math.round((x-229)*10.0F/73),0,10);
             if(target!=menu.speed())press(100+target);
             return true;
         }
-        return super.mouseDragged(mx/scale,my/scale,button,dx/scale,dy/scale);
+        return super.mouseDragged(new net.minecraft.client.input.MouseButtonEvent(mx/scale,my/scale,mdk$mouse.buttonInfo()),dx/scale,dy/scale);
     }
     // mdk: unified scaled canvas; native background callbacks must not draw it a second time.
     @Override public void renderBackground(GuiGraphics graphics,int mouseX,int mouseY,float partial) {}

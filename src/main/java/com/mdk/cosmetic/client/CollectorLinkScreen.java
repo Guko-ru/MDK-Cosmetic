@@ -72,24 +72,24 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
     }
 
     /** Never let the inventory key (normally E) close the screen while typing in search. */
-    @Override public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    @Override public boolean keyPressed(net.minecraft.client.input.KeyEvent mdk$key){int keyCode=mdk$key.key(),scanCode=mdk$key.scancode(),modifiers=mdk$key.modifiers();
         if (search != null && search.isFocused()) {
             if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
                 search.setFocused(false);
                 return true;
             }
-            search.keyPressed(keyCode, scanCode, modifiers);
+            search.keyPressed(mdk$key);
             return true;
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(mdk$key);
     }
 
-    @Override public boolean charTyped(char codePoint, int modifiers) {
+    @Override public boolean charTyped(net.minecraft.client.input.CharacterEvent mdk$character){char codePoint=(char)mdk$character.codepoint();int modifiers=mdk$character.modifiers();
         if (search != null && search.isFocused()) {
-            search.charTyped(codePoint, modifiers);
+            search.charTyped(mdk$character);
             return true;
         }
-        return super.charTyped(codePoint, modifiers);
+        return super.charTyped(mdk$character);
     }
 
     private void requestSearch(String value) {
@@ -166,7 +166,7 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         offerRow = (int)Math.round(ratio * offerMaxRow());
     }
 
-    @Override public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    @Override public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mdk$mouse,boolean mdk$doubleClick){double mouseX=mdk$mouse.x(),mouseY=mdk$mouse.y();int button=mdk$mouse.button();
         // Entry points receive physical GUI coordinates, then convert to the virtual canvas.
         double vx = mouseX / uiScale, vy = mouseY / uiScale;
         int x = (int)vx - leftPos, y = (int)vy - topPos;
@@ -178,7 +178,7 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
                     && minecraft != null && minecraft.gameMode != null && minecraft.player != null) {
                 minecraft.gameMode.handleInventoryMouseClick(menu.containerId,
                         CollectorLinkMenu.MEMORY_START + row * CollectorLinkMenu.MEMORY_COLUMNS + col,
-                        button, button == 0 && hasShiftDown() ? ClickType.QUICK_MOVE : ClickType.PICKUP,
+                        button, button == 0 && net.minecraft.client.Minecraft.getInstance().hasShiftDown() ? ClickType.QUICK_MOVE : ClickType.PICKUP,
                         minecraft.player);
                 return true;
             }
@@ -197,17 +197,17 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
                 draggingMemoryScrollbar = true; seekMemory(vy); return true;
             }
         }
-        return super.mouseClicked(vx, vy, button);
+        return super.mouseClicked(new net.minecraft.client.input.MouseButtonEvent(vx,vy,mdk$mouse.buttonInfo()),mdk$doubleClick);
     }
-    @Override public boolean mouseDragged(double mouseX, double mouseY, int button, double dx, double dy) {
+    @Override public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent mdk$mouse,double dx,double dy){double mouseX=mdk$mouse.x(),mouseY=mdk$mouse.y();int button=mdk$mouse.button();
         if (draggingShopScrollbar && button == 0) { seekShop(mouseY / uiScale); return true; }
         if (draggingMemoryScrollbar && button == 0) { seekMemory(mouseY / uiScale); return true; }
-        return super.mouseDragged(mouseX / uiScale, mouseY / uiScale, button, dx / uiScale, dy / uiScale);
+        return super.mouseDragged(new net.minecraft.client.input.MouseButtonEvent(mouseX / uiScale,mouseY / uiScale,mdk$mouse.buttonInfo()),dx / uiScale,dy / uiScale);
     }
-    @Override public boolean mouseReleased(double mouseX, double mouseY, int button) {
+    @Override public boolean mouseReleased(net.minecraft.client.input.MouseButtonEvent mdk$mouse){double mouseX=mdk$mouse.x(),mouseY=mdk$mouse.y();int button=mdk$mouse.button();
         draggingShopScrollbar = false;
         draggingMemoryScrollbar = false;
-        return super.mouseReleased(mouseX / uiScale, mouseY / uiScale, button);
+        return super.mouseReleased(new net.minecraft.client.input.MouseButtonEvent(mouseX / uiScale,mouseY / uiScale,mdk$mouse.buttonInfo()));
     }
     @Override public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         double x = mouseX / uiScale - leftPos, y = mouseY / uiScale - topPos;

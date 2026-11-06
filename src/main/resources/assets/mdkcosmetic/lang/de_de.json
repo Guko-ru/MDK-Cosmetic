@@ -3047,5 +3047,6 @@
   "tooltip.mdkcosmetic.rework.spawn_egg": "Wenn du das siehst, bist du im Kreativmodus. Danke, dass du meine Mod spielst :)",
   "tooltip.mdkcosmetic.rework.tailoring_table": "Benutze den Tisch, um vielleicht sogar nützliche Hüte herzustellen :)",
   "tooltip.mdkcosmetic.sakura_thinker.buff": "While worn: Luck I and +2 block interaction range.",
-  "tooltip.mdkcosmetic.storage_stress": "Soul stress: %s%%"
+  "tooltip.mdkcosmetic.storage_stress": "Soul stress: %s%%",
+  "key.category.mdkcosmetic.equipment": "MDK Cosmetic"
 }

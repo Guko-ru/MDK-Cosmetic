@@ -26,7 +26,7 @@ public final class FoxHatClient implements net.fabricmc.api.ClientModInitializer
         CollectorSoulClient.renderers(new ClientEvents.EntityRenderersEvent.RegisterRenderers());
         FabricNetworking.initialize();
         net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback.EVENT.register((type,renderer,helper,context)-> {
-            if(renderer instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer)registerPlayerHelmetLayers(new ClientEvents.EntityRenderersEvent.AddLayers(renderer));
+            if(renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer)registerPlayerHelmetLayers(new ClientEvents.EntityRenderersEvent.AddLayers(renderer));
         });
         net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(client->CollectorEquipmentKeys.onTick(new ClientEvents.ClientTickEvent.Post()));
         net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack,context,type,lines)->CosmeticHatTooltip.onTooltip(new ClientEvents.ItemTooltipEvent(stack,lines)));
@@ -39,8 +39,8 @@ public final class FoxHatClient implements net.fabricmc.api.ClientModInitializer
     }
 
     private static void registerPlayerHelmetLayers(com.mdk.cosmetic.client.ClientEvents.EntityRenderersEvent.AddLayers event) {
-        for (net.minecraft.client.resources.PlayerSkin.Model skin : event.getSkins()) {
-            if (event.getSkin(skin) instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer renderer) {
+        for (net.minecraft.world.entity.player.PlayerModelType skin : event.getSkins()) {
+            if (event.getSkin(skin) instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer renderer) {
                 renderer.addLayer(new CollectorHelmetHeadLayer<>(renderer));
                 renderer.addLayer(new CollectorBackpackLayer(renderer));
             }

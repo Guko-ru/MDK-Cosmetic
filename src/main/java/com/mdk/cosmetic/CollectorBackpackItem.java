@@ -26,7 +26,7 @@ public final class CollectorBackpackItem extends Item {
         if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
         if (level.isClientSide()) return InteractionResult.SUCCESS;
         if (!(player instanceof ServerPlayer server)) return InteractionResult.FAIL;
-        if (CollectorBackpackData.linked(stack) && CollectorBackpackData.remoteCore(stack, server.getServer()) == null) {
+        if (CollectorBackpackData.linked(stack) && CollectorBackpackData.remoteCore(stack, com.mdk.cosmetic.platform.ServerAccess.get(server)) == null) {
             server.sendSystemMessage(Component.translatable("message.mdkcosmetic.backpack_memory_unavailable"));
             return InteractionResult.FAIL;
         }

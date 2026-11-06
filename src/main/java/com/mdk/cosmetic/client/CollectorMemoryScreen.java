@@ -51,7 +51,7 @@ public final class CollectorMemoryScreen extends AbstractContainerScreen<Collect
             g.drawString(font,count,x+16-font.width(count),y+10,0xFFFFE4FF,true);
         }
     }
-    @Override public boolean mouseClicked(double mx,double my,int button){
+    @Override public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mdk$mouse,boolean mdk$doubleClick){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
         if(button==0){int x=(int)mx-leftPos,y=(int)my-topPos;
             if(y>=87&&y<104 && x>=8&&x<35){
                 if(minecraft!=null&&minecraft.gameMode!=null)
@@ -64,7 +64,7 @@ public final class CollectorMemoryScreen extends AbstractContainerScreen<Collect
                 return true;
             }
         }
-        return super.mouseClicked(mx,my,button);
+        return super.mouseClicked(new net.minecraft.client.input.MouseButtonEvent(mx,my,mdk$mouse.buttonInfo()),mdk$doubleClick);
     }
     @Override public void render(GuiGraphics g,int mx,int my,float partial){
         renderBackground(g,mx,my,partial);super.render(g,mx,my,partial);renderTooltip(g,mx,my);

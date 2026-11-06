@@ -18,7 +18,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.world.entity.player.PlayerSkin;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -62,8 +62,8 @@ public final class ClientEvents {
             public <E extends Entity> void registerEntityRenderer(EntityType<? extends E> type,EntityRendererProvider<E> factory){EntityRendererRegistry.register(type,factory);}
         }
         public record AddLayers(EntityRenderer<?,?> renderer) {
-            public List<PlayerSkin.Model> getSkins(){return List.of(PlayerSkin.Model.WIDE);}
-            public EntityRenderer<?,?> getSkin(PlayerSkin.Model ignored){return renderer;}
+            public List<net.minecraft.world.entity.player.PlayerModelType> getSkins(){return List.of(net.minecraft.world.entity.player.PlayerModelType.WIDE);}
+            public EntityRenderer<?,?> getSkin(net.minecraft.world.entity.player.PlayerModelType ignored){return renderer;}
         }
     }
     public static final class ViewportEvent {

@@ -154,9 +154,9 @@ public final class MDKCosmetic implements net.fabricmc.api.ModInitializer {
                                             .withStyle(ChatFormatting.AQUA))));
 
     public static final RegistryEntry<Item, SpawnEggItem> COLLECTOR_SOUL_SPAWN_EGG =
-            ITEMS.register("collector_soul_spawn_egg", () -> new SpawnEggItem(COLLECTOR_SOUL_ENTITY.get(), new Item.Properties()));
+            ITEMS.register("collector_soul_spawn_egg", () -> new SpawnEggItem(new Item.Properties().spawnEgg(COLLECTOR_SOUL_ENTITY.get())));
     public static final RegistryEntry<Item, SpawnEggItem> UNO_SPAWN_EGG =
-            ITEMS.register("uno_spawn_egg", () -> new SpawnEggItem(UNO_ENTITY.get(), new Item.Properties()));
+            ITEMS.register("uno_spawn_egg", () -> new SpawnEggItem(new Item.Properties().spawnEgg(UNO_ENTITY.get())));
 
     public static final RegistryEntry<Item, CosmeticArmorItem> COLLECTOR_HELMET =
             ITEMS.register("collector_helmet", () -> new CosmeticArmorItem(
@@ -523,7 +523,7 @@ public final class MDKCosmetic implements net.fabricmc.api.ModInitializer {
     public static final RegistryEntry<Item, Item> COLLECTOR_BACKPACK_DEATH_VAULT =
             ITEMS.register("collector_backpack_death_vault", () -> new StyledNameItem(new Item.Properties().stacksTo(1).rarity(net.minecraft.world.item.Rarity.EPIC), ChatFormatting.LIGHT_PURPLE));
     public static final RegistryEntry<Item, SpawnEggItem> COLLECTOR_HEART_SPAWN_EGG =
-            ITEMS.register("collector_heart_spawn_egg", () -> new SpawnEggItem(COLLECTOR_HEART_ENTITY.get(), new Item.Properties()));
+            ITEMS.register("collector_heart_spawn_egg", () -> new SpawnEggItem(new Item.Properties().spawnEgg(COLLECTOR_HEART_ENTITY.get())));
     public static final RegistryEntry<Item, Item> COLLECTOR_BACKPACK_LINK_KEY =
             ITEMS.register("collector_backpack_link_key", () -> new Item(new Item.Properties().stacksTo(1).rarity(net.minecraft.world.item.Rarity.EPIC)));
     public static final RegistryEntry<MenuType<?>, MenuType<CollectorBackpackMenu>> COLLECTOR_BACKPACK_MENU =
@@ -548,12 +548,12 @@ public final class MDKCosmetic implements net.fabricmc.api.ModInitializer {
     public static final RegistryEntry<Block, CollectorVoidPortalBlock> COLLECTOR_VOID_PORTAL =
             BLOCKS.register("collector_void_portal", () -> new CollectorVoidPortalBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
-                            .noCollission().noOcclusion().strength(-1.0F, 3600000.0F)
+                            .noCollision().noOcclusion().strength(-1.0F, 3600000.0F)
                             .lightLevel(state -> 12)));
     public static final RegistryEntry<Block, CollectorVoidReturnBlock> COLLECTOR_VOID_RETURN =
             BLOCKS.register("collector_void_return", () -> new CollectorVoidReturnBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
-                            .noCollission().noOcclusion().strength(-1.0F, 3600000.0F)
+                            .noCollision().noOcclusion().strength(-1.0F, 3600000.0F)
                             .lightLevel(state -> 15)));
 
     public static final RegistryEntry<Block, CollectorMemoryCasingBlock> COLLECTOR_MEMORY_CASING =

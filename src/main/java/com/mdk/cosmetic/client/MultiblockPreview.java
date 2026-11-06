@@ -31,7 +31,9 @@ public final class MultiblockPreview {
   @Override protected void renderToTexture(State state,PoseStack pose){
    var client=Minecraft.getInstance();client.gameRenderer.getLighting().setupFor(Lighting.Entry.ITEMS_3D);
    pose.scale(1,1,-1);pose.translate(0,-3,0);pose.mulPose(Axis.XP.rotationDegrees(state.elevation()));pose.mulPose(Axis.YP.rotationDegrees(state.yaw()));pose.scale(state.unit(),-state.unit(),state.unit());
-   for(var cell:state.cells()){pose.pushPose();try{pose.translate(cell.x(),cell.y(),cell.z());client.getItemRenderer().renderStatic(cell.item(),ItemDisplayContext.NONE,0x00F000F0,OverlayTexture.NO_OVERLAY,pose,bufferSource,client.level,0);}finally{pose.popPose();}}
+   var features=client.gameRenderer.getFeatureRenderDispatcher();
+   for(var cell:state.cells()){pose.pushPose();try{pose.translate(cell.x(),cell.y(),cell.z());ModelSubmission.item(cell.item(),ItemDisplayContext.NONE,0x00F000F0,OverlayTexture.NO_OVERLAY,pose,features.getSubmitNodeStorage(),0,0);}finally{pose.popPose();}}
+   features.renderAllFeatures();
   }
  }
 }

@@ -1,12 +1,12 @@
 {
   "loader": "Fabric",
-  "minecraft": "1.21.8",
+  "minecraft": "1.21.9",
   "loader_build": "0.20.1",
   "mod_version": "1.18.78",
   "java": 21,
-  "artifact": "MDK-Cosmetic-1.21.8-Fabric-1.18.78.jar",
-  "sha256": "5d16acaa8f6df89b837caf022f191c628b999abd1a992be101b9d70ad578b4f0",
-  "fabric_api": "0.136.1+1.21.8",
+  "artifact": "MDK-Cosmetic-1.21.9-Fabric-1.18.78.jar",
+  "sha256": "7fa1f1768bf9e14bb77b790269089a486a189c61eb4e8554810294a30df7165c",
+  "fabric_api": "0.134.1+1.21.9",
   "validation": {
     "required_game_tests_passed": 9,
     "recipes_loaded": 1668,
@@ -17,6 +17,7 @@
     "interface_unicode_verified": true,
     "custom_hats_without_vanilla_helmet_cube": true,
     "multiblock_preview_3d": "27 real item models rendered through native picture-in-picture GUI",
+    "deferred_armor_render": "12 equipment submissions across 3 poses, hats, dye colors and glint rendered on GPU",
     "collector_regressions": {
       "machine_tiers": [
         1,
@@ -26,7 +27,8 @@
       "native_slot_hit_tests": true,
       "creative_tabs": "66 cosmetic entries and 1140 decorative entries, visible MDK shortcut",
       "boss_phases": "black original with smoke and ash at spawn; opponent skin and copied equipment in phase II"
-    }
+    },
+    "armor_trim_atlas": "vanilla atlas definition and real stitched sprite verified in client"
   },
   "license": "MDK Cosmetic Non-Commercial License 1.1"
 }

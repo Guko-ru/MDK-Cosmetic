@@ -29,7 +29,9 @@ public final class FabricPortGameTests {
         net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(),true,helper.getLevel().registryAccess());
         var cosmetic=MDKCosmetic.COSMETIC_TAB.get();var decor=MDKCosmetic.FUR_BLOCKS_TAB.get();
         var visible=net.minecraft.world.item.CreativeModeTabs.tabs();
-        if(!visible.contains(cosmetic)||!visible.contains(decor)||cosmetic.getDisplayItems().size()<60||decor.getDisplayItems().size()<1000)throw new AssertionError("Both MDK creative tabs must be visible and populated");
+        org.slf4j.LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_TAB_DIAGNOSTIC cosmetic={} visible={} decor={} visible={}",cosmetic.getDisplayItems().size(),visible.contains(cosmetic),decor.getDisplayItems().size(),visible.contains(decor));
+        assertTrue(helper,visible.contains(cosmetic)&&visible.contains(decor),"Both mod creative tabs must be visible");
+        assertTrue(helper,cosmetic.getDisplayItems().size()>60&&decor.getDisplayItems().size()>1000,"Both mod tabs must contain their items");
         helper.succeed();
     }
 
