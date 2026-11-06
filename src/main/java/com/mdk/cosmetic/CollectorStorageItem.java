@@ -21,11 +21,11 @@ public final class CollectorStorageItem extends BlockItem {
     public CollectorStorageItem(Block block, Item.Properties props) { super(block,props); }
     public static int stressOf(ItemStack stack) {
         CustomData data=stack.get(DataComponents.CUSTOM_DATA);
-        return data==null?0:Math.clamp(data.copyTag().getInt(KEY),0,100);
+        return data==null?0:Math.clamp(data.copyTag().getIntOr(KEY,0),0,100);
     }
     public static boolean activated(ItemStack stack) {
         CustomData data=stack.get(DataComponents.CUSTOM_DATA);
-        return data!=null && data.copyTag().getBoolean(FIRST);
+        return data!=null && data.copyTag().getBooleanOr(FIRST,false);
     }
     public static void setStress(ItemStack stack,int stress,boolean activated) {
         CompoundTag tag=stack.getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag();
@@ -46,10 +46,10 @@ public final class CollectorStorageItem extends BlockItem {
         return result;
     }
     @Override public void appendHoverText(ItemStack stack, Item.TooltipContext context,
-            List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack,context,tooltip,flag);
+            net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack,context,display,tooltip,flag);
         int stress=stressOf(stack);
-        tooltip.add(Component.translatable("tooltip.mdkcosmetic.storage_stress", stress)
+        tooltip.accept(Component.translatable("tooltip.mdkcosmetic.storage_stress", stress)
                 .withStyle(stress>=80?ChatFormatting.RED:stress>=40?ChatFormatting.GOLD:ChatFormatting.LIGHT_PURPLE));
     }
 }

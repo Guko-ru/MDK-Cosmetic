@@ -68,13 +68,11 @@ public final class CollectorLinkBlock extends HorizontalDirectionalBlock impleme
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos,
-            BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock()) && !level.isClientSide()) {
+    protected void affectNeighborsAfterRemoval(BlockState state, net.minecraft.server.level.ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        if (!level.isClientSide()) {
             CollectorSoulStorageBlockEntity.disassembleNear(level, pos);
-            if (level.getBlockEntity(pos) instanceof CollectorLinkBlockEntity link) link.dropInputs();
         }
-        super.onRemove(state, level, pos, newState, movedByPiston);
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     @Override

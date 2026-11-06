@@ -13,16 +13,22 @@ public final class ClientStartupSmoke implements ClientModInitializer {
         int[] readyTicks={0};
         ClientTickEvents.END_CLIENT_TICK.register(client->{
             if(client.getOverlay()!=null||client.screen==null||++readyTicks[0]<20)return;
+            var bossState=new com.mdk.cosmetic.client.UnoRenderState();
+            bossState.entityType=com.mdk.cosmetic.MDKCosmetic.UNO_ENTITY.get();
+            bossState.texture=net.minecraft.resources.ResourceLocation.parse("mdkcosmetic:textures/entity/uno.png");
+            var bossRenderer=client.getEntityRenderDispatcher().getRenderer(bossState);
+            if(!(bossRenderer instanceof com.mdk.cosmetic.client.UnoRenderer renderer)||!renderer.getTextureLocation(bossState).equals(bossState.texture))throw new AssertionError("Boss pose incorrectly dispatched to a vanilla player/Steve renderer");
+            LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_BOSS_RENDERER_OK: native dispatcher selects the custom boss renderer and black texture");
             if(!new com.mdk.cosmetic.client.CatEarsModel().hat.isEmpty()||!new com.mdk.cosmetic.client.FoxHatModel().hat.isEmpty()||!new com.mdk.cosmetic.client.AxolotlHatModel().hat.isEmpty())throw new AssertionError("Custom cosmetic hat must not retain a vanilla helmet cube");
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_HAT_GEOMETRY_OK: custom ears, fox and axolotl geometry have no inherited vanilla helmet cube");
             int checked=0;
-            var missing=client.getModelManager().getMissingModel().getParticleIcon();
+            var missing=net.minecraft.client.renderer.texture.MissingTextureAtlasSprite.getLocation();
             for(var item:BuiltInRegistries.ITEM){
                 var id=BuiltInRegistries.ITEM.getKey(item);
                 if(!id.getNamespace().equals("mdkcosmetic"))continue;
                 var model=new net.minecraft.client.renderer.item.ItemStackRenderState();
-                client.getItemModelResolver().updateForTopItem(model,new ItemStack(item),net.minecraft.world.item.ItemDisplayContext.GUI,false,null,null,0);
-                if(model.isEmpty()||model.pickParticleIcon(net.minecraft.util.RandomSource.create(0))==missing)throw new AssertionError("Missing baked item model: "+id);
+                client.getItemModelResolver().updateForTopItem(model,new ItemStack(item),net.minecraft.world.item.ItemDisplayContext.GUI,null,null,0);
+                if(model.isEmpty()||model.pickParticleIcon(net.minecraft.util.RandomSource.create(0)).contents().name().equals(missing))throw new AssertionError("Missing baked item model: "+id);
                 checked++;
             }
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_CLIENT_SMOKE_OK: {} item models, entity renderers, armor models and client mixins initialized",checked);

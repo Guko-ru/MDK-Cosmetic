@@ -49,7 +49,7 @@ public final class FabricArmorRenderer implements ArmorRenderer {
         }
         var trim=stack.get(net.minecraft.core.component.DataComponents.TRIM);
         if(trim!=null && !stack.is(com.mdk.cosmetic.MDKCosmetic.COLLECTOR_HELMET.get())){
-            var texture=net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(trim.pattern().value().assetId().getNamespace(),"trims/entity/"+(slot==EquipmentSlot.LEGS?"humanoid_leggings/":"humanoid/")+trim.pattern().value().assetId().getPath()+"_"+trim.material().value().assetName());
+            var texture=net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(trim.pattern().value().assetId().getNamespace(),"trims/entity/"+(slot==EquipmentSlot.LEGS?"humanoid_leggings/":"humanoid/")+trim.pattern().value().assetId().getPath()+"_"+trim.material().value().assets().base().suffix());
             var atlas=Minecraft.getInstance().getModelManager().getAtlas(net.minecraft.client.renderer.Sheets.ARMOR_TRIMS_SHEET);
             var sprite=atlas.getSprite(texture);
             var consumer=sprite.wrap(buffers.getBuffer(net.minecraft.client.renderer.Sheets.armorTrimsSheet(trim.pattern().value().decal())));

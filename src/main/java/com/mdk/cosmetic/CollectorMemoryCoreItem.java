@@ -25,7 +25,7 @@ public final class CollectorMemoryCoreItem extends BlockItem {
     @Override public InteractionResult place(BlockPlaceContext ctx) {
         ItemStack held=ctx.getItemInHand();
         CustomData data=held.get(DataComponents.CUSTOM_DATA);
-        CompoundTag stored=data==null?new CompoundTag():data.copyTag().getCompound("MDKMemory").copy();
+        CompoundTag stored=data==null?new CompoundTag():data.copyTag().getCompoundOrEmpty("MDKMemory").copy();
         var pos=ctx.getClickedPos();
         InteractionResult result=super.place(ctx);
         if(result.consumesAction() && !ctx.getLevel().isClientSide()
@@ -33,13 +33,13 @@ public final class CollectorMemoryCoreItem extends BlockItem {
             core.importMemory(stored,ctx.getLevel().registryAccess());
         return result;
     }
-    @Override public void appendHoverText(ItemStack stack,Item.TooltipContext context,List<Component> tooltip,TooltipFlag flag) {
-        super.appendHoverText(stack,context,tooltip,flag);
+    @Override public void appendHoverText(ItemStack stack,Item.TooltipContext context,net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> tooltip,TooltipFlag flag) {
+        super.appendHoverText(stack,context,display,tooltip,flag);
         CustomData data=stack.get(DataComponents.CUSTOM_DATA);
         if(data!=null) {
-            var tag=data.copyTag().getCompound("MDKMemory");
-            var entries=tag.getList("Entries",10);
-            if(!entries.isEmpty())tooltip.add(Component.translatable("tooltip.mdkcosmetic.memory_saved",entries.size())
+            var tag=data.copyTag().getCompoundOrEmpty("MDKMemory");
+            var entries=tag.getListOrEmpty("Entries");
+            if(!entries.isEmpty())tooltip.accept(Component.translatable("tooltip.mdkcosmetic.memory_saved",entries.size())
                     .withStyle(ChatFormatting.LIGHT_PURPLE));
         }
     }

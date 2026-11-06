@@ -10,11 +10,10 @@ public final class CollectorCasingBlock extends Block {
     public CollectorCasingBlock(Properties properties) { super(properties); }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos,
-            BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock()) && !level.isClientSide()) {
+    protected void affectNeighborsAfterRemoval(BlockState state, net.minecraft.server.level.ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        if (!level.isClientSide()) {
             CollectorSoulStorageBlockEntity.disassembleNear(level, pos);
         }
-        super.onRemove(state, level, pos, newState, movedByPiston);
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 }

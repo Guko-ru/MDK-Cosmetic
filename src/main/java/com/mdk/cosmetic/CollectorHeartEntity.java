@@ -93,7 +93,7 @@ public final class CollectorHeartEntity extends Guardian {
             cloneCreated = true;
             CollectorHeartEntity illusion = MDKCosmetic.COLLECTOR_HEART_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
             if (illusion != null) {
-                illusion.moveTo(getX(), getY(), getZ(), getYRot(), getXRot());
+                illusion.snapTo(getX(), getY(), getZ(), getYRot(), getXRot());
                 illusion.makeDecoy();
                 level.addFreshEntity(illusion);
             }
@@ -169,12 +169,12 @@ public final class CollectorHeartEntity extends Guardian {
 
     @Override public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        decoy = tag.getBoolean("Decoy");
-        cloneCreated = tag.getBoolean("CloneCreated");
-        finalPhase = tag.getBoolean("FinalPhase");
-        dischargeTicks = tag.getInt("DischargeTicks");
-        blastCooldown = tag.getInt("BlastCooldown");
-        weaknessCooldown = tag.getInt("WeaknessCooldown");
-        droppedKey = tag.getBoolean("DroppedKey");
+        decoy = tag.getBooleanOr("Decoy",false);
+        cloneCreated = tag.getBooleanOr("CloneCreated",false);
+        finalPhase = tag.getBooleanOr("FinalPhase",false);
+        dischargeTicks = tag.getIntOr("DischargeTicks",0);
+        blastCooldown = tag.getIntOr("BlastCooldown",0);
+        weaknessCooldown = tag.getIntOr("WeaknessCooldown",0);
+        droppedKey = tag.getBooleanOr("DroppedKey",false);
     }
 }

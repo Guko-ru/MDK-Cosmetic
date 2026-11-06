@@ -13,7 +13,7 @@ public final class CollectorEquipmentData {
     private CollectorEquipmentData() {}
 
     private static CompoundTag tag(Player player) {
-        return com.mdk.cosmetic.platform.PersistentData.of(player).getCompound(KEY);
+        return com.mdk.cosmetic.platform.PersistentData.of(player).getCompoundOrEmpty(KEY);
     }
     private static void store(Player player, CompoundTag tag) {
         com.mdk.cosmetic.platform.PersistentData.of(player).put(KEY, tag);
@@ -21,7 +21,7 @@ public final class CollectorEquipmentData {
     public static ItemStack backpack(Player player) {
         if (player.level().isClientSide())
             return com.mdk.cosmetic.client.CollectorEquipmentVisuals.clientBackpack(player.getUUID());
-        return ItemStack.parseOptional(player.registryAccess(), tag(player).getCompound("Backpack"));
+        return com.mdk.cosmetic.platform.StackNbt.parse(player.registryAccess(), tag(player).getCompoundOrEmpty("Backpack"));
     }
     public static void setBackpack(Player player, ItemStack backpack) {
         ItemStack old = backpack(player);
@@ -30,22 +30,22 @@ public final class CollectorEquipmentData {
         CompoundTag data = tag(player);
         if (backpack.isEmpty()) data.remove("Backpack");
         else if (backpack.getItem() instanceof CollectorBackpackItem)
-            data.put("Backpack", backpack.saveOptional(player.registryAccess()));
+            data.put("Backpack", com.mdk.cosmetic.platform.StackNbt.save(backpack,player.registryAccess()));
         else return;
         store(player, data);
         if (visualChanged && player instanceof ServerPlayer server) syncVisual(server);
     }
     public static ItemStack fuel(Player player) {
-        return ItemStack.parseOptional(player.registryAccess(), tag(player).getCompound("FlightFuel"));
+        return com.mdk.cosmetic.platform.StackNbt.parse(player.registryAccess(), tag(player).getCompoundOrEmpty("FlightFuel"));
     }
     public static void setFuel(Player player, ItemStack stack) {
         CompoundTag data = tag(player);
         if (stack.isEmpty()) data.remove("FlightFuel");
-        else data.put("FlightFuel", stack.saveOptional(player.registryAccess()));
+        else data.put("FlightFuel", com.mdk.cosmetic.platform.StackNbt.save(stack,player.registryAccess()));
         store(player, data);
     }
-    public static int get(Player player, String setting) { return tag(player).getInt(setting); }
-    public static boolean flag(Player player, String setting) { return tag(player).getBoolean(setting); }
+    public static int get(Player player, String setting) { return tag(player).getIntOr(setting,0); }
+    public static boolean flag(Player player, String setting) { return tag(player).getBooleanOr(setting,false); }
     public static void set(Player player, String setting, int value) {
         CompoundTag data = tag(player);
         data.putInt(setting, value);
@@ -74,7 +74,7 @@ public final class CollectorEquipmentData {
         }
     }
     public static void copyTo(Player previous, Player next) {
-        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(previous).getCompound(KEY);
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(previous).getCompoundOrEmpty(KEY);
         if (!data.isEmpty()) com.mdk.cosmetic.platform.PersistentData.of(next).put(KEY, data.copy());
     }
 }

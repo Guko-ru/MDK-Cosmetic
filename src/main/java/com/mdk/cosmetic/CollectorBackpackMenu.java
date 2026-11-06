@@ -91,7 +91,7 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
                 : MDKCosmetic.COLLECTOR_BACKPACK_MENU.get(), id);
         this.equipped = equipped;
         this.playerInventory = inv;
-        backpack = equipped ? CollectorEquipmentData.backpack(inv.player) : inv.getItem(inv.selected);
+        backpack = equipped ? CollectorEquipmentData.backpack(inv.player) : inv.getItem(inv.getSelectedSlot());
         remote = CollectorBackpackData.linked(backpack);
         memory = remote && inv.player.getServer() != null ? CollectorBackpackData.remoteCore(backpack, inv.player.getServer()) : null;
         contents = new SimpleContainer(CAPACITY) {
@@ -195,8 +195,8 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
         for (int col = 0; col < 9; col++) {
             final int index = col;
             addSlot(new Slot(inv, col, 8 + col * 18, 208) {
-                @Override public boolean mayPickup(Player player) { return equipped || index != player.getInventory().selected; }
-                @Override public boolean mayPlace(ItemStack stack) { return equipped || index != playerInventory.selected; }
+                @Override public boolean mayPickup(Player player) { return equipped || index != player.getInventory().getSelectedSlot(); }
+                @Override public boolean mayPlace(ItemStack stack) { return equipped || index != playerInventory.getSelectedSlot(); }
             });
         }
 
@@ -209,7 +209,7 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
                 if (index == 4) return CollectorBackpackData.hasFilter(backpack, playerInventory.player.registryAccess()) ? 1 : 0;
                 if (index == 5) return CollectorBackpackData.hasMagnet(backpack, playerInventory.player.registryAccess()) ? 1 : 0;
                 if (index == 6) return CollectorBackpackData.capacity(backpack);
-                if (index == 7) return CollectorBackpackData.read(backpack).getBoolean("Exact") ? 1 : 0;
+                if (index == 7) return CollectorBackpackData.read(backpack).getBooleanOr("Exact",false) ? 1 : 0;
                 if (index == 8) return CollectorBackpackData.magnetEnabled(backpack) ? 1 : 0;
                 if (index == 9) return activeModule;
                 if (index == 10) return filterPage;
@@ -386,7 +386,7 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
         if (button >= 2 && button <= 4 && hasMagnet()) {
             if (button == 2) CollectorBackpackData.flag(backpack, "Whitelist", !CollectorBackpackData.whitelist(backpack));
             if (button == 3) CollectorBackpackData.flag(backpack, "MagnetEnabled", !CollectorBackpackData.magnetEnabled(backpack));
-            if (button == 4) CollectorBackpackData.flag(backpack, "Exact", !CollectorBackpackData.read(backpack).getBoolean("Exact"));
+            if (button == 4) CollectorBackpackData.flag(backpack, "Exact", !CollectorBackpackData.read(backpack).getBooleanOr("Exact",false));
             broadcastChanges();
             return true;
         }
@@ -441,7 +441,7 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
         CollectorBackpackData.saveUpgradeItems(upgraded, upgrades, player.registryAccess());
         // Filter configuration already lives in CUSTOM_DATA and is carried across the upgrade.
         if (equipped) CollectorEquipmentData.setBackpack(player, upgraded);
-        else player.getInventory().setItem(player.getInventory().selected, upgraded);
+        else player.getInventory().setItem(player.getInventory().getSelectedSlot(), upgraded);
         if (player instanceof ServerPlayer serverPlayer) {
             serverPlayer.closeContainer();
             serverPlayer.openMenu(new SimpleMenuProvider((id, inventory, p) -> new CollectorBackpackMenu(id, inventory, equipped),
@@ -622,7 +622,7 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
         if (equipped) {
             if (!player.level().isClientSide() && !ItemStack.isSameItemSameComponents(
                     CollectorEquipmentData.backpack(player), backpack)) return false;
-        } else if (player.getInventory().getItem(player.getInventory().selected) != backpack) return false;
+        } else if (player.getInventory().getItem(player.getInventory().getSelectedSlot()) != backpack) return false;
         if (!remote) return true;
         return player.getServer() != null && memory != null && CollectorBackpackData.remoteCore(backpack, player.getServer()) == memory;
     }

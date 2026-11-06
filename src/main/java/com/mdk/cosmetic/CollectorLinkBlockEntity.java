@@ -73,11 +73,11 @@ public final class CollectorLinkBlockEntity extends BaseContainerBlockEntity {
         items=NonNullList.withSize(3,ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag,items,registries);
         items.set(1,ItemStack.EMPTY);
-        int persisted=tag.getInt("CollectorTradeOffer");
-        int format=tag.getInt("CollectorOfferFormat");
+        int persisted=tag.getIntOr("CollectorTradeOffer",0);
+        int format=tag.getIntOr("CollectorOfferFormat",0);
         if (format>=3 && tag.contains("CollectorTradeOfferId")) {
             // Stable item identifiers: adding/removing offers cannot select a wrong item.
-            int found=CollectorOffers.indexOfId(tag.getString("CollectorTradeOfferId"));
+            int found=CollectorOffers.indexOfId(tag.getStringOr("CollectorTradeOfferId",""));
             persisted=found>=0 ? found : 0;
         } else if (format==2) {
             // The v1.18.30 catalogue had 5 exclusives, then 17 hats, then misc.
@@ -205,5 +205,9 @@ public final class CollectorLinkBlockEntity extends BaseContainerBlockEntity {
         } else {
             link.tradeTicks=TRADE_TICKS; // static filled bar until output is collected
         }
+    }
+    @Override public void preRemoveSideEffects(net.minecraft.core.BlockPos pos,net.minecraft.world.level.block.state.BlockState next){
+        if(level!=null&&!level.isClientSide()){dropInputs();}
+        super.preRemoveSideEffects(pos,next);
     }
 }

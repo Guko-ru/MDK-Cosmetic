@@ -30,7 +30,7 @@ public final class FoxFurShearing {
 
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(fox);
         long now = System.currentTimeMillis();
-        long next = data.getLong(NEXT_SHEAR_AT);
+        long next = data.getLongOr(NEXT_SHEAR_AT,0L);
         if (next > now && next - now <= COOLDOWN_MILLIS) {
             long seconds = (next-now + 999L)/1000L;
             event.getEntity().displayClientMessage(Component.translatable(

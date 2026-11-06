@@ -142,7 +142,7 @@ public final class Events {
         public ItemAttributeModifierEvent(ItemStack stack,ItemAttributeModifiers original){this.stack=stack;this.entries=new ArrayList<>(original.modifiers());}
         public ItemStack getItemStack(){return stack;}
         public void addModifier(Holder<Attribute> attribute,AttributeModifier modifier,EquipmentSlotGroup slot){entries.add(new ItemAttributeModifiers.Entry(attribute,modifier,slot));}
-        public ItemAttributeModifiers result(boolean show){return new ItemAttributeModifiers(List.copyOf(entries),show);}
+        public ItemAttributeModifiers result(boolean show){return new ItemAttributeModifiers(List.copyOf(entries));}
     }
     public static void dispatch(Object event){
         if(event instanceof EntityJoinLevelEvent value){

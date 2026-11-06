@@ -333,7 +333,7 @@ public final class MDKJeiPlugin implements IModPlugin {
                         mc.getItemRenderer().renderStatic(
                                 cell.item(), ItemDisplayContext.NONE,
                                 0x00F000F0, OverlayTexture.NO_OVERLAY,
-                                pose, graphics.bufferSource(), mc.level, 0);
+                                pose, mc.renderBuffers().bufferSource(), mc.level, 0);
                     } finally {
                         pose.popPose();
                     }

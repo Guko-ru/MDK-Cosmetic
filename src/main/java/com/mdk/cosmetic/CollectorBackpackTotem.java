@@ -20,7 +20,7 @@ public final class CollectorBackpackTotem {
                     : player.getInventory().getItem(inv);
             if (!(backpack.getItem() instanceof CollectorBackpackItem)) continue;
             if (!CollectorBackpackData.hasUpgradeItem(backpack, MDKCosmetic.COLLECTOR_BACKPACK_TOTEM.get(), player.registryAccess())) continue;
-            if (CollectorBackpackData.read(backpack).getBoolean("TotemDisabled")) continue;
+            if (CollectorBackpackData.read(backpack).getBooleanOr("TotemDisabled",false)) continue;
             boolean consumed = false;
             if (CollectorBackpackData.linked(backpack)) {
                 CollectorMemoryCoreBlockEntity memory = CollectorBackpackData.remoteCore(backpack, player.getServer());

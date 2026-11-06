@@ -13,7 +13,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 /** One persistent realm ID per Memory identity; separate plots inside one empty dimension.
  * Minecraft dimension registries are frozen at server startup, hence individual regions
  * are preferable to trying to register a ServerLevel for every block in multiplayer. */
-public final class CollectorVoidInstances extends SavedData {
+public final class CollectorVoidInstances extends SavedData implements com.mdk.cosmetic.platform.LegacySavedData {
     private static final String STORAGE_ID = "mdk_collector_void_instances";
     public static final int SPACING = 1024;
     private final Map<UUID, Integer> slots = new HashMap<>();
@@ -22,7 +22,7 @@ public final class CollectorVoidInstances extends SavedData {
 
     public static CollectorVoidInstances get(ServerLevel voidLevel) {
         return voidLevel.getDataStorage().computeIfAbsent(
-                new SavedData.Factory<>(CollectorVoidInstances::new, CollectorVoidInstances::load, null), STORAGE_ID);
+                com.mdk.cosmetic.platform.SavedDataTypes.create(STORAGE_ID, CollectorVoidInstances::new, CollectorVoidInstances::load));
     }
 
     public int reserve(UUID id) {
@@ -61,16 +61,16 @@ public final class CollectorVoidInstances extends SavedData {
 
     private static CollectorVoidInstances load(CompoundTag tag, HolderLookup.Provider provider) {
         CollectorVoidInstances state = new CollectorVoidInstances();
-        state.nextSlot = tag.getInt("NextSlot");
-        ListTag entries = tag.getList("Realms", 10);
+        state.nextSlot = tag.getIntOr("NextSlot",0);
+        ListTag entries = tag.getListOrEmpty("Realms");
         for (int i = 0; i < entries.size(); i++) {
-            CompoundTag e = entries.getCompound(i);
-            if (e.hasUUID("Id")) state.slots.put(e.getUUID("Id"), e.getInt("Slot"));
+            CompoundTag e = entries.getCompoundOrEmpty(i);
+            if (e.read("Id",net.minecraft.core.UUIDUtil.CODEC).isPresent()) state.slots.put(e.read("Id",net.minecraft.core.UUIDUtil.CODEC).orElseThrow(), e.getIntOr("Slot",0));
         }
-        ListTag welcomed = tag.getList("Welcomed", 10);
+        ListTag welcomed = tag.getListOrEmpty("Welcomed");
         for (int i = 0; i < welcomed.size(); i++) {
-            CompoundTag e = welcomed.getCompound(i);
-            if (e.hasUUID("Id")) state.welcomed.add(e.getUUID("Id"));
+            CompoundTag e = welcomed.getCompoundOrEmpty(i);
+            if (e.read("Id",net.minecraft.core.UUIDUtil.CODEC).isPresent()) state.welcomed.add(e.read("Id",net.minecraft.core.UUIDUtil.CODEC).orElseThrow());
         }
         return state;
     }
@@ -80,7 +80,7 @@ public final class CollectorVoidInstances extends SavedData {
         ListTag entries = new ListTag();
         for (var e : slots.entrySet()) {
             CompoundTag entry = new CompoundTag();
-            entry.putUUID("Id", e.getKey());
+            entry.store("Id",net.minecraft.core.UUIDUtil.CODEC,e.getKey());
             entry.putInt("Slot", e.getValue());
             entries.add(entry);
         }
@@ -88,7 +88,7 @@ public final class CollectorVoidInstances extends SavedData {
         ListTag firstVisits = new ListTag();
         for (UUID id : welcomed) {
             CompoundTag entry = new CompoundTag();
-            entry.putUUID("Id", id);
+            entry.store("Id",net.minecraft.core.UUIDUtil.CODEC,id);
             firstVisits.add(entry);
         }
         tag.put("Welcomed", firstVisits);

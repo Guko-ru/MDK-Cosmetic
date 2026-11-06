@@ -8,7 +8,8 @@
   "client": [
     "CameraEffectsMixin",
     "EquipmentRenderStateMixin",
-    "EquipmentExtractionMixin"
+    "EquipmentExtractionMixin",
+    "UnoRendererDispatchMixin"
   ],
   "minVersion": "0.8"
 }
