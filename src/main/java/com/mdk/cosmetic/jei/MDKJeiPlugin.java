@@ -313,53 +313,31 @@ public final class MDKJeiPlugin implements IModPlugin {
         }
 
         private void renderRigidModel(JeiData.Structure recipe, GuiGraphics graphics, int size) {
-            Minecraft mc = Minecraft.getInstance();
-            var pose = graphics.pose();
-            graphics.flush();
-            pose.pushPose();
-            try {
-                pose.translate(83.0, 77.0, 280.0);
-                pose.mulPose(Axis.XP.rotationDegrees(elevation));
-                pose.mulPose(Axis.YP.rotationDegrees(angle));
-                float unit = (size == 3 ? 20.0f : 12.0f) * zoom;
-                pose.scale(unit, -unit, unit);
-                for (JeiData.Cell cell : recipe.cells()) {
-                    if (visibleLayers > 0 && cell.y() + size / 2 + 1 > visibleLayers) continue;
-                    if (onlyNew && recipe.upgrade() && cell.original()) continue;
-                    if (cell.item().isEmpty()) continue;
-                    pose.pushPose();
-                    try {
-                        pose.translate(cell.x(), cell.y(), cell.z());
-                        mc.getItemRenderer().renderStatic(
-                                cell.item(), ItemDisplayContext.NONE,
-                                0x00F000F0, OverlayTexture.NO_OVERLAY,
-                                pose, mc.renderBuffers().bufferSource(), mc.level, 0);
-                    } finally {
-                        pose.popPose();
-                    }
-                }
-                graphics.flush();
-            } finally {
-                pose.popPose();
+            var cells=new java.util.ArrayList<com.mdk.cosmetic.client.MultiblockPreview.Cell>();
+            for(var cell:recipe.cells()){
+                if(visibleLayers>0&&cell.y()+size/2+1>visibleLayers)continue;
+                if(onlyNew&&recipe.upgrade()&&cell.original())continue;
+                if(!cell.item().isEmpty())cells.add(new com.mdk.cosmetic.client.MultiblockPreview.Cell(cell.x(),cell.y(),cell.z(),cell.item().copy()));
             }
+            com.mdk.cosmetic.client.MultiblockPreview.submit(graphics,cells,angle,elevation,(size==3?20F:12F)*zoom);
         }
 
         private void renderLegacyIcons(JeiData.Structure recipe, GuiGraphics graphics, int size) {
             final float iconSize = (size == 3 ? 21f : 15f) * zoom;
-            graphics.flush();
+            graphics.nextStratum();
             for (ScreenCell projected : projectCells(recipe, size)) {
                 float left = (float)(projected.x() - iconSize * 0.5f);
                 float top = (float)(projected.y() - iconSize * 0.5f);
                 if (left < 5 || top < 20 || left + iconSize > 161 || top + iconSize > 134) continue;
                 var pose = graphics.pose();
-                pose.pushPose();
+                pose.pushMatrix();
                 try {
-                    pose.translate(left, top, 0);
-                    pose.scale(iconSize / 16f, iconSize / 16f, 1);
+                    pose.translate(left, top);
+                    pose.scale(iconSize / 16f, iconSize / 16f);
                     graphics.renderItem(projected.cell().item(), 0, 0);
-                } finally { pose.popPose(); }
+                } finally { pose.popMatrix(); }
             }
-            graphics.flush();
+            graphics.nextStratum();
         }
 
         private void drawSelectionPanel(GuiGraphics graphics, double mx, double my, JeiData.Structure recipe) {
@@ -376,7 +354,7 @@ public final class MDKJeiPlugin implements IModPlugin {
             String label = font.plainSubstrByWidth(selectedStack.getHoverName().getString(), 42);
             graphics.drawString(font, label, 31, 31, 0xFFF0E6FF, false);
             if (hit(mx, my, 11, 25, 27, 41)) {
-                graphics.renderTooltip(font, selectedStack, (int)mx, (int)my);
+                graphics.setTooltipForNextFrame(font, selectedStack, (int)mx, (int)my);
             }
 
             if (selectedCell != null) {

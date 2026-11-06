@@ -1,12 +1,12 @@
 {
   "loader": "Fabric",
-  "minecraft": "1.21.6",
+  "minecraft": "1.21.7",
   "loader_build": "0.20.1",
   "mod_version": "1.18.78",
   "java": 21,
-  "artifact": "MDK-Cosmetic-1.21.6-Fabric-1.18.78.jar",
-  "sha256": "e2cd421726566c99cd854523fadf22026472e5c8c48e7d17987cc65b8bb4054d",
-  "fabric_api": "0.128.2+1.21.6",
+  "artifact": "MDK-Cosmetic-1.21.7-Fabric-1.18.78.jar",
+  "sha256": "91a6f7b546667e99b75aad540a2cee2940507c549f438495b5dbb4b6dd77c0f1",
+  "fabric_api": "0.129.0+1.21.7",
   "validation": {
     "required_game_tests_passed": 9,
     "recipes_loaded": 1668,
@@ -16,6 +16,7 @@
     "neoforge_class_references": 0,
     "interface_unicode_verified": true,
     "custom_hats_without_vanilla_helmet_cube": true,
+    "multiblock_preview_3d": "27 real item models rendered through native picture-in-picture GUI",
     "collector_regressions": {
       "machine_tiers": [
         1,

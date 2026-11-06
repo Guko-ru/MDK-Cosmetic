@@ -16,6 +16,7 @@ import com.mdk.cosmetic.client.ClientEvents.RegisterMenuScreensEvent;
 public final class FoxHatClient implements net.fabricmc.api.ClientModInitializer {
     @Override public void onInitializeClient() {
         CreativeTabsShortcut.initialize();
+        MultiblockPreview.initialize();
         registerClientExtensions(new ClientEvents.RegisterClientExtensionsEvent());
         CosmeticItemTints.initialize();
         registerItemColors(new ClientEvents.RegisterColorHandlersEvent.Item());

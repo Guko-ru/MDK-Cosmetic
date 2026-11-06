@@ -6,7 +6,7 @@ This repository contains the source code, game assets, and editable Blockbench m
 
 MDK Cosmetic is free to play. Ordinary gameplay, free modpacks containing unmodified official files, and gameplay content creation (including monetized videos and streams) are permitted under the terms of the License. Commercial distribution of the mod itself and public distribution of modified versions require prior written permission from MDK.
 
-**Version:** 1.18.78 · **Minecraft:** 1.21.6 · **Loader:** Fabric Loader 0.20.1 · **Fabric API:** 0.128.2+1.21.6.
+**Version:** 1.18.78 · **Minecraft:** 1.21.7 · **Loader:** Fabric Loader 0.20.1 · **Fabric API:** 0.129.0+1.21.7.
 
 The source code is publicly available under the custom **MDK Cosmetic Non-Commercial License 1.1**. Public source availability does not remove the restrictions in the License; this is not an open-source license.
 
