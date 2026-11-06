@@ -95,7 +95,7 @@ public final class CollectorVoidPortalController {
         if (memory == null) return;
         ServerLevel destination = origin.getServer().getLevel(VOID);
         if (destination == null) {
-            player.displayClientMessage(Component.translatable("message.mdkcosmetic.void_unavailable"), true);
+            player.sendOverlayMessage(Component.translatable("message.mdkcosmetic.void_unavailable"));
             return;
         }
         UUID id = memory.identity();

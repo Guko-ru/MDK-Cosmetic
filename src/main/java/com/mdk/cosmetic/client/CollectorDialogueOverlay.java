@@ -4,7 +4,7 @@ import java.util.List;
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import com.mdk.cosmetic.client.ClientEvents.RenderGuiEvent;
@@ -28,7 +28,7 @@ public final class CollectorDialogueOverlay {
         Minecraft mc=Minecraft.getInstance();
         if(mc.player==null || mc.options.hideGui)return;
         Font font=mc.font;
-        GuiGraphics g=event.getGuiGraphics();
+        GuiGraphicsExtractor g=event.getGuiGraphics();
         final float scale=0.85F;
         int screenWidth=mc.getWindow().getGuiScaledWidth();
         int screenHeight=mc.getWindow().getGuiScaledHeight();
@@ -41,7 +41,7 @@ public final class CollectorDialogueOverlay {
         int x=(int)(screenWidth/(scale*2F));
         int y=(int)(screenHeight/(scale*2F))-(lines.size()*12)/2;
         for(FormattedCharSequence line:lines) {
-            g.drawCenteredString(font,line,x,y,argb);
+            g.centeredText(font,line,x,y,argb);
             y+=12;
         }
         g.pose().popMatrix();

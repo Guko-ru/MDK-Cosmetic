@@ -3,12 +3,12 @@ import java.util.List;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.math.Axis;
-import net.fabricmc.fabric.api.client.rendering.v1.SpecialGuiElementRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.PictureInPictureRendererRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
-import net.minecraft.client.gui.render.state.pip.PictureInPictureRenderState;
+import net.minecraft.client.renderer.state.gui.pip.PictureInPictureRenderState;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -17,8 +17,8 @@ import org.joml.Matrix3x2f;
 /** Renders a real 3D scene inside the deferred GUI pipeline, including depth-tested item models. */
 public final class MultiblockPreview {
  public record Cell(int x,int y,int z,ItemStack item) {}
- public static void initialize(){SpecialGuiElementRegistry.register(context->new Renderer(context.vertexConsumers()));}
- public static void submit(GuiGraphics graphics,List<Cell> cells,float yaw,float elevation,float unit){graphics.guiRenderState.submitPicturesInPictureState(new State(List.copyOf(cells),yaw,elevation,unit,new Matrix3x2f(graphics.pose()),graphics.scissorStack.peek()));}
+ public static void initialize(){PictureInPictureRendererRegistry.register(context->new Renderer(context.bufferSource()));}
+ public static void submit(GuiGraphicsExtractor graphics,List<Cell> cells,float yaw,float elevation,float unit){graphics.guiRenderState.addPicturesInPictureState(new State(List.copyOf(cells),yaw,elevation,unit,new Matrix3x2f(graphics.pose()),graphics.scissorStack.peek()));}
  public record State(List<Cell> cells,float yaw,float elevation,float unit,Matrix3x2f pose,ScreenRectangle scissorArea) implements PictureInPictureRenderState {
   public int x0(){return 0;}public int y0(){return 0;}public int x1(){return 166;}public int y1(){return 160;}public float scale(){return 1F;}
   public ScreenRectangle bounds(){var bounds=new ScreenRectangle(0,0,166,160).transformMaxBounds(pose);return scissorArea==null?bounds:bounds.intersection(scissorArea);}

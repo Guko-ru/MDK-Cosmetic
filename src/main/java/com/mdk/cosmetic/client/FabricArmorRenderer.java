@@ -8,7 +8,7 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.entity.ItemRenderer;
+
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,7 +33,7 @@ public final class FabricArmorRenderer implements ArmorRenderer {
         }
         ((HumanoidModel)selected).setupAnim(entity);
         selected.head.loadPose(context.head.storePose());selected.hat.loadPose(context.hat.storePose());selected.body.loadPose(context.body.storePose());selected.leftArm.loadPose(context.leftArm.storePose());selected.rightArm.loadPose(context.rightArm.storePose());selected.leftLeg.loadPose(context.leftLeg.storePose());selected.rightLeg.loadPose(context.rightLeg.storePose());
-        selected.setAllVisible(false);
+        com.mdk.cosmetic.client.ModelVisibility.set(selected,false);
         switch(slot){
             case HEAD -> {selected.head.visible=true;selected.hat.visible=true;}
             case CHEST -> {selected.body.visible=true;selected.leftArm.visible=true;selected.rightArm.visible=true;}

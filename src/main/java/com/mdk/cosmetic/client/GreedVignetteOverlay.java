@@ -2,7 +2,7 @@ package com.mdk.cosmetic.client;
 
 import com.mdk.cosmetic.MDKCosmetic;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import com.mdk.cosmetic.client.ClientEvents.RenderGuiEvent;
 
 /** Very subtle (about ten percent) blood-red screen vignette while Greed is active. */
@@ -11,7 +11,7 @@ public final class GreedVignetteOverlay {
     public static void onRenderGui(RenderGuiEvent.Post event) {
         Minecraft mc=Minecraft.getInstance();
         if(mc.player==null || mc.options.hideGui || !mc.player.hasEffect(MDKCosmetic.GREED_AURA.holder())) return;
-        GuiGraphics g=event.getGuiGraphics();
+        GuiGraphicsExtractor g=event.getGuiGraphics();
         int w=mc.getWindow().getGuiScaledWidth(),h=mc.getWindow().getGuiScaledHeight();
         // Soft transparent tint (8% alpha) plus stronger edges.
         g.fill(0,0,w,h,0x11A51B29);

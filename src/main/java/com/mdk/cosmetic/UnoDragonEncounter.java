@@ -35,14 +35,14 @@ public final class UnoDragonEncounter {
         boolean placed=false;
         for(int radius=4;radius<=20 && !placed;radius+=2) {
             for(int i=0;i<14;i++) {
-                double a=level.random.nextDouble()*Math.PI*2D;
+                double a=level.getRandom().nextDouble()*Math.PI*2D;
                 double x=target.getX()+Math.cos(a)*radius;
                 double z=target.getZ()+Math.sin(a)*radius;
                 for(int offset=2;offset>=-5;offset--) {
                     double y=Math.floor(target.getY())+offset;
                     BlockPos feet=BlockPos.containing(x,y,z);
                     if(!level.hasChunkAt(feet) || !level.getBlockState(feet.below()).blocksMotion()) continue;
-                    uno.snapTo(x,y,z,level.random.nextFloat()*360F,0F);
+                    uno.snapTo(x,y,z,level.getRandom().nextFloat()*360F,0F);
                     if(level.noCollision(uno,uno.getBoundingBox())
                             && uno.getBoundingBox().maxY<=level.getMaxY()) {
                         placed=true;
@@ -56,15 +56,15 @@ public final class UnoDragonEncounter {
         // End-stone surface nearby instead of waiting for them to touch the ground.
         if (!placed) {
             for (int i=0;i<40;i++) {
-                double a=level.random.nextDouble()*Math.PI*2.0D;
-                double radius=5.0D+level.random.nextDouble()*15.0D;
+                double a=level.getRandom().nextDouble()*Math.PI*2.0D;
+                double radius=5.0D+level.getRandom().nextDouble()*15.0D;
                 double x=target.getX()+Math.cos(a)*radius;
                 double z=target.getZ()+Math.sin(a)*radius;
                 int ix=(int)Math.floor(x),iz=(int)Math.floor(z);
                 int y=level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,ix,iz);
                 BlockPos feet=new BlockPos(ix,y,iz);
                 if (!level.hasChunkAt(feet) || !level.getBlockState(feet.below()).blocksMotion()) continue;
-                uno.snapTo(x,y,z,level.random.nextFloat()*360F,0F);
+                uno.snapTo(x,y,z,level.getRandom().nextFloat()*360F,0F);
                 if (level.noCollision(uno,uno.getBoundingBox())) { placed=true;break; }
             }
         }

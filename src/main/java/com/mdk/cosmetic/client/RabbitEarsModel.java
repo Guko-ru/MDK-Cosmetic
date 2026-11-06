@@ -14,7 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 public final class RabbitEarsModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public RabbitEarsModel() {
         super(createLayer().bakeRoot());
-        setAllVisible(false);
+        com.mdk.cosmetic.client.ModelVisibility.set(this,false);
         head.visible = true;
     }
     private static LayerDefinition createLayer() {

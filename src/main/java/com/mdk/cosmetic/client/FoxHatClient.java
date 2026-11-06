@@ -25,12 +25,12 @@ public final class FoxHatClient implements net.fabricmc.api.ClientModInitializer
         CollectorSoulClient.layers(new ClientEvents.EntityRenderersEvent.RegisterLayerDefinitions());
         CollectorSoulClient.renderers(new ClientEvents.EntityRenderersEvent.RegisterRenderers());
         FabricNetworking.initialize();
-        net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback.EVENT.register((type,renderer,helper,context)-> {
+        net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegistrationCallback.EVENT.register((type,renderer,helper,context)-> {
             if(renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer)registerPlayerHelmetLayers(new ClientEvents.EntityRenderersEvent.AddLayers(renderer));
         });
         net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(client->CollectorEquipmentKeys.onTick(new ClientEvents.ClientTickEvent.Post()));
         net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack,context,type,lines)->CosmeticHatTooltip.onTooltip(new ClientEvents.ItemTooltipEvent(stack,lines)));
-        net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback.EVENT.register((graphics,delta)-> {
+        net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry.addLast(net.minecraft.resources.Identifier.fromNamespaceAndPath("mdkcosmetic","overlays"),(graphics,delta)-> {
             var event=new ClientEvents.RenderGuiEvent.Post(graphics);
             CollectorDialogueOverlay.onRenderGui(event);
             GreedVignetteOverlay.onRenderGui(event);

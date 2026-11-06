@@ -31,12 +31,12 @@ public final class CollectorSoulWorldEvents {
                 BlockPos pos=player.blockPosition();
                 StructureStart start=level.structureManager().getStructureWithPieceAt(pos,city);
                 if (!start.isValid()) continue;
-                String id=level.dimension().identifier()+":"+start.getChunkPos().x+":"+start.getChunkPos().z;
+                String id=level.dimension().identifier()+":"+start.getChunkPos().x()+":"+start.getChunkPos().z();
                 if (data.contains(id)) continue;
                 // Prefer a nearby safe air space inside the actual structure.
                 for (int attempt=0;attempt<48;attempt++) {
-                    int dx=level.random.nextInt(29)-14, dy=level.random.nextInt(11)-5;
-                    int dz=level.random.nextInt(29)-14;
+                    int dx=level.getRandom().nextInt(29)-14, dy=level.getRandom().nextInt(11)-5;
+                    int dz=level.getRandom().nextInt(29)-14;
                     BlockPos dest=pos.offset(dx,dy,dz);
                     if (!level.hasChunkAt(dest) || !level.getBlockState(dest).isAir()) continue;
                     if (!level.getBlockState(dest.above()).isAir()) continue;
@@ -44,7 +44,7 @@ public final class CollectorSoulWorldEvents {
                     CollectorSoulEntity soul=MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
                     if (soul==null) break;
                     soul.snapTo(dest.getX()+0.5,dest.getY()+0.25,dest.getZ()+0.5,
-                            level.random.nextFloat()*360,0.0F);
+                            level.getRandom().nextFloat()*360,0.0F);
                     if (!level.noCollision(soul,soul.getBoundingBox())) continue;
                     if (level.addFreshEntity(soul)) data.claim(id);
                     break;

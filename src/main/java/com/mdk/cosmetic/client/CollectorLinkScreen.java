@@ -7,13 +7,13 @@ import com.mdk.cosmetic.CollectorOffers;
 import java.util.Locale;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import com.mdk.cosmetic.platform.Networking;
@@ -39,9 +39,9 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
     private record SearchEntry(String id, String name) { }
 
     public CollectorLinkScreen(CollectorLinkMenu menu, Inventory playerInv, Component title) {
-        super(menu, playerInv, title);
-        imageWidth = W;
-        imageHeight = H;
+        super(menu,playerInv,title,W,H);
+        
+        
         inventoryLabelX = 61;
         inventoryLabelY = 196;
     }
@@ -84,7 +84,7 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         return super.keyPressed(mdk$key);
     }
 
-    @Override public boolean charTyped(net.minecraft.client.input.CharacterEvent mdk$character){char codePoint=(char)mdk$character.codepoint();int modifiers=mdk$character.modifiers();
+    @Override public boolean charTyped(net.minecraft.client.input.CharacterEvent mdk$character){char codePoint=(char)mdk$character.codepoint();int modifiers=0;
         if (search != null && search.isFocused()) {
             search.charTyped(mdk$character);
             return true;
@@ -116,18 +116,18 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         Networking.sendToServer(new CollectorMemoryQueryPayload(menu.containerId, value, ids.toString()));
     }
 
-    private void rect(GuiGraphics g, int x, int y, int w, int h, int color) {
+    private void rect(GuiGraphicsExtractor g, int x, int y, int w, int h, int color) {
         g.fill(leftPos + x, topPos + y, leftPos + x + w, topPos + y + h, color);
     }
-    private void border(GuiGraphics g, int x, int y, int w, int h, int color) {
+    private void border(GuiGraphicsExtractor g, int x, int y, int w, int h, int color) {
         rect(g, x, y, w, 1, color); rect(g, x, y + h - 1, w, 1, color);
         rect(g, x, y, 1, h, color); rect(g, x + w - 1, y, 1, h, color);
     }
-    private void slotBg(GuiGraphics g, int x, int y) {
+    private void slotBg(GuiGraphicsExtractor g, int x, int y) {
         rect(g, x - 1, y - 1, 18, 18, 0xFF8566A4);
         rect(g, x, y, 16, 16, 0xFF231829);
     }
-    private void tab(GuiGraphics g, int x, int y, int w, int h, boolean active) {
+    private void tab(GuiGraphicsExtractor g, int x, int y, int w, int h, boolean active) {
         rect(g, x, y, w, h, active ? 0xFF71459A : 0xFF422B58);
         border(g, x, y, w, h, active ? 0xFFE4B1FF : 0xFF9266AC);
         rect(g, x + 4, y + 4, w - 8, 1, active ? 0xFFBF83DE : 0xFF674B7B);
@@ -176,9 +176,9 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
             int col = (x - STORE_X) / 18, row = (y - STORE_Y) / 18;
             if ((x - STORE_X) % 18 < 16 && (y - STORE_Y) % 18 < 16
                     && minecraft != null && minecraft.gameMode != null && minecraft.player != null) {
-                minecraft.gameMode.handleInventoryMouseClick(menu.containerId,
+                minecraft.gameMode.handleContainerInput(menu.containerId,
                         CollectorLinkMenu.MEMORY_START + row * CollectorLinkMenu.MEMORY_COLUMNS + col,
-                        button, button == 0 && net.minecraft.client.Minecraft.getInstance().hasShiftDown() ? ClickType.QUICK_MOVE : ClickType.PICKUP,
+                        button, button == 0 && net.minecraft.client.Minecraft.getInstance().hasShiftDown() ? ContainerInput.QUICK_MOVE : ContainerInput.PICKUP,
                         minecraft.player);
                 return true;
             }
@@ -223,7 +223,7 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         return super.mouseScrolled(mouseX / uiScale, mouseY / uiScale, scrollX, scrollY);
     }
 
-    @Override protected void renderBg(GuiGraphics g, float partial, int mouseX, int mouseY) {
+    private void renderMachineBackground(GuiGraphicsExtractor g, float partial, int mouseX, int mouseY) {
         rect(g, 0, 0, W, H, 0xFF15101D);
         border(g, 0, 0, W, H, 0xFF784E9B);
         rect(g, 5, 5, W - 10, H - 10, 0xFF261C32);
@@ -284,23 +284,23 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         }
     }
 
-    @Override protected void renderLabels(GuiGraphics g, int mx, int my) {
-        g.drawCenteredString(font, title, imageWidth / 2, 7, 0xFFE9C8FB);
-        g.drawCenteredString(font, Component.translatable("screen.mdkcosmetic.exclusive"), 100, 36, 0xFFF2D6FF);
-        g.drawCenteredString(font, Component.translatable("screen.mdkcosmetic.misc"), 236, 36, 0xFFF2D6FF);
-        g.drawString(font, Component.translatable("screen.mdkcosmetic.stress"), 306, 27, 0xFFE6CBF6, false);
-        g.drawString(font, menu.getStress() + "%", 530, 27, 0xFFFAEEFF, false);
-        g.drawString(font, Component.translatable("container.inventory"), 61, 196, 0xFFD6BBEA, false);
+    @Override protected void extractLabels(GuiGraphicsExtractor g, int mx, int my) {
+        g.centeredText(font, title, imageWidth / 2, 7, 0xFFE9C8FB);
+        g.centeredText(font, Component.translatable("screen.mdkcosmetic.exclusive"), 100, 36, 0xFFF2D6FF);
+        g.centeredText(font, Component.translatable("screen.mdkcosmetic.misc"), 236, 36, 0xFFF2D6FF);
+        g.text(font, Component.translatable("screen.mdkcosmetic.stress"), 306, 27, 0xFFE6CBF6, false);
+        g.text(font, menu.getStress() + "%", 530, 27, 0xFFFAEEFF, false);
+        g.text(font, Component.translatable("container.inventory"), 61, 196, 0xFFD6BBEA, false);
         if (menu.isMemoryReady()) {
-            g.drawString(font, Component.translatable("screen.mdkcosmetic.memory"), 310, 78, 0xFFE8CCFC, false);
-            g.drawString(font, Integer.toString(menu.getMemoryTotal()), 524, 78, 0xFFC19AD7, false);
-            g.drawString(font, Component.translatable("screen.mdkcosmetic.crafting"), 310, 188, 0xFFE8CCFC, false);
-            g.drawString(font, Component.translatable("screen.mdkcosmetic.smelting_no_fuel"), 439, 188, 0xFFE8CCFC, false);
+            g.text(font, Component.translatable("screen.mdkcosmetic.memory"), 310, 78, 0xFFE8CCFC, false);
+            g.text(font, Integer.toString(menu.getMemoryTotal()), 524, 78, 0xFFC19AD7, false);
+            g.text(font, Component.translatable("screen.mdkcosmetic.crafting"), 310, 188, 0xFFE8CCFC, false);
+            g.text(font, Component.translatable("screen.mdkcosmetic.smelting_no_fuel"), 439, 188, 0xFFE8CCFC, false);
         } else {
-            g.drawCenteredString(font, Component.translatable("screen.mdkcosmetic.memory_locked"), 446, 128, 0xFFCAA9D9);
+            g.centeredText(font, Component.translatable("screen.mdkcosmetic.memory_locked"), 446, 128, 0xFFCAA9D9);
         }
         if (!menu.isActive())
-            g.drawCenteredString(font, Component.translatable("screen.mdkcosmetic.structure_required"), 147, 168, 0xFFFF9A9A);
+            g.centeredText(font, Component.translatable("screen.mdkcosmetic.structure_required"), 147, 168, 0xFFFF9A9A);
     }
 
     private static String compactCount(long count) {
@@ -313,35 +313,35 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
     /** Shop items are drawn on top of the slots and strictly clipped to each icon.
      *  Some detailed item models are physically larger than a vanilla GUI sprite.
      *  Clipping prevents geometry from spilling over nearby buttons and inventory. */
-    private void renderShopIcons(GuiGraphics g) {
+    private void renderShopIcons(GuiGraphicsExtractor g) {
         for (int row = 0; row < SHOP_ROWS; row++) for (int col = 0; col < SHOP_COLS; col++) {
             int offer = CollectorOffers.indexAt(category, (offerRow + row) * SHOP_COLS + col);
             if (offer < 0) continue;
             int x = SHOP_X + col * SHOP_DX + 6;
             int y = SHOP_Y + row * SHOP_DY + 3;
             clipItemStart(g, x, y);
-            g.renderItem(CollectorOffers.preview(offer), leftPos + x, topPos + y);
+            g.item(CollectorOffers.preview(offer), leftPos + x, topPos + y);
             g.disableScissor();
         }
     }
 
-    /** Since 1.21.4, GuiGraphics transforms the scissor by the current GUI pose. */
-    private void clipItemStart(GuiGraphics g,int localX,int localY){
+    /** Since 1.21.4, GuiGraphicsExtractor transforms the scissor by the current GUI pose. */
+    private void clipItemStart(GuiGraphicsExtractor g,int localX,int localY){
         g.enableScissor(leftPos+localX,topPos+localY,leftPos+localX+16,topPos+localY+16);
     }
 
-    @Override protected void renderSlot(GuiGraphics g, net.minecraft.world.inventory.Slot slot,int mouseX,int mouseY) {
+    @Override protected void extractSlot(GuiGraphicsExtractor g, net.minecraft.world.inventory.Slot slot,int mouseX,int mouseY) {
         // Only the virtual 12x4 memory grid needs clipping. Its slot preview can
         // contain oversized animated 3D items (e.g. the Collector sword).
         boolean memoryCell = menu.isMemoryReady()
                 && slot.x >= STORE_X && slot.x < STORE_X + CollectorLinkMenu.MEMORY_COLUMNS * 18
                 && slot.y >= STORE_Y && slot.y < STORE_Y + CollectorLinkMenu.MEMORY_ROWS * 18;
         if (memoryCell) g.enableScissor(slot.x,slot.y,slot.x+16,slot.y+16);
-        super.renderSlot(g, slot,mouseX,mouseY);
+        super.extractSlot(g, slot,mouseX,mouseY);
         if (memoryCell) g.disableScissor();
     }
 
-    private void renderMemoryCounts(GuiGraphics g) {
+    private void renderMemoryCounts(GuiGraphicsExtractor g) {
         if (!menu.isMemoryReady()) return;
         // Render AFTER vanilla slots. Otherwise the item sprites cover count labels.
         g.pose().pushMatrix();
@@ -352,22 +352,22 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
             String label = compactCount(count);
             int x = leftPos + STORE_X + (i % CollectorLinkMenu.MEMORY_COLUMNS) * 18;
             int y = topPos + STORE_Y + (i / CollectorLinkMenu.MEMORY_COLUMNS) * 18;
-            g.drawString(font, label, x + 17 - font.width(label), y + 10, 0xFFFFE8FF, true);
+            g.text(font, label, x + 17 - font.width(label), y + 10, 0xFFFFE8FF, true);
         }
         g.pose().popMatrix();
     }
 
     // mdk: unified scaled canvas; native background callbacks must not draw it a second time.
-    @Override public void renderBackground(GuiGraphics graphics,int mouseX,int mouseY,float partial) {}
+    @Override public void extractBackground(GuiGraphicsExtractor graphics,int mouseX,int mouseY,float partial) {}
 
-    @Override public void render(GuiGraphics g, int mx, int my, float partial) {
+    @Override public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float partial) {
         // Keep the vignette behind everything at the real GUI resolution.
-        renderTransparentBackground(g);
+        extractTransparentBackground(g);
         g.pose().pushMatrix();
         g.pose().scale(uiScale,uiScale);
         int logicalX = (int)(mx / uiScale), logicalY = (int)(my / uiScale);
-        renderBg(g,partial,logicalX,logicalY);
-        super.render(g, logicalX, logicalY, partial);
+        renderMachineBackground(g,partial,logicalX,logicalY);
+        super.extractRenderState(g, logicalX, logicalY, partial);
         renderShopIcons(g);
         renderMemoryCounts(g);
         int offer = hoveredOffer(logicalX - leftPos, logicalY - topPos);
@@ -375,7 +375,7 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
             ItemStack product = CollectorOffers.preview(offer);
             g.setTooltipForNextFrame(font, Component.translatable("screen.mdkcosmetic.offer_price",
                     product.getHoverName().copy(), product.getCount(), CollectorOffers.cost(offer)), logicalX, logicalY);
-        } else renderTooltip(g, logicalX, logicalY);
+        } else extractTooltip(g, logicalX, logicalY);
         g.pose().popMatrix();
     }
 }

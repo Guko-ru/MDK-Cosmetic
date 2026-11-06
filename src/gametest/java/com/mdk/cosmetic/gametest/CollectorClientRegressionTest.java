@@ -5,7 +5,7 @@ import com.mdk.cosmetic.client.*;
 import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
-import net.fabricmc.fabric.api.client.itemgroup.v1.FabricCreativeInventoryScreen;
+import net.fabricmc.fabric.api.client.creativetab.v1.FabricCreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.core.BlockPos;
@@ -50,7 +50,8 @@ public final class CollectorClientRegressionTest implements FabricClientGameTest
  }
  @Override public void runTest(ClientGameTestContext context){
   try(var world=context.worldBuilder().create()){
-   world.getClientWorld().waitForChunksRender();
+   world.getClientLevel().waitForChunksRender();
+   ClientStartupSmoke.runInWorld(context);
    world.getServer().runOnServer(server->{
     var p=server.getPlayerList().getPlayers().getFirst();var level=p.level();p.setGameMode(GameType.CREATIVE);p.setInvulnerable(true);p.teleportTo(.5,100,-3.5);
     for(int x=-4;x<=4;x++)for(int z=-7;z<=-3;z++)level.setBlock(new BlockPos(x,99,z),net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
@@ -62,7 +63,7 @@ public final class CollectorClientRegressionTest implements FabricClientGameTest
    });context.waitTicks(35);openLink(context,world);
    int[][] windows={{854,480,2},{1280,720,3},{1920,1080,4},{854,480,1}};
    for(int[] window:windows){
-    context.getInput().resizeWindow(window[0],window[1]);context.runOnClient(client->{client.options.guiScale().set(window[2]);client.resizeDisplay();});context.waitTicks(5);
+    context.getInput().resizeWindow(window[0],window[1]);context.runOnClient(client->{client.options.guiScale().set(window[2]);client.resizeGui();});context.waitTicks(5);
     context.runOnClient(client->{var s=(CollectorLinkScreen)client.screen;float scale=(float)field(s,"uiScale");int left=(int)field(s,"leftPos"),top=(int)field(s,"topPos");require(left*scale>=0&&top*scale>=0&&(left+606)*scale<=s.width&&(top+308)*scale<=s.height,"Machine window escapes viewport");require(s.getMenu().isActive()&&!s.getMenu().isMemoryReady(),"Tier-one structure must be active with memory locked");});
     checkSlots(context,CollectorLinkMenu.PLAYER_START,CollectorLinkMenu.PLAYER_END);
     click(context,224,40);context.runOnClient(client->require((int)field(client.screen,"category")==CollectorOffers.MISC,"Misc category button missed its drawn position"));
@@ -83,7 +84,7 @@ public final class CollectorClientRegressionTest implements FabricClientGameTest
     int count=0;for(var item:BuiltInRegistries.ITEM){if(item==Items.AIR||item==Items.DIAMOND)continue;core.deposit(new ItemStack(item,Math.min(64,item.getDefaultMaxStackSize())));if(++count>=70)break;}
    });context.waitTicks(30);openLink(context,world);
    for(int[] window:windows){
-    context.getInput().resizeWindow(window[0],window[1]);context.runOnClient(client->{client.options.guiScale().set(window[2]);client.resizeDisplay();});context.waitTicks(5);
+    context.getInput().resizeWindow(window[0],window[1]);context.runOnClient(client->{client.options.guiScale().set(window[2]);client.resizeGui();});context.waitTicks(5);
     context.runOnClient(client->{var menu=((CollectorLinkScreen)client.screen).getMenu();require(menu.isMemoryReady()&&menu.getMemoryTotal()>48,"Second-tier memory did not synchronize");for(int i=0;i<48;i++)require(!menu.getSlot(CollectorLinkMenu.MEMORY_START+i).getItem().isEmpty(),"Memory preview slot missing: "+i);});
     checkSlots(context,CollectorLinkMenu.MEMORY_START,CollectorLinkMenu.MEMORY_START+48);
     point(context,320,100);context.getInput().holdShift();context.getInput().pressMouse(0);context.getInput().releaseShift();context.waitTicks(3);
@@ -91,8 +92,8 @@ public final class CollectorClientRegressionTest implements FabricClientGameTest
    }
    closeMenu(context,world);context.runOnClient(client->client.setScreen(new CreativeModeInventoryScreen(client.player,client.player.connection.enabledFeatures(),true)));context.waitForScreen(CreativeModeInventoryScreen.class);context.waitTicks(5);
    context.clickScreenButton("MDK");
-   context.runOnClient(client->{var screen=(CreativeModeInventoryScreen)client.screen;var extension=(FabricCreativeInventoryScreen)screen;require(extension.getSelectedItemGroup()==MDKCosmetic.COSMETIC_TAB.get(),"MDK shortcut did not select the cosmetic tab");require(extension.getItemGroupsOnPage(extension.getCurrentPage()).contains(MDKCosmetic.FUR_BLOCKS_TAB.get()),"Decor tab missing from MDK creative page");require(MDKCosmetic.COSMETIC_TAB.get().getDisplayItems().size()>60&&MDKCosmetic.FUR_BLOCKS_TAB.get().getDisplayItems().size()>1000,"Creative tab contents missing");});
-   capture(context,"collector-creative-cosmetics");context.runOnClient(client->((FabricCreativeInventoryScreen)client.screen).setSelectedItemGroup(MDKCosmetic.FUR_BLOCKS_TAB.get()));context.waitTicks(3);capture(context,"collector-creative-decor");
+   context.runOnClient(client->{var screen=(CreativeModeInventoryScreen)client.screen;var extension=(FabricCreativeModeInventoryScreen)screen;require(extension.getSelectedTab()==MDKCosmetic.COSMETIC_TAB.get(),"MDK shortcut did not select the cosmetic tab");require(extension.getTabsOnPage(extension.getCurrentPage()).contains(MDKCosmetic.FUR_BLOCKS_TAB.get()),"Decor tab missing from MDK creative page");require(MDKCosmetic.COSMETIC_TAB.get().getDisplayItems().size()>60&&MDKCosmetic.FUR_BLOCKS_TAB.get().getDisplayItems().size()>1000,"Creative tab contents missing");});
+   capture(context,"collector-creative-cosmetics");context.runOnClient(client->((FabricCreativeModeInventoryScreen)client.screen).setSelectedTab(MDKCosmetic.FUR_BLOCKS_TAB.get()));context.waitTicks(3);capture(context,"collector-creative-decor");
    context.runOnClient(client->client.setScreen(null));
    world.getServer().runOnServer(server->{var p=server.getPlayerList().getPlayers().getFirst();p.teleportTo(12.5,101,-4);p.setYRot(0);p.setXRot(0);var boss=MDKCosmetic.UNO_ENTITY.get().create(p.level(),EntitySpawnReason.TRIGGERED);boss.snapTo(12.5,101,0,180,0);boss.setNoAi(true);boss.setNoGravity(true);boss.setPersistenceRequired();p.level().addFreshEntity(boss);bossId=boss.getUUID();require(boss.getHealth()==400&&!boss.isSecondPhase(),"New boss must start with full health in its original phase");});
    context.waitFor(client->client.level!=null&&client.level.entitiesForRendering().iterator().hasNext());context.waitTicks(20);

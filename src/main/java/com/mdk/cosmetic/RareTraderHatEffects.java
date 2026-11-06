@@ -35,11 +35,11 @@ public final class RareTraderHatEffects {
         if (player.getItemBySlot(EquipmentSlot.HEAD).is(MDKCosmetic.SAKURA_THINKER.get())) {
             player.addEffect(new MobEffectInstance(MobEffects.LUCK, 35, 0, true, false, true));
             for (int i = 0; i < 3; i++) {
-                double a = server.random.nextDouble() * Math.PI * 2.0D;
-                double r = 0.22D + server.random.nextDouble() * 0.42D;
+                double a = server.getRandom().nextDouble() * Math.PI * 2.0D;
+                double r = 0.22D + server.getRandom().nextDouble() * 0.42D;
                 server.sendParticles(ParticleTypes.CHERRY_LEAVES,
                         player.getX() + Math.cos(a) * r,
-                        player.getY() + player.getEyeHeight() + 0.15D + server.random.nextDouble() * 0.95D,
+                        player.getY() + player.getEyeHeight() + 0.15D + server.getRandom().nextDouble() * 0.95D,
                         player.getZ() + Math.sin(a) * r,
                         1, 0.04D, 0.10D, 0.04D, 0.012D);
             }

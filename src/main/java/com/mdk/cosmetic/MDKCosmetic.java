@@ -581,7 +581,7 @@ public final class MDKCosmetic implements net.fabricmc.api.ModInitializer {
             MENUS.register("collector_smelter", () -> new MenuType<>(CollectorSmelterMenu::new, FeatureFlags.DEFAULT_FLAGS));
 
     public static final RegistryEntry<CreativeModeTab, CreativeModeTab> COSMETIC_TAB =
-            CREATIVE_TABS.register("mdk_cosmetic", () -> net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup.builder()
+            CREATIVE_TABS.register("mdk_cosmetic", () -> net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.mdkcosmetic.mdk_cosmetic"))
                     .icon(() -> new ItemStack(TAILORING_TABLE_ITEM.get()))
                     .displayItems((parameters, output) -> {
@@ -669,7 +669,7 @@ public final class MDKCosmetic implements net.fabricmc.api.ModInitializer {
                     .build());
 
     public static final RegistryEntry<CreativeModeTab, CreativeModeTab> FUR_BLOCKS_TAB =
-            CREATIVE_TABS.register("mdk_fur_blocks", () -> net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup.builder()
+            CREATIVE_TABS.register("mdk_fur_blocks", () -> net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.mdkcosmetic.mdk_fur_blocks"))
                     .icon(() -> new ItemStack(FurDecorBlocks.firstIcon()))
                     .displayItems((parameters, output) -> { FurDecorBlocks.fillCreative(output); MysteryBlocks.CREATIVE_ITEMS.forEach(v -> output.accept(v.get()));

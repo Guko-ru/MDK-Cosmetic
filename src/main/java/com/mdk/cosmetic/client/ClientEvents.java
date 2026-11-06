@@ -2,14 +2,14 @@ package com.mdk.cosmetic.client;
 
 import java.util.List;
 import java.util.function.Supplier;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.KeyMapping;
 import com.mdk.cosmetic.client.CosmeticItemTints.Color;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
@@ -32,11 +32,11 @@ import net.minecraft.world.item.ItemStack;
 
 public final class ClientEvents {
     private ClientEvents() {}
-    public static final class RenderGuiEvent { public record Post(GuiGraphics getGuiGraphics) {} }
+    public static final class RenderGuiEvent { public record Post(GuiGraphicsExtractor getGuiGraphics) {} }
     public static final class ClientTickEvent { public record Post() {} }
     public record ItemTooltipEvent(ItemStack getItemStack,List<Component> getToolTip) {}
     public static final class RegisterKeyMappingsEvent {
-        public void register(KeyMapping key){KeyBindingHelper.registerKeyBinding(key);}
+        public void register(KeyMapping key){KeyMappingHelper.registerKeyMapping(key);}
     }
     public static final class RegisterColorHandlersEvent {
         public static final class Item {
@@ -56,7 +56,7 @@ public final class ClientEvents {
     }
     public static final class EntityRenderersEvent {
         public static final class RegisterLayerDefinitions {
-            public void registerLayerDefinition(ModelLayerLocation layer,Supplier<LayerDefinition> definition){EntityModelLayerRegistry.registerModelLayer(layer,definition::get);}
+            public void registerLayerDefinition(ModelLayerLocation layer,Supplier<LayerDefinition> definition){ModelLayerRegistry.registerModelLayer(layer,definition::get);}
         }
         public static final class RegisterRenderers {
             public <E extends Entity> void registerEntityRenderer(EntityType<? extends E> type,EntityRendererProvider<E> factory){EntityRendererRegistry.register(type,factory);}

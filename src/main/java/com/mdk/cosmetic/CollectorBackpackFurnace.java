@@ -133,7 +133,7 @@ public final class CollectorBackpackFurnace {
         int progress = Math.max(0, state.getIntOr(DATA_KEYS[2],0));
         var match = input.isEmpty() ? java.util.Optional.<net.minecraft.world.item.crafting.RecipeHolder<net.minecraft.world.item.crafting.SmeltingRecipe>>empty()
                 : player.level().recipeAccess().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(input), player.level());
-        ItemStack result = match.isPresent() ? match.get().value().assemble(new SingleRecipeInput(input),player.registryAccess()) : ItemStack.EMPTY;
+        ItemStack result = match.isPresent() ? match.get().value().assemble(new SingleRecipeInput(input)) : ItemStack.EMPTY;
         boolean possible = !result.isEmpty() && (output.isEmpty() ||
                 ItemStack.isSameItemSameComponents(output, result) && output.getCount() + result.getCount() <= output.getMaxStackSize());
         if (burn > 0) burn--;
@@ -142,7 +142,8 @@ public final class CollectorBackpackFurnace {
             if (burnTime > 0) {
                 burn = burnTime;
                 burnTotal = burnTime;
-                ItemStack remaining = fuel.getRecipeRemainder();
+                var remainder = fuel.getCraftingRemainder();
+                ItemStack remaining = remainder == null ? ItemStack.EMPTY : remainder.create();
                 fuel.shrink(1);
                 if (fuel.isEmpty()) storage.setItem(1, remaining);
             }

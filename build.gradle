@@ -1,26 +1,25 @@
 plugins {
-    id 'net.fabricmc.fabric-loom-remap' version '1.19.3'
+    id 'net.fabricmc.fabric-loom' version '1.19.3'
     id 'maven-publish'
 }
 version = '1.18.78'
 group = 'com.mdk.cosmetic'
-base { archivesName = 'MDK-Cosmetic-1.21.11-Fabric' }
+base { archivesName = 'MDK-Cosmetic-26.1-Fabric' }
 repositories { maven { url = 'https://maven.blamejared.com' }; mavenCentral() }
 dependencies {
-    modCompileOnly 'mezz.jei:jei-1.21.11-fabric-api:27.54.0.116'
-    minecraft 'com.mojang:minecraft:1.21.11'
-    mappings loom.officialMojangMappings()
-    modImplementation 'net.fabricmc:fabric-loader:0.20.1'
-    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.141.6+1.21.11'
+    compileOnly 'mezz.jei:jei-26.1-fabric-api:29.2.0.21'
+    minecraft 'com.mojang:minecraft:26.1'
+    implementation 'net.fabricmc:fabric-loader:0.20.1'
+    implementation 'net.fabricmc.fabric-api:fabric-api:0.145.1+26.1'
 }
-java { toolchain.languageVersion = JavaLanguageVersion.of(21); withSourcesJar() }
+java { toolchain.languageVersion = JavaLanguageVersion.of(25); withSourcesJar() }
 loom { accessWidenerPath = file('src/main/resources/mdkcosmetic.accesswidener') }
-tasks.withType(JavaCompile).configureEach { options.release = 21; options.encoding = 'UTF-8'; options.compilerArgs += ['-Xmaxerrs','500'] }
+tasks.withType(JavaCompile).configureEach { options.release = 25; options.encoding = 'UTF-8'; options.compilerArgs += ['-Xmaxerrs','500'] }
 processResources { inputs.property 'version', project.version; filesMatching('fabric.mod.json') { expand(version: project.version) } }
 jar { from('LICENSE.md') { into('META-INF'); rename { 'LICENSE-MDK-COSMETIC.txt' } } }
 tasks.register('prepareRelease', Copy) {
-    dependsOn tasks.named('remapJar')
-    from(tasks.named('remapJar').flatMap { it.archiveFile })
+    dependsOn tasks.named('jar')
+    from(tasks.named('jar').flatMap { it.archiveFile })
     into layout.buildDirectory.dir('release')
 }
 
@@ -33,18 +32,6 @@ fabricApi.configureTests {
     eula = false
 }
 
-loom.runs {
-    clientSmoke {
-        client()
-        source sourceSets.gametest
-        name 'MDK Client Startup Check'
-        vmArg '-Dmdkcosmetic.clientSmoke=true'
-        vmArg '-Xmx2G'
-        programArgs '--width', '854', '--height', '480'
-        runDir 'run/client-smoke'
-    }
-}
-
-
-
-
+// Minecraft 26 binds item components only after world loading.
+// The full client suite includes model, GPU armor and multiblock-preview smoke checks.
+tasks.register('runClientSmoke') { dependsOn tasks.named('runClientGameTest') }

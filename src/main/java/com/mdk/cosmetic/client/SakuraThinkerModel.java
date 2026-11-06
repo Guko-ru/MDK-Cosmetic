@@ -13,7 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 public final class SakuraThinkerModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public SakuraThinkerModel() {
         super(createLayer().bakeRoot());
-        setAllVisible(false);
+        com.mdk.cosmetic.client.ModelVisibility.set(this,false);
         head.visible = true;
     }
 

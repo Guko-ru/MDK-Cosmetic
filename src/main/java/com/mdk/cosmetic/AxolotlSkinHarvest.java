@@ -32,8 +32,7 @@ public final class AxolotlSkinHarvest {
         long next = data.getLongOr(NEXT,0L);
         if (next > now && next - now <= COOLDOWN) {
             long minutes = (next-now+59999L)/60000L;
-            event.getEntity().displayClientMessage(
-                Component.translatable("message.mdkcosmetic.axolotl_regrowing", minutes), true);
+            event.getEntity().sendOverlayMessage(Component.translatable("message.mdkcosmetic.axolotl_regrowing", minutes));
             return;
         }
         data.putLong(NEXT,now+COOLDOWN);

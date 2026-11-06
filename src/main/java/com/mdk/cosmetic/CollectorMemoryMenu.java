@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -67,11 +67,11 @@ public final class CollectorMemoryMenu extends AbstractContainerMenu {
         int high=data.get(i*2+3)&65535;
         return ((long)high<<16)|low;
     }
-    @Override public void clicked(int slot,int button,ClickType click,Player player){
+    @Override public void clicked(int slot,int button,ContainerInput click,Player player){
         if(slot>=0 && slot<27) {
             // Never allow vanilla Slot mechanics to move the ghost display stack.
             if(memory==null || !stillValid(player))return;
-            if(click!=ClickType.PICKUP)return;
+            if(click!=ContainerInput.PICKUP)return;
             ItemStack held=getCarried();
             if(!held.isEmpty()) {
                 int taken=memory.deposit(held);

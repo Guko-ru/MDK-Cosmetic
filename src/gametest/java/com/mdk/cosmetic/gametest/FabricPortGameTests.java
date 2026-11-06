@@ -130,7 +130,7 @@ public final class FabricPortGameTests {
         }
         var input=new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.IRON_ORE));
         var smelt=level.recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMELTING,input,level);
-        assertTrue(helper,smelt.orElseThrow().value().assemble(input,level.registryAccess()).is(Items.IRON_INGOT),"Backpack smelting must use the new recipe assembly API");
+        assertTrue(helper,smelt.orElseThrow().value().assemble(input).is(Items.IRON_INGOT),"Backpack smelting must use the new recipe assembly API");
         assertTrue(helper,level.fuelValues().burnDuration(new ItemStack(Items.COAL))>0,"Backpack fuel duration must resolve from the world");
         var soul=MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         var warden=EntityType.WARDEN.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
@@ -180,7 +180,9 @@ public final class FabricPortGameTests {
         assertTrue(helper,copy.identity().equals(identity)&&copy.getItem(0).is(Items.GOLD_INGOT)&&copy.getItem(0).getCount()==13,"Portable memory core must retain identity and furnace inventory");
         assertTrue(helper,level.getEntitiesOfClass(ItemEntity.class,new net.minecraft.world.phys.AABB(corePos).inflate(2),e->e.getItem().is(Items.GOLD_INGOT)).isEmpty(),"Memory core must not duplicate its furnace contents into loose drops");
         var stress=com.mdk.cosmetic.CollectorStressData.forLevel(level);stress.store(corePos,61,true);level.getDataStorage().saveAndJoin();
-        var disk=level.getDataStorage().readTagFromDisk("mdkcosmetic_collector_stress",null,0);
+        var dataFolder=level.dimension().identifier().resolveAgainst(level.getServer().getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).resolve("dimensions")).resolve("data");
+        var dataFile=net.minecraft.resources.Identifier.withDefaultNamespace("mdkcosmetic_collector_stress.dat").resolveAgainst(dataFolder);
+        var disk=level.getDataStorage().readTagFromDisk(dataFile,null,0);
         assertTrue(helper,disk.getCompoundOrEmpty("data").getListOrEmpty("Storages").compoundStream().anyMatch(t->t.getLongOr("Position",0L)==corePos.asLong()&&t.getIntOr("Stress",0)==61&&t.getBooleanOr("Activated",false)),"Native SavedData codec must persist existing storage schema on disk");
         helper.succeed();
     }

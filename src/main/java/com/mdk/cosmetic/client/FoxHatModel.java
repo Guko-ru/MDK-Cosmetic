@@ -14,7 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 public final class FoxHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public FoxHatModel() {
         super(createLayer().bakeRoot());
-        setAllVisible(false);
+        com.mdk.cosmetic.client.ModelVisibility.set(this,false);
         head.visible = true;
     }
 

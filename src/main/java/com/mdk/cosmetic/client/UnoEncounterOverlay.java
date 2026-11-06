@@ -2,7 +2,7 @@ package com.mdk.cosmetic.client;
 
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import com.mdk.cosmetic.client.ClientEvents.RenderGuiEvent;
 import com.mdk.cosmetic.client.ClientEvents.ViewportEvent;
@@ -28,7 +28,7 @@ public final class UnoEncounterOverlay {
         if (mc.player==null) return;
         int w=mc.getWindow().getGuiScaledWidth();
         int h=mc.getWindow().getGuiScaledHeight();
-        GuiGraphics g=event.getGuiGraphics();
+        GuiGraphicsExtractor g=event.getGuiGraphics();
         float fadeIn=Math.min(1F,ms/250F);
         float fadeOut=Math.min(1F,(blackMs-ms)/320F);
         float alpha=Math.max(0F,Math.min(fadeIn,fadeOut));
@@ -41,7 +41,7 @@ public final class UnoEncounterOverlay {
             float scale=3.0F;
             g.pose().scale(scale,scale);
             int jitter=(ms<1200L) ? (int)(Math.sin(ms*0.082)*2.5) : 0;
-            g.drawCenteredString(mc.font,Component.translatable("title.mdkcosmetic.uno_greeting"),
+            g.centeredText(mc.font,Component.translatable("title.mdkcosmetic.uno_greeting"),
                     (int)(w/(2*scale))+jitter,(int)(h/(2*scale))-12+jitter,argb);
             g.pose().popMatrix();
         }
