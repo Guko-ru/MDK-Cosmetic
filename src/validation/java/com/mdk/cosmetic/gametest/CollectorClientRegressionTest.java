@@ -67,7 +67,7 @@ public final class CollectorClientRegressionTest implements LegacyClientContext.
    });context.waitTicks(35);openLink(context,world);
    int[][] windows={{854,480,2},{1280,720,3},{1920,1080,4},{854,480,1}};
    for(int[] window:windows){
-    context.getInput().resizeWindow(window[0],window[1]);context.runOnClient(client->{client.options.guiScale().set(window[2]);client.resizeDisplay();});context.waitTicks(5);
+    context.getInput().resizeWindow(window[0],window[1]);context.runOnClient(client->{client.options.guiScale().set(window[2]);client.resizeGui();});context.waitTicks(5);
     context.runOnClient(client->{var s=(CollectorLinkScreen)client.screen;float scale=(float)field(s,"uiScale");int left=(int)field(s,"leftPos"),top=(int)field(s,"topPos");require(left*scale>=0&&top*scale>=0&&(left+606)*scale<=s.width&&(top+308)*scale<=s.height,"Machine window escapes viewport");require(s.getMenu().isActive()&&!s.getMenu().isMemoryReady(),"Tier-one structure must be active with memory locked");});
     checkSlots(context,CollectorLinkMenu.PLAYER_START,CollectorLinkMenu.PLAYER_END);
     click(context,224,40);context.runOnClient(client->require((int)field(client.screen,"category")==CollectorOffers.MISC,"Misc category button missed its drawn position"));
@@ -88,7 +88,7 @@ public final class CollectorClientRegressionTest implements LegacyClientContext.
     int count=0;for(var item:BuiltInRegistries.ITEM){if(item==Items.AIR||item==Items.DIAMOND)continue;core.deposit(new ItemStack(item,Math.min(64,item.getDefaultMaxStackSize())));if(++count>=70)break;}
    });context.waitTicks(30);openLink(context,world);
    for(int[] window:windows){
-    context.getInput().resizeWindow(window[0],window[1]);context.runOnClient(client->{client.options.guiScale().set(window[2]);client.resizeDisplay();});context.waitTicks(5);
+    context.getInput().resizeWindow(window[0],window[1]);context.runOnClient(client->{client.options.guiScale().set(window[2]);client.resizeGui();});context.waitTicks(5);
     context.runOnClient(client->{var menu=((CollectorLinkScreen)client.screen).getMenu();require(menu.isMemoryReady()&&menu.getMemoryTotal()>48,"Second-tier memory did not synchronize");for(int i=0;i<48;i++)require(!menu.getSlot(CollectorLinkMenu.MEMORY_START+i).getItem().isEmpty(),"Memory preview slot missing: "+i);});
     checkSlots(context,CollectorLinkMenu.MEMORY_START,CollectorLinkMenu.MEMORY_START+48);
     point(context,320,100);context.getInput().holdShift();context.getInput().pressMouse(0);context.getInput().releaseShift();context.waitTicks(3);

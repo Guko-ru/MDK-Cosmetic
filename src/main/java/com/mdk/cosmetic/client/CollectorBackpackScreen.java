@@ -6,7 +6,7 @@ import com.mdk.cosmetic.MDKCosmetic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -30,9 +30,9 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
     private record SearchEntry(String id, String localized) {}
 
     public CollectorBackpackScreen(CollectorBackpackMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title);
-        imageWidth = W;
-        imageHeight = H;
+        super(menu,inventory,title,W,H);
+        
+        
         inventoryLabelX = 8;
         inventoryLabelY = 138;
     }
@@ -80,28 +80,28 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
         net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(new CollectorBackpackQueryPayload(menu.containerId, normalized, ids.toString()));
     }
 
-    private void fill(GuiGraphics g, int x, int y, int w, int h, int color) {
+    private void fill(GuiGraphicsExtractor g, int x, int y, int w, int h, int color) {
         g.fill(leftPos + x, topPos + y, leftPos + x + w, topPos + y + h, color);
     }
-    private void outline(GuiGraphics g, int x, int y, int w, int h, int color) {
+    private void outline(GuiGraphicsExtractor g, int x, int y, int w, int h, int color) {
         fill(g, x, y, w, 1, color);
         fill(g, x, y + h - 1, w, 1, color);
         fill(g, x, y, 1, h, color);
         fill(g, x + w - 1, y, 1, h, color);
     }
-    private void slotBg(GuiGraphics g, int x, int y) {
+    private void slotBg(GuiGraphicsExtractor g, int x, int y) {
         fill(g, x - 1, y - 1, 18, 18, 0xFF715782);
         fill(g, x, y, 16, 16, 0xFF191326);
     }
-    private void drawText(GuiGraphics g, Component name, int x, int y, int maxWidth, int color) {
+    private void drawText(GuiGraphicsExtractor g, Component name, int x, int y, int maxWidth, int color) {
         String visible = font.plainSubstrByWidth(name.getString(), maxWidth);
-        g.drawString(font, visible, x, y, color, false);
+        g.text(font, visible, x, y, color, false);
     }
-    private void buttonBg(GuiGraphics g, int x, int y, int w, int h, boolean active) {
+    private void buttonBg(GuiGraphicsExtractor g, int x, int y, int w, int h, boolean active) {
         fill(g, x, y, w, h, active ? 0xFF62427A : 0xFF3B2A4E);
         outline(g, x, y, w, h, active ? 0xFFD7B1FF : 0xFF775A91);
     }
-    private void button(GuiGraphics g, Component text, int x, int y, int w, int h, boolean active) {
+    private void button(GuiGraphicsExtractor g, Component text, int x, int y, int w, int h, boolean active) {
         buttonBg(g, x, y, w, h, active);
         drawText(g, text, x + 4, y + (h - 8) / 2, w - 8, 0xFFF0DEFF);
     }
@@ -129,7 +129,7 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
         if (target != menu.filterPage()) clickButton(4000 + target);
     }
 
-    @Override protected void renderBg(GuiGraphics g, float partial, int mx, int my) {
+    private void renderMachineBackground(GuiGraphicsExtractor g, float partial, int mx, int my) {
         fill(g, 0, 0, 270, H, 0xFF15111F);
         outline(g, 0, 0, 270, H, 0xFFB784EA);
         fill(g, 5, 10, 260, 124, 0xFF261D35);
@@ -195,9 +195,9 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
         }
     }
 
-    @Override protected void renderLabels(GuiGraphics g, int mx, int my) {
+    @Override protected void extractLabels(GuiGraphicsExtractor g, int mx, int my) {
         drawText(g, txt(menu.isRemote() ? "collector_memory_terminal" : "collector_backpack"), 9, 3, 248, 0xFFE4CCFC);
-        g.drawString(font, Component.translatable("container.inventory"), 8, 138, 0xFFDECAEE, false);
+        g.text(font, Component.translatable("container.inventory"), 8, 138, 0xFFDECAEE, false);
         drawText(g, txt("module_modules"), 186, 13, 74, 0xFFE4CCFC);
         for (int i = 0; i < 5; i++) {
             drawText(g, Component.literal(">"), 220, 38 + i * 22, 10, 0xFFECCFFF);
@@ -236,7 +236,7 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
         }
     }
 
-    private void renderRemoteCounts(GuiGraphics g) {
+    private void renderRemoteCounts(GuiGraphicsExtractor g) {
         if (!menu.isRemote()) return;
         g.nextStratum();
         g.pose().pushMatrix();
@@ -245,7 +245,7 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
             long n = menu.quantity(i);
             if (n <= 1) continue;
             String text = n >= 1000000 ? n / 1000000 + "m" : n >= 1000 ? n / 1000 + "k" : Long.toString(n);
-            g.drawString(font, text, leftPos + 24 + (i % 9) * 18 - font.width(text),
+            g.text(font, text, leftPos + 24 + (i % 9) * 18 - font.width(text),
                     topPos + 44 + (i / 9) * 18, 0xFFFFFFFF, true);
         }
         g.nextStratum();
@@ -337,22 +337,22 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
         }
         return super.keyPressed(mdk$key);
     }
-    @Override public boolean charTyped(net.minecraft.client.input.CharacterEvent mdk$character){char code=(char)mdk$character.codepoint();int mods=mdk$character.modifiers();
+    @Override public boolean charTyped(net.minecraft.client.input.CharacterEvent mdk$character){char code=(char)mdk$character.codepoint();int mods=0;
         if (search != null && search.isFocused()) return search.charTyped(mdk$character);
         return super.charTyped(mdk$character);
     }
     // mdk: unified scaled canvas; native background callbacks must not draw it a second time.
-    @Override public void renderBackground(GuiGraphics graphics,int mouseX,int mouseY,float partial) {}
+    @Override public void extractBackground(GuiGraphicsExtractor graphics,int mouseX,int mouseY,float partial) {}
 
-    @Override public void render(GuiGraphics g, int mx, int my, float partial) {
+    @Override public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float partial) {
         int mouseX = (int) Math.floor(mx / scale), mouseY = (int) Math.floor(my / scale);
-        renderTransparentBackground(g);
+        extractTransparentBackground(g);
         g.pose().pushMatrix();
         g.pose().scale(scale,scale);
-        renderBg(g,partial,mouseX,mouseY);
-        super.render(g, mouseX, mouseY, partial);
+        renderMachineBackground(g,partial,mouseX,mouseY);
+        super.extractRenderState(g, mouseX, mouseY, partial);
         renderRemoteCounts(g);
-        renderTooltip(g, mouseX, mouseY);
+        extractTooltip(g, mouseX, mouseY);
         g.pose().popMatrix();
     }
 }

@@ -1,11 +1,11 @@
 {
   "loader": "NeoForge",
-  "minecraft": "1.21.11",
-  "loader_build": "21.11.48",
+  "minecraft": "26.1.2",
+  "loader_build": "26.1.2.126",
   "mod_version": "1.18.79",
-  "java": 21,
-  "artifact": "MDK-Cosmetic-1.21.11-NeoForge-1.18.79.jar",
-  "sha256": "b364f922620bdca06ac87b2baffccbac6f66c2b4ee8be67142d3df6f63bae0ad",
+  "java": 25,
+  "artifact": "MDK-Cosmetic-26.1.2-NeoForge-1.18.79.jar",
+  "sha256": "f154d54868596c52f9b08041a71449d032b94bebf17ccdf5df55673809d9cf5d",
   "fabric_api": null,
   "validation": {
     "required_game_tests_passed": 9,
@@ -23,7 +23,8 @@
     "native_non_dyeable_layer_tints": true,
     "native_multiblock_3d_preview": "27 depth-tested item models",
     "custom_hats_without_vanilla_helmet_cube": true,
-    "native_custom_armor_poses": "3 armor stand head rotations match native animation, with custom visibility preserved"
+    "native_custom_armor_poses": "3 armor stand head rotations match native animation, with custom visibility preserved",
+    "native_chest_loot": "9 native modifiers loaded; seeded mineshaft rolls produce the Collector enchantment book"
   },
   "license": "MDK Cosmetic Non-Commercial License 1.1"
 }

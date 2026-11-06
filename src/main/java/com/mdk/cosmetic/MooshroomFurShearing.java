@@ -31,8 +31,8 @@ public final class MooshroomFurShearing {
         long now = System.currentTimeMillis();
         long next = data.getLongOr(NEXT,0L);
         if (next > now && next - now <= COOLDOWN_MS) {
-            event.getEntity().displayClientMessage(Component.translatable(
-                    "message.mdkcosmetic.mooshroom_regrowing", (next - now + 59999L) / 60000L), true);
+            event.getEntity().sendOverlayMessage(Component.translatable(
+                    "message.mdkcosmetic.mooshroom_regrowing", (next - now + 59999L) / 60000L));
             return;
         }
         data.putLong(NEXT, now + COOLDOWN_MS);

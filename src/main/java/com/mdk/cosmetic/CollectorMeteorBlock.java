@@ -17,7 +17,7 @@ public final class CollectorMeteorBlock extends Block {
         return super.getDestroyProgress(state, player, world, pos);
     }
 
-    public static void onBreak(BlockEvent.BreakEvent event) {
+    public static void onBreak(net.neoforged.neoforge.event.level.block.BreakBlockEvent event) {
         if (!event.getState().is(MDKCosmetic.COLLECTOR_METEOR_BLOCK.get())) return;
         Player player = event.getPlayer();
         if (player != null && !player.getAbilities().instabuild

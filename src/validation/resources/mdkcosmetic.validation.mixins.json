@@ -1,1 +1,1 @@
-{"required": true, "package": "com.mdk.cosmetic.gametest.legacy.mixin", "compatibilityLevel": "JAVA_21", "client": ["LegacyTestInputMixin"], "injectors": {"defaultRequire": 1}}
+{"required": true, "package": "com.mdk.cosmetic.gametest.legacy.mixin", "compatibilityLevel": "JAVA_25", "client": ["LegacyTestInputMixin"], "injectors": {"defaultRequire": 1}}

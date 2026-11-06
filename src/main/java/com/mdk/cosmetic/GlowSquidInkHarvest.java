@@ -32,8 +32,8 @@ public final class GlowSquidInkHarvest {
         long now = System.currentTimeMillis();
         long until = data.getLongOr(NEXT,0L);
         if (until > now && until - now <= COOLDOWN) {
-            event.getEntity().displayClientMessage(Component.translatable(
-                    "message.mdkcosmetic.glow_squid_refilling", (until - now + 59999L) / 60000L), true);
+            event.getEntity().sendOverlayMessage(Component.translatable(
+                    "message.mdkcosmetic.glow_squid_refilling", (until - now + 59999L) / 60000L));
             return;
         }
         data.putLong(NEXT, now + COOLDOWN);

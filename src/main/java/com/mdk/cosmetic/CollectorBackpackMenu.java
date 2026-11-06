@@ -13,7 +13,7 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
@@ -333,7 +333,7 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
         if (container == crafting && playerInventory != null && playerInventory.player.level() instanceof ServerLevel level) {
             CraftingInput input = crafting.asCraftInput();
             ItemStack output = ((net.minecraft.server.level.ServerLevel)level).recipeAccess().getRecipeFor(RecipeType.CRAFTING, input, level)
-                    .map(r -> r.value().assemble(input, level.registryAccess())).orElse(ItemStack.EMPTY);
+                    .map(r -> r.value().assemble(input)).orElse(ItemStack.EMPTY);
             craftingResult.setItem(0, output);
         }
         super.slotsChanged(container);
@@ -503,11 +503,11 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
         rebuild();
     }
 
-    @Override public void clicked(int slot, int button, ClickType click, Player player) {
+    @Override public void clicked(int slot, int button, ContainerInput click, Player player) {
         if (slot >= 0 && slot < 27 && remote) {
             if (memory == null || !stillValid(player)) return;
-            if (click == ClickType.QUICK_MOVE) { sendToPlayer(player, slot, 64); return; }
-            if (click == ClickType.PICKUP) {
+            if (click == ContainerInput.QUICK_MOVE) { sendToPlayer(player, slot, 64); return; }
+            if (click == ContainerInput.PICKUP) {
                 ItemStack carried = getCarried();
                 if (carried.isEmpty()) {
                     int at = page * 27 + slot;

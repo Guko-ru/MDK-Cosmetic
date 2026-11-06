@@ -81,7 +81,7 @@ public final class CollectorVoidAchievements {
             award(player, "void/craft_in_void");
     }
 
-    public static void onBlockBreak(BlockEvent.BreakEvent event) {
+    public static void onBlockBreak(net.neoforged.neoforge.event.level.block.BreakBlockEvent event) {
         if (!(event.getPlayer() instanceof ServerPlayer player)) return;
         BlockState state = event.getState();
         if (state.is(MDKCosmetic.COLLECTOR_METEOR_BLOCK.get())

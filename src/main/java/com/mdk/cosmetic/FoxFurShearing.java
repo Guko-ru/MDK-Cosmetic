@@ -33,8 +33,8 @@ public final class FoxFurShearing {
         long next = data.getLongOr(NEXT_SHEAR_AT,0L);
         if (next > now && next - now <= COOLDOWN_MILLIS) {
             long seconds = (next-now + 999L)/1000L;
-            event.getEntity().displayClientMessage(Component.translatable(
-                    "message.mdkcosmetic.fox_regrowing", (seconds+59)/60), true);
+            event.getEntity().sendOverlayMessage(Component.translatable(
+                    "message.mdkcosmetic.fox_regrowing", (seconds+59)/60));
             return;
         }
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);

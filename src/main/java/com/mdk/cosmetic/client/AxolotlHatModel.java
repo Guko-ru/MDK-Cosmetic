@@ -14,7 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 public final class AxolotlHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public AxolotlHatModel() {
         super(createLayer().bakeRoot());
-        setAllVisible(false);
+        com.mdk.cosmetic.client.ModelVisibility.set(this,false);
         head.visible = true;
     }
     private static LayerDefinition createLayer() {

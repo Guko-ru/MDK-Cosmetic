@@ -46,7 +46,7 @@ public final class CollectorOres {
         if(isOre(event.getState()) && !event.getEntity().isCreative()
                 && !event.getEntity().getMainHandItem().is(MDKCosmetic.COLLECTOR_PICKAXE.get())) event.setNewSpeed(0);
     }
-    public static void onBreak(BlockEvent.BreakEvent event) {
+    public static void onBreak(net.neoforged.neoforge.event.level.block.BreakBlockEvent event) {
         if(isOre(event.getState()) && !event.getPlayer().isCreative()
                 && !event.getPlayer().getMainHandItem().is(MDKCosmetic.COLLECTOR_PICKAXE.get())) event.setCanceled(true);
     }

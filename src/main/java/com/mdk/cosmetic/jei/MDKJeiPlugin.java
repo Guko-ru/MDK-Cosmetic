@@ -16,7 +16,7 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.IFocusGroup;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import org.lwjgl.glfw.GLFW;
 import com.mojang.math.Axis;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -110,21 +110,21 @@ public final class MDKJeiPlugin implements IModPlugin {
                 slot(builder,RecipeIngredientRole.OUTPUT,127,39,r.product());
             }
         }
-        private void drawTradeCard(JeiData.Trade r, GuiGraphics graphics, double mouseX, double mouseY) {
+        private void drawTradeCard(JeiData.Trade r, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
             var font = Minecraft.getInstance().font;
             long now = Util.getMillis();
             int base = 0xFFCCCCCC;
             graphics.fill(6, 8, 160, 99, 0xFF15111D);
-            graphics.renderOutline(6, 8, 154, 91, 0xFF5F4D82);
-            graphics.drawString(font, tr("trade_head"), 12, 13, 0xFFE8DBFF, false);
-            graphics.drawString(font, tr("trade_info"), 12, 24, 0xFFB6B0C7, false);
+            graphics.outline(6, 8, 154, 91, 0xFF5F4D82);
+            graphics.text(font, tr("trade_head"), 12, 13, 0xFFE8DBFF, false);
+            graphics.text(font, tr("trade_info"), 12, 24, 0xFFB6B0C7, false);
 
             graphics.fill(10, 35, 52, 77, 0xFF241D33);
-            graphics.renderOutline(10, 35, 42, 42, 0xFF6B5A8D);
+            graphics.outline(10, 35, 42, 42, 0xFF6B5A8D);
             graphics.fill(104, 35, 146, 77, 0xFF241D33);
-            graphics.renderOutline(104, 35, 42, 42, 0xFF8B72C4);
+            graphics.outline(104, 35, 42, 42, 0xFF8B72C4);
             graphics.fill(63, 38, 98, 73, 0xFF1C1725);
-            graphics.renderOutline(63, 38, 35, 35, 0xFF4E4460);
+            graphics.outline(63, 38, 35, 35, 0xFF4E4460);
 
             int arrowX = 68 + (int)((now / 90L) % 20L);
             graphics.fill(69, 54, 94, 56, 0xFF5E5870);
@@ -140,29 +140,29 @@ public final class MDKJeiPlugin implements IModPlugin {
             }
 
             int stress = Math.max(0, Math.min(100, r.stress()));
-            graphics.drawString(font, tr("stress"), 11, 82, base, false);
+            graphics.text(font, tr("stress"), 11, 82, base, false);
             graphics.fill(11, 92, 147, 97, 0xFF30283E);
             graphics.fill(11, 92, 11 + Math.round(136f * stress / 100f), 97, 0xFFB07DFF);
-            graphics.renderOutline(11, 92, 136, 5, 0xFF54486A);
-            graphics.drawString(font, stress + tr("stress_unit"), 120, 82, 0xFFEBD5FF, false);
+            graphics.outline(11, 92, 136, 5, 0xFF54486A);
+            graphics.text(font, stress + tr("stress_unit"), 120, 82, 0xFFEBD5FF, false);
             String label = font.plainSubstrByWidth(r.product().getHoverName().getString(), 100);
-            graphics.drawString(font, label, 58, 67, 0xFFC8BCDD, false);
+            graphics.text(font, label, 58, 67, 0xFFC8BCDD, false);
         }
-        @Override public void draw(T recipe,IRecipeSlotsView view,GuiGraphics graphics,double mouseX,double mouseY) {
+        @Override public void draw(T recipe,IRecipeSlotsView view,GuiGraphicsExtractor graphics,double mouseX,double mouseY) {
             var font=Minecraft.getInstance().font;
             int c=0xFFCCCCCC;
             if (recipe instanceof JeiData.BackpackUpgrade) {
-                graphics.drawString(font,tr("upgrade_info"),7,12,c,false);
-                graphics.drawString(font,tr("upgrade_cost"),9,68,c,false);
-                graphics.drawString(font,"→",103,35,c,false);
+                graphics.text(font,tr("upgrade_info"),7,12,c,false);
+                graphics.text(font,tr("upgrade_cost"),9,68,c,false);
+                graphics.text(font,"→",103,35,c,false);
             } else if (recipe instanceof JeiData.Sewing) {
-                graphics.drawString(font,tr("sewing_inputs"),11,14,c,false);
-                graphics.drawString(font,"→",100,35,c,false);
-                graphics.drawString(font,tr("sewing_info"),10,69,c,false);
+                graphics.text(font,tr("sewing_inputs"),11,14,c,false);
+                graphics.text(font,"→",100,35,c,false);
+                graphics.text(font,tr("sewing_info"),10,69,c,false);
             } else if (recipe instanceof JeiData.Processing) {
-                graphics.drawString(font,tr("processing_inputs"),9,12,c,false);
-                graphics.drawString(font,"→",94,35,c,false);
-                graphics.drawString(font,tr("processing_info"),9,69,c,false);
+                graphics.text(font,tr("processing_inputs"),9,12,c,false);
+                graphics.text(font,"→",94,35,c,false);
+                graphics.text(font,tr("processing_info"),9,69,c,false);
             } else if (recipe instanceof JeiData.Trade r) {
                 drawTradeCard(r, graphics, mouseX, mouseY);
             }
@@ -223,10 +223,10 @@ public final class MDKJeiPlugin implements IModPlugin {
         private boolean hit(double mx, double my, int x1, int y1, int x2, int y2) {
             return mx >= x1 && mx < x2 && my >= y1 && my < y2;
         }
-        private void drawControl(GuiGraphics graphics, String label, int x, int y, int w, boolean selected) {
+        private void drawControl(GuiGraphicsExtractor graphics, String label, int x, int y, int w, boolean selected) {
             graphics.fill(x,y,x+w,y+16, selected ? 0xB0504273 : 0xA02A303C);
-            graphics.renderOutline(x,y,w,16,selected ? 0xFFB996FF : 0xFF667080);
-            graphics.drawCenteredString(Minecraft.getInstance().font,label,x+w/2,y+4,0xFFECE5FF);
+            graphics.outline(x,y,w,16,selected ? 0xFFB996FF : 0xFF667080);
+            graphics.centeredText(Minecraft.getInstance().font,label,x+w/2,y+4,0xFFECE5FF);
         }
 
         private List<ScreenCell> projectCells(JeiData.Structure recipe, int size) {
@@ -314,7 +314,7 @@ public final class MDKJeiPlugin implements IModPlugin {
             previousMouseDown=down;
         }
 
-        private void renderRigidModel(JeiData.Structure recipe, GuiGraphics graphics, int size) {
+        private void renderRigidModel(JeiData.Structure recipe, GuiGraphicsExtractor graphics, int size) {
             var cells=new java.util.ArrayList<com.mdk.cosmetic.client.MultiblockPreview.Cell>();
             for(var cell:recipe.cells()){
                 if(visibleLayers>0&&cell.y()+size/2+1>visibleLayers)continue;
@@ -324,7 +324,7 @@ public final class MDKJeiPlugin implements IModPlugin {
             com.mdk.cosmetic.client.MultiblockPreview.submit(graphics,cells,angle,elevation,(size==3?20F:12F)*zoom);
         }
 
-        private void renderLegacyIcons(JeiData.Structure recipe, GuiGraphics graphics, int size) {
+        private void renderLegacyIcons(JeiData.Structure recipe, GuiGraphicsExtractor graphics, int size) {
             final float iconSize = (size == 3 ? 21f : 15f) * zoom;
             graphics.nextStratum();
             for (ScreenCell projected : projectCells(recipe, size)) {
@@ -336,25 +336,25 @@ public final class MDKJeiPlugin implements IModPlugin {
                 try {
                     pose.translate(left, top);
                     pose.scale(iconSize / 16f, iconSize / 16f);
-                    graphics.renderItem(projected.cell().item(), 0, 0);
+                    graphics.item(projected.cell().item(), 0, 0);
                 } finally { pose.popMatrix(); }
             }
             graphics.nextStratum();
         }
 
-        private void drawSelectionPanel(GuiGraphics graphics, double mx, double my, JeiData.Structure recipe) {
+        private void drawSelectionPanel(GuiGraphicsExtractor graphics, double mx, double my, JeiData.Structure recipe) {
             var font = Minecraft.getInstance().font;
             graphics.fill(8, 23, 78, 43, 0xC0181322);
-            graphics.renderOutline(8, 23, 70, 20, 0xFF6E5B92);
+            graphics.outline(8, 23, 70, 20, 0xFF6E5B92);
             if (selectedStack.isEmpty()) {
-                graphics.drawString(font, tr("pick_block"), 12, 27, 0xFFE8DFFF, false);
-                graphics.drawString(font, tr("pick_info"), 12, 35, 0xFFBAACC9, false);
+                graphics.text(font, tr("pick_block"), 12, 27, 0xFFE8DFFF, false);
+                graphics.text(font, tr("pick_info"), 12, 35, 0xFFBAACC9, false);
                 return;
             }
-            graphics.renderItem(selectedStack, 11, 25);
-            graphics.renderItemDecorations(font, selectedStack, 11, 25);
+            graphics.item(selectedStack, 11, 25);
+            graphics.itemDecorations(font, selectedStack, 11, 25);
             String label = font.plainSubstrByWidth(selectedStack.getHoverName().getString(), 42);
-            graphics.drawString(font, label, 31, 31, 0xFFF0E6FF, false);
+            graphics.text(font, label, 31, 31, 0xFFF0E6FF, false);
             if (hit(mx, my, 11, 25, 27, 41)) {
                 graphics.setTooltipForNextFrame(font, selectedStack, (int)mx, (int)my);
             }
@@ -364,24 +364,24 @@ public final class MDKJeiPlugin implements IModPlugin {
                     if (cell.cell().equals(selectedCell)) {
                         int left = (int)Math.round(cell.x() - 8);
                         int top = (int)Math.round(cell.y() - 8);
-                        graphics.renderOutline(left, top, 16, 16, 0xFFCCA7FF);
+                        graphics.outline(left, top, 16, 16, 0xFFCCA7FF);
                         break;
                     }
                 }
             }
         }
 
-        @Override public void draw(JeiData.Structure recipe, IRecipeSlotsView view, GuiGraphics graphics, double mx, double my) {
+        @Override public void draw(JeiData.Structure recipe, IRecipeSlotsView view, GuiGraphicsExtractor graphics, double mx, double my) {
             int size=recipe.size();
             handleMouse(recipe,mx,my);
             long now=Util.getMillis();
             if (autoSpin && lastRenderMillis>0) angle+=(Math.min(100,now-lastRenderMillis)*0.015f);
             lastRenderMillis=now;
-            graphics.drawString(Minecraft.getInstance().font,
+            graphics.text(Minecraft.getInstance().font,
                     recipe.finalTier() ? tr("final_title") : (recipe.upgrade() ? tr("upgrade_title") : tr("base_title")),
                     6,6,0xFFE7DAFF,false);
             graphics.fill(4,19,162,135,0xA0101623);
-            graphics.renderOutline(4,19,158,116,0xFF4B5567);
+            graphics.outline(4,19,158,116,0xFF4B5567);
 
             int visibleCount = 0;
             for (JeiData.Cell cell : recipe.cells()) {
@@ -395,17 +395,17 @@ public final class MDKJeiPlugin implements IModPlugin {
                 renderRigidModel(recipe, graphics, size);
             }
             drawSelectionPanel(graphics, mx, my, recipe);
-            graphics.drawString(Minecraft.getInstance().font,
+            graphics.text(Minecraft.getInstance().font,
                     (iconsFallback ? tr("icons") : "3D") + ": " + visibleCount + tr("blocks_hint"),
                     9, 122, 0xFFD1D8E7, false);
             if (recipe.upgrade()) drawControl(graphics,onlyNew ? tr("new_only") : tr("show_upgrade"),7,137,145,onlyNew);
-            if (!recipe.upgrade()) graphics.drawString(Minecraft.getInstance().font,tr("interaction"),7,143,0xFFC3C8D5,false);
+            if (!recipe.upgrade()) graphics.text(Minecraft.getInstance().font,tr("interaction"),7,143,0xFFC3C8D5,false);
             drawControl(graphics,"−",7,157,28,false);
             drawControl(graphics,"+",38,157,28,false);
             drawControl(graphics,autoSpin?tr("auto_on"):tr("auto_off"),69,157,47,autoSpin);
             drawControl(graphics,visibleLayers==0?tr("all"):visibleLayers+tr("layers_unit"),119,157,40,visibleLayers!=0);
-            graphics.drawString(Minecraft.getInstance().font,tr("blocks_title"),7,174,0xFFD8D0E6,false);
-            graphics.drawString(Minecraft.getInstance().font,
+            graphics.text(Minecraft.getInstance().font,tr("blocks_title"),7,174,0xFFD8D0E6,false);
+            graphics.text(Minecraft.getInstance().font,
                     recipe.finalTier() ? tr("final_portal_tip") : (visibleLayers==0?tr("all_layers"):tr("lower_layers")+visibleLayers),
                     7,204,0xFF9BA7BA,false);
         }

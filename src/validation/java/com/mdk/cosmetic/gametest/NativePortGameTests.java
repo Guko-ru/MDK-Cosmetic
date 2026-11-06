@@ -81,6 +81,7 @@ public final class NativePortGameTests {
         helper.succeed();
     }
     public static void allDataFilesLoad(GameTestHelper helper) throws java.io.IOException {
+        assertNativeChestLoot(helper);
         try(var in=NativePortGameTests.class.getResourceAsStream("/mdkcosmetic-expected-content.json")){
             var expected=com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
             var server=helper.getLevel().getServer();
@@ -115,7 +116,7 @@ public final class NativePortGameTests {
         }
         var input=new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.IRON_ORE));
         var smelt=level.recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMELTING,input,level);
-        assertTrue(helper,smelt.orElseThrow().value().assemble(input,level.registryAccess()).is(Items.IRON_INGOT),"Backpack smelting must use the new recipe assembly API");
+        assertTrue(helper,smelt.orElseThrow().value().assemble(input).is(Items.IRON_INGOT),"Backpack smelting must use the new recipe assembly API");
         assertTrue(helper,level.fuelValues().burnDuration(new ItemStack(Items.COAL))>0,"Backpack fuel duration must resolve from the world");
         var soul=MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         var warden=EntityType.WARDEN.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
@@ -164,10 +165,23 @@ public final class NativePortGameTests {
         assertTrue(helper,copy.identity().equals(identity)&&copy.getItem(0).is(Items.GOLD_INGOT)&&copy.getItem(0).getCount()==13,"Portable memory core must retain identity and furnace inventory");
         assertTrue(helper,level.getEntitiesOfClass(ItemEntity.class,new net.minecraft.world.phys.AABB(corePos).inflate(2),e->e.getItem().is(Items.GOLD_INGOT)).isEmpty(),"Memory core must not duplicate its furnace contents into loose drops");
         var stress=com.mdk.cosmetic.CollectorStressData.forLevel(level);stress.store(corePos,61,true);level.getDataStorage().saveAndJoin();
-        var disk=level.getDataStorage().readTagFromDisk("mdkcosmetic_collector_stress",null,0);
+        var dataFolder=level.dimension().identifier().resolveAgainst(level.getServer().getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).resolve("dimensions")).resolve("data");
+        var dataFile=net.minecraft.resources.Identifier.withDefaultNamespace("mdkcosmetic_collector_stress.dat").resolveAgainst(dataFolder);
+        var disk=level.getDataStorage().readTagFromDisk(dataFile,null,0);
         assertTrue(helper,disk.getCompoundOrEmpty("data").getListOrEmpty("Storages").compoundStream().anyMatch(t->t.getLongOr("Position",0L)==corePos.asLong()&&t.getIntOr("Stress",0)==61&&t.getBooleanOr("Activated",false)),"Native SavedData codec must persist existing storage schema on disk");
         helper.succeed();
     }
  private static InteractionResult interact(net.minecraft.world.entity.player.Player player,net.minecraft.world.entity.Entity target){var event=new net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract(player,InteractionHand.MAIN_HAND,target);net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(event);return event.getCancellationResult();}
- private static boolean mayBreak(net.minecraft.world.level.Level level,net.minecraft.world.entity.player.Player player,net.minecraft.world.level.block.state.BlockState state){var event=new net.neoforged.neoforge.event.level.BlockEvent.BreakEvent(level,BlockPos.ZERO,state,player);net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(event);return !event.isCanceled();}
+ private static boolean mayBreak(net.minecraft.world.level.Level level,net.minecraft.world.entity.player.Player player,net.minecraft.world.level.block.state.BlockState state){var event=new net.neoforged.neoforge.event.level.block.BreakBlockEvent(level,BlockPos.ZERO,state,player);net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(event);return !event.isCanceled();}
+ private static void assertNativeChestLoot(GameTestHelper helper){
+  var level=helper.getLevel();var server=level.getServer();
+  var manager=server.getServerResources().managers().getListener(net.neoforged.neoforge.resource.NeoForgeReloadListeners.LOOT_MODIFIERS_KEY);
+  for(var name:java.util.List.of("collector_ancient_city","collector_mineshaft","collector_stronghold_library","collector_trial_chambers","collector_village","collector_village_desert","collector_village_savanna","collector_village_snowy","collector_village_taiga"))assertTrue(helper,manager.getModifier(Identifier.fromNamespaceAndPath("mdkcosmetic",name))!=null,"Native chest loot modifier missing: "+name);
+  var params=new net.minecraft.world.level.storage.loot.LootParams.Builder(level).withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN,net.minecraft.world.phys.Vec3.ZERO).create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.CHEST);
+  var table=server.reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE,Identifier.parse("minecraft:chests/abandoned_mineshaft")));
+  var collector=level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ResourceKey.create(Registries.ENCHANTMENT,Identifier.parse("mdkcosmetic:collector")));
+  boolean found=false;for(long seed=1;seed<=256&&!found;seed++)for(var item:table.getRandomItems(params,seed))if(item.getOrDefault(net.minecraft.core.component.DataComponents.STORED_ENCHANTMENTS,net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY).getLevel(collector)>0){found=true;break;}
+  assertTrue(helper,found,"Seeded native mineshaft chest rolls must include the Collector enchantment book");
+  org.slf4j.LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_NATIVE_CHEST_LOOT_OK: 9 modifiers loaded and seeded native chest rolls produce the Collector book");
+ }
 }

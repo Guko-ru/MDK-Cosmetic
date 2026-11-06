@@ -18,7 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
 public final class CatEarsModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public CatEarsModel() {
         super(createLayer().bakeRoot());
-        this.setAllVisible(false);
+        com.mdk.cosmetic.client.ModelVisibility.set(this,false);
         this.head.visible = true;
     }
 

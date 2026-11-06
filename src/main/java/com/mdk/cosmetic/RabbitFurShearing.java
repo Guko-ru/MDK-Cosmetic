@@ -33,8 +33,8 @@ public final class RabbitFurShearing {
         long next = data.getLongOr(NEXT_SHEAR_AT,0L);
         if (next > now && next - now <= COOLDOWN_MILLIS) {
             long remainingMinutes = (next - now + 59999L) / 60000L;
-            event.getEntity().displayClientMessage(Component.translatable(
-                    "message.mdkcosmetic.rabbit_regrowing", remainingMinutes), true);
+            event.getEntity().sendOverlayMessage(Component.translatable(
+                    "message.mdkcosmetic.rabbit_regrowing", remainingMinutes));
             return;
         }
         data.putLong(NEXT_SHEAR_AT, now + COOLDOWN_MILLIS);

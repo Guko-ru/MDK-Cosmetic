@@ -32,11 +32,11 @@ public record CollectorEquipmentActionPayload(int action) implements CustomPacke
         static void open(ServerPlayer player) {
             var stack = CollectorEquipmentData.backpack(player);
             if (!(stack.getItem() instanceof CollectorBackpackItem)) {
-                player.displayClientMessage(Component.translatable("message.mdkcosmetic.no_equipped_backpack"),true);
+                player.sendOverlayMessage(Component.translatable("message.mdkcosmetic.no_equipped_backpack"));
                 return;
             }
             if (CollectorBackpackData.linked(stack) && CollectorBackpackData.remoteCore(stack,com.mdk.cosmetic.platform.ServerAccess.get(player)) == null) {
-                player.displayClientMessage(Component.translatable("message.mdkcosmetic.backpack_memory_unavailable"),true);
+                player.sendOverlayMessage(Component.translatable("message.mdkcosmetic.backpack_memory_unavailable"));
                 return;
             }
             player.openMenu(new SimpleMenuProvider((id,inv,p)->new CollectorBackpackMenu(id,inv,true),

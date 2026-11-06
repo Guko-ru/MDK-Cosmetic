@@ -2,7 +2,7 @@
 setlocal EnableExtensions
 cd /d "%~dp0"
 set "LOG=%~dp0BUILD_LOG.txt"
-set "GRADLE_VER=9.2.1"
+set "GRADLE_VER=9.8.2"
 set "GRADLE_EXE=%~dp0.tools\gradle-%GRADLE_VER%\bin\gradle.bat"
 set "BOOTSTRAP=%~dp0.tools\gradle-%GRADLE_VER%-bin.zip"
 
@@ -10,7 +10,7 @@ set "BOOTSTRAP=%~dp0.tools\gradle-%GRADLE_VER%-bin.zip"
 >>"%LOG%" echo Current dir: %CD%
 
 echo ========================================================
-echo   MDK Cosmetic - NeoForge 1.21.11 - Build
+echo   MDK Cosmetic - NeoForge 26.1.2 - Build
 
 echo ========================================================
 echo.
@@ -19,7 +19,7 @@ echo.
 
 where java >nul 2>nul
 if errorlevel 1 (
-  echo ERROR: Java was not found. Install JDK 21 and set JAVA_HOME/PATH.
+  echo ERROR: Java was not found. Install JDK 25 and set JAVA_HOME/PATH.
   >>"%LOG%" echo ERROR: Java was not found.
   goto :failure
 )
@@ -38,7 +38,7 @@ echo Gradle was not found. Downloading Gradle %GRADLE_VER% from gradle.org ...
 echo The first build requires an Internet connection.
 >>"%LOG%" echo Downloading Gradle %GRADLE_VER% ...
 
-powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "$ErrorActionPreference='Stop'; $version='9.2.1'; $base='%~dp0.tools'; $archive=Join-Path $base ('gradle-'+$version+'-bin.zip'); if (-not (Test-Path $archive)) { Invoke-WebRequest -Uri ('https://services.gradle.org/distributions/gradle-'+$version+'-bin.zip') -OutFile $archive }; Expand-Archive -LiteralPath $archive -DestinationPath $base -Force; if (-not (Test-Path (Join-Path $base ('gradle-'+$version+'\bin\gradle.bat')))) { throw 'Gradle executable missing after extraction' }" >>"%LOG%" 2>&1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "$ErrorActionPreference='Stop'; $version='9.8.2'; $base='%~dp0.tools'; $archive=Join-Path $base ('gradle-'+$version+'-bin.zip'); if (-not (Test-Path $archive)) { Invoke-WebRequest -Uri ('https://services.gradle.org/distributions/gradle-'+$version+'-bin.zip') -OutFile $archive }; Expand-Archive -LiteralPath $archive -DestinationPath $base -Force; if (-not (Test-Path (Join-Path $base ('gradle-'+$version+'\bin\gradle.bat')))) { throw 'Gradle executable missing after extraction' }" >>"%LOG%" 2>&1
 if errorlevel 1 (
   echo ERROR: Could not download or unpack Gradle. See BUILD_LOG.txt.
   goto :failure

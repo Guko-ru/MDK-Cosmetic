@@ -194,7 +194,7 @@ public final class CollectorSoulStorageBlockEntity extends BlockEntity {
             if (distance > radius + 0.5 || distance > WAVE_RADIUS
                     || !waveHit.add(victim.getUUID())) continue;
             if (distance < 0.001) {
-                double a = level.random.nextDouble() * Math.PI * 2;
+                double a = level.getRandom().nextDouble() * Math.PI * 2;
                 dx = Math.cos(a);
                 dz = Math.sin(a);
                 distance = 1.0;
@@ -240,7 +240,7 @@ public final class CollectorSoulStorageBlockEntity extends BlockEntity {
         CollectorSoulEntity soul = MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         if (soul != null) {
             soul.snapTo(center.x, center.y + 0.5, center.z,
-                    level.random.nextFloat() * 360.0F, 0.0F);
+                    level.getRandom().nextFloat() * 360.0F, 0.0F);
             level.addFreshEntity(soul);
         }
     }

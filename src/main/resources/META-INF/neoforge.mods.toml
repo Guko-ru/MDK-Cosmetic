@@ -14,14 +14,14 @@ Decorative cosmetics and a tailoring workstation.
 [[dependencies.mdkcosmetic]]
 modId="neoforge"
 type="required"
-versionRange="[21.11.48,)"
+versionRange="[26.1.2.126,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.mdkcosmetic]]
 modId="minecraft"
 type="required"
-versionRange="[1.21.11]"
+versionRange="[26.1.2]"
 ordering="NONE"
 side="BOTH"
 

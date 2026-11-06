@@ -2,7 +2,7 @@ package com.mdk.cosmetic.client;
 
 import com.mdk.cosmetic.CollectorEquipmentMenu;
 import com.mdk.cosmetic.MDKCosmetic;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -16,7 +16,7 @@ public final class CollectorEquipmentScreen extends AbstractContainerScreen<Coll
     private boolean draggingSpeed;
     private float scale=1.0f;
     public CollectorEquipmentScreen(CollectorEquipmentMenu menu,Inventory inventory,Component title){
-        super(menu,inventory,title);imageWidth=W;imageHeight=H;
+        super(menu,inventory,title,W,H);
         inventoryLabelX=20;inventoryLabelY=147;
     }
     private Component tr(String s){return Component.translatable("screen.mdkcosmetic.equipment_"+s);}
@@ -25,16 +25,16 @@ public final class CollectorEquipmentScreen extends AbstractContainerScreen<Coll
         super.init();
         leftPos=Math.round((width/scale-W)/2);topPos=Math.round((height/scale-H)/2);
     }
-    private void rect(GuiGraphics g,int x,int y,int w,int h,int c){g.fill(leftPos+x,topPos+y,leftPos+x+w,topPos+y+h,c);}
-    private void frame(GuiGraphics g,int x,int y,int w,int h,int c){rect(g,x,y,w,1,c);rect(g,x,y+h-1,w,1,c);rect(g,x,y,1,h,c);rect(g,x+w-1,y,1,h,c);}
-    private void button(GuiGraphics g,int x,int y,int w,int h,boolean enabled,boolean active){
+    private void rect(GuiGraphicsExtractor g,int x,int y,int w,int h,int c){g.fill(leftPos+x,topPos+y,leftPos+x+w,topPos+y+h,c);}
+    private void frame(GuiGraphicsExtractor g,int x,int y,int w,int h,int c){rect(g,x,y,w,1,c);rect(g,x,y+h-1,w,1,c);rect(g,x,y,1,h,c);rect(g,x+w-1,y,1,h,c);}
+    private void button(GuiGraphicsExtractor g,int x,int y,int w,int h,boolean enabled,boolean active){
         rect(g,x,y,w,h,enabled?(active?0xFF754CA1:0xFF48315F):0xFF282431);
         frame(g,x,y,w,h,enabled?(active?0xFFDCAFFF:0xFF996FC2):0xFF564A61);
     }
-    private void label(GuiGraphics g,Component text,int x,int y,int w,int color){
-        g.drawString(font,font.plainSubstrByWidth(text.getString(),w),x,y,color,false);
+    private void label(GuiGraphicsExtractor g,Component text,int x,int y,int w,int color){
+        g.text(font,font.plainSubstrByWidth(text.getString(),w),x,y,color,false);
     }
-    @Override protected void renderBg(GuiGraphics g,float pt,int mx,int my){
+    private void renderMachineBackground(GuiGraphicsExtractor g,float pt,int mx,int my){
         rect(g,0,0,W,H,0xFF171120);frame(g,0,0,W,H,0xFFAA7BDA);
         rect(g,6,17,176,119,0xFF241A31);frame(g,6,17,176,119,0xFF735493);
         rect(g,10,142,174,97,0xFF241A31);frame(g,10,142,174,97,0xFF735493);
@@ -56,7 +56,7 @@ public final class CollectorEquipmentScreen extends AbstractContainerScreen<Coll
                 case 3 -> MDKCosmetic.COLLECTOR_LEGGINGS.get();
                 default -> MDKCosmetic.COLLECTOR_BOOTS.get();
             });
-            g.renderItem(icon,leftPos+55,topPos+35+i*19);
+            g.item(icon,leftPos+55,topPos+35+i*19);
         }
         if(section==0)button(g,196,77,141,22,menu.fullArmor(),menu.fearMode()==1);
         if(section==1)button(g,196,77,141,22,menu.helmet(),menu.nightVision());
@@ -70,7 +70,7 @@ public final class CollectorEquipmentScreen extends AbstractContainerScreen<Coll
         if(section==4)button(g,196,77,141,22,menu.boots(),menu.noFall());
     }
     private boolean enabled(int id){return switch(id){case 0->menu.fullArmor();case 1->menu.helmet();case 2->menu.chest();case 3->menu.legs();default->menu.boots();};}
-    @Override protected void renderLabels(GuiGraphics g,int mx,int my){
+    @Override protected void extractLabels(GuiGraphicsExtractor g,int mx,int my){
         label(g,tr("title"),11,5,320,0xFFE2C9FF);
         label(g,tr("backpack"),12,25,145,0xFFE4D4F9);
         label(g,tr("fuel"),12,74,145,0xFFD0B2E9);
@@ -86,7 +86,7 @@ public final class CollectorEquipmentScreen extends AbstractContainerScreen<Coll
         }else if(section==2){
             label(g,tr(menu.flight()?"enabled":"disabled"),203,84,126,0xFFE8D6FF);
             label(g,tr("flight_remaining"),196,112,148,0xFFBCA8D6);
-            g.drawString(font,Integer.toString(menu.flightRemaining()/20),197,125,0xFFE8D6FF,false);
+            g.text(font,Integer.toString(menu.flightRemaining()/20),197,125,0xFFE8D6FF,false);
         }else if(section==3){
             label(g,Component.literal("−"),204,91,15,0xFFFFFFFF);
             label(g,Component.literal("+"),315,91,15,0xFFFFFFFF);
@@ -133,14 +133,14 @@ public final class CollectorEquipmentScreen extends AbstractContainerScreen<Coll
         return super.mouseDragged(new net.minecraft.client.input.MouseButtonEvent(mx/scale,my/scale,mdk$mouse.buttonInfo()),dx/scale,dy/scale);
     }
     // mdk: unified scaled canvas; native background callbacks must not draw it a second time.
-    @Override public void renderBackground(GuiGraphics graphics,int mouseX,int mouseY,float partial) {}
+    @Override public void extractBackground(GuiGraphicsExtractor graphics,int mouseX,int mouseY,float partial) {}
 
-    @Override public void render(GuiGraphics g,int mx,int my,float pt){
+    @Override public void extractRenderState(GuiGraphicsExtractor g,int mx,int my,float pt){
         int x=(int)(mx/scale),y=(int)(my/scale);
-        renderTransparentBackground(g);
+        extractTransparentBackground(g);
         g.pose().pushMatrix();g.pose().scale(scale,scale);
-        renderBg(g,pt,x,y);super.render(g,x,y,pt);
-        renderTooltip(g,x,y);
+        renderMachineBackground(g,pt,x,y);super.extractRenderState(g,x,y,pt);
+        extractTooltip(g,x,y);
         g.pose().popMatrix();
     }
 }

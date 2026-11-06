@@ -47,7 +47,7 @@ public final class LegacyClientContext {
  public WorldBuilder worldBuilder(){return new WorldBuilder();}
  public final class WorldBuilder {
   public World create(){
-   runOnClient(c->c.createWorldOpenFlows().createFreshLevel("MDK Regression "+System.currentTimeMillis(),new LevelSettings("MDK regression",GameType.CREATIVE,false,Difficulty.NORMAL,true,new GameRules(net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS),WorldDataConfiguration.DEFAULT),new WorldOptions(0L,false,false),registries->registries.lookupOrThrow(Registries.WORLD_PRESET).getOrThrow(WorldPresets.FLAT).value().createWorldDimensions(),new TitleScreen()));
+   runOnClient(c->c.createWorldOpenFlows().createFreshLevel("MDK Regression "+System.currentTimeMillis(),new LevelSettings("MDK regression",GameType.CREATIVE,new LevelSettings.DifficultySettings(Difficulty.NORMAL,false,false),true,WorldDataConfiguration.DEFAULT),new WorldOptions(0L,false,false),registries->registries.lookupOrThrow(Registries.WORLD_PRESET).getOrThrow(WorldPresets.FLAT).value().createWorldDimensions(),new TitleScreen()));
    waitFor(c->c.level!=null&&c.player!=null&&c.getSingleplayerServer()!=null&&c.screen==null);waitTicks(40);return new World();
   }
  }
