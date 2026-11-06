@@ -29,7 +29,7 @@ public final class NativePortGameTests {
         helper.succeed();
     }
     public static void foxShearingAndPersistentCooldown(GameTestHelper helper){
-        var fox=helper.spawn(EntityType.FOX,2,2,2);
+        var fox=helper.spawn(net.minecraft.world.entity.EntityTypes.FOX,2,2,2);
         var player=helper.makeMockPlayer(GameType.SURVIVAL);
         player.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.SHEARS));
         var first=interact(player,fox);
@@ -40,7 +40,7 @@ public final class NativePortGameTests {
         int after=helper.getLevel().getEntitiesOfClass(ItemEntity.class,fox.getBoundingBox().inflate(4),e->e.getItem().is(MDKCosmetic.FOX_FUR.get())).size();
         assertTrue(helper,after==before,"Shearing cooldown must prevent a second fur");
         var tag=com.mdk.cosmetic.platform.LegacyValues.saveEntity(fox);
-        var restored=EntityType.FOX.create(helper.getLevel(),net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);com.mdk.cosmetic.platform.LegacyValues.loadEntity(restored,tag);
+        var restored=net.minecraft.world.entity.EntityTypes.FOX.create(helper.getLevel(),net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);com.mdk.cosmetic.platform.LegacyValues.loadEntity(restored,tag);
         assertTrue(helper,PersistentData.of(restored).getLongOr("mdkcosmetic.nextFoxFurShear",0L)>System.currentTimeMillis(),"Cooldown must survive entity save/load");
         helper.succeed();
     }
@@ -119,7 +119,7 @@ public final class NativePortGameTests {
         assertTrue(helper,smelt.orElseThrow().value().assemble(input).is(Items.IRON_INGOT),"Backpack smelting must use the new recipe assembly API");
         assertTrue(helper,level.fuelValues().burnDuration(new ItemStack(Items.COAL))>0,"Backpack fuel duration must resolve from the world");
         var soul=MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
-        var warden=EntityType.WARDEN.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
+        var warden=net.minecraft.world.entity.EntityTypes.WARDEN.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         assertTrue(helper,soul.isAlliedTo(warden),"Soul must remain allied with Wardens");
         assertTrue(helper,!soul.hurtServer(level,level.damageSources().mobAttack(warden),8F),"Warden attacks must not damage the soul");
         assertTrue(helper,soul.hurtServer(level,level.damageSources().generic(),1F),"Ordinary server damage must still trigger soul injury behavior");
@@ -171,7 +171,7 @@ public final class NativePortGameTests {
         assertTrue(helper,disk.getCompoundOrEmpty("data").getListOrEmpty("Storages").compoundStream().anyMatch(t->t.getLongOr("Position",0L)==corePos.asLong()&&t.getIntOr("Stress",0)==61&&t.getBooleanOr("Activated",false)),"Native SavedData codec must persist existing storage schema on disk");
         helper.succeed();
     }
- private static InteractionResult interact(net.minecraft.world.entity.player.Player player,net.minecraft.world.entity.Entity target){var event=new net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract(player,InteractionHand.MAIN_HAND,target);net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(event);return event.getCancellationResult();}
+ private static InteractionResult interact(net.minecraft.world.entity.player.Player player,net.minecraft.world.entity.Entity target){var event=new net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract(player,InteractionHand.MAIN_HAND,target,net.minecraft.world.phys.Vec3.ZERO);net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(event);return event.getCancellationResult();}
  private static boolean mayBreak(net.minecraft.world.level.Level level,net.minecraft.world.entity.player.Player player,net.minecraft.world.level.block.state.BlockState state){var event=new net.neoforged.neoforge.event.level.block.BreakBlockEvent(level,BlockPos.ZERO,state,player);net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(event);return !event.isCanceled();}
  private static void assertNativeChestLoot(GameTestHelper helper){
   var level=helper.getLevel();var server=level.getServer();

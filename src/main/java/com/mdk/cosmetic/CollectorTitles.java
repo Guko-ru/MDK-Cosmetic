@@ -17,7 +17,8 @@ public final class CollectorTitles {
         for(ServerPlayer player:level.players()) {
             if(player.distanceToSqr(origin)>RANGE_SQUARED)continue;
             if(!key.equals("title.mdkcosmetic.awakening")) {
-                Integer rgb=color.getColor();
+                var textColor=net.minecraft.network.chat.TextColor.fromLegacyFormat(color);
+                Integer rgb=textColor==null?null:textColor.getValue();
                 PacketDistributor.sendToPlayer(player,new CollectorDialoguePayload(key,rgb==null?0xC18FFF:rgb));
             } else {
                 player.connection.send(new ClientboundSetTitlesAnimationPacket(8,42,12));

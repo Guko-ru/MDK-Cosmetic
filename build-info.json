@@ -1,11 +1,11 @@
 {
   "loader": "NeoForge",
-  "minecraft": "26.1.2",
-  "loader_build": "26.1.2.126",
+  "minecraft": "26.2",
+  "loader_build": "26.2.0.93",
   "mod_version": "1.18.79",
   "java": 25,
-  "artifact": "MDK-Cosmetic-26.1.2-NeoForge-1.18.79.jar",
-  "sha256": "f154d54868596c52f9b08041a71449d032b94bebf17ccdf5df55673809d9cf5d",
+  "artifact": "MDK-Cosmetic-26.2-NeoForge-1.18.79.jar",
+  "sha256": "88e363b2333e53f5551848ce304613f0e162254d267974970018986d0a8cc01a",
   "fabric_api": null,
   "validation": {
     "required_game_tests_passed": 9,

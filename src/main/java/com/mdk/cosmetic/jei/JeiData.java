@@ -70,7 +70,7 @@ public final class JeiData {
         result.add(new Sewing(new ItemStack(MDKCosmetic.MOOSHROOM_FUR.get(), 12), new ItemStack(Items.STRING, 5), new ItemStack(MDKCosmetic.MOOSHROOM_HAT.get())));
         result.add(new Sewing(new ItemStack(MDKCosmetic.POLAR_BEAR_FUR.get(), 12), new ItemStack(Items.STRING, 5), new ItemStack(MDKCosmetic.POLAR_BEAR_HAT.get())));
         result.add(new Sewing(new ItemStack(MDKCosmetic.LLAMA_FUR.get(), 12), new ItemStack(Items.STRING, 5), new ItemStack(MDKCosmetic.LLAMA_HAT.get())));
-        result.add(new Sewing(new ItemStack(Items.WHITE_WOOL, 12), new ItemStack(Items.STRING, 5), new ItemStack(MDKCosmetic.SHEEP_HAT.get())));
+        result.add(new Sewing(new ItemStack(Items.WOOL.pick(net.minecraft.world.item.DyeColor.WHITE), 12), new ItemStack(Items.STRING, 5), new ItemStack(MDKCosmetic.SHEEP_HAT.get())));
         result.add(new Sewing(new ItemStack(MDKCosmetic.WOLF_FUR.get(), 12), new ItemStack(Items.STRING, 5), new ItemStack(MDKCosmetic.WOLF_HAT.get())));
         result.add(new Sewing(new ItemStack(MDKCosmetic.HORSE_FUR.get(), 14), new ItemStack(Items.STRING, 6), new ItemStack(MDKCosmetic.HORSE_HAT.get())));
         result.add(new Sewing(new ItemStack(MDKCosmetic.DONKEY_FUR.get(), 14), new ItemStack(Items.STRING, 6), new ItemStack(MDKCosmetic.DONKEY_HAT.get())));

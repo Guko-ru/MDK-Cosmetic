@@ -10,7 +10,7 @@ public final class LegacyRegressionInitializer  {
    client.options.pauseOnLostFocus=false;
    LegacyClientContext.TICKS.incrementAndGet();
    if(!Boolean.getBoolean("mdkcosmetic.clientRegressions"))return;
-   if(started[0]||client.getOverlay()!=null||client.screen==null||LegacyClientContext.TICKS.get()<20)return;
+   if(started[0]||client.gui.overlay()!=null||client.gui.screen()==null||LegacyClientContext.TICKS.get()<20)return;
    started[0]=true;
    new Thread(()->{try{new com.mdk.cosmetic.gametest.CollectorClientRegressionTest().runTest(new LegacyClientContext());client.execute(client::stop);}catch(Throwable error){LoggerFactory.getLogger("mdkcosmetic-test").error("MDK_CLIENT_REGRESSIONS_FAILED",error);client.execute(()->{throw new AssertionError("Client regression failed",error);});}},"MDK legacy client tests").start();
   });

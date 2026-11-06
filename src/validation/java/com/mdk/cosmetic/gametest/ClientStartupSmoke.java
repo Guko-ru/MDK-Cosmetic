@@ -13,11 +13,11 @@ public final class ClientStartupSmoke  {
         int[] readyTicks={0},stage={0};
         boolean[] worldStarted={false};var worldReady=new java.util.concurrent.atomic.AtomicBoolean();
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.client.event.ClientTickEvent.Post event)->{var client=net.minecraft.client.Minecraft.getInstance();
-            if(client.getOverlay()!=null||(client.level==null&&client.screen==null)||++readyTicks[0]<20)return;
+            if(client.gui.overlay()!=null||(client.level==null&&client.gui.screen()==null)||++readyTicks[0]<20)return;
             if(!worldStarted[0]){worldStarted[0]=true;new Thread(()->{try{new com.mdk.cosmetic.gametest.legacy.LegacyClientContext().worldBuilder().create();worldReady.set(true);}catch(Throwable error){client.execute(()->{throw new AssertionError("Native smoke world failed",error);});}},"MDK smoke world").start();return;}
             if(!worldReady.get())return;
             if(stage[0]==1){
-                if(readyTicks[0]==30)net.minecraft.client.Screenshot.grab(client.gameDirectory,"multiblock-preview-smoke.png",client.getMainRenderTarget(),1,message->LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_PREVIEW_IMAGE_READY"));
+                if(readyTicks[0]==30)net.minecraft.client.Screenshot.grab(client.gameDirectory,"multiblock-preview-smoke.png",client.gameRenderer.mainRenderTarget(),1,message->LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_PREVIEW_IMAGE_READY"));
                 if(readyTicks[0]>=50){LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_PREVIEW_SMOKE_OK: 27 depth-tested item models rendered in deferred GUI");client.stop();}return;
             }
             var bossState=new com.mdk.cosmetic.client.UnoRenderState();
@@ -50,7 +50,7 @@ public final class ClientStartupSmoke  {
                 checked++;
             }
             LoggerFactory.getLogger("mdkcosmetic-test").info("MDK_CLIENT_SMOKE_OK: {} item models, entity renderers, armor models and client mixins initialized",checked);
-            stage[0]=1;readyTicks[0]=0;client.setScreen(new PreviewScreen());
+            stage[0]=1;readyTicks[0]=0;client.gui.setScreen(new PreviewScreen());
         });
     }
 

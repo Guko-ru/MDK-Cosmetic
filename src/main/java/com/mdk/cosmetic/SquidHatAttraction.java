@@ -15,7 +15,7 @@ public final class SquidHatAttraction {
     private SquidHatAttraction() { }
 
     public static void onSquidTick(EntityTickEvent.Post event) {
-        if (!(event.getEntity() instanceof Squid squid) || squid.getType() != EntityType.SQUID) return;
+        if (!(event.getEntity() instanceof Squid squid) || squid.getType() != net.minecraft.world.entity.EntityTypes.SQUID) return;
         if (squid.level().isClientSide() || !squid.isAlive() || squid.isNoAi() || !squid.isInWater()) return;
         if (squid.tickCount % 3 != 0) return;
         LivingEntity nearest = HatWearerFinder.closest(squid, MDKCosmetic.OCTOPUS_HAT.get(), RANGE_SQ);
