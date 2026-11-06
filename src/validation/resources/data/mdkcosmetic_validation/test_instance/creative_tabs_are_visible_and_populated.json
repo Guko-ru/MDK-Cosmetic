@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:function",
+  "function": "mdkcosmetic_validation:creative_tabs_are_visible_and_populated",
+  "environment": "minecraft:default",
+  "structure": "mdkcosmetic_validation:empty",
+  "max_ticks": 200,
+  "required": true
+}

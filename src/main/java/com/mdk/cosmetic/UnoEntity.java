@@ -6,7 +6,7 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.projectile.ThrownPotion;
+import net.minecraft.world.entity.projectile.ThrownSplashPotion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.phys.AABB;
@@ -76,8 +76,8 @@ public final class UnoEntity extends Monster {
     // Phase III must also reach clients so animations play at twice their original speed.
     private static final EntityDataAccessor<Boolean> RAGE_ACTIVE =
             SynchedEntityData.defineId(UnoEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Optional<UUID>> MIMIC_TARGET =
-            SynchedEntityData.defineId(UnoEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Optional<net.minecraft.world.entity.EntityReference<LivingEntity>>> MIMIC_TARGET =
+            SynchedEntityData.defineId(UnoEntity.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
     private static final EquipmentSlot[] MIMIC_ARMOR_SLOTS = {
             EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET
     };
@@ -158,7 +158,7 @@ public final class UnoEntity extends Monster {
     public int getAction() { return entityData.get(ACTION); }
     public boolean isSecondPhase() { return entityData.get(SECOND_PHASE); }
     public boolean isTotemRage() { return entityData.get(RAGE_ACTIVE); }
-    public Optional<UUID> getMimicTarget() { return entityData.get(MIMIC_TARGET); }
+    public Optional<UUID> getMimicTarget() { return entityData.get(MIMIC_TARGET).map(net.minecraft.world.entity.EntityReference::getUUID); }
     public float actionSeconds() {
         float elapsed = Math.max(0F, (level().getGameTime() - entityData.get(ACTION_START)) / 20.0F);
         // Sword/dash/dodge animations on both the client and server are twice as fast in phase III.
@@ -352,7 +352,7 @@ public final class UnoEntity extends Monster {
 
     /** A real throwable poison potion; poison itself never bypasses vanilla resistances. */
     private void throwPoison(ServerLevel server, LivingEntity target) {
-        ThrownPotion potion = new ThrownPotion(server,this, PotionContents.createItemStack(Items.SPLASH_POTION,Potions.POISON));
+        ThrownSplashPotion potion = new ThrownSplashPotion(server,this, PotionContents.createItemStack(Items.SPLASH_POTION,Potions.POISON));
         potion.setItem(PotionContents.createItemStack(Items.SPLASH_POTION,Potions.POISON));
         potion.setPos(getX(),getY()+1.6D,getZ());
         Vec3 aim = target.getEyePosition().subtract(potion.position());
@@ -450,7 +450,7 @@ public final class UnoEntity extends Monster {
         if (nearest == null) return; // A player must be close; retry automatically next tick.
 
         // No client-side game-profile fetch and no user-facing skin command.
-        entityData.set(MIMIC_TARGET, Optional.of(nearest.getUUID()));
+        entityData.set(MIMIC_TARGET, Optional.of(new net.minecraft.world.entity.EntityReference<LivingEntity>(nearest)));
         entityData.set(SECOND_PHASE, true);
         // First showcase casts shortly after transformation; subsequent uses obey full cooldowns.
         blinkCooldown = 0;
@@ -675,26 +675,26 @@ public final class UnoEntity extends Monster {
             tag.putInt("UnoAnchorZ",endAnchor.getZ());
         }
         tag.putBoolean("UnoPhaseTwo", isSecondPhase());
-        getMimicTarget().ifPresent(id -> tag.putUUID("UnoMimicTarget", id));
+        getMimicTarget().ifPresent(id -> tag.store("UnoMimicTarget",net.minecraft.core.UUIDUtil.CODEC,id));
     }
     @Override public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        dashCooldown = tag.getInt("UnoDashCooldown");
-        burstCooldown = tag.getInt("UnoBurstCooldown");
-        dodgeCooldown = tag.getInt("UnoDodgeCooldown");
-        combo = tag.getInt("UnoCombo");
-        dashTicks=tag.getInt("UnoDashTicks");
-        poisonCooldown=tag.contains("UnoPoisonCooldown") ? tag.getInt("UnoPoisonCooldown") : 200;
-        sonicCooldown=tag.contains("UnoSonicCooldown") ? tag.getInt("UnoSonicCooldown") : SONIC_COOLDOWN;
-        appleCooldown=tag.contains("UnoAppleCooldown") ? tag.getInt("UnoAppleCooldown") : APPLE_COOLDOWN;
-        blinkCooldown=tag.contains("UnoBlinkCooldown") ? tag.getInt("UnoBlinkCooldown") : BLINK_COOLDOWN;
-        endEncounter=tag.getBoolean("UnoEndEncounter");
-        totemRage=tag.getBoolean("UnoTotemRage");
+        dashCooldown = tag.getIntOr("UnoDashCooldown",0);
+        burstCooldown = tag.getIntOr("UnoBurstCooldown",0);
+        dodgeCooldown = tag.getIntOr("UnoDodgeCooldown",0);
+        combo = tag.getIntOr("UnoCombo",0);
+        dashTicks=tag.getIntOr("UnoDashTicks",0);
+        poisonCooldown=tag.contains("UnoPoisonCooldown") ? tag.getIntOr("UnoPoisonCooldown",0) : 200;
+        sonicCooldown=tag.contains("UnoSonicCooldown") ? tag.getIntOr("UnoSonicCooldown",0) : SONIC_COOLDOWN;
+        appleCooldown=tag.contains("UnoAppleCooldown") ? tag.getIntOr("UnoAppleCooldown",0) : APPLE_COOLDOWN;
+        blinkCooldown=tag.contains("UnoBlinkCooldown") ? tag.getIntOr("UnoBlinkCooldown",0) : BLINK_COOLDOWN;
+        endEncounter=tag.getBooleanOr("UnoEndEncounter",false);
+        totemRage=tag.getBooleanOr("UnoTotemRage",false);
         entityData.set(RAGE_ACTIVE, totemRage);
         ensureRageMovementSpeed();
         if (totemRage) sonicCooldown = Math.min(sonicCooldown, RAGE_SONIC_COOLDOWN);
         if(tag.contains("UnoAnchorY")) endAnchor = new BlockPos(
-                tag.getInt("UnoAnchorX"), tag.getInt("UnoAnchorY"), tag.getInt("UnoAnchorZ"));
+                tag.getIntOr("UnoAnchorX",0), tag.getIntOr("UnoAnchorY",0), tag.getIntOr("UnoAnchorZ",0));
         if(endEncounter) {
             setPersistenceRequired();
             if(endAnchor!=null) restrictTo(endAnchor,120);
@@ -710,9 +710,9 @@ public final class UnoEntity extends Monster {
         }
         setDropChance(EquipmentSlot.MAINHAND, 0.0F);
         castTicks=0; castSpell=0; castVictim=null; appleEatingTicks=0;
-        entityData.set(SECOND_PHASE, tag.getBoolean("UnoPhaseTwo"));
+        entityData.set(SECOND_PHASE, tag.getBooleanOr("UnoPhaseTwo",false));
         entityData.set(MIMIC_TARGET,
-                tag.hasUUID("UnoMimicTarget") ? Optional.of(tag.getUUID("UnoMimicTarget")) : Optional.empty());
+                tag.read("UnoMimicTarget",net.minecraft.core.UUIDUtil.CODEC).isPresent() ? Optional.of(new net.minecraft.world.entity.EntityReference<LivingEntity>(tag.read("UnoMimicTarget",net.minecraft.core.UUIDUtil.CODEC).orElseThrow())) : Optional.empty());
         if (isSecondPhase()) {
             // The copied equipment is restored by vanilla Mob NBT. Never allow it to drop.
             for (EquipmentSlot slot : MIMIC_ARMOR_SLOTS) setDropChance(slot, 0.0F);

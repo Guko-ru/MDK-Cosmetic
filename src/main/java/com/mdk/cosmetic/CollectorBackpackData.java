@@ -28,7 +28,7 @@ public final class CollectorBackpackData {
     public static final int MAGNET_MODULE_SLOT = 1;
 
     public static CompoundTag read(ItemStack stack) {
-        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getCompound(KEY).copy();
+        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getCompoundOrEmpty(KEY).copy();
     }
 
     public static void write(ItemStack stack, CompoundTag data) {
@@ -37,26 +37,26 @@ public final class CollectorBackpackData {
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(root));
     }
 
-    public static boolean linked(ItemStack stack) { return read(stack).getBoolean("Linked"); }
-    public static boolean whitelist(ItemStack stack) { return read(stack).getBoolean("Whitelist"); }
+    public static boolean linked(ItemStack stack) { return read(stack).getBooleanOr("Linked",false); }
+    public static boolean whitelist(ItemStack stack) { return read(stack).getBooleanOr("Whitelist",false); }
     public static boolean magnetEnabled(ItemStack stack) {
         CompoundTag data = read(stack);
-        return !data.contains("MagnetEnabled") || data.getBoolean("MagnetEnabled");
+        return !data.contains("MagnetEnabled") || data.getBooleanOr("MagnetEnabled",false);
     }
-    public static boolean totemEnabled(ItemStack stack) { return !read(stack).getBoolean("TotemDisabled"); }
-    public static boolean deathVaultEnabled(ItemStack stack) { return !read(stack).getBoolean("DeathVaultDisabled"); }
+    public static boolean totemEnabled(ItemStack stack) { return !read(stack).getBooleanOr("TotemDisabled",false); }
+    public static boolean deathVaultEnabled(ItemStack stack) { return !read(stack).getBooleanOr("DeathVaultDisabled",false); }
 
     public static int capacity(ItemStack stack) { return stack.is(MDKCosmetic.COLLECTOR_BACKPACK_REINFORCED.get()) ? 45 : 27; }
 
     public static List<ItemStack> items(ItemStack backpack, HolderLookup.Provider provider) {
         List<ItemStack> result = new ArrayList<>();
         for (int i = 0; i < 45; i++) result.add(ItemStack.EMPTY);
-        ListTag list = read(backpack).getList("Items", 10);
+        ListTag list = read(backpack).getListOrEmpty("Items");
         for (int i = 0; i < list.size(); i++) {
-            CompoundTag slot = list.getCompound(i);
-            int index = slot.getInt("Slot");
+            CompoundTag slot = list.getCompoundOrEmpty(i);
+            int index = slot.getIntOr("Slot",0);
             if (index >= 0 && index < capacity(backpack))
-                result.set(index, ItemStack.parseOptional(provider, slot.getCompound("Stack")));
+                result.set(index, com.mdk.cosmetic.platform.StackNbt.parse(provider, slot.getCompoundOrEmpty("Stack")));
         }
         return result;
     }
@@ -69,7 +69,7 @@ public final class CollectorBackpackData {
             if (stack.isEmpty()) continue;
             CompoundTag entry = new CompoundTag();
             entry.putInt("Slot", i);
-            entry.put("Stack", stack.saveOptional(provider));
+            entry.put("Stack", com.mdk.cosmetic.platform.StackNbt.save(stack,provider));
             list.add(entry);
         }
         data.put("Items", list);
@@ -80,12 +80,12 @@ public final class CollectorBackpackData {
         migrateLegacyModules(backpack, provider);
         List<ItemStack> result = new ArrayList<>();
         for (int i = 0; i < UPGRADE_SLOTS; i++) result.add(ItemStack.EMPTY);
-        ListTag list = read(backpack).getList("UpgradeItems", 10);
+        ListTag list = read(backpack).getListOrEmpty("UpgradeItems");
         for (int i = 0; i < list.size(); i++) {
-            CompoundTag entry = list.getCompound(i);
-            int slot = entry.getInt("Slot");
+            CompoundTag entry = list.getCompoundOrEmpty(i);
+            int slot = entry.getIntOr("Slot",0);
             if (slot >= 0 && slot < UPGRADE_SLOTS)
-                result.set(slot, ItemStack.parseOptional(provider, entry.getCompound("Stack")));
+                result.set(slot, com.mdk.cosmetic.platform.StackNbt.parse(provider, entry.getCompoundOrEmpty("Stack")));
         }
         return result;
     }
@@ -98,7 +98,7 @@ public final class CollectorBackpackData {
             if (stack.isEmpty()) continue;
             CompoundTag entry = new CompoundTag();
             entry.putInt("Slot", i);
-            entry.put("Stack", stack.saveOptional(provider));
+            entry.put("Stack", com.mdk.cosmetic.platform.StackNbt.save(stack,provider));
             list.add(entry);
         }
         data.put("UpgradeItems", list);
@@ -132,11 +132,11 @@ public final class CollectorBackpackData {
     public static List<ItemStack> filterItems(ItemStack backpack, HolderLookup.Provider provider) {
         List<ItemStack> result = new ArrayList<>();
         for (int i = 0; i < FILTER_MAX; i++) result.add(ItemStack.EMPTY);
-        ListTag list = read(backpack).getList("FilterItems", 10);
+        ListTag list = read(backpack).getListOrEmpty("FilterItems");
         for (int i = 0; i < list.size(); i++) {
-            CompoundTag entry = list.getCompound(i);
-            int slot = entry.getInt("Slot");
-            if (slot >= 0 && slot < FILTER_MAX) result.set(slot, ItemStack.parseOptional(provider, entry.getCompound("Stack")));
+            CompoundTag entry = list.getCompoundOrEmpty(i);
+            int slot = entry.getIntOr("Slot",0);
+            if (slot >= 0 && slot < FILTER_MAX) result.set(slot, com.mdk.cosmetic.platform.StackNbt.parse(provider, entry.getCompoundOrEmpty("Stack")));
         }
         return result;
     }
@@ -151,7 +151,7 @@ public final class CollectorBackpackData {
             if (list.get(i).isEmpty()) continue;
             CompoundTag entry = new CompoundTag();
             entry.putInt("Slot", i);
-            entry.put("Stack", list.get(i).saveOptional(provider));
+            entry.put("Stack", com.mdk.cosmetic.platform.StackNbt.save(list.get(i),provider));
             out.add(entry);
         }
         data.put("FilterItems", out);
@@ -162,7 +162,7 @@ public final class CollectorBackpackData {
         if (candidate.isEmpty() || candidate.getItem() instanceof CollectorBackpackItem) return false;
         if (!hasFilter(backpack, provider)) return true;
         boolean match = false;
-        boolean exact = read(backpack).getBoolean("Exact");
+        boolean exact = read(backpack).getBooleanOr("Exact",false);
         for (ItemStack entry : filterItems(backpack, provider)) {
             if (!entry.isEmpty() && (exact ? ItemStack.isSameItemSameComponents(entry, candidate) : entry.is(candidate.getItem()))) {
                 match = true;
@@ -174,16 +174,16 @@ public final class CollectorBackpackData {
 
     public static CollectorMemoryCoreBlockEntity remoteCore(ItemStack backpack, MinecraftServer server) {
         CompoundTag data = read(backpack);
-        if (!data.getBoolean("Linked") || !data.hasUUID("MemoryId")) return null;
-        ResourceLocation id = ResourceLocation.tryParse(data.getString("Dimension"));
+        if (!data.getBooleanOr("Linked",false) || !data.read("MemoryId",net.minecraft.core.UUIDUtil.CODEC).isPresent()) return null;
+        ResourceLocation id = ResourceLocation.tryParse(data.getStringOr("Dimension",""));
         if (id == null) return null;
         ResourceKey<Level> dimension = ResourceKey.create(Registries.DIMENSION, id);
         ServerLevel level = server.getLevel(dimension);
         if (level == null) return null;
-        BlockPos pos = BlockPos.of(data.getLong("Pos"));
+        BlockPos pos = BlockPos.of(data.getLongOr("Pos",0L));
         level.getChunkAt(pos);
         if (!(level.getBlockEntity(pos) instanceof CollectorMemoryCoreBlockEntity core)) return null;
-        if (!core.identity().equals(data.getUUID("MemoryId"))) return null;
+        if (!core.identity().equals(data.read("MemoryId",net.minecraft.core.UUIDUtil.CODEC).orElseThrow())) return null;
         for (int x = -2; x <= 2; x += 4) for (int z = -2; z <= 2; z += 4) level.getChunkAt(pos.offset(x, 0, z));
         return CollectorMemoryStructure.ready(level, pos.above(2)) ? core : null;
     }
@@ -191,7 +191,7 @@ public final class CollectorBackpackData {
     public static void link(ItemStack backpack, CollectorMemoryCoreBlockEntity core, ServerLevel level) {
         CompoundTag data = read(backpack);
         data.putBoolean("Linked", true);
-        data.putUUID("MemoryId", core.identity());
+        data.store("MemoryId",net.minecraft.core.UUIDUtil.CODEC,core.identity());
         data.putString("Dimension", level.dimension().location().toString());
         data.putLong("Pos", core.getBlockPos().asLong());
         data.remove("Items");
@@ -207,19 +207,19 @@ public final class CollectorBackpackData {
 
     private static void migrateLegacyModules(ItemStack backpack, HolderLookup.Provider provider) {
         CompoundTag data = read(backpack);
-        if (data.contains("UpgradeItems", 9)) {
+        if (data.getList("UpgradeItems").isPresent()) {
             // Older builds used 2 positions: filter / magnet. Convert those safely.
-            ListTag old = data.getList("UpgradeItems", 10);
+            ListTag old = data.getListOrEmpty("UpgradeItems");
             boolean legacy = false;
             for (int i = 0; i < old.size(); i++) {
-                ItemStack item = ItemStack.parseOptional(provider, old.getCompound(i).getCompound("Stack"));
+                ItemStack item = com.mdk.cosmetic.platform.StackNbt.parse(provider, old.getCompoundOrEmpty(i).getCompoundOrEmpty("Stack"));
                 if (item.is(MDKCosmetic.COLLECTOR_BACKPACK_FILTER.get())) legacy = true;
             }
             if (!legacy) return;
             List<ItemStack> migrated = new ArrayList<>();
             for (int i = 0; i < UPGRADE_SLOTS; i++) migrated.add(ItemStack.EMPTY);
             for (int i = 0; i < old.size(); i++) {
-                ItemStack item = ItemStack.parseOptional(provider, old.getCompound(i).getCompound("Stack"));
+                ItemStack item = com.mdk.cosmetic.platform.StackNbt.parse(provider, old.getCompoundOrEmpty(i).getCompoundOrEmpty("Stack"));
                 if (item.isEmpty()) continue;
                 if (item.is(MDKCosmetic.COLLECTOR_BACKPACK_FILTER.get())) {
                     // Keep the legacy item as a reclaimable item; the magnet now owns its filter.
@@ -240,19 +240,19 @@ public final class CollectorBackpackData {
         boolean changed = false;
         List<ItemStack> upgrades = new ArrayList<>();
         for (int i = 0; i < UPGRADE_SLOTS; i++) upgrades.add(ItemStack.EMPTY);
-        if (data.getBoolean("Filter")) {
+        if (data.getBooleanOr("Filter",false)) {
             // Legacy installed filter is folded into the magnet's configuration.
-            if (!data.getBoolean("Magnet")) upgrades.set(0, new ItemStack(MDKCosmetic.COLLECTOR_BACKPACK_MAGNET.get()));
+            if (!data.getBooleanOr("Magnet",false)) upgrades.set(0, new ItemStack(MDKCosmetic.COLLECTOR_BACKPACK_MAGNET.get()));
             changed = true;
         }
-        if (data.getBoolean("Magnet")) {
+        if (data.getBooleanOr("Magnet",false)) {
             upgrades.set(0, new ItemStack(MDKCosmetic.COLLECTOR_BACKPACK_MAGNET.get()));
             changed = true;
         }
         if (!changed) return;
         saveUpgradeItems(backpack, upgrades, provider);
         CompoundTag refreshed = read(backpack);
-        if (data.getBoolean("MagnetEnabled") && !refreshed.getBoolean("MagnetEnabled")) {
+        if (data.getBooleanOr("MagnetEnabled",false) && !refreshed.getBooleanOr("MagnetEnabled",false)) {
             refreshed.putBoolean("MagnetEnabled", true);
             write(backpack, refreshed);
         }

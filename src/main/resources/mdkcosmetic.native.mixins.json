@@ -11,7 +11,8 @@
   ],
   "client": [
     "client.EquipmentRenderStateMixin",
-    "client.EquipmentExtractionMixin"
+    "client.EquipmentExtractionMixin",
+    "client.UnoRendererDispatchMixin"
   ],
   "injectors": {
     "defaultRequire": 1

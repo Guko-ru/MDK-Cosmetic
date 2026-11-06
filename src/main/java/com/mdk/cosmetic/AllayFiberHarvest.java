@@ -30,7 +30,7 @@ public final class AllayFiberHarvest {
         if (allay.level().isClientSide()) return;
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(allay);
         long now = System.currentTimeMillis();
-        long next = data.getLong(NEXT_SHEAR_AT);
+        long next = data.getLongOr(NEXT_SHEAR_AT,0L);
         if (next > now && next - now <= COOLDOWN_MILLIS) {
             long mins = ((next - now + 999L) / 1000L + 59L) / 60L;
             event.getEntity().displayClientMessage(

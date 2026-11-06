@@ -113,31 +113,31 @@ public final class CollectorMemoryCoreBlockEntity extends BlockEntity implements
     @Override protected void saveAdditional(CompoundTag tag,HolderLookup.Provider provider) {
         super.saveAdditional(tag,provider);
         tag.put("CollectorMemory",exportMemory(provider));
-        tag.putUUID("MemoryIdentity",identity);
+        tag.store("MemoryIdentity",net.minecraft.core.UUIDUtil.CODEC,identity);
     }
     public CompoundTag exportMemory(HolderLookup.Provider provider) {
         CompoundTag out=new CompoundTag();
         ListTag list=new ListTag();
         for(Stored e:stored) {
             CompoundTag entry=new CompoundTag();
-            entry.put("Item",e.template.saveOptional(provider));
+            entry.put("Item",com.mdk.cosmetic.platform.StackNbt.save(e.template,provider));
             entry.putLong("Count",e.count);
             list.add(entry);
         }
         out.put("Entries",list);
-        out.putUUID("MemoryIdentity",identity);
+        out.store("MemoryIdentity",net.minecraft.core.UUIDUtil.CODEC,identity);
         ContainerHelper.saveAllItems(out,furnace,provider);
         out.putInt("Burn",litTime);out.putInt("BurnTotal",litDuration);out.putInt("Cook",progress);
         return out;
     }
     public void importMemory(CompoundTag tag,HolderLookup.Provider provider) {
         stored.clear();
-        if(tag.hasUUID("MemoryIdentity"))identity=tag.getUUID("MemoryIdentity");
-        ListTag list=tag.getList("Entries",10);
+        if(tag.read("MemoryIdentity",net.minecraft.core.UUIDUtil.CODEC).isPresent())identity=tag.read("MemoryIdentity",net.minecraft.core.UUIDUtil.CODEC).orElseThrow();
+        ListTag list=tag.getListOrEmpty("Entries");
         for(int i=0;i<list.size();i++) {
-            CompoundTag e=list.getCompound(i);
-            ItemStack stack=ItemStack.parseOptional(provider,e.getCompound("Item"));
-            long count=Math.clamp(e.getLong("Count"),0L,MAX_PER_TYPE);
+            CompoundTag e=list.getCompoundOrEmpty(i);
+            ItemStack stack=com.mdk.cosmetic.platform.StackNbt.parse(provider,e.getCompoundOrEmpty("Item"));
+            long count=Math.clamp(e.getLongOr("Count",0L),0L,MAX_PER_TYPE);
             if(stack.isEmpty()||count<=0)continue;
             stack=stack.copyWithCount(1);
             int old=lookup(stack);
@@ -146,13 +146,13 @@ public final class CollectorMemoryCoreBlockEntity extends BlockEntity implements
         }
         furnace=NonNullList.withSize(3,ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag,furnace,provider);
-        litTime=Math.max(0,tag.getInt("Burn"));litDuration=Math.max(0,tag.getInt("BurnTotal"));
-        progress=Math.clamp(tag.getInt("Cook"),0,SMELT_TICKS);
+        litTime=Math.max(0,tag.getIntOr("Burn",0));litDuration=Math.max(0,tag.getIntOr("BurnTotal",0));
+        progress=Math.clamp(tag.getIntOr("Cook",0),0,SMELT_TICKS);
         setChanged();
     }
     @Override protected void loadAdditional(CompoundTag tag,HolderLookup.Provider provider) {
         super.loadAdditional(tag,provider);
-        importMemory(tag.getCompound("CollectorMemory"),provider);
+        importMemory(tag.getCompoundOrEmpty("CollectorMemory"),provider);
     }
 
     @Override public int getContainerSize(){return 3;}
@@ -207,4 +207,6 @@ public final class CollectorMemoryCoreBlockEntity extends BlockEntity implements
         if(core.litTime!=0 || core.litDuration!=0){core.litTime=0;core.litDuration=0;changed=true;}
         if(changed)core.setChanged();
     }
+    /** Contents already travel inside the core item; the new vanilla Container removal hook must not drop them twice. */
+    @Override public void preRemoveSideEffects(net.minecraft.core.BlockPos pos,net.minecraft.world.level.block.state.BlockState next) {}
 }

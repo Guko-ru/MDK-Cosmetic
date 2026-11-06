@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:function",
+  "function": "mdkcosmetic_validation:fox_shearing_and_persistent_cooldown",
+  "environment": "minecraft:default",
+  "structure": "mdkcosmetic_validation:empty",
+  "max_ticks": 200,
+  "required": true
+}

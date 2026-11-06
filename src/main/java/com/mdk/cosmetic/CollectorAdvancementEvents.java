@@ -172,9 +172,9 @@ public final class CollectorAdvancementEvents {
 
     private static Set<Item> inventoryItems(ServerPlayer player) {
         Set<Item> items = new HashSet<>();
-        for (ItemStack stack : player.getInventory().items) if (!stack.isEmpty()) items.add(stack.getItem());
-        for (ItemStack stack : player.getInventory().armor) if (!stack.isEmpty()) items.add(stack.getItem());
-        for (ItemStack stack : player.getInventory().offhand) if (!stack.isEmpty()) items.add(stack.getItem());
+        for (ItemStack stack : player.getInventory().getNonEquipmentItems()) if (!stack.isEmpty()) items.add(stack.getItem());
+        for (ItemStack stack : java.util.List.of(player.getItemBySlot(EquipmentSlot.HEAD),player.getItemBySlot(EquipmentSlot.CHEST),player.getItemBySlot(EquipmentSlot.LEGS),player.getItemBySlot(EquipmentSlot.FEET))) if (!stack.isEmpty()) items.add(stack.getItem());
+        for (ItemStack stack : java.util.List.of(player.getOffhandItem())) if (!stack.isEmpty()) items.add(stack.getItem());
         return items;
     }
 
@@ -194,7 +194,7 @@ public final class CollectorAdvancementEvents {
         if (!player.level().getEntitiesOfClass(CollectorHeartEntity.class,
                 player.getBoundingBox().inflate(26.0D), heart -> !heart.isDecoy()).isEmpty())
             award(player, "ocean/first_contact");
-        for (ItemStack bag : player.getInventory().items) {
+        for (ItemStack bag : player.getInventory().getNonEquipmentItems()) {
             if (!(bag.getItem() instanceof CollectorBackpackItem)) continue;
             var upgrades = CollectorBackpackData.upgradeItems(bag, player.registryAccess());
             int installed=0;
@@ -229,7 +229,7 @@ public final class CollectorAdvancementEvents {
                 player.getBoundingBox().inflate(18.0D)).isEmpty()) award(player,"challenge/fearless_warden");
 
         long held=0;
-        for (ItemStack stack : player.getInventory().items)
+        for (ItemStack stack : player.getInventory().getNonEquipmentItems())
             if (stack.is(MDKCosmetic.POWER_ESSENCE.get())) held += stack.getCount();
         increased(player,"shards_held",held);
 

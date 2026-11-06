@@ -6,14 +6,14 @@ import java.util.WeakHashMap;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.Cat;
-import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.AbstractCow;
 import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.animal.Panda;
 import net.minecraft.world.entity.animal.PolarBear;
 import net.minecraft.world.entity.animal.Rabbit;
-import net.minecraft.world.entity.animal.Sheep;
-import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.sheep.Sheep;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.animal.horse.Llama;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.animal.horse.Donkey;
@@ -54,7 +54,7 @@ public final class AnimalHatAttraction {
             bear.goalSelector.addGoal(5, new PolarBearHatAttractionGoal(bear));
         } else if (event.getEntity() instanceof MushroomCow mooshroom && REGISTERED.add(mooshroom)) {
             mooshroom.goalSelector.addGoal(1, new HatAttractionGoal(mooshroom, MDKCosmetic.MOOSHROOM_HAT.get(), 1.10D));
-        } else if (event.getEntity() instanceof Cow cow && REGISTERED.add(cow)) {
+        } else if (event.getEntity() instanceof AbstractCow cow && REGISTERED.add(cow)) {
             cow.goalSelector.addGoal(1, new HatAttractionGoal(cow, MDKCosmetic.COW_HAT.get(), 1.10D));
         }
     }

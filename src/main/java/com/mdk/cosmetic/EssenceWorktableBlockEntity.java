@@ -55,7 +55,7 @@ public final class EssenceWorktableBlockEntity extends BaseContainerBlockEntity 
         super.loadAdditional(tag, registries);
         items = NonNullList.withSize(2, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, items, registries);
-        progress = Math.clamp(tag.getInt("EssenceProgress"), 0, COST - 1);
+        progress = Math.clamp(tag.getIntOr("EssenceProgress",0), 0, COST - 1);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, EssenceWorktableBlockEntity table) {
@@ -75,5 +75,9 @@ public final class EssenceWorktableBlockEntity extends BaseContainerBlockEntity 
             table.setChanged();
             // Menu synchronizes data via ContainerData; dirty flag persists fractional progress to NBT.
         }
+    }
+    @Override public void preRemoveSideEffects(net.minecraft.core.BlockPos pos,net.minecraft.world.level.block.state.BlockState next){
+        if(level!=null&&!level.isClientSide()){level.updateNeighbourForOutputSignal(pos,getBlockState().getBlock());}
+        super.preRemoveSideEffects(pos,next);
     }
 }

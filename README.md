@@ -1,8 +1,8 @@
-# MDK Cosmetic — NeoForge 1.21.4
+# MDK Cosmetic — NeoForge 1.21.5
 
 **Project version:** 1.18.79  
-**NeoForge target and minimum required version:** 21.4.161  
-**Minecraft:** 1.21.4  
+**NeoForge target and minimum required version:** 21.5.101  
+**Minecraft:** 1.21.5  
 **Java:** JDK 21
 
 MDK Cosmetic adds collectible cosmetics, a multiblock Collector progression system, equipment, backpacks, bosses, custom structures and the VOID dimension.
@@ -21,7 +21,7 @@ The release-ready mod JAR is copied to `build/release/` on a successful build. T
 
 ## Compatibility
 
-Keep the existing registry IDs intact when upgrading existing worlds; in particular, the Collector's Multitool still uses the historical ID `mdkcosmetic:collector_pickaxe` to preserve saved inventories and references. This project specifically targets NeoForge 21.4.161. It is not yet a port to a different Minecraft version or mod loader.
+Keep the existing registry IDs intact when upgrading existing worlds; in particular, the Collector's Multitool still uses the historical ID `mdkcosmetic:collector_pickaxe` to preserve saved inventories and references. This project specifically targets NeoForge 21.5.101. It is not yet a port to a different Minecraft version or mod loader.
 
 ## License
 
@@ -29,4 +29,4 @@ See `LICENSE.md` for the **MDK Cosmetic Non-Commercial License 1.1**. Commercial
 
 ## Testing status
 
-Built and tested with the native NeoForge client and server. 7 required GameTests passed; 1208 item models loaded. Client checks covered two machine tiers, four window/GUI configurations, inventory and memory slot clicks, both creative tabs, and both boss phases.
+Built and tested with the native NeoForge client and server. 9 required GameTests passed; 1208 item models loaded. Client checks covered two machine tiers, four window/GUI configurations, inventory and memory slot clicks, both creative tabs, and both boss phases.

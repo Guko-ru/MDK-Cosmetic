@@ -98,16 +98,6 @@ public final class EssenceWorktableBlock extends HorizontalDirectionalBlock impl
         };
     }
 
-    @Override
-    protected void onRemove(BlockState previous, Level level, BlockPos pos, BlockState next, boolean moving) {
-        if (!previous.is(next.getBlock())) {
-            if (!level.isClientSide() && level.getBlockEntity(pos) instanceof EssenceWorktableBlockEntity table) {
-                Containers.dropContents(level, pos, table);
-                level.updateNeighbourForOutputSignal(pos, this);
-            }
-        }
-        super.onRemove(previous, level, pos, next, moving);
-    }
 
     private void open(Level level, BlockPos pos, Player player) {
         if (level.isClientSide() || !(player instanceof ServerPlayer serverPlayer)) return;

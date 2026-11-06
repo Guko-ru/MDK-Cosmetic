@@ -29,7 +29,7 @@ public final class AxolotlSkinHarvest {
         if (axolotl.level().isClientSide()) return;
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(axolotl);
         long now = System.currentTimeMillis();
-        long next = data.getLong(NEXT);
+        long next = data.getLongOr(NEXT,0L);
         if (next > now && next - now <= COOLDOWN) {
             long minutes = (next-now+59999L)/60000L;
             event.getEntity().displayClientMessage(

@@ -1,14 +1,14 @@
 {
   "loader": "NeoForge",
-  "minecraft": "1.21.4",
-  "loader_build": "21.4.161",
+  "minecraft": "1.21.5",
+  "loader_build": "21.5.101",
   "mod_version": "1.18.79",
   "java": 21,
-  "artifact": "MDK-Cosmetic-1.21.4-NeoForge-1.18.79.jar",
-  "sha256": "6855f6c9c7689d3005290c12cb18f0e9e100744800bd0098394ba2a2c47a7148",
+  "artifact": "MDK-Cosmetic-1.21.5-NeoForge-1.18.79.jar",
+  "sha256": "472b1d04539eb9041eb12eb2b440931b907d48ce7e8cf1349e4483d2c3dbb8a2",
   "fabric_api": null,
   "validation": {
-    "required_game_tests_passed": 7,
+    "required_game_tests_passed": 9,
     "client_item_models_checked": 1208,
     "native_slot_hits": true,
     "machine_tiers": [

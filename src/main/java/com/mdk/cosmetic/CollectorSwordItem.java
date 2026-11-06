@@ -9,18 +9,18 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 
 /** Collector's enchantment is intrinsic and restored if the sword is disenchanted. */
-public final class CollectorSwordItem extends SwordItem {
-    public CollectorSwordItem(ToolMaterial tier, Properties properties) {super(tier, 3, -2.4F, properties);}
+public final class CollectorSwordItem extends Item {
+    public CollectorSwordItem(ToolMaterial tier, Properties properties) {super(properties.sword(tier,3,-2.4F));}
     @Override public boolean isFoil(ItemStack stack) {return true;}
-    @Override public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(stack,level,entity,slot,selected);
+    @Override public void inventoryTick(ItemStack stack, net.minecraft.server.level.ServerLevel level, Entity entity, net.minecraft.world.entity.EquipmentSlot slot) {
+        super.inventoryTick(stack,level,entity,slot);
         if (level.isClientSide() || !(entity instanceof Player)) return;
         Holder<Enchantment> collector=level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
                 .getOrThrow(CollectorEssenceDrops.COLLECTOR);

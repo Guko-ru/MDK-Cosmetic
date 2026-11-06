@@ -30,7 +30,7 @@ public final class GlowSquidInkHarvest {
         if (squid.level().isClientSide()) return;
         CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(squid);
         long now = System.currentTimeMillis();
-        long until = data.getLong(NEXT);
+        long until = data.getLongOr(NEXT,0L);
         if (until > now && until - now <= COOLDOWN) {
             event.getEntity().displayClientMessage(Component.translatable(
                     "message.mdkcosmetic.glow_squid_refilling", (until - now + 59999L) / 60000L), true);

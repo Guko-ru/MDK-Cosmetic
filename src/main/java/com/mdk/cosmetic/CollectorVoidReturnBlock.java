@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public final class CollectorVoidReturnBlock extends Block {
     public CollectorVoidReturnBlock(Properties props) { super(props); }
 
-    @Override public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+    @Override public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity,net.minecraft.world.entity.InsideBlockEffectApplier effects) {
         if (entity instanceof ServerPlayer player && !player.isSpectator())
             CollectorVoidPortalController.leave(player);
     }

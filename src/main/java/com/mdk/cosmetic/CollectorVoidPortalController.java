@@ -138,7 +138,7 @@ public final class CollectorVoidPortalController {
         if (!player.level().dimension().equals(VOID)) return;
         // Return specifically to the Overworld, never to a Nether respawn anchor.
         ServerLevel overworld = player.getServer().overworld();
-        if (player.getRespawnDimension().equals(Level.OVERWORLD)) {
+        if ((player.getRespawnConfig()==null?Level.OVERWORLD:player.getRespawnConfig().dimension()).equals(Level.OVERWORLD)) {
             // Vanilla validates the saved bed and falls back to the world spawn if missing.
             player.teleport(player.findRespawnPositionAndUseSpawnBlock(
                     false, TeleportTransition.PLAY_PORTAL_SOUND));
