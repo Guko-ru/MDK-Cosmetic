@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"donkey_fur_slab_dye","ingredients":[{"tag":"mdkcosmetic:fur/donkey_slab"},{"item":"minecraft:light_blue_dye"}],"result":{"id":"mdkcosmetic:donkey_fur_slab_light_blue","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "donkey_fur_slab_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/donkey_slab",
+    "minecraft:light_blue_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:donkey_fur_slab_light_blue",
+    "count": 1
+  }
+}

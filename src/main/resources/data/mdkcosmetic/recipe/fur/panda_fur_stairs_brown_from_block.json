@@ -1,1 +1,16 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["B  ","BB ","BBB"],"key":{"B":{"item":"mdkcosmetic:panda_fur_block_brown"}},"result":{"id":"mdkcosmetic:panda_fur_stairs_brown","count":4}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:panda_fur_block_brown"
+  },
+  "result": {
+    "id": "mdkcosmetic:panda_fur_stairs_brown",
+    "count": 4
+  }
+}

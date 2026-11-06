@@ -28,7 +28,7 @@ public final class CollectorBackpackMagnet {
             for(ItemEntity entity:player.level().getEntitiesOfClass(ItemEntity.class,player.getBoundingBox().inflate(4.5D))){
                 if(!entity.isAlive())continue;
                 if(entity.getOwner()!=null && entity.getOwner()!=player)continue;
-                if(entity.getTarget()!=null && !entity.getTarget().equals(player.getUUID()))continue;
+                if(((com.mdk.cosmetic.platform.PickupTarget)entity).mdk$getPickupTarget()!=null && !((com.mdk.cosmetic.platform.PickupTarget)entity).mdk$getPickupTarget().equals(player.getUUID()))continue;
                 ItemStack dropped=entity.getItem();
                 if(dropped.isEmpty()||!CollectorBackpackData.accepts(backpack,dropped,player.registryAccess()))continue;
                 int remaining=dropped.getCount();

@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"cow_fur_slab_dye","ingredients":[{"tag":"mdkcosmetic:fur/cow_slab"},{"item":"minecraft:pink_dye"}],"result":{"id":"mdkcosmetic:cow_fur_slab_pink","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "cow_fur_slab_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/cow_slab",
+    "minecraft:pink_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:cow_fur_slab_pink",
+    "count": 1
+  }
+}

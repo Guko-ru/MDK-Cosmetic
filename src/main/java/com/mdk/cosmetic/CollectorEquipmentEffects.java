@@ -82,7 +82,7 @@ public final class CollectorEquipmentEffects {
     /** Equipment is dropped with other drops, so existing death-insurance can transfer all at once. */
     public static void onDrops(LivingDropsEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player) || event.isCanceled()) return;
-        if (player.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) return;
+        if (((net.minecraft.server.level.ServerLevel)player.level()).getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) return;
         ItemStack backpack = CollectorEquipmentData.backpack(player);
         if (backpack.isEmpty()) return;
         event.getDrops().add(new ItemEntity(player.level(), player.getX(),player.getY()+0.4D,player.getZ(),backpack.copy()));

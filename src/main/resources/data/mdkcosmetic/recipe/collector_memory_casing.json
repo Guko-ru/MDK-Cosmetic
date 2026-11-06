@@ -7,12 +7,8 @@
     "CCC"
   ],
   "key": {
-    "C": {
-      "item": "mdkcosmetic:charged_power_essence"
-    },
-    "E": {
-      "item": "minecraft:ender_eye"
-    }
+    "C": "mdkcosmetic:charged_power_essence",
+    "E": "minecraft:ender_eye"
   },
   "result": {
     "id": "mdkcosmetic:collector_memory_casing",

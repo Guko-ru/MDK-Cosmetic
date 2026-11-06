@@ -9,19 +9,18 @@ import net.minecraft.util.Mth;
 /** Vanilla wide/slim 64x64 player mesh plus Uno's existing combat keyframes.
  * No custom clothing, weapon or other geometry is part of the body model.
  */
-public final class UnoModel extends PlayerModel<UnoEntity> {
+public final class UnoModel extends PlayerModel {
     private static final float RAD = (float) (Math.PI / 180.0);
 
     public UnoModel(ModelPart root, boolean slim) {
         super(root, slim);
     }
 
-    @Override public void setupAnim(UnoEntity entity, float limbSwing, float limbSwingAmount,
-            float ageInTicks, float netHeadYaw, float headPitch) {
+    @Override public void setupAnim(net.minecraft.client.renderer.entity.state.PlayerRenderState state) {
+        UnoRenderState entity=(UnoRenderState)state;
+        float limbSwing=state.walkAnimationPos,limbSwingAmount=state.walkAnimationSpeed,ageInTicks=state.ageInTicks,netHeadYaw=state.yRot,headPitch=state.xRot;
         // Vanilla player model supplies 64x64 skin UVs (including hat/jacket/sleeves).
-        this.rightArmPose = HumanoidModel.ArmPose.ITEM;
-        this.leftArmPose = HumanoidModel.ArmPose.ITEM;
-        super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        super.setupAnim(state);
         float walk = Mth.clamp(limbSwingAmount,0F,1F);
         float cycle = Mth.cos(limbSwing*0.6662F);
         rightLeg.xRot = cycle*1.1F*walk;
@@ -31,9 +30,9 @@ public final class UnoModel extends PlayerModel<UnoEntity> {
         body.xRot = Mth.sin(ageInTicks*0.08F)*0.024F;
         head.yRot = netHeadYaw * RAD;
         head.xRot = headPitch * RAD;
-        int action=entity.getAction();
+        int action=entity.action;
         if (action == UnoEntity.IDLE) return;
-        float t = entity.actionSeconds();
+        float t = entity.actionSeconds;
         // Action keyframes intentionally override the walking pose, then return to idle.
         rightArm.setRotation(0F,0F,0F); leftArm.setRotation(0F,0F,0F);
         rightLeg.setRotation(0F,0F,0F); leftLeg.setRotation(0F,0F,0F);
@@ -56,11 +55,11 @@ public final class UnoModel extends PlayerModel<UnoEntity> {
             default -> { }
         }
         // Keep the outer skin layer attached to the reposed limbs during sword combos.
-        leftSleeve.copyFrom(leftArm);
-        rightSleeve.copyFrom(rightArm);
-        leftPants.copyFrom(leftLeg);
-        rightPants.copyFrom(rightLeg);
-        jacket.copyFrom(body);
+
+
+
+
+
     }
     private static float[] sample(float time, float[][] keys) {
         if (time <= keys[0][0]) return new float[]{keys[0][1], keys[0][2], keys[0][3]};
@@ -135,4 +134,5 @@ public final class UnoModel extends PlayerModel<UnoEntity> {
         rotate(leftLeg,sample(t,new float[][]{{0.000F,0.000F,0.000F,0.000F},{0.250F,0.000F,0.000F,0.000F},{0.440F,0.000F,0.000F,0.000F},{0.650F,0.000F,0.000F,0.000F},{0.820F,0.000F,0.000F,0.000F},{1.500F,0.000F,0.000F,0.000F}}));
     }
 
+    @Override protected HumanoidModel.ArmPose getArmPose(net.minecraft.client.renderer.entity.state.PlayerRenderState state,net.minecraft.world.entity.HumanoidArm arm){return HumanoidModel.ArmPose.ITEM;}
 }

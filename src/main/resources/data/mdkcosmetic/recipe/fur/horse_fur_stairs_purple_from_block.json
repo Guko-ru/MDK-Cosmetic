@@ -1,1 +1,16 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["B  ","BB ","BBB"],"key":{"B":{"item":"mdkcosmetic:horse_fur_block_purple"}},"result":{"id":"mdkcosmetic:horse_fur_stairs_purple","count":4}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:horse_fur_block_purple"
+  },
+  "result": {
+    "id": "mdkcosmetic:horse_fur_stairs_purple",
+    "count": 4
+  }
+}

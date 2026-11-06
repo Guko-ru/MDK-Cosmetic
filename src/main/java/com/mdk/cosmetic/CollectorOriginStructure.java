@@ -26,7 +26,7 @@ public final class CollectorOriginStructure extends Structure {
         // and oceans alone and keeps the crater exposed rather than filling with water.
         if (surface < 66 || surface > 106) return Optional.empty();
         final BlockPos origin = new BlockPos(x, surface - 1, z);
-        final int minimum = context.heightAccessor().getMinBuildHeight();
+        final int minimum = context.heightAccessor().getMinY();
         return Optional.of(new GenerationStub(origin, builder ->
                 builder.addPiece(new CollectorOriginPiece(x, z, surface - 1, minimum, context.seed()))));
     }

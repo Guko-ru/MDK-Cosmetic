@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"rabbit_fur_block_dye","ingredients":[{"tag":"mdkcosmetic:fur/rabbit_block"},{"item":"minecraft:brown_dye"}],"result":{"id":"mdkcosmetic:rabbit_fur_block_brown","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "rabbit_fur_block_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/rabbit_block",
+    "minecraft:brown_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:rabbit_fur_block_brown",
+    "count": 1
+  }
+}

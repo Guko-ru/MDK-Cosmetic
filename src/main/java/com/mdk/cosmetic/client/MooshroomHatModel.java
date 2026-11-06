@@ -10,7 +10,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.world.entity.LivingEntity;
 
 /** Rebuilt MDK Cosmetic head-local geometry; model origin matches Blockbench Y=24. */
-public final class MooshroomHatModel extends HumanoidModel<LivingEntity> {
+public final class MooshroomHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public MooshroomHatModel() {
         super(createLayer().bakeRoot());
         setAllVisible(false);
@@ -19,7 +19,7 @@ public final class MooshroomHatModel extends HumanoidModel<LivingEntity> {
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+        root.getChild("head").addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition geometry = head.addOrReplaceChild("hat_geometry", CubeListBuilder.create(), PartPose.ZERO);
         buildPart0(geometry);

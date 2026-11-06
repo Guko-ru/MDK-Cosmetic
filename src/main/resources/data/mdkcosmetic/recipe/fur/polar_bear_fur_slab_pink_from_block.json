@@ -1,1 +1,14 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["BBB"],"key":{"B":{"item":"mdkcosmetic:polar_bear_fur_block_pink"}},"result":{"id":"mdkcosmetic:polar_bear_fur_slab_pink","count":6}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BBB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:polar_bear_fur_block_pink"
+  },
+  "result": {
+    "id": "mdkcosmetic:polar_bear_fur_slab_pink",
+    "count": 6
+  }
+}

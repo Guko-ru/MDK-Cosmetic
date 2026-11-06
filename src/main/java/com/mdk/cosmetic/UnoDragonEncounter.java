@@ -21,7 +21,7 @@ public final class UnoDragonEncounter {
         if (!(event.getEntity() instanceof EnderDragon dragon)
                 || !(dragon.level() instanceof ServerLevel level)
                 || level.dimension()!=Level.END || dragon.getHealth()>0.0F
-                || dragon.getPersistentData().getBoolean(TRIGGERED)) return;
+                || com.mdk.cosmetic.platform.PersistentData.of(dragon).getBoolean(TRIGGERED)) return;
 
         // The killer is preferred, otherwise the nearest eligible End player.
         ServerPlayer target=level.players().stream()
@@ -30,7 +30,7 @@ public final class UnoDragonEncounter {
                 .orElse(null);
         if (target == null) return;
 
-        UnoEntity uno=MDKCosmetic.UNO_ENTITY.get().create(level);
+        UnoEntity uno=MDKCosmetic.UNO_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         if (uno==null) return;
         boolean placed=false;
         for(int radius=4;radius<=20 && !placed;radius+=2) {
@@ -44,7 +44,7 @@ public final class UnoDragonEncounter {
                     if(!level.hasChunkAt(feet) || !level.getBlockState(feet.below()).blocksMotion()) continue;
                     uno.moveTo(x,y,z,level.random.nextFloat()*360F,0F);
                     if(level.noCollision(uno,uno.getBoundingBox())
-                            && uno.getBoundingBox().maxY<=level.getMaxBuildHeight()) {
+                            && uno.getBoundingBox().maxY<=level.getMaxY()) {
                         placed=true;
                         break;
                     }
@@ -71,7 +71,7 @@ public final class UnoDragonEncounter {
         if (!placed) return; // Never spawn above End void; retry while dragon remains dying.
 
         if(!level.addFreshEntity(uno)) return;
-        dragon.getPersistentData().putBoolean(TRIGGERED,true);
+        com.mdk.cosmetic.platform.PersistentData.of(dragon).putBoolean(TRIGGERED,true);
         uno.markDragonEncounter(target);
         level.playSound(null,uno.blockPosition(),SoundEvents.WARDEN_ROAR,SoundSource.HOSTILE,2.6F,0.55F);
         level.playSound(null,uno.blockPosition(),SoundEvents.WITHER_SPAWN,SoundSource.HOSTILE,1.4F,0.55F);

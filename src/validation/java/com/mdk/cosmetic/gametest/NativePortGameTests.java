@@ -44,7 +44,7 @@ public final class NativePortGameTests {
         int after=helper.getLevel().getEntitiesOfClass(ItemEntity.class,fox.getBoundingBox().inflate(4),e->e.getItem().is(MDKCosmetic.FOX_FUR.get())).size();
         helper.assertTrue(after==before,"Shearing cooldown must prevent a second fur");
         var tag=fox.saveWithoutId(new CompoundTag());
-        var restored=EntityType.FOX.create(helper.getLevel());restored.load(tag);
+        var restored=EntityType.FOX.create(helper.getLevel(),net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);restored.load(tag);
         helper.assertTrue(restored.getPersistentData().getLong("mdkcosmetic.nextFoxFurShear")>System.currentTimeMillis(),"Cooldown must survive entity save/load");
         helper.succeed();
     }
@@ -77,11 +77,11 @@ public final class NativePortGameTests {
     @GameTest(template="empty")
     public static void entitiesAndLootResourcesLoad(GameTestHelper helper){
         for(var type:java.util.List.of(MDKCosmetic.COLLECTOR_SOUL_ENTITY.get(),MDKCosmetic.UNO_ENTITY.get(),MDKCosmetic.COLLECTOR_HEART_ENTITY.get())){
-            var entity=type.create(helper.getLevel());
+            var entity=type.create(helper.getLevel(),net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
             helper.assertTrue(entity!=null,"Registered custom entity must instantiate");
             helper.assertTrue(entity.getAttribute(Attributes.MAX_HEALTH)!=null,"Entity attributes must be registered on Fabric");
         }
-        var registry=helper.getLevel().registryAccess().registryOrThrow(Registries.PLACED_FEATURE);
+        var registry=helper.getLevel().registryAccess().lookupOrThrow(Registries.PLACED_FEATURE);
         for(String id:java.util.List.of("collector_ore_overworld","collector_ore_nether","collector_ore_end","collector_ore_end_surface")){
             helper.assertTrue(registry.containsKey(ResourceLocation.fromNamespaceAndPath("mdkcosmetic",id)),"Ore placement resource must load: "+id);
         }
@@ -97,7 +97,7 @@ public final class NativePortGameTests {
             var server=helper.getLevel().getServer();
             for(var value:expected.getAsJsonArray("recipe")){
                 var id=ResourceLocation.parse(value.getAsString());
-                helper.assertTrue(server.getRecipeManager().byKey(id).isPresent(),"Recipe file must decode and register: "+id);
+                helper.assertTrue(server.getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,id)).isPresent(),"Recipe file must decode and register: "+id);
             }
             for(var value:expected.getAsJsonArray("advancement")){
                 var id=ResourceLocation.parse(value.getAsString());
@@ -108,6 +108,35 @@ public final class NativePortGameTests {
                 helper.assertTrue(server.reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE,id))!=net.minecraft.world.level.storage.loot.LootTable.EMPTY,"Loot table file must decode and register: "+id);
             }
         }
+        helper.succeed();
+    }
+
+    @GameTest(template="empty")
+    public static void equipmentCombatAndProtectionSurviveMigration(GameTestHelper helper){
+        var level=helper.getLevel();
+        var player=helper.makeMockPlayer(GameType.SURVIVAL);
+        var hat=new ItemStack(MDKCosmetic.FOX_HAT.get());
+        helper.assertTrue(hat.getMaxDamage()==110,"Hat durability must remain 110");
+        helper.assertTrue(!hat.has(net.minecraft.core.component.DataComponents.ENCHANTABLE),"Cosmetic hat must remain non-enchantable");
+        player.setItemInHand(InteractionHand.MAIN_HAND,hat);
+        hat.use(level,player,InteractionHand.MAIN_HAND);
+        helper.assertTrue(player.getItemBySlot(EquipmentSlot.HEAD).is(MDKCosmetic.FOX_HAT.get()),"Native equippable component must equip a hat on use");
+        helper.assertTrue(new ItemStack(MDKCosmetic.COLLECTOR_ORE_STONE.get()).getItem().getDescriptionId().startsWith("block.mdkcosmetic."),"Block items must retain block translation keys");
+        var tool=new ItemStack(MDKCosmetic.COLLECTOR_PICKAXE.get());
+        for(var block:java.util.List.of(net.minecraft.world.level.block.Blocks.STONE,net.minecraft.world.level.block.Blocks.OAK_LOG,net.minecraft.world.level.block.Blocks.DIRT)){
+            helper.assertTrue(tool.getDestroySpeed(block.defaultBlockState())==11F,"Multitool must retain mining speed for all three tool categories");
+        }
+        var input=new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(Items.IRON_ORE));
+        var smelt=level.recipeAccess().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.SMELTING,input,level);
+        helper.assertTrue(smelt.orElseThrow().value().assemble(input,level.registryAccess()).is(Items.IRON_INGOT),"Backpack smelting must use the new recipe assembly API");
+        helper.assertTrue(level.fuelValues().burnDuration(new ItemStack(Items.COAL))>0,"Backpack fuel duration must resolve from the world");
+        var soul=MDKCosmetic.COLLECTOR_SOUL_ENTITY.get().create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
+        var warden=EntityType.WARDEN.create(level,net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
+        helper.assertTrue(soul.isAlliedTo(warden),"Soul must remain allied with Wardens");
+        helper.assertTrue(!soul.hurtServer(level,level.damageSources().mobAttack(warden),8F),"Warden attacks must not damage the soul");
+        helper.assertTrue(soul.hurtServer(level,level.damageSources().generic(),1F),"Ordinary server damage must still trigger soul injury behavior");
+        var relic=new ItemEntity(level,0,0,0,new ItemStack(MDKCosmetic.COLLECTOR_PICKAXE.get()));
+        helper.assertTrue(!relic.hurtServer(level,level.damageSources().lava(),100F),"Collector relic must survive lava through the migrated invulnerability hook");
         helper.succeed();
     }
  private static InteractionResult interact(net.minecraft.world.entity.player.Player player,net.minecraft.world.entity.Entity target){var event=new net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract(player,InteractionHand.MAIN_HAND,target);net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(event);return event.getCancellationResult();}

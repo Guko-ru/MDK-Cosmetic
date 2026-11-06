@@ -7,12 +7,8 @@
     "DDD"
   ],
   "key": {
-    "D": {
-      "item": "minecraft:diamond_block"
-    },
-    "M": {
-      "item": "mdkcosmetic:collector_memory"
-    }
+    "D": "minecraft:diamond_block",
+    "M": "mdkcosmetic:collector_memory"
   },
   "result": {
     "id": "mdkcosmetic:collector_memory_core",

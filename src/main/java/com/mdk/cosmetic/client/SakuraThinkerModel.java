@@ -10,7 +10,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.world.entity.LivingEntity;
 
 /** Small original bonsai-like sakura tree worn as a head cosmetic. */
-public final class SakuraThinkerModel extends HumanoidModel<LivingEntity> {
+public final class SakuraThinkerModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public SakuraThinkerModel() {
         super(createLayer().bakeRoot());
         setAllVisible(false);
@@ -20,7 +20,7 @@ public final class SakuraThinkerModel extends HumanoidModel<LivingEntity> {
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0F);
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+        root.getChild("head").addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         head.addOrReplaceChild("pot", CubeListBuilder.create()
                 .texOffs(0, 0).addBox(-3.0F, -10.0F, -3.0F, 6.0F, 2.0F, 6.0F)

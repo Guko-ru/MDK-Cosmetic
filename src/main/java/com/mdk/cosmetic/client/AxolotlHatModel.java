@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 /** Generated from the 282 unmodified cubes of MDK_Axolotl_Hat.bbmodel. */
 /** v1.17.1 scale and positioning calibration. */
-public final class AxolotlHatModel extends HumanoidModel<LivingEntity> {
+public final class AxolotlHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public AxolotlHatModel() {
         super(createLayer().bakeRoot());
         setAllVisible(false);
@@ -20,7 +20,7 @@ public final class AxolotlHatModel extends HumanoidModel<LivingEntity> {
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE,0.0F);
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("hat",CubeListBuilder.create(),PartPose.ZERO);
+        root.getChild("head").addOrReplaceChild("hat",CubeListBuilder.create(),PartPose.ZERO);
         PartDefinition head = root.addOrReplaceChild("head",CubeListBuilder.create(),PartPose.ZERO);
         head.addOrReplaceChild("axo_000",CubeListBuilder.create().texOffs(0, 0).addBox(-4.1813F, -6.8850F, -5.8537F, 1.1150F, 0.5575F, 0.5575F),PartPose.ZERO); // blush
         head.addOrReplaceChild("axo_001",CubeListBuilder.create().texOffs(16, 0).addBox(3.0663F, -6.8850F, -5.8537F, 1.1150F, 0.5575F, 0.5575F),PartPose.ZERO); // blush

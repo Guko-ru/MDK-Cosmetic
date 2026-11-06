@@ -16,7 +16,7 @@ import net.minecraft.world.entity.LivingEntity;
  * The vanilla outer head overlay and vanilla head armor cubes are removed.
  */
 /** v1.17.1 scale and positioning calibration. */
-public final class PandaHatModel extends HumanoidModel<LivingEntity> {
+public final class PandaHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public PandaHatModel() {
         super(createLayer().bakeRoot());
         this.setAllVisible(false);
@@ -26,7 +26,7 @@ public final class PandaHatModel extends HumanoidModel<LivingEntity> {
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+        root.getChild("head").addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         head.addOrReplaceChild("panda_part_00", CubeListBuilder.create().texOffs(6, 12).addBox(-4.0548F, -8.8697F, -4.1713F, 8.1096F, 0.5575F, 8.3427F), PartPose.ZERO); // Upper soft crown
         head.addOrReplaceChild("panda_part_01", CubeListBuilder.create().texOffs(70, 12).addBox(-4.3694F, -8.4349F, -4.7189F, 8.7388F, 0.6690F, 1.1302F), PartPose.ZERO); // Soft front-top bevel

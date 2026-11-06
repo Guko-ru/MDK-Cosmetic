@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"cat_fur_slab_dye","ingredients":[{"tag":"mdkcosmetic:fur/cat_slab"},{"item":"minecraft:white_dye"}],"result":{"id":"mdkcosmetic:cat_fur_slab_white","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "cat_fur_slab_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/cat_slab",
+    "minecraft:white_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:cat_fur_slab_white",
+    "count": 1
+  }
+}

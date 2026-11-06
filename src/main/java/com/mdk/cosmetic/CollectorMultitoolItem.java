@@ -13,20 +13,17 @@ public final class CollectorMultitoolItem extends Item {
     public static final float SPEED = 11.0F; // Netherite speed 9 + 2.
 
     public CollectorMultitoolItem(Properties properties) {
-        super(properties);
+        super(properties.enchantable(20).repairable(net.minecraft.world.item.Items.NETHERITE_INGOT));
     }
 
-    @Override
-    public int getEnchantmentValue() {
-        return 20;
-    }
+
 
     public static Tool createToolComponent() {
         return new Tool(List.of(
-            new Tool.Rule(BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.INCORRECT_FOR_NETHERITE_TOOL), Optional.empty(), Optional.of(false)),
-            new Tool.Rule(BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MINEABLE_WITH_PICKAXE), Optional.of(SPEED), Optional.of(true)),
-            new Tool.Rule(BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MINEABLE_WITH_AXE), Optional.of(SPEED), Optional.of(true)),
-            new Tool.Rule(BuiltInRegistries.BLOCK.getOrCreateTag(BlockTags.MINEABLE_WITH_SHOVEL), Optional.of(SPEED), Optional.of(true))
+            new Tool.Rule(BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK).getOrThrow(BlockTags.INCORRECT_FOR_NETHERITE_TOOL), Optional.empty(), Optional.of(false)),
+            new Tool.Rule(BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK).getOrThrow(BlockTags.MINEABLE_WITH_PICKAXE), Optional.of(SPEED), Optional.of(true)),
+            new Tool.Rule(BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK).getOrThrow(BlockTags.MINEABLE_WITH_AXE), Optional.of(SPEED), Optional.of(true)),
+            new Tool.Rule(BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK).getOrThrow(BlockTags.MINEABLE_WITH_SHOVEL), Optional.of(SPEED), Optional.of(true))
         ), 1.0F, 1);
     }
 }

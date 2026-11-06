@@ -7,12 +7,8 @@
     "SSS"
   ],
   "key": {
-    "S": {
-      "item": "mdkcosmetic:power_essence"
-    },
-    "C": {
-      "item": "mdkcosmetic:charged_power_essence"
-    }
+    "S": "mdkcosmetic:power_essence",
+    "C": "mdkcosmetic:charged_power_essence"
   },
   "result": {
     "id": "mdkcosmetic:collector_casing",

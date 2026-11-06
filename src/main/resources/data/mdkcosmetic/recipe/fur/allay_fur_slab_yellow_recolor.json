@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"allay_fur_slab_dye","ingredients":[{"tag":"mdkcosmetic:fur/allay_slab"},{"item":"minecraft:yellow_dye"}],"result":{"id":"mdkcosmetic:allay_fur_slab_yellow","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "allay_fur_slab_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/allay_slab",
+    "minecraft:yellow_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:allay_fur_slab_yellow",
+    "count": 1
+  }
+}

@@ -23,9 +23,9 @@ public final class EssenceWorktableScreen extends AbstractContainerScreen<Essenc
 
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        graphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
+        graphics.blit(net.minecraft.client.renderer.RenderType::guiTextured,TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
         int width = Math.round((menu.getProgress() / (float) EssenceWorktableBlockEntity.COST) * 64);
-        if (width > 0) graphics.blit(TEXTURE, leftPos + 58, topPos + 41, 0, 176, width, 10, 256, 256);
+        if (width > 0) graphics.blit(net.minecraft.client.renderer.RenderType::guiTextured,TEXTURE, leftPos + 58, topPos + 41, 0, 176, width, 10, 256, 256);
     }
 
     @Override

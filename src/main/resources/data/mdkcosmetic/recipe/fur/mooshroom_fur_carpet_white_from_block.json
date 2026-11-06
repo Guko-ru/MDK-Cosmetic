@@ -1,1 +1,14 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["BB"],"key":{"B":{"item":"mdkcosmetic:mooshroom_fur_block_white"}},"result":{"id":"mdkcosmetic:mooshroom_fur_carpet_white","count":3}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:mooshroom_fur_block_white"
+  },
+  "result": {
+    "id": "mdkcosmetic:mooshroom_fur_carpet_white",
+    "count": 3
+  }
+}

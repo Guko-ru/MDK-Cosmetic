@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 /** 490 original Blockbench cuboids; no geometry is changed when converted for the head slot. */
 /** v1.17.1 scale and positioning calibration. */
-public final class OctopusHatModel extends HumanoidModel<LivingEntity> {
+public final class OctopusHatModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public OctopusHatModel() {
         super(createLayer().bakeRoot());
         setAllVisible(false);
@@ -20,7 +20,7 @@ public final class OctopusHatModel extends HumanoidModel<LivingEntity> {
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+        root.getChild("head").addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         head.addOrReplaceChild("octopus_000", CubeListBuilder.create().texOffs(0, 0).addBox(-5.8537F, -6.0488F, -7.5263F, 1.1150F, 2.7875F, 1.6725F), PartPose.ZERO);
         head.addOrReplaceChild("octopus_001", CubeListBuilder.create().texOffs(32, 0).addBox(4.7387F, -6.6063F, -7.5263F, 1.1150F, 3.3450F, 1.6725F), PartPose.ZERO);

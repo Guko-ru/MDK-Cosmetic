@@ -1,1 +1,14 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["BB"],"key":{"B":{"item":"mdkcosmetic:llama_fur_block_orange"}},"result":{"id":"mdkcosmetic:llama_fur_carpet_orange","count":3}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:llama_fur_block_orange"
+  },
+  "result": {
+    "id": "mdkcosmetic:llama_fur_carpet_orange",
+    "count": 3
+  }
+}

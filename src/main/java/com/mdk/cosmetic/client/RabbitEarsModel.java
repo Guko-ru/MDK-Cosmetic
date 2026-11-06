@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 /** Head-only rabbit ears generated from the editable 192-cube Blockbench asset. */
 /** v1.17.1 scale and positioning calibration. */
-public final class RabbitEarsModel extends HumanoidModel<LivingEntity> {
+public final class RabbitEarsModel extends HumanoidModel<net.minecraft.client.renderer.entity.state.HumanoidRenderState> {
     public RabbitEarsModel() {
         super(createLayer().bakeRoot());
         setAllVisible(false);
@@ -20,7 +20,7 @@ public final class RabbitEarsModel extends HumanoidModel<LivingEntity> {
     private static LayerDefinition createLayer() {
         MeshDefinition mesh = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+        root.getChild("head").addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         // Fixed head-local placement: geometry moves 1 px down; the head itself keeps vanilla animations.
         PartDefinition geo = head.addOrReplaceChild("fitted_geometry", CubeListBuilder.create(), PartPose.offset(0.0F,1.0F,0.0F));

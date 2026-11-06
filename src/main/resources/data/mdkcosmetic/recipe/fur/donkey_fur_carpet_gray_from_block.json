@@ -1,1 +1,14 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["BB"],"key":{"B":{"item":"mdkcosmetic:donkey_fur_block_gray"}},"result":{"id":"mdkcosmetic:donkey_fur_carpet_gray","count":3}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:donkey_fur_block_gray"
+  },
+  "result": {
+    "id": "mdkcosmetic:donkey_fur_carpet_gray",
+    "count": 3
+  }
+}

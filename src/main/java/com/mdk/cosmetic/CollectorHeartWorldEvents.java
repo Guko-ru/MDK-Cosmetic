@@ -18,23 +18,23 @@ public final class CollectorHeartWorldEvents {
         if (!(event.getEntity() instanceof ElderGuardian elder)
                 || !(elder.level() instanceof ServerLevel level) || elder.tickCount % 100 != 0) return;
         final String flag = "MDKCollectorHeartSpawnChecked";
-        if (elder.getPersistentData().getBoolean(flag)) return;
+        if (com.mdk.cosmetic.platform.PersistentData.of(elder).getBoolean(flag)) return;
         CollectorHeartSpawnData saved = CollectorHeartSpawnData.get(level);
         if (saved.registered(elder.blockPosition())) {
-            elder.getPersistentData().putBoolean(flag, true);
+            com.mdk.cosmetic.platform.PersistentData.of(elder).putBoolean(flag, true);
             return;
         }
         if (!level.getEntitiesOfClass(CollectorHeartEntity.class, elder.getBoundingBox().inflate(100),
                 h -> !h.isDecoy()).isEmpty()) {
             saved.mark(elder.blockPosition());
-            elder.getPersistentData().putBoolean(flag, true);
+            com.mdk.cosmetic.platform.PersistentData.of(elder).putBoolean(flag, true);
             return;
         }
-        CollectorHeartEntity heart = MDKCosmetic.COLLECTOR_HEART_ENTITY.get().create(level);
+        CollectorHeartEntity heart = MDKCosmetic.COLLECTOR_HEART_ENTITY.get().create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         if (heart == null) return;
         heart.moveTo(elder.getX(), elder.getY(), elder.getZ(), 0, 0);
         if (!level.addFreshEntity(heart)) return;
         saved.mark(elder.blockPosition());
-        elder.getPersistentData().putBoolean(flag, true);
+        com.mdk.cosmetic.platform.PersistentData.of(elder).putBoolean(flag, true);
     }
 }

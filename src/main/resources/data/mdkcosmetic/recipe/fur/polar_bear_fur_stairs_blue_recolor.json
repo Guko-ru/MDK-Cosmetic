@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"polar_bear_fur_stairs_dye","ingredients":[{"tag":"mdkcosmetic:fur/polar_bear_stairs"},{"item":"minecraft:blue_dye"}],"result":{"id":"mdkcosmetic:polar_bear_fur_stairs_blue","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "polar_bear_fur_stairs_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/polar_bear_stairs",
+    "minecraft:blue_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:polar_bear_fur_stairs_blue",
+    "count": 1
+  }
+}

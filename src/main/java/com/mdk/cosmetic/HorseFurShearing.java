@@ -27,7 +27,7 @@ public final class HorseFurShearing {
         event.setCancellationResult(InteractionResult.SUCCESS);
         event.setCanceled(true);
         if (animal.level().isClientSide()) return;
-        CompoundTag data = animal.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(animal);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT);
         if (next > now && next - now <= COOLDOWN_MS) {
@@ -36,7 +36,7 @@ public final class HorseFurShearing {
             return;
         }
         data.putLong(NEXT, now + COOLDOWN_MS);
-        animal.spawnAtLocation(new ItemStack(MDKCosmetic.HORSE_FUR.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(animal,new ItemStack(MDKCosmetic.HORSE_FUR.get()));
         animal.playSound(SoundEvents.SHEEP_SHEAR, 0.65F, 1.00F);
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

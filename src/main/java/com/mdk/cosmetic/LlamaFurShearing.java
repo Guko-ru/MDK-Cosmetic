@@ -27,7 +27,7 @@ public final class LlamaFurShearing {
         event.setCancellationResult(InteractionResult.SUCCESS);
         event.setCanceled(true);
         if (llama.level().isClientSide()) return;
-        CompoundTag data = llama.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(llama);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT);
         if (next > now && next - now <= COOLDOWN_MS) {
@@ -36,7 +36,7 @@ public final class LlamaFurShearing {
             return;
         }
         data.putLong(NEXT, now + COOLDOWN_MS);
-        llama.spawnAtLocation(new ItemStack(MDKCosmetic.LLAMA_FUR.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(llama,new ItemStack(MDKCosmetic.LLAMA_FUR.get()));
         llama.playSound(SoundEvents.SHEEP_SHEAR, 0.70F, 1.12F);
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

@@ -11,5 +11,5 @@ public final class CollectorHeartRenderer extends ElderGuardianRenderer {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
             MDKCosmetic.MOD_ID, "textures/entity/collector_heart.png");
     public CollectorHeartRenderer(EntityRendererProvider.Context ctx) { super(ctx); }
-    @Override public ResourceLocation getTextureLocation(Guardian entity) { return TEXTURE; }
+    @Override public ResourceLocation getTextureLocation(net.minecraft.client.renderer.entity.state.GuardianRenderState state) { return TEXTURE; }
 }

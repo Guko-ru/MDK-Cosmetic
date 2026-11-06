@@ -20,7 +20,7 @@ public final class CollectorStressData extends SavedData {
     public record Entry(int stress, boolean everActivated) {}
 
     private static final SavedData.Factory<CollectorStressData> FACTORY =
-            new SavedData.Factory<>(CollectorStressData::new, CollectorStressData::load);
+            new SavedData.Factory<>(CollectorStressData::new, CollectorStressData::load, null);
 
     public static CollectorStressData forLevel(ServerLevel level) {
         return level.getDataStorage().computeIfAbsent(FACTORY, "mdkcosmetic_collector_stress");

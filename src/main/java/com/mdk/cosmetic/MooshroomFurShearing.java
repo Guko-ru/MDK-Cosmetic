@@ -27,7 +27,7 @@ public final class MooshroomFurShearing {
         event.setCancellationResult(InteractionResult.SUCCESS);
         event.setCanceled(true);
         if (mooshroom.level().isClientSide()) return;
-        CompoundTag data = mooshroom.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(mooshroom);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT);
         if (next > now && next - now <= COOLDOWN_MS) {
@@ -36,7 +36,7 @@ public final class MooshroomFurShearing {
             return;
         }
         data.putLong(NEXT, now + COOLDOWN_MS);
-        mooshroom.spawnAtLocation(new ItemStack(MDKCosmetic.MOOSHROOM_FUR.get()));
+        com.mdk.cosmetic.platform.EntityDrops.spawn(mooshroom,new ItemStack(MDKCosmetic.MOOSHROOM_FUR.get()));
         mooshroom.playSound(SoundEvents.SHEEP_SHEAR, 0.65F, 1.05F);
         if (!event.getEntity().getAbilities().instabuild) {
             shears.hurtAndBreak(1, event.getEntity(), EquipmentSlot.MAINHAND);

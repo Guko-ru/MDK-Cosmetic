@@ -1,1 +1,16 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["B  ","BB ","BBB"],"key":{"B":{"item":"mdkcosmetic:cow_fur_block_light_blue"}},"result":{"id":"mdkcosmetic:cow_fur_stairs_light_blue","count":4}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "key": {
+    "B": "mdkcosmetic:cow_fur_block_light_blue"
+  },
+  "result": {
+    "id": "mdkcosmetic:cow_fur_stairs_light_blue",
+    "count": 4
+  }
+}

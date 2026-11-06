@@ -1,1 +1,13 @@
-{"type":"minecraft:crafting_shapeless","category":"building","group":"llama_fur_block_dye","ingredients":[{"tag":"mdkcosmetic:fur/llama_block"},{"item":"minecraft:purple_dye"}],"result":{"id":"mdkcosmetic:llama_fur_block_purple","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "llama_fur_block_dye",
+  "ingredients": [
+    "#mdkcosmetic:fur/llama_block",
+    "minecraft:purple_dye"
+  ],
+  "result": {
+    "id": "mdkcosmetic:llama_fur_block_purple",
+    "count": 1
+  }
+}

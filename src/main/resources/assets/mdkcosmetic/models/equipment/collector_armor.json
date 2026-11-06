@@ -1,0 +1,26 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "mdkcosmetic:collector_armor"
+      },
+      {
+        "texture": "mdkcosmetic:collector_armor_accent",
+        "dyeable": {
+          "color_when_undyed": 16777215
+        }
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "mdkcosmetic:collector_armor"
+      },
+      {
+        "texture": "mdkcosmetic:collector_armor_accent",
+        "dyeable": {
+          "color_when_undyed": 16777215
+        }
+      }
+    ]
+  }
+}
