@@ -92,7 +92,7 @@ public final class StationMerchant implements Merchant {
                 999999, 0, 0.0F));
         // Only WHITE_WOOL is used for crafting; dye the finished hat in a workbench.
         offers.add(new MerchantOffer(
-                new ItemCost(Items.WHITE_WOOL, 12),
+                new ItemCost(Items.WOOL.pick(net.minecraft.world.item.DyeColor.WHITE), 12),
                 Optional.of(new ItemCost(Items.STRING, 5)),
                 new ItemStack(MDKCosmetic.SHEEP_HAT.get()),
                 999999, 0, 0.0F));

@@ -1,11 +1,11 @@
 {
   "loader": "Forge",
-  "minecraft": "26.1.2",
-  "loader_build": "64.1.5",
+  "minecraft": "26.2",
+  "loader_build": "65.1.5",
   "mod_version": "1.18.79",
   "java": 25,
-  "artifact": "MDK-Cosmetic-26.1.2-Forge-1.18.79.jar",
-  "sha256": "d192b4010066f274a309073fde244d4e298e8ffeb55ec9877cc9f033185da712",
+  "artifact": "MDK-Cosmetic-26.2-Forge-1.18.79.jar",
+  "sha256": "3f3b8279a4227285384e8069891c8cc73360ae831edb773980d13f64eec9f43c",
   "fabric_api": null,
   "validation": {
     "required_game_tests_passed": 9,

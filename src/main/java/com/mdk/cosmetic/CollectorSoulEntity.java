@@ -322,7 +322,7 @@ public final class CollectorSoulEntity extends PathfinderMob {
 
     /** Non-incendiary lightning with exactly five hearts of base magic damage. */
     private void strikeLightning(ServerLevel level, ServerPlayer target) {
-        LightningBolt bolt=EntityType.LIGHTNING_BOLT.create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
+        LightningBolt bolt=net.minecraft.world.entity.EntityTypes.LIGHTNING_BOLT.create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
         if (bolt!=null) {
             bolt.snapTo(target.getX(),target.getY(),target.getZ());
             bolt.setVisualOnly(true);

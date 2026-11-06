@@ -23,7 +23,7 @@ public final class CollectorEquipmentKeys {
     }
     public static void onTick(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.screen != null) return;
+        if (mc.player == null || mc.gui.screen() != null) return;
         while (EQUIPMENT.consumeClick()) com.mdk.cosmetic.platform.ForgePayloads.sendToServer(new CollectorEquipmentActionPayload(0));
         while (BACKPACK.consumeClick()) com.mdk.cosmetic.platform.ForgePayloads.sendToServer(new CollectorEquipmentActionPayload(1));
     }
