@@ -21,7 +21,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
 
 /** Server-side, once per death. Supports melee weapons and thrown enchanted tridents. */
 public final class CollectorEssenceDrops {
@@ -51,7 +51,7 @@ public final class CollectorEssenceDrops {
         if (victim.getRandom().nextDouble() >= chance) return;
         // Greed affects only shards dropped by this enchantment, not normal mob loot.
         if (holder instanceof net.minecraft.world.entity.player.Player player
-                && player.hasEffect(MDKCosmetic.GREED_AURA)) count *= 2;
+                && player.hasEffect(MDKCosmetic.GREED_AURA.holder())) count *= 2;
         event.getDrops().add(new ItemEntity(victim.level(), victim.getX(), victim.getY()+0.20, victim.getZ(),
                 new ItemStack(MDKCosmetic.POWER_ESSENCE.get(), count)));
         if (victim.level() instanceof ServerLevel server) {

@@ -10,8 +10,8 @@ import net.minecraft.world.entity.animal.horse.Llama;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.PlayerInteractEvent;
 
 /** Humane wool collection from llamas, including trader llamas. */
 public final class LlamaFurShearing {
@@ -27,7 +27,7 @@ public final class LlamaFurShearing {
         event.setCancellationResult(InteractionResult.SUCCESS);
         event.setCanceled(true);
         if (llama.level().isClientSide()) return;
-        CompoundTag data = llama.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(llama);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT);
         if (next > now && next - now <= COOLDOWN_MS) {

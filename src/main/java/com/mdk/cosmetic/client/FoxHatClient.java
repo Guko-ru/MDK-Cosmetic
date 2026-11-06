@@ -7,33 +7,36 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.component.DyedItemColor;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import com.mdk.cosmetic.client.ClientEvents.ArmorAppearance;
+import com.mdk.cosmetic.client.ClientEvents.RegisterClientExtensionsEvent;
+import com.mdk.cosmetic.client.ClientEvents.RegisterColorHandlersEvent;
+import com.mdk.cosmetic.client.ClientEvents.RegisterMenuScreensEvent;
 
 // Client-only entrypoint: dedicated servers never load model classes.
-@Mod(value = MDKCosmetic.MOD_ID, dist = Dist.CLIENT)
-public final class FoxHatClient {
-    public FoxHatClient(IEventBus modBus) {
-        modBus.addListener(FoxHatClient::registerClientExtensions);
-        modBus.addListener(FoxHatClient::registerItemColors);
-        modBus.addListener(FoxHatClient::registerScreens);
-        modBus.addListener(CollectorEquipmentKeys::register);
-        NeoForge.EVENT_BUS.addListener(CollectorEquipmentKeys::onTick);
-        modBus.addListener(FoxHatClient::registerPlayerHelmetLayers);
-        NeoForge.EVENT_BUS.addListener(CosmeticHatTooltip::onTooltip);
-        NeoForge.EVENT_BUS.addListener(CollectorDialogueOverlay::onRenderGui);
-        NeoForge.EVENT_BUS.addListener(GreedVignetteOverlay::onRenderGui);
-        NeoForge.EVENT_BUS.addListener(UnoEncounterOverlay::onRenderGui);
-        NeoForge.EVENT_BUS.addListener(UnoEncounterOverlay::onCameraAngles);
+public final class FoxHatClient implements net.fabricmc.api.ClientModInitializer {
+    @Override public void onInitializeClient() {
+        CreativeTabsShortcut.initialize();
+        registerClientExtensions(new ClientEvents.RegisterClientExtensionsEvent());
+        registerItemColors(new ClientEvents.RegisterColorHandlersEvent.Item());
+        registerScreens(new ClientEvents.RegisterMenuScreensEvent());
+        CollectorEquipmentKeys.register(new ClientEvents.RegisterKeyMappingsEvent());
+        CollectorSoulClient.layers(new ClientEvents.EntityRenderersEvent.RegisterLayerDefinitions());
+        CollectorSoulClient.renderers(new ClientEvents.EntityRenderersEvent.RegisterRenderers());
+        FabricNetworking.initialize();
+        net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback.EVENT.register((type,renderer,helper,context)-> {
+            if(renderer instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer)registerPlayerHelmetLayers(new ClientEvents.EntityRenderersEvent.AddLayers(renderer));
+        });
+        net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(client->CollectorEquipmentKeys.onTick(new ClientEvents.ClientTickEvent.Post()));
+        net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack,context,type,lines)->CosmeticHatTooltip.onTooltip(new ClientEvents.ItemTooltipEvent(stack,lines)));
+        net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback.EVENT.register((graphics,delta)-> {
+            var event=new ClientEvents.RenderGuiEvent.Post(graphics);
+            CollectorDialogueOverlay.onRenderGui(event);
+            GreedVignetteOverlay.onRenderGui(event);
+            UnoEncounterOverlay.onRenderGui(event);
+        });
     }
 
-    private static void registerPlayerHelmetLayers(net.neoforged.neoforge.client.event.EntityRenderersEvent.AddLayers event) {
+    private static void registerPlayerHelmetLayers(com.mdk.cosmetic.client.ClientEvents.EntityRenderersEvent.AddLayers event) {
         for (net.minecraft.client.resources.PlayerSkin.Model skin : event.getSkins()) {
             if (event.getSkin(skin) instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer renderer) {
                 renderer.addLayer(new CollectorHelmetHeadLayer<>(renderer));
@@ -95,7 +98,7 @@ public final class FoxHatClient {
         // NeoForge renders the armor layer textures on the original humanoid model.
         // Keep standard humanoid armor geometry; tint only the second armor material layer.
         final SakuraThinkerModel sakuraThinkerModel = new SakuraThinkerModel();
-        final IClientItemExtensions collectorArmorExtensions = new IClientItemExtensions() {
+        final ArmorAppearance collectorArmorExtensions = new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
@@ -116,7 +119,7 @@ public final class FoxHatClient {
                 return layer.dyeable() ? CollectorTrimColors.color(stack) : 0xFFFFFFFF;
             }
         };
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
@@ -142,7 +145,7 @@ public final class FoxHatClient {
         final WolfHatModel wolfHatModel = new WolfHatModel();
         final HorseRidingHatModel horseHatModel = new HorseRidingHatModel();
         final DonkeyTravelHatModel donkeyHatModel = new DonkeyTravelHatModel();
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
@@ -150,14 +153,14 @@ public final class FoxHatClient {
                 return slot == EquipmentSlot.HEAD ? hatModel : original;
             }
         }, MDKCosmetic.FOX_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? pandaHatModel : original;
             }
         }, MDKCosmetic.PANDA_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
@@ -179,14 +182,14 @@ public final class FoxHatClient {
                         : 0xFFFFFFFF;
             }
         }, MDKCosmetic.CAT_EARS.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? allayHatModel : original;
             }
         }, MDKCosmetic.ALLAY_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
@@ -204,7 +207,7 @@ public final class FoxHatClient {
                         : 0xFFFFFFFF;
             }
         }, MDKCosmetic.AXOLOTL_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
@@ -222,56 +225,56 @@ public final class FoxHatClient {
                         : 0xFFFFFFFF;
             }
         }, MDKCosmetic.RABBIT_EARS.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? octopusHatModel : original;
             }
         }, MDKCosmetic.OCTOPUS_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? octopusHatModel : original;
             }
         }, MDKCosmetic.GLOW_SQUID_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? camelHatModel : original;
             }
         }, MDKCosmetic.CAMEL_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? cowHatModel : original;
             }
         }, MDKCosmetic.COW_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? mooshroomHatModel : original;
             }
         }, MDKCosmetic.MOOSHROOM_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? polarBearHatModel : original;
             }
         }, MDKCosmetic.POLAR_BEAR_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? llamaHatModel : original;
             }
         }, MDKCosmetic.LLAMA_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
@@ -289,7 +292,7 @@ public final class FoxHatClient {
                         : 0xFFFFFFFF;
             }
         }, MDKCosmetic.SHEEP_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? wolfHatModel : original;
@@ -302,7 +305,7 @@ public final class FoxHatClient {
                         : 0xFFFFFFFF;
             }
         }, MDKCosmetic.WOLF_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? horseHatModel : original;
@@ -315,7 +318,7 @@ public final class FoxHatClient {
                         : 0xFFFFFFFF;
             }
         }, MDKCosmetic.HORSE_HAT.get());
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(new ArmorAppearance() {
             @Override public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack,
                     EquipmentSlot slot, HumanoidModel<?> original) {
                 return slot == EquipmentSlot.HEAD ? donkeyHatModel : original;

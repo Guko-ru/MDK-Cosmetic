@@ -10,10 +10,10 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.LivingFallEvent;
+import com.mdk.cosmetic.platform.Events.PlayerEvent;
+import com.mdk.cosmetic.platform.Events.PlayerTickEvent;
 
 /** Server-side armor abilities and persistence, including death-safe backpack handling. */
 public final class CollectorEquipmentEffects {

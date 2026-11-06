@@ -10,8 +10,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import com.mdk.cosmetic.platform.Events.ItemAttributeModifierEvent;
+import com.mdk.cosmetic.platform.Events.PlayerTickEvent;
 
 /** Each bonus applies only while a real wearable occupies the HEAD slot. */
 public final class RareTraderHatEffects {

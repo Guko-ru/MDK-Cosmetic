@@ -4,9 +4,9 @@ import com.mdk.cosmetic.CollectorEquipmentActionPayload;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.mdk.cosmetic.client.ClientEvents.RegisterKeyMappingsEvent;
+import com.mdk.cosmetic.client.ClientEvents.ClientTickEvent;
+import com.mdk.cosmetic.platform.Networking;
 import org.lwjgl.glfw.GLFW;
 
 /** Two configurable native key mappings. B is valid only with an equipped backpack. */
@@ -24,7 +24,7 @@ public final class CollectorEquipmentKeys {
     public static void onTick(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.screen != null) return;
-        while (EQUIPMENT.consumeClick()) PacketDistributor.sendToServer(new CollectorEquipmentActionPayload(0));
-        while (BACKPACK.consumeClick()) PacketDistributor.sendToServer(new CollectorEquipmentActionPayload(1));
+        while (EQUIPMENT.consumeClick()) Networking.sendToServer(new CollectorEquipmentActionPayload(0));
+        while (BACKPACK.consumeClick()) Networking.sendToServer(new CollectorEquipmentActionPayload(1));
     }
 }

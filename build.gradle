@@ -1,48 +1,57 @@
 plugins {
-    id 'java-library'
-    id 'net.neoforged.moddev' version '2.0.148'
+    id 'fabric-loom' version '1.14.10'
+    id 'maven-publish'
 }
-
 version = '1.18.78'
 group = 'com.mdk.cosmetic'
-
-base {
-    archivesName = 'MDK-Cosmetic-1.21.1-NeoForge'
+base { archivesName = 'MDK-Cosmetic-1.21.1-Fabric' }
+repositories { maven { url = 'https://maven.blamejared.com' }; mavenCentral() }
+dependencies {
+    minecraft 'com.mojang:minecraft:1.21.1'
+    mappings loom.officialMojangMappings()
+    modImplementation 'net.fabricmc:fabric-loader:0.20.1'
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.116.17+1.21.1'
+    modCompileOnly 'mezz.jei:jei-1.21.1-fabric-api:19.21.0.246'
+}
+java { toolchain.languageVersion = JavaLanguageVersion.of(21); withSourcesJar() }
+loom { accessWidenerPath = file('src/main/resources/mdkcosmetic.accesswidener') }
+tasks.withType(JavaCompile).configureEach { options.release = 21; options.encoding = 'UTF-8'; options.compilerArgs += ['-Xmaxerrs','500'] }
+processResources { inputs.property 'version', project.version; filesMatching('fabric.mod.json') { expand(version: project.version) } }
+jar { from('LICENSE.md') { into('META-INF'); rename { 'LICENSE-MDK-COSMETIC.txt' } } }
+tasks.register('prepareRelease', Copy) {
+    dependsOn tasks.named('remapJar')
+    from(tasks.named('remapJar').flatMap { it.archiveFile })
+    into layout.buildDirectory.dir('release')
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+fabricApi.configureTests {
+    createSourceSet = true
+    modId = 'mdkcosmetic-gametest'
+    enableGameTests = true
+    enableClientGameTests = false
+    clearRunDirectory = false
+    eula = false
+}
 
-neoForge {
-    enable {
-        version = '21.1.256'
-        disableRecompilation = true
+loom.runs {
+    clientSmoke {
+        client()
+        source sourceSets.gametest
+        name 'MDK Client Startup Check'
+        vmArg '-Dmdkcosmetic.clientSmoke=true'
+        vmArg '-Xmx2G'
+        programArgs '--width', '854', '--height', '480'
+        runDir 'run/client-smoke'
     }
 }
 
-
-// Optional, built-in JEI integration: the mod runs normally without JEI installed.
-repositories {
-    maven { url = 'https://maven.blamejared.com' }
-    mavenCentral()
-}
-
-dependencies {
-    compileOnly 'mezz.jei:jei-1.21.1-common-api:19.21.0.246'
-    compileOnly 'mezz.jei:jei-1.21.1-neoforge-api:19.21.0.246'
-    // JEI itself must NOT be bundled into MDK Cosmetic or required at runtime.
-}
-
-// Release JAR contains only compiled classes, runtime assets and mandatory license.
-// Blockbench sources, dev tools and project notes stay in the development ZIP.
-tasks.named('jar', Jar) {
-    from('LICENSE.md') { into('META-INF'); rename { 'LICENSE-MDK-COSMETIC.txt' } }
-    exclude('**/*.bbmodel', '**/*.psd', '**/*.blend', '**/*~', '**/*.bak', '**/*.orig')
-    manifest { attributes('Implementation-Title': 'MDK Cosmetic', 'Implementation-Version': project.version) }
-}
-
-// Copy the regular produced mod artifact to a clean distribution folder.
-tasks.register('prepareRelease', Copy) {
-    dependsOn(tasks.named('build'))
-    from(layout.buildDirectory.dir('libs')) { include('*.jar'); exclude('*-sources.jar', '*-javadoc.jar') }
-    into(layout.buildDirectory.dir('release'))
+loom.runs {
+ clientRegressions {
+  client()
+  source sourceSets.gametest
+  vmArg '-Dmdkcosmetic.clientRegressions=true'
+  vmArg '-Xmx2G'
+  programArgs '--width', '854', '--height', '480'
+  runDir 'run/client-regressions'
+ }
 }

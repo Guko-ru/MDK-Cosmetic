@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.network.chat.Component;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import com.mdk.cosmetic.platform.Networking.RegisterPayloadHandlersEvent;
 
 /** The only two key actions; menu opens are server-validated. */
 public record CollectorEquipmentActionPayload(int action) implements CustomPacketPayload {

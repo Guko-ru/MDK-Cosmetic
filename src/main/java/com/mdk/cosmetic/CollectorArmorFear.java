@@ -11,9 +11,9 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.Evoker;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import com.mdk.cosmetic.platform.Events.EntityJoinLevelEvent;
+import com.mdk.cosmetic.platform.Events.LivingChangeTargetEvent;
+import com.mdk.cosmetic.platform.Events.EntityTickEvent;
 
 /** Full Collector armor creates a frightening aura. No invulnerability or
  * forced pacification of bosses. Works on the server (multiplayer-safe). */

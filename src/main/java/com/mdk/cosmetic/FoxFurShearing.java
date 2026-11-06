@@ -10,8 +10,8 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.network.chat.Component;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.PlayerInteractEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
 
 /** One fur per peaceful shearing, once every five real-time minutes per fox. */
 public final class FoxFurShearing {
@@ -28,7 +28,7 @@ public final class FoxFurShearing {
         event.setCanceled(true);
         if (fox.level().isClientSide()) return;
 
-        CompoundTag data = fox.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(fox);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT_SHEAR_AT);
         if (next > now && next - now <= COOLDOWN_MILLIS) {

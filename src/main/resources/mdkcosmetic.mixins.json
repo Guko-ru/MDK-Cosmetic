@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "package": "com.mdk.cosmetic.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "EntityDataMixin",
+    "LivingEntityMixin",
+    "MobTargetMixin",
+    "ExplosionMixin",
+    "PlayerMiningMixin",
+    "ItemPickupMixin",
+    "ItemStackHooksMixin",
+    "BlockLootMixin",
+    "ServerEntityTickMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

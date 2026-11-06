@@ -10,8 +10,8 @@ import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.PlayerInteractEvent;
 
 /** MDK Cosmetic-only magical fibers; not a canonical vanilla Allay drop. */
 public final class AllayFiberHarvest {
@@ -28,7 +28,7 @@ public final class AllayFiberHarvest {
         event.setCancellationResult(InteractionResult.SUCCESS);
         event.setCanceled(true);
         if (allay.level().isClientSide()) return;
-        CompoundTag data = allay.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(allay);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT_SHEAR_AT);
         if (next > now && next - now <= COOLDOWN_MILLIS) {

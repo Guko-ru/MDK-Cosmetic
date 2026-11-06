@@ -16,7 +16,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.mdk.cosmetic.platform.Networking;
 import org.lwjgl.glfw.GLFW;
 
 /** Compact, resolution-adaptive screen. All inventory slot positions are defined in CollectorLinkMenu. */
@@ -113,7 +113,7 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
                 }
             }
         }
-        PacketDistributor.sendToServer(new CollectorMemoryQueryPayload(menu.containerId, value, ids.toString()));
+        Networking.sendToServer(new CollectorMemoryQueryPayload(menu.containerId, value, ids.toString()));
     }
 
     private void rect(GuiGraphics g, int x, int y, int w, int h, int color) {
@@ -361,12 +361,16 @@ public final class CollectorLinkScreen extends AbstractContainerScreen<Collector
         g.pose().popPose();
     }
 
+    // mdk: unified scaled canvas; native background callbacks must not draw it a second time.
+    @Override public void renderBackground(GuiGraphics graphics,int mouseX,int mouseY,float partial) {}
+
     @Override public void render(GuiGraphics g, int mx, int my, float partial) {
         // Keep the vignette behind everything at the real GUI resolution.
-        renderBackground(g, mx, my, partial);
+        renderTransparentBackground(g);
         g.pose().pushPose();
         g.pose().scale(uiScale, uiScale, 1.0F);
         int logicalX = (int)(mx / uiScale), logicalY = (int)(my / uiScale);
+        renderBg(g,partial,logicalX,logicalY);
         super.render(g, logicalX, logicalY, partial);
         renderShopIcons(g);
         renderMemoryCounts(g);

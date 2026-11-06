@@ -18,7 +18,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 public final class CollectorAdvancementData extends SavedData {
     private static final String SAVE_ID = "mdkcosmetic_collector_advancement_counters";
     private static final SavedData.Factory<CollectorAdvancementData> FACTORY =
-            new SavedData.Factory<>(CollectorAdvancementData::new, CollectorAdvancementData::load);
+            new SavedData.Factory<>(CollectorAdvancementData::new, CollectorAdvancementData::load, null);
     private final Map<UUID, Map<String, Long>> byPlayer = new HashMap<>();
 
     private static CollectorAdvancementData load(CompoundTag nbt, HolderLookup.Provider registries) {

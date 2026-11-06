@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.mdk.cosmetic.platform.Networking;
 
 /** Player-owned, server-authoritative backpack equipment and armor control state. */
 public final class CollectorEquipmentData {
@@ -13,10 +13,10 @@ public final class CollectorEquipmentData {
     private CollectorEquipmentData() {}
 
     private static CompoundTag tag(Player player) {
-        return player.getPersistentData().getCompound(KEY);
+        return com.mdk.cosmetic.platform.PersistentData.of(player).getCompound(KEY);
     }
     private static void store(Player player, CompoundTag tag) {
-        player.getPersistentData().put(KEY, tag);
+        com.mdk.cosmetic.platform.PersistentData.of(player).put(KEY, tag);
     }
     public static ItemStack backpack(Player player) {
         if (player.level().isClientSide())
@@ -70,11 +70,11 @@ public final class CollectorEquipmentData {
                 CollectorBackpackData.linked(backpack(owner)));
         for (ServerPlayer target : owner.serverLevel().players()) {
             if (target.distanceToSqr(owner) < 16384.0 || target == owner)
-                PacketDistributor.sendToPlayer(target, packet);
+                Networking.sendToPlayer(target, packet);
         }
     }
     public static void copyTo(Player previous, Player next) {
-        CompoundTag data = previous.getPersistentData().getCompound(KEY);
-        if (!data.isEmpty()) next.getPersistentData().put(KEY, data.copy());
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(previous).getCompound(KEY);
+        if (!data.isEmpty()) com.mdk.cosmetic.platform.PersistentData.of(next).put(KEY, data.copy());
     }
 }

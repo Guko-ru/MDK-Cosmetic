@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "mdkcosmetic",
+  "version": "${version}",
+  "name": "MDK Cosmetic",
+  "description": "Decorative cosmetics, tailoring, and the Collector.",
+  "authors": [
+    "MDK"
+  ],
+  "license": "LicenseRef-MDK-Cosmetic-NC-1.1",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.mdk.cosmetic.MDKCosmetic"
+    ],
+    "client": [
+      "com.mdk.cosmetic.client.FoxHatClient"
+    ],
+    "jei_mod_plugin": [
+      "com.mdk.cosmetic.jei.MDKJeiPlugin"
+    ]
+  },
+  "mixins": [
+    "mdkcosmetic.mixins.json",
+    {
+      "config": "mdkcosmetic.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "accessWidener": "mdkcosmetic.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.20.1",
+    "minecraft": "1.21.1",
+    "java": ">=21",
+    "fabric-api": ">=0.116.17+1.21.1"
+  },
+  "suggests": {
+    "jei": "*"
+  }
+}

@@ -8,8 +8,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import com.mdk.cosmetic.platform.Events.EntityTickEvent;
+import com.mdk.cosmetic.platform.Networking;
 import java.util.Comparator;
 
 /** Exactly one Uno per killed Ender Dragon, starting at zero HP, not after the 200-tick death animation. */
@@ -21,7 +21,7 @@ public final class UnoDragonEncounter {
         if (!(event.getEntity() instanceof EnderDragon dragon)
                 || !(dragon.level() instanceof ServerLevel level)
                 || level.dimension()!=Level.END || dragon.getHealth()>0.0F
-                || dragon.getPersistentData().getBoolean(TRIGGERED)) return;
+                || com.mdk.cosmetic.platform.PersistentData.of(dragon).getBoolean(TRIGGERED)) return;
 
         // The killer is preferred, otherwise the nearest eligible End player.
         ServerPlayer target=level.players().stream()
@@ -71,14 +71,14 @@ public final class UnoDragonEncounter {
         if (!placed) return; // Never spawn above End void; retry while dragon remains dying.
 
         if(!level.addFreshEntity(uno)) return;
-        dragon.getPersistentData().putBoolean(TRIGGERED,true);
+        com.mdk.cosmetic.platform.PersistentData.of(dragon).putBoolean(TRIGGERED,true);
         uno.markDragonEncounter(target);
         level.playSound(null,uno.blockPosition(),SoundEvents.WARDEN_ROAR,SoundSource.HOSTILE,2.6F,0.55F);
         level.playSound(null,uno.blockPosition(),SoundEvents.WITHER_SPAWN,SoundSource.HOSTILE,1.4F,0.55F);
         // Only players actually present at the End battle see the cinematic.
         for (ServerPlayer viewer:level.players()) {
             if (viewer.distanceToSqr(uno)<128D*128D && viewer.isAlive()) {
-                PacketDistributor.sendToPlayer(viewer,new UnoEncounterPayload(40,20));
+                Networking.sendToPlayer(viewer,new UnoEncounterPayload(40,20));
             }
         }
     }

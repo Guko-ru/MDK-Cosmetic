@@ -11,9 +11,9 @@ import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import com.mdk.cosmetic.platform.Events.LivingChangeTargetEvent;
+import com.mdk.cosmetic.platform.Events.ServerTickEvent;
+import com.mdk.cosmetic.platform.Events.EntityTickEvent;
 
 /** Natural one-time generation per ancient city, and Warden neutrality. */
 public final class CollectorSoulWorldEvents {

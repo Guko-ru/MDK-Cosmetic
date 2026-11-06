@@ -12,7 +12,7 @@ import net.minecraft.world.inventory.FurnaceMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import com.mdk.cosmetic.platform.Events.PlayerTickEvent;
 
 /** Server-side portable furnace. Everything, including work in progress, lives on the backpack item. */
 public final class CollectorBackpackFurnace {
@@ -138,11 +138,11 @@ public final class CollectorBackpackFurnace {
                 ItemStack.isSameItemSameComponents(output, result) && output.getCount() + result.getCount() <= output.getMaxStackSize());
         if (burn > 0) burn--;
         if (possible && burn == 0 && !fuel.isEmpty()) {
-            int burnTime = fuel.getBurnTime(RecipeType.SMELTING);
+            int burnTime = com.mdk.cosmetic.platform.FurnaceFuel.burnTime(fuel);
             if (burnTime > 0) {
                 burn = burnTime;
                 burnTotal = burnTime;
-                ItemStack remaining = fuel.getCraftingRemainingItem();
+                ItemStack remaining = fuel.getRecipeRemainder();
                 fuel.shrink(1);
                 if (fuel.isEmpty()) storage.setItem(1, remaining);
             }

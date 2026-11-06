@@ -12,7 +12,7 @@ import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import com.mdk.cosmetic.platform.Events.PlayerInteractEvent;
 import java.util.Optional;
 
 /**
@@ -26,9 +26,9 @@ public final class CollectorWanderingTrader {
     public static void onInteract(PlayerInteractEvent.EntityInteract event) {
         if (!(event.getTarget() instanceof WanderingTrader trader)
                 || !(event.getEntity() instanceof ServerPlayer player)) return;
-        if (trader.getPersistentData().getBoolean(ROLLED)) return;
+        if (com.mdk.cosmetic.platform.PersistentData.of(trader).getBoolean(ROLLED)) return;
         // Set marker BEFORE generating offers so a nested interaction cannot roll again.
-        trader.getPersistentData().putBoolean(ROLLED, true);
+        com.mdk.cosmetic.platform.PersistentData.of(trader).putBoolean(ROLLED, true);
         MerchantOffers offers = trader.getOffers();
         var random = trader.getRandom();
 

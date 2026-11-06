@@ -6,7 +6,7 @@ import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.entity.animal.camel.Camel;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import com.mdk.cosmetic.platform.Events.EntityTickEvent;
 /** Camel Brain hat lure works for players and hostile mobs alike; does not affect mounted camels. */
 public final class CamelHatAttraction {
  private static final Map<Camel,LivingEntity> TARGETS=new WeakHashMap<>();

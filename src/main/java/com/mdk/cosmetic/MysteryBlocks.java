@@ -9,15 +9,15 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.mdk.cosmetic.platform.RegistryEntry;
+import com.mdk.cosmetic.platform.RegistryBatch;
 
 /** Flat, fully opaque mystery building blocks. Exact RGB textures (no noise or shading). */
 public final class MysteryBlocks {
     private MysteryBlocks() {}
-    public static final List<DeferredHolder<Item,BlockItem>> CREATIVE_ITEMS = new ArrayList<>();
-    private static DeferredHolder<Item,BlockItem> white;
-    public static void register(DeferredRegister<Block> blocks, DeferredRegister<Item> items) {
+    public static final List<RegistryEntry<Item,BlockItem>> CREATIVE_ITEMS = new ArrayList<>();
+    private static RegistryEntry<Item,BlockItem> white;
+    public static void register(RegistryBatch<Block> blocks, RegistryBatch<Item> items) {
         String[] dyes = {"white","orange","magenta","light_blue","yellow","lime","pink","gray","light_gray","cyan","purple","blue","brown","green","red","black"};
         for (String color : dyes) {
             String base = color + "_mystery_block";

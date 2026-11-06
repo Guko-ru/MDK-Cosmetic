@@ -11,7 +11,7 @@ import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import com.mdk.cosmetic.platform.Events.EntityJoinLevelEvent;
 
 /** Rare cosmetics on natural/spawner/spawn-egg hostile mobs; persists to avoid reroll on chunk reload. */
 public final class HostileHatSpawns {
@@ -26,7 +26,7 @@ public final class HostileHatSpawns {
 
     public static void onJoin(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide() || !(event.getEntity() instanceof Mob mob) || !eligible(mob)) return;
-        CompoundTag tag = mob.getPersistentData();
+        CompoundTag tag = com.mdk.cosmetic.platform.PersistentData.of(mob);
         if (tag.getBoolean(ROLLED)) return;
         tag.putBoolean(ROLLED, true);
         if (!mob.getItemBySlot(EquipmentSlot.HEAD).isEmpty() || mob.getRandom().nextFloat() >= CHANCE) return;

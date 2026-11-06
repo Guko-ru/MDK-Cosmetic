@@ -10,8 +10,8 @@ import net.minecraft.world.entity.animal.horse.Donkey;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.PlayerInteractEvent;
 
 /** Humane five-minute collection of donkey fur; retains vanilla drops. */
 public final class DonkeyFurShearing {
@@ -27,7 +27,7 @@ public final class DonkeyFurShearing {
         event.setCancellationResult(InteractionResult.SUCCESS);
         event.setCanceled(true);
         if (animal.level().isClientSide()) return;
-        CompoundTag data = animal.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(animal);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT);
         if (next > now && next - now <= COOLDOWN_MS) {

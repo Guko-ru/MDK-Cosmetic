@@ -1,18 +1,14 @@
 package com.mdk.cosmetic.client;
 
 import com.mdk.cosmetic.MDKCosmetic;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import com.mdk.cosmetic.client.ClientEvents.EntityRenderersEvent;
 
-@EventBusSubscriber(modid=MDKCosmetic.MOD_ID,bus=EventBusSubscriber.Bus.MOD,value=Dist.CLIENT)
 public final class CollectorSoulClient {
     private CollectorSoulClient() {}
-    @SubscribeEvent public static void layers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+    public static void layers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(CollectorSoulModel.LAYER,CollectorSoulModel::createBodyLayer);
     }
-    @SubscribeEvent public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
+    public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(MDKCosmetic.COLLECTOR_SOUL_ENTITY.get(), CollectorSoulRenderer::new);
         event.registerEntityRenderer(MDKCosmetic.UNO_ENTITY.get(), UnoRenderer::new);
         event.registerEntityRenderer(MDKCosmetic.COLLECTOR_HEART_ENTITY.get(),

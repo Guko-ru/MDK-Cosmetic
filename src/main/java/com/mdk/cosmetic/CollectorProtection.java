@@ -8,9 +8,9 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.event.level.ExplosionEvent;
+import com.mdk.cosmetic.platform.Events.EntityInvulnerabilityCheckEvent;
+import com.mdk.cosmetic.platform.Events.EntityJoinLevelEvent;
+import com.mdk.cosmetic.platform.Events.ExplosionEvent;
 
 /**
  * Collector relics persist through fire, lava, and ordinary explosions.

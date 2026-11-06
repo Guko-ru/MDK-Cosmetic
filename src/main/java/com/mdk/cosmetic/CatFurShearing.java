@@ -12,8 +12,8 @@ import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.PlayerInteractEvent;
 
 /** Cat and ocelot share a single fur ingredient and each individual mob has its own timer. */
 public final class CatFurShearing {
@@ -34,7 +34,7 @@ public final class CatFurShearing {
         event.setCanceled(true);
         if (animal.level().isClientSide()) return;
 
-        CompoundTag data = animal.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(animal);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT_SHEAR_AT);
         if (next > now && next - now <= COOLDOWN_MILLIS) {

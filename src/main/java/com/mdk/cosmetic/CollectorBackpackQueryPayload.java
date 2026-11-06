@@ -6,7 +6,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import com.mdk.cosmetic.platform.Networking.RegisterPayloadHandlersEvent;
 
 /** Client-localized search terms; actual inventory changes are validated by the server. */
 public record CollectorBackpackQueryPayload(int menuId,String query,String matchingIds) implements CustomPacketPayload {

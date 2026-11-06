@@ -10,8 +10,8 @@ import net.minecraft.world.entity.animal.PolarBear;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.PlayerInteractEvent;
 
 /** Cosmetic fur harvesting. The bear is not transformed or harmed by collection. */
 public final class PolarBearFurShearing {
@@ -27,7 +27,7 @@ public final class PolarBearFurShearing {
         event.setCancellationResult(InteractionResult.SUCCESS);
         event.setCanceled(true);
         if (bear.level().isClientSide()) return;
-        CompoundTag data = bear.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(bear);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT);
         if (next > now && next - now <= COOLDOWN_MS) {

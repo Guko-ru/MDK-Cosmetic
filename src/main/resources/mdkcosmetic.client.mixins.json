@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.mdk.cosmetic.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "CameraEffectsMixin"
+  ],
+  "minVersion": "0.8"
+}

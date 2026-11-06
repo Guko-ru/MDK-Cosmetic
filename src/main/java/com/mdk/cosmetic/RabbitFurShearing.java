@@ -10,8 +10,8 @@ import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.PlayerInteractEvent;
 
 /** Humane 100% fur collection once per rabbit per five real minutes; optional 10% death drop. */
 public final class RabbitFurShearing {
@@ -28,7 +28,7 @@ public final class RabbitFurShearing {
         event.setCanceled(true);
         if (rabbit.level().isClientSide()) return;
 
-        CompoundTag data = rabbit.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(rabbit);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT_SHEAR_AT);
         if (next > now && next - now <= COOLDOWN_MILLIS) {

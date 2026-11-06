@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "mdkcosmetic-gametest",
+  "version": "1.0.0",
+  "name": "MDK Cosmetic port integration tests",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": [
+      "com.mdk.cosmetic.gametest.FabricPortGameTests"
+    ],
+    "client": [
+      "com.mdk.cosmetic.gametest.ClientStartupSmoke",
+      "com.mdk.cosmetic.gametest.legacy.LegacyRegressionInitializer"
+    ]
+  },
+  "depends": {
+    "mdkcosmetic": "*",
+    "fabric-api": "*"
+  },
+  "mixins": [
+    "mdkcosmetic.legacy-test.mixins.json"
+  ]
+}

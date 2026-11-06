@@ -36,7 +36,7 @@ public final class GreedOrbItem extends Item {
             consumer.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, DURATION, 1));
             consumer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, DURATION, 1));
             consumer.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, DURATION, 1));
-            consumer.addEffect(new MobEffectInstance(MDKCosmetic.GREED_AURA, DURATION, 0, false, false, true));
+            consumer.addEffect(new MobEffectInstance(MDKCosmetic.GREED_AURA.holder(), DURATION, 0, false, false, true));
             level.playSound(null,consumer.blockPosition(),SoundEvents.AMETHYST_BLOCK_CHIME,SoundSource.PLAYERS,1F,0.75F);
             if (!(consumer instanceof Player player) || !player.getAbilities().instabuild) stack.shrink(1);
         }

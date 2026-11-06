@@ -9,7 +9,7 @@ import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.animal.allay.Allay;
 
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import com.mdk.cosmetic.platform.Events.EntityTickEvent;
 
 /**
  * Allays use a Brain (not just the vanilla goal selector) for flying navigation.

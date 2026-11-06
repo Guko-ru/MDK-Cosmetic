@@ -1,1 +1,16 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["###"],"key":{"#":"mdkcosmetic:blue_mystery_block"},"result":{"id":"mdkcosmetic:blue_mystery_slab","count":6}}
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "mdkcosmetic:blue_mystery_block"
+    }
+  },
+  "result": {
+    "id": "mdkcosmetic:blue_mystery_slab",
+    "count": 6
+  }
+}

@@ -8,10 +8,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.neoforged.neoforge.event.level.BlockDropsEvent;
+import com.mdk.cosmetic.platform.Events.BlockDropsEvent;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
+import com.mdk.cosmetic.platform.Events.PlayerEvent;
+import com.mdk.cosmetic.platform.Events.BlockEvent;
 
 /** Collector ores require the special pickaxe. Silk Touch preserves the ore block; otherwise they drop shards. */
 public final class CollectorOres {
@@ -36,7 +36,7 @@ public final class CollectorOres {
             return;
         }
 
-        if (!player.hasEffect(MDKCosmetic.PRODUCTIVITY_AURA)) return;
+        if (!player.hasEffect(MDKCosmetic.PRODUCTIVITY_AURA.holder())) return;
         for (var entity : event.getDrops()) {
             if (entity.getItem().is(MDKCosmetic.POWER_ESSENCE.get()))
                 entity.getItem().setCount(Math.min(64,entity.getItem().getCount()*2));

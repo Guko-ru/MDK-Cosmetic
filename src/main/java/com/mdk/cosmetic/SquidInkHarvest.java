@@ -11,8 +11,8 @@ import net.minecraft.world.entity.animal.Squid;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.PlayerInteractEvent;
 
 /** Additional craft material, independent of the squid's vanilla ink-sac loot. */
 public final class SquidInkHarvest {
@@ -28,7 +28,7 @@ public final class SquidInkHarvest {
         event.setCancellationResult(InteractionResult.SUCCESS);
         event.setCanceled(true);
         if (squid.level().isClientSide()) return;
-        CompoundTag data = squid.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(squid);
         long now = System.currentTimeMillis();
         long until = data.getLong(NEXT);
         if (until > now && until - now <= COOLDOWN) {

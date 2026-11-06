@@ -4,7 +4,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import com.mdk.cosmetic.platform.Events.PlayerTickEvent;
 
 /** Gentle decorative bubbles near the wearer, even on land. */
 public final class AxolotlHatBubbles {

@@ -6,7 +6,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import com.mdk.cosmetic.platform.Networking.RegisterPayloadHandlersEvent;
 
 /** Localized search candidates, matched by the client, checked against real storage by the server. */
 public record CollectorMemoryQueryPayload(int menuId, String query, String matchingItemIds)

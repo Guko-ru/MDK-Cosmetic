@@ -1,0 +1,30 @@
+{
+  "loader": "Fabric",
+  "minecraft": "1.21.1",
+  "loader_build": "0.20.1",
+  "mod_version": "1.18.78",
+  "java": 21,
+  "artifact": "MDK-Cosmetic-1.21.1-Fabric-1.18.78.jar",
+  "sha256": "f02b0d721907881f7d9731ed8f12f520373611dcff3eb94d59fe40201d049318",
+  "fabric_api": "0.116.17+1.21.1",
+  "validation": {
+    "required_game_tests_passed": 6,
+    "recipes_loaded": 1668,
+    "advancements_loaded": 236,
+    "loot_tables_loaded": 1150,
+    "client_item_models_checked": 1208,
+    "neoforge_class_references": 0,
+    "interface_unicode_verified": true,
+    "collector_regressions": {
+      "machine_tiers": [
+        1,
+        2
+      ],
+      "window_and_gui_scale_configurations": 4,
+      "native_slot_hit_tests": true,
+      "creative_tabs": "66 cosmetic entries and 1140 decorative entries, visible MDK shortcut",
+      "boss_phases": "black original with smoke and ash at spawn; opponent skin and copied equipment in phase II"
+    }
+  },
+  "license": "MDK Cosmetic Non-Commercial License 1.1"
+}

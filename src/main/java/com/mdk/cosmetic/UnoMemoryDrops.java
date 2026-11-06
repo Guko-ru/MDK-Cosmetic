@@ -2,7 +2,7 @@ package com.mdk.cosmetic;
 
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
 
 /** One guaranteed Collector's Heart key after the Heart's final death, never on totem revival. */
 public final class UnoMemoryDrops {

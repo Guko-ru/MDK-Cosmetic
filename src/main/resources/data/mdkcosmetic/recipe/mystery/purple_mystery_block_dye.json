@@ -1,1 +1,16 @@
-{"type":"minecraft:crafting_shapeless","category":"building","ingredients":["mdkcosmetic:white_mystery_block","minecraft:purple_dye"],"result":{"id":"mdkcosmetic:purple_mystery_block","count":1}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "mdkcosmetic:white_mystery_block"
+    },
+    {
+      "item": "minecraft:purple_dye"
+    }
+  ],
+  "result": {
+    "id": "mdkcosmetic:purple_mystery_block",
+    "count": 1
+  }
+}

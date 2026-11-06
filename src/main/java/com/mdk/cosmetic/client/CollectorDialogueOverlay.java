@@ -7,7 +7,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
-import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import com.mdk.cosmetic.client.ClientEvents.RenderGuiEvent;
 
 /** Text is 0.85x vanilla subtitle size and word-wrapped by pixel width into centered lines. */
 public final class CollectorDialogueOverlay {

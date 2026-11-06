@@ -35,7 +35,7 @@ public final class ProductivityOrbItem extends Item {
             consumer.addEffect(new MobEffectInstance(MobEffects.ABSORPTION,DURATION,0));
             consumer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,DURATION,1));
             consumer.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED,DURATION,2));
-            consumer.addEffect(new MobEffectInstance(MDKCosmetic.PRODUCTIVITY_AURA,DURATION,0,false,false,true));
+            consumer.addEffect(new MobEffectInstance(MDKCosmetic.PRODUCTIVITY_AURA.holder(),DURATION,0,false,false,true));
             level.playSound(null,consumer.blockPosition(),SoundEvents.AMETHYST_BLOCK_CHIME,SoundSource.PLAYERS,0.9F,1.6F);
             if(!(consumer instanceof Player player) || !player.getAbilities().instabuild)stack.shrink(1);
         }

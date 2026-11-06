@@ -16,10 +16,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import com.mdk.cosmetic.platform.Events.LivingDeathEvent;
+import com.mdk.cosmetic.platform.Events.ItemEntityPickupEvent;
+import com.mdk.cosmetic.platform.Events.PlayerEvent;
+import com.mdk.cosmetic.platform.Events.PlayerTickEvent;
 
 /**
  * Server-authoritative challenges that vanilla advancement predicates cannot count.
@@ -221,9 +221,9 @@ public final class CollectorAdvancementEvents {
         }
         if (player.getItemBySlot(EquipmentSlot.HEAD).is(MDKCosmetic.SAKURA_THINKER.get()))
             award(player,"challenge/wear_sakura");
-        if (player.hasEffect(MDKCosmetic.GREED_AURA)) award(player,"challenge/greedy");
-        if (player.hasEffect(MDKCosmetic.PRODUCTIVITY_AURA)) award(player,"challenge/productive");
-        if (player.hasEffect(MDKCosmetic.GREED_AURA) && player.hasEffect(MDKCosmetic.PRODUCTIVITY_AURA))
+        if (player.hasEffect(MDKCosmetic.GREED_AURA.holder())) award(player,"challenge/greedy");
+        if (player.hasEffect(MDKCosmetic.PRODUCTIVITY_AURA.holder())) award(player,"challenge/productive");
+        if (player.hasEffect(MDKCosmetic.GREED_AURA.holder()) && player.hasEffect(MDKCosmetic.PRODUCTIVITY_AURA.holder()))
             award(player,"challenge/two_spheres");
         if (armor && !player.level().getEntitiesOfClass(Warden.class,
                 player.getBoundingBox().inflate(18.0D)).isEmpty()) award(player,"challenge/fearless_warden");

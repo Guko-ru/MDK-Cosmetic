@@ -7,7 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
@@ -40,64 +40,60 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.mdk.cosmetic.platform.RegistryEntry;
+import com.mdk.cosmetic.platform.RegistryBatch;
 
 /** MDK Cosmetic registry. New refinement GUI in v1.18.6 retains legacy registry IDs. */
-@Mod(MDKCosmetic.MOD_ID)
-public final class MDKCosmetic {
+public final class MDKCosmetic implements net.fabricmc.api.ModInitializer {
     public static final String MOD_ID = "mdkcosmetic";
     public static final ResourceLocation COLLECTOR_ENCHANTMENT_ID =
             ResourceLocation.fromNamespaceAndPath(MOD_ID, "collector");
     public static final TagKey<Item> COLLECTOR_WEAPONS = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath(MOD_ID, "collector_weapons"));
-    private static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS =
-            DeferredRegister.create(Registries.ARMOR_MATERIAL, MOD_ID);
-    private static final DeferredRegister<MobEffect> MOB_EFFECTS =
-            DeferredRegister.create(Registries.MOB_EFFECT, MOD_ID);
-    public static final DeferredHolder<MobEffect, GreedAuraEffect> GREED_AURA =
+    private static final RegistryBatch<ArmorMaterial> ARMOR_MATERIALS =
+            RegistryBatch.create(Registries.ARMOR_MATERIAL, MOD_ID);
+    private static final RegistryBatch<MobEffect> MOB_EFFECTS =
+            RegistryBatch.create(Registries.MOB_EFFECT, MOD_ID);
+    public static final RegistryEntry<MobEffect, GreedAuraEffect> GREED_AURA =
             MOB_EFFECTS.register("greed_aura", GreedAuraEffect::new);
-    public static final DeferredHolder<MobEffect, ProductivityAuraEffect> PRODUCTIVITY_AURA =
+    public static final RegistryEntry<MobEffect, ProductivityAuraEffect> PRODUCTIVITY_AURA =
             MOB_EFFECTS.register("productivity_aura", ProductivityAuraEffect::new);
-    private static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES =
-            DeferredRegister.create(Registries.STRUCTURE_TYPE, MOD_ID);
-    private static final DeferredRegister<StructurePieceType> STRUCTURE_PIECES =
-            DeferredRegister.create(Registries.STRUCTURE_PIECE, MOD_ID);
-    public static final DeferredHolder<StructureType<?>, StructureType<CollectorOriginStructure>> COLLECTOR_ORIGIN_STRUCTURE_TYPE =
+    private static final RegistryBatch<StructureType<?>> STRUCTURE_TYPES =
+            RegistryBatch.create(Registries.STRUCTURE_TYPE, MOD_ID);
+    private static final RegistryBatch<StructurePieceType> STRUCTURE_PIECES =
+            RegistryBatch.create(Registries.STRUCTURE_PIECE, MOD_ID);
+    public static final RegistryEntry<StructureType<?>, StructureType<CollectorOriginStructure>> COLLECTOR_ORIGIN_STRUCTURE_TYPE =
             STRUCTURE_TYPES.register("collector_origin", () -> () -> CollectorOriginStructure.CODEC);
-    public static final DeferredHolder<StructurePieceType, StructurePieceType> COLLECTOR_ORIGIN_PIECE_TYPE =
+    public static final RegistryEntry<StructurePieceType, StructurePieceType> COLLECTOR_ORIGIN_PIECE_TYPE =
             STRUCTURE_PIECES.register("collector_origin_piece", () -> (StructurePieceType.ContextlessType) CollectorOriginPiece::new);
-    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, MOD_ID);
-    private static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
-            DeferredRegister.create(Registries.ENTITY_TYPE, MOD_ID);
-    public static final DeferredHolder<EntityType<?>, EntityType<CollectorSoulEntity>> COLLECTOR_SOUL_ENTITY =
+    private static final RegistryBatch<Item> ITEMS = RegistryBatch.create(Registries.ITEM, MOD_ID);
+    private static final RegistryBatch<EntityType<?>> ENTITY_TYPES =
+            RegistryBatch.create(Registries.ENTITY_TYPE, MOD_ID);
+    public static final RegistryEntry<EntityType<?>, EntityType<CollectorSoulEntity>> COLLECTOR_SOUL_ENTITY =
             ENTITY_TYPES.register("collector_soul_entity", () -> EntityType.Builder.of(
                     CollectorSoulEntity::new, MobCategory.MONSTER)
                     .sized(0.95F,0.95F).clientTrackingRange(9).updateInterval(2)
-                    .build("mdkcosmetic:collector_soul_entity"));
-    public static final DeferredHolder<EntityType<?>, EntityType<UnoEntity>> UNO_ENTITY =
+                    .build((String)null));
+    public static final RegistryEntry<EntityType<?>, EntityType<UnoEntity>> UNO_ENTITY =
             ENTITY_TYPES.register("uno", () -> EntityType.Builder.of(
                     UnoEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F).clientTrackingRange(9).updateInterval(2)
-                    .build("mdkcosmetic:uno"));
+                    .build((String)null));
 
-    public static final DeferredHolder<EntityType<?>, EntityType<CollectorHeartEntity>> COLLECTOR_HEART_ENTITY =
+    public static final RegistryEntry<EntityType<?>, EntityType<CollectorHeartEntity>> COLLECTOR_HEART_ENTITY =
             ENTITY_TYPES.register("collector_heart", () -> EntityType.Builder.of(
                     CollectorHeartEntity::new, MobCategory.MONSTER)
                     .sized(1.25F, 1.25F).clientTrackingRange(10).updateInterval(2)
-                    .build("mdkcosmetic:collector_heart"));
+                    .build((String)null));
 
-    private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, MOD_ID);
+    private static final RegistryBatch<Block> BLOCKS = RegistryBatch.create(Registries.BLOCK, MOD_ID);
     // All items from the mod appear in one dedicated creative inventory tab.
-    private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
-            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MOD_ID);
-    private static final DeferredRegister<MenuType<?>> MENUS =
-            DeferredRegister.create(Registries.MENU, MOD_ID);
-    private static final DeferredRegister<CreativeModeTab> CREATIVE_TABS =
-            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
+    private static final RegistryBatch<BlockEntityType<?>> BLOCK_ENTITIES =
+            RegistryBatch.create(Registries.BLOCK_ENTITY_TYPE, MOD_ID);
+    private static final RegistryBatch<MenuType<?>> MENUS =
+            RegistryBatch.create(Registries.MENU, MOD_ID);
+    private static final RegistryBatch<CreativeModeTab> CREATIVE_TABS =
+            RegistryBatch.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
     /** Green default item name for every cosmetic hat, including pre-existing item stacks. */
     private static Item.Properties hatProperties(String registryPath) {
@@ -109,7 +105,7 @@ public final class MDKCosmetic {
 
     // Collector armor: +2 armor points over corresponding netherite piece.
     // Netherite: helmet 3, chestplate 8, leggings 6, boots 3.
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> COLLECTOR_ARMOR_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> COLLECTOR_ARMOR_MATERIAL =
             ARMOR_MATERIALS.register("collector_armor", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         map.put(ArmorItem.Type.HELMET, 5);
@@ -128,7 +124,7 @@ public final class MDKCosmetic {
                     5.0F, 0.1F));
     // Equipped Collector helmet uses the actual imported geometry rather than the flat vanilla helmet shell.
     // Same attributes as the ordinary Collector armor. The separate material only changes 3D UV layers.
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> COLLECTOR_HELMET_GEO_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> COLLECTOR_HELMET_GEO_MATERIAL =
             ARMOR_MATERIALS.register("collector_helmet_geo", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
@@ -141,43 +137,43 @@ public final class MDKCosmetic {
 
 
     // Rare wearable hats traded by wandering merchants.
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> SAKURA_THINKER_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> SAKURA_THINKER_MATERIAL =
             ARMOR_MATERIALS.register("sakura_thinker", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
                     }), 12, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.CHERRY_LEAVES),
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "sakura_thinker"))),
                     0F, 0F));
-    public static final DeferredHolder<Item, ArmorItem> SAKURA_THINKER =
-            ITEMS.register("sakura_thinker", () -> new ArmorItem(SAKURA_THINKER_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> SAKURA_THINKER =
+            ITEMS.register("sakura_thinker", () -> new ArmorItem(SAKURA_THINKER_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     new Item.Properties().stacksTo(1).rarity(net.minecraft.world.item.Rarity.RARE)
                             .durability(ArmorItem.Type.HELMET.getDurability(8))
                             .component(DataComponents.ITEM_NAME,
                                     Component.translatable("item.mdkcosmetic.sakura_thinker")
                                             .withStyle(ChatFormatting.AQUA))));
 
-    public static final DeferredHolder<Item, SpawnEggItem> COLLECTOR_SOUL_SPAWN_EGG =
+    public static final RegistryEntry<Item, SpawnEggItem> COLLECTOR_SOUL_SPAWN_EGG =
             ITEMS.register("collector_soul_spawn_egg", () -> new SpawnEggItem(COLLECTOR_SOUL_ENTITY.get(),
                     0x2A2038, 0xE2C47A, new Item.Properties()));
-    public static final DeferredHolder<Item, SpawnEggItem> UNO_SPAWN_EGG =
+    public static final RegistryEntry<Item, SpawnEggItem> UNO_SPAWN_EGG =
             ITEMS.register("uno_spawn_egg", () -> new SpawnEggItem(UNO_ENTITY.get(),
                     0x392E2E, 0xC26A44, new Item.Properties()));
 
-    public static final DeferredHolder<Item, ArmorItem> COLLECTOR_HELMET =
+    public static final RegistryEntry<Item, ArmorItem> COLLECTOR_HELMET =
             ITEMS.register("collector_helmet", () -> new ArmorItem(
-                    COLLECTOR_HELMET_GEO_MATERIAL, ArmorItem.Type.HELMET,
+                    COLLECTOR_HELMET_GEO_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     new Item.Properties().rarity(net.minecraft.world.item.Rarity.EPIC).durability(ArmorItem.Type.HELMET.getDurability(40))));
-    public static final DeferredHolder<Item, ArmorItem> COLLECTOR_CHESTPLATE =
+    public static final RegistryEntry<Item, ArmorItem> COLLECTOR_CHESTPLATE =
             ITEMS.register("collector_chestplate", () -> new ArmorItem(
-                    COLLECTOR_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE,
+                    COLLECTOR_ARMOR_MATERIAL.holder(), ArmorItem.Type.CHESTPLATE,
                     new Item.Properties().rarity(net.minecraft.world.item.Rarity.EPIC).durability(ArmorItem.Type.CHESTPLATE.getDurability(40))));
-    public static final DeferredHolder<Item, ArmorItem> COLLECTOR_LEGGINGS =
+    public static final RegistryEntry<Item, ArmorItem> COLLECTOR_LEGGINGS =
             ITEMS.register("collector_leggings", () -> new ArmorItem(
-                    COLLECTOR_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS,
+                    COLLECTOR_ARMOR_MATERIAL.holder(), ArmorItem.Type.LEGGINGS,
                     new Item.Properties().rarity(net.minecraft.world.item.Rarity.EPIC).durability(ArmorItem.Type.LEGGINGS.getDurability(40))));
-    public static final DeferredHolder<Item, ArmorItem> COLLECTOR_BOOTS =
+    public static final RegistryEntry<Item, ArmorItem> COLLECTOR_BOOTS =
             ITEMS.register("collector_boots", () -> new ArmorItem(
-                    COLLECTOR_ARMOR_MATERIAL, ArmorItem.Type.BOOTS,
+                    COLLECTOR_ARMOR_MATERIAL.holder(), ArmorItem.Type.BOOTS,
                     new Item.Properties().rarity(net.minecraft.world.item.Rarity.EPIC).durability(ArmorItem.Type.BOOTS.getDurability(40))));
 
     /** Netherite mining speed = 9; collector multitool = 11 (+2). */
@@ -203,67 +199,67 @@ public final class MDKCosmetic {
             return Ingredient.of(Items.NETHERITE_INGOT);
         }
     };
-    public static final DeferredHolder<Item, CollectorSwordItem> COLLECTOR_SWORD =
+    public static final RegistryEntry<Item, CollectorSwordItem> COLLECTOR_SWORD =
             ITEMS.register("collector_sword", () -> new CollectorSwordItem(COLLECTOR_TOOL_TIER,
                     new Item.Properties().rarity(net.minecraft.world.item.Rarity.EPIC)
                         .attributes(SwordItem.createAttributes(COLLECTOR_TOOL_TIER,3,-2.4F))));
-    public static final DeferredHolder<Item, CollectorMultitoolItem> COLLECTOR_PICKAXE =
+    public static final RegistryEntry<Item, CollectorMultitoolItem> COLLECTOR_PICKAXE =
             ITEMS.register("collector_pickaxe", () -> new CollectorMultitoolItem(
                     new Item.Properties().rarity(net.minecraft.world.item.Rarity.EPIC)
                         .durability(COLLECTOR_TOOL_TIER.getUses())
                         .component(net.minecraft.core.component.DataComponents.TOOL, CollectorMultitoolItem.createToolComponent())
                         .attributes(PickaxeItem.createAttributes(COLLECTOR_TOOL_TIER,1,-2.8F))));
-    public static final DeferredHolder<Item, ProductivityOrbItem> PRODUCTIVITY_ORB =
+    public static final RegistryEntry<Item, ProductivityOrbItem> PRODUCTIVITY_ORB =
             ITEMS.register("productivity_orb", () -> new ProductivityOrbItem(new Item.Properties()
                     .stacksTo(16).rarity(net.minecraft.world.item.Rarity.EPIC)));
-    public static final DeferredHolder<Block, Block> COLLECTOR_ORE_STONE =
+    public static final RegistryEntry<Block, Block> COLLECTOR_ORE_STONE =
             BLOCKS.register("collector_ore_stone", () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE).strength(7F,15F).requiresCorrectToolForDrops().sound(SoundType.STONE)));
-    public static final DeferredHolder<Block, Block> COLLECTOR_ORE_DEEPSLATE =
+    public static final RegistryEntry<Block, Block> COLLECTOR_ORE_DEEPSLATE =
             BLOCKS.register("collector_ore_deepslate", () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DEEPSLATE).strength(9F,15F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
-    public static final DeferredHolder<Block, Block> COLLECTOR_ORE_NETHERRACK =
+    public static final RegistryEntry<Block, Block> COLLECTOR_ORE_NETHERRACK =
             BLOCKS.register("collector_ore_netherrack", () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.NETHER).strength(7F,15F).requiresCorrectToolForDrops().sound(SoundType.NETHER_ORE)));
-    public static final DeferredHolder<Block, Block> COLLECTOR_ORE_END_STONE =
+    public static final RegistryEntry<Block, Block> COLLECTOR_ORE_END_STONE =
             BLOCKS.register("collector_ore_end_stone", () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.SAND).strength(8F,15F).requiresCorrectToolForDrops().sound(SoundType.STONE)));
-    public static final DeferredHolder<Item, BlockItem> COLLECTOR_ORE_STONE_ITEM = ITEMS.register("collector_ore_stone",
+    public static final RegistryEntry<Item, BlockItem> COLLECTOR_ORE_STONE_ITEM = ITEMS.register("collector_ore_stone",
             () -> new BlockItem(COLLECTOR_ORE_STONE.get(),new Item.Properties()));
-    public static final DeferredHolder<Item, BlockItem> COLLECTOR_ORE_DEEPSLATE_ITEM = ITEMS.register("collector_ore_deepslate",
+    public static final RegistryEntry<Item, BlockItem> COLLECTOR_ORE_DEEPSLATE_ITEM = ITEMS.register("collector_ore_deepslate",
             () -> new BlockItem(COLLECTOR_ORE_DEEPSLATE.get(),new Item.Properties()));
-    public static final DeferredHolder<Item, BlockItem> COLLECTOR_ORE_NETHERRACK_ITEM = ITEMS.register("collector_ore_netherrack",
+    public static final RegistryEntry<Item, BlockItem> COLLECTOR_ORE_NETHERRACK_ITEM = ITEMS.register("collector_ore_netherrack",
             () -> new BlockItem(COLLECTOR_ORE_NETHERRACK.get(),new Item.Properties()));
-    public static final DeferredHolder<Item, BlockItem> COLLECTOR_ORE_END_STONE_ITEM = ITEMS.register("collector_ore_end_stone",
+    public static final RegistryEntry<Item, BlockItem> COLLECTOR_ORE_END_STONE_ITEM = ITEMS.register("collector_ore_end_stone",
             () -> new BlockItem(COLLECTOR_ORE_END_STONE.get(),new Item.Properties()));
 
-    public static final DeferredHolder<Item, GreedOrbItem> GREED_ORB =
+    public static final RegistryEntry<Item, GreedOrbItem> GREED_ORB =
             ITEMS.register("greed_orb", () -> new GreedOrbItem(new Item.Properties()
                     .stacksTo(16).rarity(net.minecraft.world.item.Rarity.EPIC)));
 
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> FOX_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> FOX_MATERIAL =
             ARMOR_MATERIALS.register("fox_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
                     }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.EMPTY,
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "fox_hat"))),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> FOX_HAT =
-            ITEMS.register("fox_hat", () -> new ArmorItem(FOX_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> FOX_HAT =
+            ITEMS.register("fox_hat", () -> new ArmorItem(FOX_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("fox_hat")));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> PANDA_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> PANDA_MATERIAL =
             ARMOR_MATERIALS.register("panda_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
                     }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.EMPTY,
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "panda_hat"))),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> PANDA_HAT =
-            ITEMS.register("panda_hat", () -> new ArmorItem(PANDA_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> PANDA_HAT =
+            ITEMS.register("panda_hat", () -> new ArmorItem(PANDA_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("panda_hat")));
-    public static final DeferredHolder<Item, Item> PANDA_FUR =
+    public static final RegistryEntry<Item, Item> PANDA_FUR =
             ITEMS.register("panda_fur", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> CAT_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> CAT_MATERIAL =
             ARMOR_MATERIALS.register("cat_ears", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
@@ -272,24 +268,24 @@ public final class MDKCosmetic {
                             new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "cat_ears"), "_dyed", true),
                             new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "cat_ears"), "_fixed", false)),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> CAT_EARS =
-            ITEMS.register("cat_ears", () -> new ArmorItem(CAT_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> CAT_EARS =
+            ITEMS.register("cat_ears", () -> new ArmorItem(CAT_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("cat_ears")));
-    public static final DeferredHolder<Item, Item> CAT_FUR =
+    public static final RegistryEntry<Item, Item> CAT_FUR =
             ITEMS.register("cat_fur", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ALLAY_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> ALLAY_MATERIAL =
             ARMOR_MATERIALS.register("allay_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
                     }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.EMPTY,
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "allay_hat"))),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> ALLAY_HAT =
-            ITEMS.register("allay_hat", () -> new ArmorItem(ALLAY_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> ALLAY_HAT =
+            ITEMS.register("allay_hat", () -> new ArmorItem(ALLAY_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("allay_hat")));
-    public static final DeferredHolder<Item, Item> ALLAY_FIBERS =
+    public static final RegistryEntry<Item, Item> ALLAY_FIBERS =
             ITEMS.register("allay_fibers", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> AXOLOTL_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> AXOLOTL_MATERIAL =
             ARMOR_MATERIALS.register("axolotl_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
@@ -298,12 +294,12 @@ public final class MDKCosmetic {
                             new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "axolotl_hat"), "_dyed", true),
                             new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "axolotl_hat"), "_fixed", false)),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> AXOLOTL_HAT =
-            ITEMS.register("axolotl_hat", () -> new ArmorItem(AXOLOTL_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> AXOLOTL_HAT =
+            ITEMS.register("axolotl_hat", () -> new ArmorItem(AXOLOTL_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("axolotl_hat")));
-    public static final DeferredHolder<Item, Item> AXOLOTL_SHED =
+    public static final RegistryEntry<Item, Item> AXOLOTL_SHED =
             ITEMS.register("axolotl_shed", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> RABBIT_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> RABBIT_MATERIAL =
             ARMOR_MATERIALS.register("rabbit_ears", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
@@ -312,96 +308,96 @@ public final class MDKCosmetic {
                             new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "rabbit_ears"), "_dyed", true),
                             new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "rabbit_ears"), "_fixed", false)),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> RABBIT_EARS =
-            ITEMS.register("rabbit_ears", () -> new ArmorItem(RABBIT_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> RABBIT_EARS =
+            ITEMS.register("rabbit_ears", () -> new ArmorItem(RABBIT_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("rabbit_ears")));
-    public static final DeferredHolder<Item, Item> RABBIT_FUR =
+    public static final RegistryEntry<Item, Item> RABBIT_FUR =
             ITEMS.register("rabbit_fur", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> OCTOPUS_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> OCTOPUS_MATERIAL =
             ARMOR_MATERIALS.register("octopus_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
                     }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.EMPTY,
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "octopus_hat"))),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> OCTOPUS_HAT =
-            ITEMS.register("octopus_hat", () -> new ArmorItem(OCTOPUS_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> OCTOPUS_HAT =
+            ITEMS.register("octopus_hat", () -> new ArmorItem(OCTOPUS_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("octopus_hat")));
-    public static final DeferredHolder<Item, Item> SQUID_INK_CLOT =
+    public static final RegistryEntry<Item, Item> SQUID_INK_CLOT =
             ITEMS.register("squid_ink_clot", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> GLOW_SQUID_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> GLOW_SQUID_MATERIAL =
             ARMOR_MATERIALS.register("glow_squid_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
                     }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.EMPTY,
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "glow_squid_hat"))),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> GLOW_SQUID_HAT =
-            ITEMS.register("glow_squid_hat", () -> new ArmorItem(GLOW_SQUID_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> GLOW_SQUID_HAT =
+            ITEMS.register("glow_squid_hat", () -> new ArmorItem(GLOW_SQUID_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("glow_squid_hat")));
-    public static final DeferredHolder<Item, Item> GLOW_SQUID_INK_CLOT =
+    public static final RegistryEntry<Item, Item> GLOW_SQUID_INK_CLOT =
             ITEMS.register("glow_squid_ink_clot", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> CAMEL_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> CAMEL_MATERIAL =
             ARMOR_MATERIALS.register("camel_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
                     }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.EMPTY,
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "camel_hat"))),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> CAMEL_HAT =
-            ITEMS.register("camel_hat", () -> new ArmorItem(CAMEL_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> CAMEL_HAT =
+            ITEMS.register("camel_hat", () -> new ArmorItem(CAMEL_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("camel_hat")));
-    public static final DeferredHolder<Item, Item> CAMEL_FUR =
+    public static final RegistryEntry<Item, Item> CAMEL_FUR =
             ITEMS.register("camel_fur", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> COW_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> COW_MATERIAL =
             ARMOR_MATERIALS.register("cow_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
                     }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.EMPTY,
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "cow_hat"))),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> COW_HAT =
-            ITEMS.register("cow_hat", () -> new ArmorItem(COW_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> COW_HAT =
+            ITEMS.register("cow_hat", () -> new ArmorItem(COW_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("cow_hat")));
-    public static final DeferredHolder<Item, Item> COW_FUR =
+    public static final RegistryEntry<Item, Item> COW_FUR =
             ITEMS.register("cow_fur", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> MOOSHROOM_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> MOOSHROOM_MATERIAL =
             ARMOR_MATERIALS.register("mooshroom_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
                     }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.EMPTY,
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "mooshroom_hat"))),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> MOOSHROOM_HAT =
-            ITEMS.register("mooshroom_hat", () -> new ArmorItem(MOOSHROOM_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> MOOSHROOM_HAT =
+            ITEMS.register("mooshroom_hat", () -> new ArmorItem(MOOSHROOM_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("mooshroom_hat")));
-    public static final DeferredHolder<Item, Item> MOOSHROOM_FUR =
+    public static final RegistryEntry<Item, Item> MOOSHROOM_FUR =
             ITEMS.register("mooshroom_fur", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> POLAR_BEAR_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> POLAR_BEAR_MATERIAL =
             ARMOR_MATERIALS.register("polar_bear_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
                     }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.EMPTY,
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "polar_bear_hat"))),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> POLAR_BEAR_HAT =
-            ITEMS.register("polar_bear_hat", () -> new ArmorItem(POLAR_BEAR_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> POLAR_BEAR_HAT =
+            ITEMS.register("polar_bear_hat", () -> new ArmorItem(POLAR_BEAR_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("polar_bear_hat")));
-    public static final DeferredHolder<Item, Item> POLAR_BEAR_FUR =
+    public static final RegistryEntry<Item, Item> POLAR_BEAR_FUR =
             ITEMS.register("polar_bear_fur", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> LLAMA_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> LLAMA_MATERIAL =
             ARMOR_MATERIALS.register("llama_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
                     }), 0, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.EMPTY,
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "llama_hat"))),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> LLAMA_HAT =
-            ITEMS.register("llama_hat", () -> new ArmorItem(LLAMA_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> LLAMA_HAT =
+            ITEMS.register("llama_hat", () -> new ArmorItem(LLAMA_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("llama_hat")));
-    public static final DeferredHolder<Item, Item> LLAMA_FUR =
+    public static final RegistryEntry<Item, Item> LLAMA_FUR =
             ITEMS.register("llama_fur", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> SHEEP_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> SHEEP_MATERIAL =
             ARMOR_MATERIALS.register("sheep_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
@@ -410,13 +406,13 @@ public final class MDKCosmetic {
                             new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "sheep_hat"), "_dyed", true),
                             new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "sheep_hat"), "_fixed", false)),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> SHEEP_HAT =
-            ITEMS.register("sheep_hat", () -> new ArmorItem(SHEEP_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> SHEEP_HAT =
+            ITEMS.register("sheep_hat", () -> new ArmorItem(SHEEP_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("sheep_hat")));
     // Legacy item ID retained for old saves; no longer obtainable, traded or shown in Creative.
-    public static final DeferredHolder<Item, Item> SHEEP_FLEECE =
+    public static final RegistryEntry<Item, Item> SHEEP_FLEECE =
             ITEMS.register("sheep_fleece", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> WOLF_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> WOLF_MATERIAL =
             ARMOR_MATERIALS.register("wolf_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
@@ -424,12 +420,12 @@ public final class MDKCosmetic {
                     List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "wolf_hat"), "_dyed", true),
                             new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "wolf_hat"), "_fixed", false)),
                     0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> WOLF_HAT =
-            ITEMS.register("wolf_hat", () -> new ArmorItem(WOLF_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> WOLF_HAT =
+            ITEMS.register("wolf_hat", () -> new ArmorItem(WOLF_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("wolf_hat")));
-    public static final DeferredHolder<Item, Item> WOLF_FUR =
+    public static final RegistryEntry<Item, Item> WOLF_FUR =
             ITEMS.register("wolf_fur", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> HORSE_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> HORSE_MATERIAL =
             ARMOR_MATERIALS.register("horse_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
@@ -438,12 +434,12 @@ public final class MDKCosmetic {
                         new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "horse_hat"), "_dyed", true),
                         new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "horse_hat"), "_fixed", false)
                     ), 0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> HORSE_HAT =
-            ITEMS.register("horse_hat", () -> new ArmorItem(HORSE_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> HORSE_HAT =
+            ITEMS.register("horse_hat", () -> new ArmorItem(HORSE_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("horse_hat")));
-    public static final DeferredHolder<Item, Item> HORSE_FUR =
+    public static final RegistryEntry<Item, Item> HORSE_FUR =
             ITEMS.register("horse_fur", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> DONKEY_MATERIAL =
+    public static final RegistryEntry<ArmorMaterial, ArmorMaterial> DONKEY_MATERIAL =
             ARMOR_MATERIALS.register("donkey_hat", () -> new ArmorMaterial(
                     Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                         for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 0);
@@ -452,163 +448,162 @@ public final class MDKCosmetic {
                         new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "donkey_hat"), "_dyed", true),
                         new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MOD_ID, "donkey_hat"), "_fixed", false)
                     ), 0.0F, 0.0F));
-    public static final DeferredHolder<Item, ArmorItem> DONKEY_HAT =
-            ITEMS.register("donkey_hat", () -> new ArmorItem(DONKEY_MATERIAL, ArmorItem.Type.HELMET,
+    public static final RegistryEntry<Item, ArmorItem> DONKEY_HAT =
+            ITEMS.register("donkey_hat", () -> new ArmorItem(DONKEY_MATERIAL.holder(), ArmorItem.Type.HELMET,
                     hatProperties("donkey_hat")));
-    public static final DeferredHolder<Item, Item> DONKEY_FUR =
+    public static final RegistryEntry<Item, Item> DONKEY_FUR =
             ITEMS.register("donkey_fur", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<Item, Item> FOX_FUR =
+    public static final RegistryEntry<Item, Item> FOX_FUR =
             ITEMS.register("fox_fur", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<Block, TailoringTableBlock> TAILORING_TABLE =
+    public static final RegistryEntry<Block, TailoringTableBlock> TAILORING_TABLE =
             BLOCKS.register("tailoring_table", () -> new TailoringTableBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.5F)
                             .requiresCorrectToolForDrops().lightLevel(state -> 6).noOcclusion()));
-    public static final DeferredHolder<Item, BlockItem> TAILORING_TABLE_ITEM =
+    public static final RegistryEntry<Item, BlockItem> TAILORING_TABLE_ITEM =
             ITEMS.register("tailoring_table", () -> new BlockItem(TAILORING_TABLE.get(), new Item.Properties()));
 
-    public static final DeferredHolder<Item, Item> POWER_ESSENCE =
+    public static final RegistryEntry<Item, Item> POWER_ESSENCE =
             ITEMS.register("power_essence", () -> new Item(new Item.Properties().stacksTo(64)
                     .component(DataComponents.ITEM_NAME, Component.translatable("item.mdkcosmetic.power_essence")
                             .withStyle(ChatFormatting.AQUA))));
-    public static final DeferredHolder<Item, Item> POWER_CONCENTRATE =
+    public static final RegistryEntry<Item, Item> POWER_CONCENTRATE =
             ITEMS.register("power_concentrate", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<Item, Item> CHARGED_POWER_ESSENCE =
+    public static final RegistryEntry<Item, Item> CHARGED_POWER_ESSENCE =
             ITEMS.register("charged_power_essence", () -> new Item(new Item.Properties().stacksTo(64)
                     .rarity(net.minecraft.world.item.Rarity.UNCOMMON)
                     .component(DataComponents.ITEM_NAME, Component.translatable("item.mdkcosmetic.charged_power_essence")
                             .withStyle(ChatFormatting.LIGHT_PURPLE))));
-    public static final DeferredHolder<Block, EssenceWorktableBlock> ESSENCE_WORKTABLE =
+    public static final RegistryEntry<Block, EssenceWorktableBlock> ESSENCE_WORKTABLE =
             BLOCKS.register("essence_worktable", () -> new EssenceWorktableBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(3.0F)
                             .requiresCorrectToolForDrops().lightLevel(state -> 8).noOcclusion()));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<EssenceWorktableBlockEntity>> ESSENCE_WORKTABLE_BE =
+    public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<EssenceWorktableBlockEntity>> ESSENCE_WORKTABLE_BE =
             BLOCK_ENTITIES.register("essence_worktable", () ->
                     BlockEntityType.Builder.of(EssenceWorktableBlockEntity::new, ESSENCE_WORKTABLE.get()).build(null));
-    public static final DeferredHolder<MenuType<?>, MenuType<EssenceWorktableMenu>> ESSENCE_WORKTABLE_MENU =
+    public static final RegistryEntry<MenuType<?>, MenuType<EssenceWorktableMenu>> ESSENCE_WORKTABLE_MENU =
             MENUS.register("essence_worktable", () -> new MenuType<>(EssenceWorktableMenu::new, FeatureFlags.DEFAULT_FLAGS));
-    public static final DeferredHolder<Item, BlockItem> ESSENCE_WORKTABLE_ITEM =
+    public static final RegistryEntry<Item, BlockItem> ESSENCE_WORKTABLE_ITEM =
             ITEMS.register("essence_worktable", () -> new BlockItem(ESSENCE_WORKTABLE.get(), new Item.Properties()));
 
 
     // Collection of Mysteries multiblock (3x3x3)
-    public static final DeferredHolder<Item, Item> COLLECTOR_SOUL =
+    public static final RegistryEntry<Item, Item> COLLECTOR_SOUL =
             ITEMS.register("collector_soul", () -> new Item(new Item.Properties().stacksTo(64)
                     .rarity(net.minecraft.world.item.Rarity.RARE)));
-    public static final DeferredHolder<Block, CollectorCasingBlock> COLLECTOR_CASING =
+    public static final RegistryEntry<Block, CollectorCasingBlock> COLLECTOR_CASING =
             BLOCKS.register("collector_casing", () -> new CollectorCasingBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
                             .strength(3.5F, 8F).requiresCorrectToolForDrops()
                             .sound(net.minecraft.world.level.block.SoundType.METAL)));
-    public static final DeferredHolder<Item, BlockItem> COLLECTOR_CASING_ITEM =
+    public static final RegistryEntry<Item, BlockItem> COLLECTOR_CASING_ITEM =
             ITEMS.register("collector_casing", () -> new BlockItem(COLLECTOR_CASING.get(), new Item.Properties()));
-    public static final DeferredHolder<Block, CollectorSoulStorageBlock> COLLECTOR_SOUL_STORAGE =
+    public static final RegistryEntry<Block, CollectorSoulStorageBlock> COLLECTOR_SOUL_STORAGE =
             BLOCKS.register("collector_soul_storage", () -> new CollectorSoulStorageBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
                             .strength(3.5F, 8F).requiresCorrectToolForDrops()
                             .sound(net.minecraft.world.level.block.SoundType.AMETHYST)
                             .lightLevel(state -> 6)));
-    public static final DeferredHolder<Item, CollectorStorageItem> COLLECTOR_SOUL_STORAGE_ITEM =
+    public static final RegistryEntry<Item, CollectorStorageItem> COLLECTOR_SOUL_STORAGE_ITEM =
             ITEMS.register("collector_soul_storage", () -> new CollectorStorageItem(COLLECTOR_SOUL_STORAGE.get(), new Item.Properties().stacksTo(1)));
-    public static final DeferredHolder<Block, CollectorLinkBlock> COLLECTOR_LINK =
+    public static final RegistryEntry<Block, CollectorLinkBlock> COLLECTOR_LINK =
             BLOCKS.register("collector_link", () -> new CollectorLinkBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
                             .strength(4.0F, 9F).requiresCorrectToolForDrops()
                             .sound(net.minecraft.world.level.block.SoundType.METAL)
                             .lightLevel(state -> state.getValue(CollectorLinkBlock.ACTIVE) ? 10 : 2)));
-    public static final DeferredHolder<Item, BlockItem> COLLECTOR_LINK_ITEM =
+    public static final RegistryEntry<Item, BlockItem> COLLECTOR_LINK_ITEM =
             ITEMS.register("collector_link", () -> new BlockItem(COLLECTOR_LINK.get(), new Item.Properties()));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CollectorLinkBlockEntity>> COLLECTOR_LINK_BE =
+    public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<CollectorLinkBlockEntity>> COLLECTOR_LINK_BE =
             BLOCK_ENTITIES.register("collector_link", () -> BlockEntityType.Builder.of(
                     CollectorLinkBlockEntity::new, COLLECTOR_LINK.get()).build(null));
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CollectorSoulStorageBlockEntity>> COLLECTOR_SOUL_STORAGE_BE =
+    public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<CollectorSoulStorageBlockEntity>> COLLECTOR_SOUL_STORAGE_BE =
             BLOCK_ENTITIES.register("collector_soul_storage", () -> BlockEntityType.Builder.of(
                     CollectorSoulStorageBlockEntity::new, COLLECTOR_SOUL_STORAGE.get()).build(null));
 
-    public static final DeferredHolder<MenuType<?>, MenuType<CollectorLinkMenu>> COLLECTOR_LINK_MENU =
+    public static final RegistryEntry<MenuType<?>, MenuType<CollectorLinkMenu>> COLLECTOR_LINK_MENU =
             MENUS.register("collector_link_menu", () -> new MenuType<>(CollectorLinkMenu::new, FeatureFlags.DEFAULT_FLAGS));
 
     // Second-stage Collector Memory, built around the original 3x3x3 multiblock.
     // Portable Collector backpacks: 27 / 45 slots, configurable filters, magnet and memory binding.
-    public static final DeferredHolder<Item, CollectorBackpackItem> COLLECTOR_BACKPACK_BASIC =
+    public static final RegistryEntry<Item, CollectorBackpackItem> COLLECTOR_BACKPACK_BASIC =
             ITEMS.register("collector_backpack_basic", () -> new CollectorBackpackItem(new Item.Properties().rarity(net.minecraft.world.item.Rarity.UNCOMMON)));
-    public static final DeferredHolder<Item, CollectorBackpackItem> COLLECTOR_BACKPACK_REINFORCED =
+    public static final RegistryEntry<Item, CollectorBackpackItem> COLLECTOR_BACKPACK_REINFORCED =
             ITEMS.register("collector_backpack_reinforced", () -> new CollectorBackpackItem(new Item.Properties().rarity(net.minecraft.world.item.Rarity.RARE)));
-    public static final DeferredHolder<Item, Item> COLLECTOR_BACKPACK_FILTER =
+    public static final RegistryEntry<Item, Item> COLLECTOR_BACKPACK_FILTER =
             ITEMS.register("collector_backpack_filter", () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> COLLECTOR_BACKPACK_MAGNET =
+    public static final RegistryEntry<Item, Item> COLLECTOR_BACKPACK_MAGNET =
             ITEMS.register("collector_backpack_magnet", () -> new StyledNameItem(new Item.Properties().stacksTo(1), ChatFormatting.AQUA));
-    public static final DeferredHolder<Item, Item> COLLECTOR_BACKPACK_CRAFTING =
+    public static final RegistryEntry<Item, Item> COLLECTOR_BACKPACK_CRAFTING =
             ITEMS.register("collector_backpack_crafting", () -> new StyledNameItem(new Item.Properties().stacksTo(1), ChatFormatting.GREEN));
-    public static final DeferredHolder<Item, Item> COLLECTOR_BACKPACK_FURNACE =
+    public static final RegistryEntry<Item, Item> COLLECTOR_BACKPACK_FURNACE =
             ITEMS.register("collector_backpack_furnace", () -> new StyledNameItem(new Item.Properties().stacksTo(1), ChatFormatting.GREEN));
-    public static final DeferredHolder<Item, Item> COLLECTOR_BACKPACK_TOTEM =
+    public static final RegistryEntry<Item, Item> COLLECTOR_BACKPACK_TOTEM =
             ITEMS.register("collector_backpack_totem", () -> new StyledNameItem(new Item.Properties().stacksTo(1).rarity(net.minecraft.world.item.Rarity.RARE), ChatFormatting.AQUA));
-    public static final DeferredHolder<Item, Item> COLLECTOR_BACKPACK_DEATH_VAULT =
+    public static final RegistryEntry<Item, Item> COLLECTOR_BACKPACK_DEATH_VAULT =
             ITEMS.register("collector_backpack_death_vault", () -> new StyledNameItem(new Item.Properties().stacksTo(1).rarity(net.minecraft.world.item.Rarity.EPIC), ChatFormatting.LIGHT_PURPLE));
-    public static final DeferredHolder<Item, SpawnEggItem> COLLECTOR_HEART_SPAWN_EGG =
+    public static final RegistryEntry<Item, SpawnEggItem> COLLECTOR_HEART_SPAWN_EGG =
             ITEMS.register("collector_heart_spawn_egg", () -> new SpawnEggItem(COLLECTOR_HEART_ENTITY.get(),
                     0x12304E, 0xB442D9, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> COLLECTOR_BACKPACK_LINK_KEY =
+    public static final RegistryEntry<Item, Item> COLLECTOR_BACKPACK_LINK_KEY =
             ITEMS.register("collector_backpack_link_key", () -> new Item(new Item.Properties().stacksTo(1).rarity(net.minecraft.world.item.Rarity.EPIC)));
-    public static final DeferredHolder<MenuType<?>, MenuType<CollectorBackpackMenu>> COLLECTOR_BACKPACK_MENU =
+    public static final RegistryEntry<MenuType<?>, MenuType<CollectorBackpackMenu>> COLLECTOR_BACKPACK_MENU =
             MENUS.register("collector_backpack", () -> new MenuType<>(CollectorBackpackMenu::new, FeatureFlags.DEFAULT_FLAGS));
-    public static final DeferredHolder<MenuType<?>, MenuType<CollectorBackpackMenu>> COLLECTOR_EQUIPPED_BACKPACK_MENU =
+    public static final RegistryEntry<MenuType<?>, MenuType<CollectorBackpackMenu>> COLLECTOR_EQUIPPED_BACKPACK_MENU =
             MENUS.register("collector_equipped_backpack", () -> new MenuType<>((id, inv) ->
                     new CollectorBackpackMenu(id, inv, true), FeatureFlags.DEFAULT_FLAGS));
-    public static final DeferredHolder<MenuType<?>, MenuType<CollectorEquipmentMenu>> COLLECTOR_EQUIPMENT_MENU =
+    public static final RegistryEntry<MenuType<?>, MenuType<CollectorEquipmentMenu>> COLLECTOR_EQUIPMENT_MENU =
             MENUS.register("collector_equipment", () -> new MenuType<>(CollectorEquipmentMenu::new, FeatureFlags.DEFAULT_FLAGS));
 
-    public static final DeferredHolder<Item, Item> COLLECTOR_MEMORY =
+    public static final RegistryEntry<Item, Item> COLLECTOR_MEMORY =
             ITEMS.register("collector_memory", () -> new Item(new Item.Properties().stacksTo(1)
                     .rarity(net.minecraft.world.item.Rarity.EPIC)));
     // Final tier: meteor material from the Collector's origin, only the Collector pickaxe can mine it.
-    public static final DeferredHolder<Block, CollectorMeteorBlock> COLLECTOR_METEOR_BLOCK =
+    public static final RegistryEntry<Block, CollectorMeteorBlock> COLLECTOR_METEOR_BLOCK =
             BLOCKS.register("collector_meteor_block", () -> new CollectorMeteorBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK)
                             .strength(12.0F, 1200.0F).requiresCorrectToolForDrops()
                             .sound(SoundType.NETHERITE_BLOCK).lightLevel(state -> 8)));
-    public static final DeferredHolder<Item, BlockItem> COLLECTOR_METEOR_BLOCK_ITEM =
+    public static final RegistryEntry<Item, BlockItem> COLLECTOR_METEOR_BLOCK_ITEM =
             ITEMS.register("collector_meteor_block", () -> new BlockItem(COLLECTOR_METEOR_BLOCK.get(), new Item.Properties()));
-    public static final DeferredHolder<Block, CollectorVoidPortalBlock> COLLECTOR_VOID_PORTAL =
+    public static final RegistryEntry<Block, CollectorVoidPortalBlock> COLLECTOR_VOID_PORTAL =
             BLOCKS.register("collector_void_portal", () -> new CollectorVoidPortalBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
                             .noCollission().noOcclusion().strength(-1.0F, 3600000.0F)
                             .lightLevel(state -> 12)));
-    public static final DeferredHolder<Block, CollectorVoidReturnBlock> COLLECTOR_VOID_RETURN =
+    public static final RegistryEntry<Block, CollectorVoidReturnBlock> COLLECTOR_VOID_RETURN =
             BLOCKS.register("collector_void_return", () -> new CollectorVoidReturnBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
                             .noCollission().noOcclusion().strength(-1.0F, 3600000.0F)
                             .lightLevel(state -> 15)));
 
-    public static final DeferredHolder<Block, CollectorMemoryCasingBlock> COLLECTOR_MEMORY_CASING =
+    public static final RegistryEntry<Block, CollectorMemoryCasingBlock> COLLECTOR_MEMORY_CASING =
             BLOCKS.register("collector_memory_casing", () -> new CollectorMemoryCasingBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
                             .strength(5.0F, 1200.0F).requiresCorrectToolForDrops()
                             .sound(SoundType.METAL)));
-    public static final DeferredHolder<Item, BlockItem> COLLECTOR_MEMORY_CASING_ITEM =
+    public static final RegistryEntry<Item, BlockItem> COLLECTOR_MEMORY_CASING_ITEM =
             ITEMS.register("collector_memory_casing", () -> new BlockItem(COLLECTOR_MEMORY_CASING.get(),
                     new Item.Properties()));
-    public static final DeferredHolder<Block, CollectorMemoryCoreBlock> COLLECTOR_MEMORY_CORE =
+    public static final RegistryEntry<Block, CollectorMemoryCoreBlock> COLLECTOR_MEMORY_CORE =
             BLOCKS.register("collector_memory_core", () -> new CollectorMemoryCoreBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
                             .strength(6.0F, 1200.0F).requiresCorrectToolForDrops()
                             .sound(SoundType.AMETHYST).lightLevel(state -> 9)));
-    public static final DeferredHolder<Item, CollectorMemoryCoreItem> COLLECTOR_MEMORY_CORE_ITEM =
+    public static final RegistryEntry<Item, CollectorMemoryCoreItem> COLLECTOR_MEMORY_CORE_ITEM =
             ITEMS.register("collector_memory_core", () -> new CollectorMemoryCoreItem(COLLECTOR_MEMORY_CORE.get(),
                     new Item.Properties().stacksTo(1).rarity(net.minecraft.world.item.Rarity.EPIC)));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CollectorMemoryCoreBlockEntity>> COLLECTOR_MEMORY_CORE_BE =
+    public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<CollectorMemoryCoreBlockEntity>> COLLECTOR_MEMORY_CORE_BE =
             BLOCK_ENTITIES.register("collector_memory_core", () -> BlockEntityType.Builder.of(
                     CollectorMemoryCoreBlockEntity::new,COLLECTOR_MEMORY_CORE.get()).build(null));
-    public static final DeferredHolder<MenuType<?>, MenuType<CollectorMemoryMenu>> COLLECTOR_MEMORY_MENU =
+    public static final RegistryEntry<MenuType<?>, MenuType<CollectorMemoryMenu>> COLLECTOR_MEMORY_MENU =
             MENUS.register("collector_memory", () -> new MenuType<>(CollectorMemoryMenu::new, FeatureFlags.DEFAULT_FLAGS));
-    public static final DeferredHolder<MenuType<?>, MenuType<CollectorSmelterMenu>> COLLECTOR_SMELTER_MENU =
+    public static final RegistryEntry<MenuType<?>, MenuType<CollectorSmelterMenu>> COLLECTOR_SMELTER_MENU =
             MENUS.register("collector_smelter", () -> new MenuType<>(CollectorSmelterMenu::new, FeatureFlags.DEFAULT_FLAGS));
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> COSMETIC_TAB =
-            CREATIVE_TABS.register("mdk_cosmetic", () -> CreativeModeTab.builder()
+    public static final RegistryEntry<CreativeModeTab, CreativeModeTab> COSMETIC_TAB =
+            CREATIVE_TABS.register("mdk_cosmetic", () -> net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup.builder()
                     .title(Component.translatable("itemGroup.mdkcosmetic.mdk_cosmetic"))
-                    .withTabsBefore(CreativeModeTabs.COMBAT)
                     .icon(() -> new ItemStack(TAILORING_TABLE_ITEM.get()))
                     .displayItems((parameters, output) -> {
                         // 1. Decorative worktables
@@ -694,10 +689,9 @@ public final class MDKCosmetic {
                     })
                     .build());
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> FUR_BLOCKS_TAB =
-            CREATIVE_TABS.register("mdk_fur_blocks", () -> CreativeModeTab.builder()
+    public static final RegistryEntry<CreativeModeTab, CreativeModeTab> FUR_BLOCKS_TAB =
+            CREATIVE_TABS.register("mdk_fur_blocks", () -> net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup.builder()
                     .title(Component.translatable("itemGroup.mdkcosmetic.mdk_fur_blocks"))
-                    .withTabsBefore(CreativeModeTabs.COMBAT)
                     .icon(() -> new ItemStack(FurDecorBlocks.firstIcon()))
                     .displayItems((parameters, output) -> { FurDecorBlocks.fillCreative(output); MysteryBlocks.CREATIVE_ITEMS.forEach(v -> output.accept(v.get()));
                         output.accept(COLLECTOR_ORE_STONE_ITEM.get());
@@ -706,110 +700,30 @@ public final class MDKCosmetic {
                         output.accept(COLLECTOR_ORE_END_STONE_ITEM.get()); })
                     .build());
 
-    public MDKCosmetic(IEventBus modBus) {
+    @Override public void onInitialize() {
         FurDecorBlocks.register(BLOCKS, ITEMS);
         MysteryBlocks.register(BLOCKS, ITEMS);
-        modBus.addListener(CollectorDialoguePayload::register);
-        modBus.addListener(CollectorMemoryQueryPayload::register);
-        modBus.addListener(CollectorBackpackQueryPayload::register);
-        modBus.addListener(CollectorEquipmentActionPayload::register);
-        modBus.addListener(CollectorEquipmentVisualPayload::register);
-        modBus.addListener(UnoEncounterPayload::register);
-        STRUCTURE_TYPES.register(modBus);
-        STRUCTURE_PIECES.register(modBus);
-        ENTITY_TYPES.register(modBus);
-        modBus.addListener((EntityAttributeCreationEvent event) -> {
-                event.put(COLLECTOR_SOUL_ENTITY.get(), CollectorSoulEntity.attributes().build());
-                event.put(UNO_ENTITY.get(), UnoEntity.attributes().build());
-                event.put(COLLECTOR_HEART_ENTITY.get(), CollectorHeartEntity.attributes().build());
-        });
-        ARMOR_MATERIALS.register(modBus);
-        MOB_EFFECTS.register(modBus);
-        BLOCKS.register(modBus);
-        BLOCK_ENTITIES.register(modBus);
-        MENUS.register(modBus);
-        ITEMS.register(modBus);
-        CREATIVE_TABS.register(modBus);
-        NeoForge.EVENT_BUS.addListener(CollectorProtection::onItemSpawn);
-        NeoForge.EVENT_BUS.addListener(CollectorProtection::onInvulnerabilityCheck);
-        NeoForge.EVENT_BUS.addListener(CollectorProtection::onExplosion);
-        NeoForge.EVENT_BUS.addListener(CollectorMeteorBlock::onBreak);
-        NeoForge.EVENT_BUS.addListener(CollectorEquipmentEffects::onTick);
-        NeoForge.EVENT_BUS.addListener(CollectorEquipmentEffects::onFall);
-        NeoForge.EVENT_BUS.addListener(CollectorEquipmentEffects::onClone);
-        NeoForge.EVENT_BUS.addListener(CollectorEquipmentEffects::onLogin);
-        NeoForge.EVENT_BUS.addListener(CollectorEquipmentEffects::onRespawn);
-        NeoForge.EVENT_BUS.addListener(CollectorEquipmentEffects::onDrops);
-        NeoForge.EVENT_BUS.addListener(CollectorBackpackMagnet::onTick);
-        NeoForge.EVENT_BUS.addListener(CollectorBackpackFurnace::onTick);
-        NeoForge.EVENT_BUS.addListener(CollectorBackpackTotem::onDeath);
-        NeoForge.EVENT_BUS.addListener(CollectorBackpackDeathVault::onDrops);
-        NeoForge.EVENT_BUS.addListener(CollectorHeartWorldEvents::onEntityTick);
-        NeoForge.EVENT_BUS.addListener(CollectorHeartWorldEvents::onHurt);
-        NeoForge.EVENT_BUS.addListener(CollectorVoidAchievements::onBlockBreak);
-        NeoForge.EVENT_BUS.addListener(CollectorSoulWorldEvents::onServerTick);
-        NeoForge.EVENT_BUS.addListener(UnoDragonEncounter::onEntityTick);
-        NeoForge.EVENT_BUS.addListener(CollectorSoulWorldEvents::onWardenChangeTarget);
-        NeoForge.EVENT_BUS.addListener(CollectorSoulWorldEvents::onWardenTick);
-        NeoForge.EVENT_BUS.addListener(FoxFurShearing::onInteract);
-        NeoForge.EVENT_BUS.addListener(FoxFurShearing::onFoxDrops);
-        NeoForge.EVENT_BUS.addListener(PandaFurShearing::onInteract);
-        NeoForge.EVENT_BUS.addListener(PandaFurShearing::onPandaDrops);
-        NeoForge.EVENT_BUS.addListener(CatFurShearing::onInteract);
-        NeoForge.EVENT_BUS.addListener(CatFurShearing::onCatDrops);
-        NeoForge.EVENT_BUS.addListener(AnimalHatAttraction::onEntityJoin);
-        NeoForge.EVENT_BUS.addListener(HostileHatSpawns::onJoin);
-        NeoForge.EVENT_BUS.addListener(CollectorArmorFear::onMobJoin);
-        NeoForge.EVENT_BUS.addListener(CollectorArmorFear::onTargetChange);
-        NeoForge.EVENT_BUS.addListener(CollectorArmorFear::onMobTick);
-        // Per-player advancement counters, rare challenges and collection checks.
-        NeoForge.EVENT_BUS.addListener(CollectorAdvancementEvents::onPickup);
-        NeoForge.EVENT_BUS.addListener(CollectorAdvancementEvents::onKill);
-        NeoForge.EVENT_BUS.addListener(CollectorAdvancementEvents::onCraft);
-        NeoForge.EVENT_BUS.addListener(CollectorAdvancementEvents::onTick);
-        NeoForge.EVENT_BUS.addListener(CollectorEssenceDrops::onDrops);
-        NeoForge.EVENT_BUS.addListener(UnoMemoryDrops::onDrops);
-        NeoForge.EVENT_BUS.addListener(CollectorWanderingTrader::onInteract);
-        NeoForge.EVENT_BUS.addListener(RareTraderHatEffects::onPlayerTick);
-        NeoForge.EVENT_BUS.addListener(RareTraderHatEffects::onAttributeModifiers);
-        NeoForge.EVENT_BUS.addListener(CollectorSwordWave::onPlayerTick);
-        NeoForge.EVENT_BUS.addListener(CollectorOres::onBreakSpeed);
-        NeoForge.EVENT_BUS.addListener(CollectorOres::onBreak);
-        NeoForge.EVENT_BUS.addListener(CollectorOres::onDrops);
-        NeoForge.EVENT_BUS.addListener(AllayFiberHarvest::onInteract);
-        NeoForge.EVENT_BUS.addListener(AllayFiberHarvest::onDrops);
-        NeoForge.EVENT_BUS.addListener(AllayHatGlow::onPlayerTick);
-        NeoForge.EVENT_BUS.addListener(AllayHatAttraction::onAllayTick);
-        NeoForge.EVENT_BUS.addListener(AxolotlSkinHarvest::onInteract);
-        NeoForge.EVENT_BUS.addListener(AxolotlSkinHarvest::onDrops);
-        NeoForge.EVENT_BUS.addListener(AxolotlHatBubbles::onPlayerTick);
-        NeoForge.EVENT_BUS.addListener(AxolotlHatAttraction::onAxolotlTick);
-        NeoForge.EVENT_BUS.addListener(RabbitFurShearing::onInteract);
-        NeoForge.EVENT_BUS.addListener(RabbitFurShearing::onRabbitDrops);
-        NeoForge.EVENT_BUS.addListener(SquidInkHarvest::onInteract);
-        NeoForge.EVENT_BUS.addListener(SquidInkHarvest::onDrops);
-        NeoForge.EVENT_BUS.addListener(SquidHatAttraction::onSquidTick);
-        NeoForge.EVENT_BUS.addListener(GlowSquidInkHarvest::onInteract);
-        NeoForge.EVENT_BUS.addListener(GlowSquidInkHarvest::onDrops);
-        NeoForge.EVENT_BUS.addListener(GlowSquidHatAttraction::onGlowSquidTick);
-        NeoForge.EVENT_BUS.addListener(GlowSquidHatGlow::onPlayerTick);
-        NeoForge.EVENT_BUS.addListener(WolfFurShearing::onInteract);
-        NeoForge.EVENT_BUS.addListener(WolfFurShearing::onWolfDrops);
-        NeoForge.EVENT_BUS.addListener(HorseFurShearing::onInteract);
-        NeoForge.EVENT_BUS.addListener(HorseFurShearing::onDrops);
-        NeoForge.EVENT_BUS.addListener(DonkeyFurShearing::onInteract);
-        NeoForge.EVENT_BUS.addListener(DonkeyFurShearing::onDrops);
-        NeoForge.EVENT_BUS.addListener(CamelFurShearing::onInteract);
-        NeoForge.EVENT_BUS.addListener(CamelFurShearing::onCamelDrops);
-        NeoForge.EVENT_BUS.addListener(CamelHatAttraction::onCamelTick);
-        NeoForge.EVENT_BUS.addListener(CowFurShearing::onInteract);
-        NeoForge.EVENT_BUS.addListener(CowFurShearing::onCowDrops);
-        NeoForge.EVENT_BUS.addListener(MooshroomFurShearing::onInteract);
-        NeoForge.EVENT_BUS.addListener(MooshroomFurShearing::onDrops);
-        NeoForge.EVENT_BUS.addListener(PolarBearFurShearing::onInteract);
-        NeoForge.EVENT_BUS.addListener(PolarBearFurShearing::onDrops);
-        NeoForge.EVENT_BUS.addListener(LlamaFurShearing::onInteract);
-        NeoForge.EVENT_BUS.addListener(LlamaFurShearing::onDrops);
+        STRUCTURE_TYPES.registerAll();
+        STRUCTURE_PIECES.registerAll();
+        ENTITY_TYPES.registerAll();
+        ARMOR_MATERIALS.registerAll();
+        MOB_EFFECTS.registerAll();
+        BLOCKS.registerAll();
+        BLOCK_ENTITIES.registerAll();
+        MENUS.registerAll();
+        ITEMS.registerAll();
+        CREATIVE_TABS.registerAll();
+        FabricDefaultAttributeRegistry.register(COLLECTOR_SOUL_ENTITY.get(), CollectorSoulEntity.attributes());
+        FabricDefaultAttributeRegistry.register(UNO_ENTITY.get(), UnoEntity.attributes());
+        FabricDefaultAttributeRegistry.register(COLLECTOR_HEART_ENTITY.get(), CollectorHeartEntity.attributes());
+        var payloads=new com.mdk.cosmetic.platform.Networking.RegisterPayloadHandlersEvent();
+        CollectorDialoguePayload.register(payloads);
+        CollectorMemoryQueryPayload.register(payloads);
+        CollectorBackpackQueryPayload.register(payloads);
+        CollectorEquipmentActionPayload.register(payloads);
+        CollectorEquipmentVisualPayload.register(payloads);
+        UnoEncounterPayload.register(payloads);
+        com.mdk.cosmetic.platform.FabricContent.initialize();
+        com.mdk.cosmetic.platform.FabricHooks.initialize();
     }
-
 }

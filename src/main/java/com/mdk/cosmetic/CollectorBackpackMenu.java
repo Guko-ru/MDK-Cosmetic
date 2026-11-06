@@ -179,7 +179,7 @@ public final class CollectorBackpackMenu extends AbstractContainerMenu {
         });
         addSlot(new Slot(portableFurnace, 1, 294, 119) {
             @Override public boolean isActive() { return furnaceVisible(); }
-            @Override public boolean mayPlace(ItemStack stack) { return furnaceVisible() && stack.getBurnTime(RecipeType.SMELTING) > 0; }
+            @Override public boolean mayPlace(ItemStack stack) { return furnaceVisible() && com.mdk.cosmetic.platform.FurnaceFuel.burnTime(stack) > 0; }
             @Override public boolean mayPickup(Player player) { return furnaceVisible(); }
         });
         addSlot(new Slot(portableFurnace, 2, 391, 80) {

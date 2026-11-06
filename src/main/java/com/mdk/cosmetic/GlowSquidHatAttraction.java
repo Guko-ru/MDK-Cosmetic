@@ -7,7 +7,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.Squid;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import com.mdk.cosmetic.platform.Events.EntityTickEvent;
 
 /** Invites glow squids to swim toward players with the glow-squid hat, without beaching them. */
 public final class GlowSquidHatAttraction {

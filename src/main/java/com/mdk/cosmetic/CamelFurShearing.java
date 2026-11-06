@@ -10,8 +10,8 @@ import net.minecraft.world.entity.animal.camel.Camel;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.PlayerInteractEvent;
 
 /** Humane camel-fur collection; original vanilla mob loot is untouched. */
 public final class CamelFurShearing {
@@ -28,7 +28,7 @@ public final class CamelFurShearing {
         event.setCanceled(true);
         if (camel.level().isClientSide()) return;
 
-        CompoundTag data = camel.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(camel);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT);
         if (next > now && next - now <= COOLDOWN_MS) {

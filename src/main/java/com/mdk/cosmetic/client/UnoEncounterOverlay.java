@@ -4,8 +4,8 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.neoforged.neoforge.client.event.RenderGuiEvent;
-import net.neoforged.neoforge.client.event.ViewportEvent;
+import com.mdk.cosmetic.client.ClientEvents.RenderGuiEvent;
+import com.mdk.cosmetic.client.ClientEvents.ViewportEvent;
 
 /** Short blackout + crimson greeting + camera shake when the End dragon is defeated. */
 public final class UnoEncounterOverlay {

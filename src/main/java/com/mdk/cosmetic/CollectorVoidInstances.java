@@ -22,7 +22,7 @@ public final class CollectorVoidInstances extends SavedData {
 
     public static CollectorVoidInstances get(ServerLevel voidLevel) {
         return voidLevel.getDataStorage().computeIfAbsent(
-                new SavedData.Factory<>(CollectorVoidInstances::new, CollectorVoidInstances::load), STORAGE_ID);
+                new SavedData.Factory<>(CollectorVoidInstances::new, CollectorVoidInstances::load, null), STORAGE_ID);
     }
 
     public int reserve(UUID id) {

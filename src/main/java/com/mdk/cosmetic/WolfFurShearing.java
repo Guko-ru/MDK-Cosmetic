@@ -10,8 +10,8 @@ import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import com.mdk.cosmetic.platform.Events.LivingDropsEvent;
+import com.mdk.cosmetic.platform.Events.PlayerInteractEvent;
 
 /** Humane wolf-fur collection; original vanilla mob loot is untouched. */
 public final class WolfFurShearing {
@@ -28,7 +28,7 @@ public final class WolfFurShearing {
         event.setCanceled(true);
         if (wolf.level().isClientSide()) return;
 
-        CompoundTag data = wolf.getPersistentData();
+        CompoundTag data = com.mdk.cosmetic.platform.PersistentData.of(wolf);
         long now = System.currentTimeMillis();
         long next = data.getLong(NEXT);
         if (next > now && next - now <= COOLDOWN_MS) {
