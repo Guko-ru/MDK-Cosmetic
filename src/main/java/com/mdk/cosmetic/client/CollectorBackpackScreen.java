@@ -252,7 +252,7 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
         g.pose().popMatrix();
     }
 
-    @Override public boolean mouseClicked(double mx, double my, int button) {
+    @Override public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mdk$mouse,boolean mdk$doubleClick){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
         double vx = mx / scale;
         double vy = my / scale;
         int x = (int) Math.floor(vx) - leftPos;
@@ -296,18 +296,18 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
                 if (kind == 5) { clickButton(5003); return true; }
             }
         }
-        return super.mouseClicked(vx, vy, button);
+        return super.mouseClicked(new net.minecraft.client.input.MouseButtonEvent(vx,vy,mdk$mouse.buttonInfo()),mdk$doubleClick);
     }
 
-    @Override public boolean mouseDragged(double mx, double my, int button, double dx, double dy) {
+    @Override public boolean mouseDragged(net.minecraft.client.input.MouseButtonEvent mdk$mouse,double dx,double dy){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
         if (button == 0 && draggingMemory) { scrollMemory(my / scale); return true; }
         if (button == 0 && draggingFilter) { scrollFilter(my / scale); return true; }
-        return super.mouseDragged(mx / scale, my / scale, button, dx / scale, dy / scale);
+        return super.mouseDragged(new net.minecraft.client.input.MouseButtonEvent(mx / scale,my / scale,mdk$mouse.buttonInfo()),dx / scale,dy / scale);
     }
-    @Override public boolean mouseReleased(double mx, double my, int button) {
+    @Override public boolean mouseReleased(net.minecraft.client.input.MouseButtonEvent mdk$mouse){double mx=mdk$mouse.x(),my=mdk$mouse.y();int button=mdk$mouse.button();
         draggingMemory = false;
         draggingFilter = false;
-        return super.mouseReleased(mx / scale, my / scale, button);
+        return super.mouseReleased(new net.minecraft.client.input.MouseButtonEvent(mx / scale,my / scale,mdk$mouse.buttonInfo()));
     }
     @Override public boolean mouseScrolled(double mx, double my, double scrollX, double scrollY) {
         double x = mx / scale - leftPos;
@@ -329,17 +329,17 @@ public final class CollectorBackpackScreen extends AbstractContainerScreen<Colle
         if (minecraft != null && minecraft.gameMode != null)
             minecraft.gameMode.handleInventoryButtonClick(menu.containerId, id);
     }
-    @Override public boolean keyPressed(int key, int scan, int mods) {
+    @Override public boolean keyPressed(net.minecraft.client.input.KeyEvent mdk$key){int key=mdk$key.key(),scan=mdk$key.scancode(),mods=mdk$key.modifiers();
         if (search != null && search.isFocused()) {
             if (key == GLFW.GLFW_KEY_ESCAPE) { search.setFocused(false); return true; }
-            search.keyPressed(key, scan, mods);
+            search.keyPressed(mdk$key);
             return true;
         }
-        return super.keyPressed(key, scan, mods);
+        return super.keyPressed(mdk$key);
     }
-    @Override public boolean charTyped(char code, int mods) {
-        if (search != null && search.isFocused()) return search.charTyped(code, mods);
-        return super.charTyped(code, mods);
+    @Override public boolean charTyped(net.minecraft.client.input.CharacterEvent mdk$character){char code=(char)mdk$character.codepoint();int mods=mdk$character.modifiers();
+        if (search != null && search.isFocused()) return search.charTyped(mdk$character);
+        return super.charTyped(mdk$character);
     }
     // mdk: unified scaled canvas; native background callbacks must not draw it a second time.
     @Override public void renderBackground(GuiGraphics graphics,int mouseX,int mouseY,float partial) {}

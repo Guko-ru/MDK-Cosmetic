@@ -16,7 +16,7 @@ public final class UnoModel extends PlayerModel {
         super(root, slim);
     }
 
-    @Override public void setupAnim(net.minecraft.client.renderer.entity.state.PlayerRenderState state) {
+    @Override public void setupAnim(net.minecraft.client.renderer.entity.state.AvatarRenderState state) {
         UnoRenderState entity=(UnoRenderState)state;
         float limbSwing=state.walkAnimationPos,limbSwingAmount=state.walkAnimationSpeed,ageInTicks=state.ageInTicks,netHeadYaw=state.yRot,headPitch=state.xRot;
         // Vanilla player model supplies 64x64 skin UVs (including hat/jacket/sleeves).

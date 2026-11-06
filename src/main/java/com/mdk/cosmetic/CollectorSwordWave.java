@@ -23,7 +23,7 @@ public final class CollectorSwordWave {
                 SoundSource.PLAYERS,0.8F,1.45F);
     }
     public static void onPlayerTick(PlayerTickEvent.Post event) {
-        if(!(event.player instanceof ServerPlayer player))return;
+        if(!(event.player() instanceof ServerPlayer player))return;
         Wave state=WAVES.get(player.getUUID());
         if(state==null)return;
         if(state.level()!=player.level() || !player.isAlive()) {WAVES.remove(player.getUUID());return;}

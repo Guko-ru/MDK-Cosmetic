@@ -10,7 +10,7 @@ import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 public final class AxolotlHatBubbles {
     private AxolotlHatBubbles() { }
     public static void onPlayerTick(PlayerTickEvent.Post event) {
-        Player player = event.player;
+        Player player = event.player();
         if (!(player.level() instanceof ServerLevel server) || player.tickCount % 14 != 0) return;
         if (!player.getItemBySlot(EquipmentSlot.HEAD).is(MDKCosmetic.AXOLOTL_HAT.get())) return;
         double a = server.random.nextDouble()*Math.PI*2D;

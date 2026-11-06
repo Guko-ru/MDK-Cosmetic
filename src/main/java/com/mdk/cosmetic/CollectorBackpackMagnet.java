@@ -10,7 +10,7 @@ import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 public final class CollectorBackpackMagnet {
     private CollectorBackpackMagnet(){}
     public static void onTick(PlayerTickEvent.Post event){
-        if(!(event.player instanceof ServerPlayer player) || player.tickCount%10!=0)return;
+        if(!(event.player() instanceof ServerPlayer player) || player.tickCount%10!=0)return;
         // A menu keeps its own in-memory slot snapshot; do not race it with world pickups.
         if(player.containerMenu instanceof CollectorBackpackMenu)return;
         for(int slot=0;slot<=36;slot++){
@@ -21,7 +21,7 @@ public final class CollectorBackpackMagnet {
                     || !CollectorBackpackData.hasMagnet(backpack, player.registryAccess())
                     || !CollectorBackpackData.magnetEnabled(backpack))continue;
             CollectorMemoryCoreBlockEntity remote=CollectorBackpackData.linked(backpack)
-                    ?CollectorBackpackData.remoteCore(backpack,player.getServer()):null;
+                    ?CollectorBackpackData.remoteCore(backpack,com.mdk.cosmetic.platform.ServerAccess.get(player)):null;
             if(CollectorBackpackData.linked(backpack) && remote==null)continue;
             List<ItemStack> stored=remote==null?CollectorBackpackData.items(backpack,player.registryAccess()):null;
             boolean changed=false;

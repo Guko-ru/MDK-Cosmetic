@@ -16,7 +16,7 @@ public final class CollectorVoidAchievements {
     private CollectorVoidAchievements() {}
 
     private static AdvancementHolder holder(ServerPlayer player, String path) {
-        return player.getServer().getAdvancements().get(
+        return com.mdk.cosmetic.platform.ServerAccess.get(player).getAdvancements().get(
                 ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID, path));
     }
 
@@ -65,7 +65,7 @@ public final class CollectorVoidAchievements {
     public static void onEnter(ServerPlayer player) {
         award(player, "void/first_entry");
         finalCriterion(player, "entered");
-        long visits = CollectorAdvancementData.get(player.getServer()).add(player, "void_entries", 1);
+        long visits = CollectorAdvancementData.get(com.mdk.cosmetic.platform.ServerAccess.get(player)).add(player, "void_entries", 1);
         if (visits >= 2) award(player, "void/return_visit");
         if (visits >= 5) award(player, "void/five_visits");
     }
@@ -97,7 +97,7 @@ public final class CollectorVoidAchievements {
         if (completed(player, "void/return_home")) finalCriterion(player, "returned");
         if (!player.level().dimension().equals(CollectorVoidPortalController.VOID)) return;
 
-        long ticks = CollectorAdvancementData.get(player.getServer()).add(player, "void_exploration_ticks", 60);
+        long ticks = CollectorAdvancementData.get(com.mdk.cosmetic.platform.ServerAccess.get(player)).add(player, "void_exploration_ticks", 60);
         if (ticks >= 20L * 60 * 5) award(player, "void/five_minutes");
         if (ticks >= 20L * 60 * 30) award(player, "void/half_hour");
         if (fullArmor(player)) award(player, "void/armored_void");

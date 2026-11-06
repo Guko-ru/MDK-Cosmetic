@@ -3047,5 +3047,6 @@
   "tooltip.mdkcosmetic.rework.spawn_egg": "If you can see this, you must be in Creative Mode. Thanks for playing my mod :)",
   "tooltip.mdkcosmetic.rework.tailoring_table": "Interact with the table to start making hats that might even be useful :)",
   "tooltip.mdkcosmetic.sakura_thinker.buff": "While worn: Luck I and +2 block interaction range.",
-  "tooltip.mdkcosmetic.storage_stress": "Soul stress: %s%%"
+  "tooltip.mdkcosmetic.storage_stress": "Soul stress: %s%%",
+  "key.category.mdkcosmetic.equipment": "MDK Cosmetic"
 }

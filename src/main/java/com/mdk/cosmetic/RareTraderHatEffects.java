@@ -29,7 +29,7 @@ public final class RareTraderHatEffects {
     }
 
     public static void onPlayerTick(PlayerTickEvent.Post event) {
-        Player player = event.player;
+        Player player = event.player();
         if (!(player.level() instanceof ServerLevel server)) return;
         if (player.tickCount % 20 != 0) return;
         if (player.getItemBySlot(EquipmentSlot.HEAD).is(MDKCosmetic.SAKURA_THINKER.get())) {

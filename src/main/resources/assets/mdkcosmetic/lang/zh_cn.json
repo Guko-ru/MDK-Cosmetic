@@ -3047,5 +3047,6 @@
   "tooltip.mdkcosmetic.rework.spawn_egg": "如果你看到了这段话，说明你在创造模式。谢谢游玩我的模组 :)",
   "tooltip.mdkcosmetic.rework.tailoring_table": "与工作台交互，开始制作说不定还很实用的帽子 :)",
   "tooltip.mdkcosmetic.sakura_thinker.buff": "佩戴时：幸运 I，方块交互距离 +2。",
-  "tooltip.mdkcosmetic.storage_stress": "灵魂压力：%s%%"
+  "tooltip.mdkcosmetic.storage_stress": "灵魂压力：%s%%",
+  "key.category.mdkcosmetic.equipment": "MDK Cosmetic"
 }

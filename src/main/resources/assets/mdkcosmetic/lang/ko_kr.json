@@ -3047,5 +3047,6 @@
   "tooltip.mdkcosmetic.rework.spawn_egg": "이 문구가 보인다면 크리에이티브 모드겠군요. 제 모드를 플레이해 주셔서 감사합니다 :)",
   "tooltip.mdkcosmetic.rework.tailoring_table": "작업대와 상호작용하여 어쩌면 유용할 모자를 만들어 보세요 :)",
   "tooltip.mdkcosmetic.sakura_thinker.buff": "While worn: Luck I and +2 block interaction range.",
-  "tooltip.mdkcosmetic.storage_stress": "Soul stress: %s%%"
+  "tooltip.mdkcosmetic.storage_stress": "Soul stress: %s%%",
+  "key.category.mdkcosmetic.equipment": "MDK Cosmetic"
 }

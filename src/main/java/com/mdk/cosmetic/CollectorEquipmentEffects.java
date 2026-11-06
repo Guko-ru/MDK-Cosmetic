@@ -21,7 +21,7 @@ public final class CollectorEquipmentEffects {
     private static final ResourceLocation SPEED_ID = ResourceLocation.fromNamespaceAndPath(MDKCosmetic.MOD_ID,"collector_leg_speed");
 
     public static void onTick(PlayerTickEvent.Post event) {
-        if (!(event.player instanceof ServerPlayer player)) return;
+        if (!(event.player() instanceof ServerPlayer player)) return;
         if (player.tickCount % 60 == 0) CollectorEquipmentData.syncVisual(player);
         boolean helmet = player.getItemBySlot(EquipmentSlot.HEAD).is(MDKCosmetic.COLLECTOR_HELMET.get());
         boolean chest = player.getItemBySlot(EquipmentSlot.CHEST).is(MDKCosmetic.COLLECTOR_CHESTPLATE.get());

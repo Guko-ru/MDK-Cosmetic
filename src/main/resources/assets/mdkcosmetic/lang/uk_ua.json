@@ -3047,5 +3047,6 @@
   "tooltip.mdkcosmetic.rework.spawn_egg": "Якщо ти це бачиш, ти у творчому режимі. Дякую, що граєш у мій мод :)",
   "tooltip.mdkcosmetic.rework.tailoring_table": "Взаємодійте зі столом, щоб створювати, можливо, навіть корисні капелюшки :)",
   "tooltip.mdkcosmetic.sakura_thinker.buff": "Коли вдягнено: Удача I і +2 до дальності взаємодії з блоками.",
-  "tooltip.mdkcosmetic.storage_stress": "Soul stress: %s%%"
+  "tooltip.mdkcosmetic.storage_stress": "Soul stress: %s%%",
+  "key.category.mdkcosmetic.equipment": "MDK Cosmetic"
 }

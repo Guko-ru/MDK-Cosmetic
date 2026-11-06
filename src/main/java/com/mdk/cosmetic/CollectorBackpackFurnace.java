@@ -101,7 +101,7 @@ public final class CollectorBackpackFurnace {
     }
 
     public static void onTick(PlayerTickEvent.Post event) {
-        if (!(event.player instanceof ServerPlayer player)) return;
+        if (!(event.player() instanceof ServerPlayer player)) return;
         for (int slot = 0; slot <= 36; slot++) {
             boolean equipped = slot == 36;
             ItemStack backpack = equipped ? CollectorEquipmentData.backpack(player)

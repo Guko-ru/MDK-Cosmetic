@@ -10,7 +10,7 @@ import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 public final class AllayHatGlow {
     private AllayHatGlow() { }
     public static void onPlayerTick(PlayerTickEvent.Post event) {
-        Player player = event.player;
+        Player player = event.player();
         if (!(player.level() instanceof ServerLevel serverLevel)) return;
         if (player.tickCount % 16 != 0) return;
         if (!player.getItemBySlot(EquipmentSlot.HEAD).is(MDKCosmetic.ALLAY_HAT.get())) return;

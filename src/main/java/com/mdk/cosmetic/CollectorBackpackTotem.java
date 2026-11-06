@@ -26,7 +26,7 @@ public final class CollectorBackpackTotem {
             if (CollectorBackpackData.read(backpack).getBooleanOr("TotemDisabled",false)) continue;
             boolean consumed = false;
             if (CollectorBackpackData.linked(backpack)) {
-                CollectorMemoryCoreBlockEntity memory = CollectorBackpackData.remoteCore(backpack, player.getServer());
+                CollectorMemoryCoreBlockEntity memory = CollectorBackpackData.remoteCore(backpack, com.mdk.cosmetic.platform.ServerAccess.get(player));
                 if (memory == null) continue;
                 for (int i = 0; i < memory.types(); i++) {
                     if (!memory.view(i).is(Items.TOTEM_OF_UNDYING)) continue;

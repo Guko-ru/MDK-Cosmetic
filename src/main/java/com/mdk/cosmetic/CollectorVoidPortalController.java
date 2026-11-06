@@ -137,13 +137,13 @@ public final class CollectorVoidPortalController {
     public static void leave(ServerPlayer player) {
         if (!player.level().dimension().equals(VOID)) return;
         // Return specifically to the Overworld, never to a Nether respawn anchor.
-        ServerLevel overworld = player.getServer().overworld();
-        if ((player.getRespawnConfig()==null?Level.OVERWORLD:player.getRespawnConfig().dimension()).equals(Level.OVERWORLD)) {
+        ServerLevel overworld = com.mdk.cosmetic.platform.ServerAccess.get(player).overworld();
+        if ((player.getRespawnConfig()==null?Level.OVERWORLD:player.getRespawnConfig().respawnData().dimension()).equals(Level.OVERWORLD)) {
             // Vanilla validates the saved bed and falls back to the world spawn if missing.
             player.teleport(player.findRespawnPositionAndUseSpawnBlock(
                     false, TeleportTransition.PLAY_PORTAL_SOUND));
         } else {
-            BlockPos spawn = overworld.getSharedSpawnPos();
+            BlockPos spawn = overworld.getRespawnData().pos();
             player.teleport(new TeleportTransition(overworld,
                     Vec3.atBottomCenterOf(spawn).add(0.0, 1.0, 0.0), Vec3.ZERO,
                     player.getYRot(), player.getXRot(), TeleportTransition.PLAY_PORTAL_SOUND));

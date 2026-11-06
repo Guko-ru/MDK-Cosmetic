@@ -20,8 +20,8 @@ public final class CollectorSoulWorldEvents {
     private CollectorSoulWorldEvents() {}
     public static void onServerTick(ServerTickEvent.Post event) {
         // Only scan once every 5 seconds to avoid expensive structure lookup.
-        if (event.getServer().getTickCount()%100!=0) return;
-        for (ServerLevel level:event.getServer().getAllLevels()) {
+        if (event.server().getTickCount()%100!=0) return;
+        for (ServerLevel level:event.server().getAllLevels()) {
             if (level.dimension()!=net.minecraft.world.level.Level.OVERWORLD) continue;
             Structure city=level.registryAccess().lookupOrThrow(Registries.STRUCTURE)
                     .getOrThrow(BuiltinStructures.ANCIENT_CITY).value();
