@@ -1,4 +1,4 @@
 pluginManagement {
     repositories { maven { url = 'https://maven.fabricmc.net/' }; gradlePluginPortal(); mavenCentral() }
 }
-rootProject.name = 'MDK-Cosmetic-26.1.1-Fabric'
+rootProject.name = 'MDK-Cosmetic-26.1.2-Fabric'
